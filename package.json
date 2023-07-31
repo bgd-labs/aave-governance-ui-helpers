@@ -1,0 +1,77 @@
+{
+  "name": "aave-governance-ui-helpers",
+  "author": "BGD labs",
+  "contributors": [
+    {
+      "name": "Oleksandr Tkach",
+      "url": "https://github.com/Argeare5"
+    }
+  ],
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "build:populate-cache": "npx esbuild src/lowdb/populateCache.ts --tsconfig=./tsconfig.json --bundle --outfile=scripts/populate-cache.js --platform=node --target=es6",
+    "cache:update": "CACHE_PATH=../src/generated-cache node scripts/populate-cache.js",
+    "cache:parse": "node scripts/parseProposalDetails.js"
+  },
+  "peerDependencies": {
+    "ethers": ">=5.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "module": "dist/bgd-aave-governance-ui-helpers.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/bgd-aave-governance-ui-helpers.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/bgd-aave-governance-ui-helpers.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.2.4",
+    "@types/lodash": "^4.14.196",
+    "bignumber.js": "^9.1.1",
+    "eslint": "8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "ethers": "^5.7.2",
+    "husky": "^8.0.3",
+    "lodash": "^4.17.21",
+    "lowdb": "^6.0.1",
+    "prettier": "^2.8.8",
+    "size-limit": "^8.2.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.5.3",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.9",
+    "gray-matter": "^4.0.3"
+  }
+}
