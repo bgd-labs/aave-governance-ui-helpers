@@ -50802,7 +50802,7 @@ var import_path = require("path");
 
 // src/lowdb/helpers.ts
 require_main().config();
-var coreDirName = process.env.REACT_APP_CORE_NETWORK || "sepolia";
+var coreDirName = process.env.CORE_NETWORK || "sepolia";
 var baseDirName = `src/generated-cache/${coreDirName}`;
 
 // src/lowdb/ipfs.ts
