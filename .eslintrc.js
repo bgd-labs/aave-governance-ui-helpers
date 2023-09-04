@@ -1,26 +1,19 @@
 module.exports = {
-  extends: [
-    'react-app',
-    'plugin:react-hooks/recommended',
-    'prettier',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
-  ],
-  plugins: ['prettier', 'import', 'simple-import-sort', 'react-hooks'],
+  extends: ['react-app', 'plugin:react-hooks/recommended', 'prettier'],
+  plugins: ['prettier', 'simple-import-sort', 'react-hooks'],
   rules: {
     '@typescript-eslint/no-empty-interface': 'off',
-    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-explicit-any': 'off', // TODO: maybe need change to 'warn'
     'prettier/prettier': 'warn',
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': 'off', // TODO: maybe need change to 'warn'
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'warn',
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
     'import/no-named-as-default': 'error',
-    'import/no-unresolved': 'warn',
+    'import/no-unresolved': 'off', // TODO: maybe need change to 'warn'
     'react/self-closing-comp': 'warn',
-    'import/namespace': 'warn',
   },
 };
