@@ -24159,49 +24159,49 @@ var require_lib27 = __commonJS({
       return value && typeof value.renetwork === "function";
     }
     function ethDefaultProvider(network) {
-      var func = function(providers, options2) {
+      var func = function(providers2, options2) {
         if (options2 == null) {
           options2 = {};
         }
         var providerList = [];
-        if (providers.InfuraProvider && options2.infura !== "-") {
+        if (providers2.InfuraProvider && options2.infura !== "-") {
           try {
-            providerList.push(new providers.InfuraProvider(network, options2.infura));
+            providerList.push(new providers2.InfuraProvider(network, options2.infura));
           } catch (error) {
           }
         }
-        if (providers.EtherscanProvider && options2.etherscan !== "-") {
+        if (providers2.EtherscanProvider && options2.etherscan !== "-") {
           try {
-            providerList.push(new providers.EtherscanProvider(network, options2.etherscan));
+            providerList.push(new providers2.EtherscanProvider(network, options2.etherscan));
           } catch (error) {
           }
         }
-        if (providers.AlchemyProvider && options2.alchemy !== "-") {
+        if (providers2.AlchemyProvider && options2.alchemy !== "-") {
           try {
-            providerList.push(new providers.AlchemyProvider(network, options2.alchemy));
+            providerList.push(new providers2.AlchemyProvider(network, options2.alchemy));
           } catch (error) {
           }
         }
-        if (providers.PocketProvider && options2.pocket !== "-") {
+        if (providers2.PocketProvider && options2.pocket !== "-") {
           var skip = ["goerli", "ropsten", "rinkeby", "sepolia"];
           try {
-            var provider = new providers.PocketProvider(network, options2.pocket);
+            var provider = new providers2.PocketProvider(network, options2.pocket);
             if (provider.network && skip.indexOf(provider.network.name) === -1) {
               providerList.push(provider);
             }
           } catch (error) {
           }
         }
-        if (providers.CloudflareProvider && options2.cloudflare !== "-") {
+        if (providers2.CloudflareProvider && options2.cloudflare !== "-") {
           try {
-            providerList.push(new providers.CloudflareProvider(network));
+            providerList.push(new providers2.CloudflareProvider(network));
           } catch (error) {
           }
         }
-        if (providers.AnkrProvider && options2.ankr !== "-") {
+        if (providers2.AnkrProvider && options2.ankr !== "-") {
           try {
             var skip = ["ropsten"];
-            var provider = new providers.AnkrProvider(network, options2.ankr);
+            var provider = new providers2.AnkrProvider(network, options2.ankr);
             if (provider.network && skip.indexOf(provider.network.name) === -1) {
               providerList.push(provider);
             }
@@ -24211,14 +24211,14 @@ var require_lib27 = __commonJS({
         if (providerList.length === 0) {
           return null;
         }
-        if (providers.FallbackProvider) {
+        if (providers2.FallbackProvider) {
           var quorum = 1;
           if (options2.quorum != null) {
             quorum = options2.quorum;
           } else if (network === "homestead") {
             quorum = 2;
           }
-          return new providers.FallbackProvider(providerList, quorum);
+          return new providers2.FallbackProvider(providerList, quorum);
         }
         return providerList[0];
       };
@@ -24228,9 +24228,9 @@ var require_lib27 = __commonJS({
       return func;
     }
     function etcDefaultProvider(url, network) {
-      var func = function(providers, options2) {
-        if (providers.JsonRpcProvider) {
-          return new providers.JsonRpcProvider(url, network);
+      var func = function(providers2, options2) {
+        if (providers2.JsonRpcProvider) {
+          return new providers2.JsonRpcProvider(url, network);
         }
         return null;
       };
@@ -34489,12 +34489,12 @@ var require_fallback_provider = __commonJS({
       /** @class */
       function(_super) {
         __extends(FallbackProvider2, _super);
-        function FallbackProvider2(providers, quorum) {
+        function FallbackProvider2(providers2, quorum) {
           var _this = this;
-          if (providers.length === 0) {
-            logger.throwArgumentError("missing providers", "providers", providers);
+          if (providers2.length === 0) {
+            logger.throwArgumentError("missing providers", "providers", providers2);
           }
-          var providerConfigs = providers.map(function(configOrProvider, index) {
+          var providerConfigs = providers2.map(function(configOrProvider, index) {
             if (abstract_provider_1.Provider.isProvider(configOrProvider)) {
               var stallTimeout = (0, formatter_1.isCommunityResource)(configOrProvider) ? 2e3 : 750;
               var priority = 1;
@@ -36266,8 +36266,8 @@ var require_ethers = __commonJS({
     } });
     var constants2 = __importStar(require_lib8());
     exports2.constants = constants2;
-    var providers = __importStar(require_lib29());
-    exports2.providers = providers;
+    var providers2 = __importStar(require_lib29());
+    exports2.providers = providers2;
     var providers_1 = require_lib29();
     Object.defineProperty(exports2, "getDefaultProvider", { enumerable: true, get: function() {
       return providers_1.getDefaultProvider;
@@ -49904,175 +49904,16 @@ var IVotingMachineWithProofs__factory = class {
 };
 __publicField(IVotingMachineWithProofs__factory, "abi", _abi5);
 
-// src/helpers/chainInfoHelpers.ts
-var import_ethers6 = __toESM(require_lib32());
-var ETH = {
-  name: "Ether",
-  symbol: "ETH",
-  decimals: 18
-};
-var MATIC = {
-  name: "Matic",
-  symbol: "MATIC",
-  decimals: 18
-};
-var AVAX = {
-  name: "Avax",
-  symbol: "AVAX",
-  decimals: 18
-};
-var initialChains = {
-  1: {
-    urls: ["https://cloudflare-eth.com"],
-    nativeCurrency: ETH,
-    name: "Ethereum",
-    blockExplorerUrls: ["https://etherscan.io"]
-  },
-  137: {
-    urls: ["https://polygon.llamarpc.com"],
-    nativeCurrency: MATIC,
-    name: "Polygon",
-    blockExplorerUrls: ["https://polygonscan.com"]
-  },
-  43114: {
-    urls: ["https://rpc.ankr.com/avalanche"],
-    nativeCurrency: AVAX,
-    name: "Avalanche",
-    blockExplorerUrls: ["https://snowtrace.io"]
-  },
-  // testnet chains
-  5: {
-    urls: ["https://ethereum-goerli.publicnode.com"],
-    nativeCurrency: ETH,
-    name: "Goerli testnet",
-    blockExplorerUrls: ["https://goerli.etherscan.io"]
-  },
-  43113: {
-    urls: ["https://api.avax-test.network/ext/bc/C/rpc"],
-    nativeCurrency: AVAX,
-    name: "Avalanche fuji",
-    blockExplorerUrls: ["https://testnet.snowtrace.io"]
-  },
-  420: {
-    urls: ["https://goerli.optimism.io"],
-    nativeCurrency: ETH,
-    name: "Optimism goerli",
-    blockExplorerUrls: ["https://goerli-optimism.etherscan.io/"]
-  },
-  11155111: {
-    urls: ["https://ethereum-sepolia.blockpi.network/v1/rpc/public"],
-    nativeCurrency: ETH,
-    name: "Sepolia Testnet",
-    blockExplorerUrls: ["https://sepolia.etherscan.io/"]
-  }
-};
-function isExtendedChainInformation(chainInformation) {
-  return !!(chainInformation == null ? void 0 : chainInformation.nativeCurrency);
-}
-var initChainInformationConfig = (chains) => {
-  const CHAINS2 = Object.assign(initialChains, chains || {});
-  const urls = Object.keys(CHAINS2).reduce((accumulator, chainId) => {
-    const validURLs = CHAINS2[Number(chainId)].urls;
-    if (validURLs.length) {
-      accumulator[Number(chainId)] = validURLs;
-    }
-    return accumulator;
-  }, {});
-  const initalizedProviders = {};
-  const providerInstances = Object.keys(CHAINS2).reduce((accumulator, chainId) => {
-    const numberChainId = Number(chainId);
-    const providerInstance = {
-      get instance() {
-        if (initalizedProviders[numberChainId]) {
-          return initalizedProviders[numberChainId];
-        } else {
-          const provider = new import_ethers6.ethers.providers.JsonRpcBatchProvider(
-            urls[numberChainId][0]
-          );
-          initalizedProviders[numberChainId] = provider;
-          return provider;
-        }
-      }
-    };
-    accumulator[numberChainId] = providerInstance;
-    return accumulator;
-  }, {});
-  function getChainParameters(chainId) {
-    const chainInformation = CHAINS2[chainId];
-    if (isExtendedChainInformation(chainInformation)) {
-      return {
-        chainId,
-        chainName: chainInformation.name,
-        nativeCurrency: chainInformation.nativeCurrency,
-        rpcUrls: chainInformation.urls,
-        blockExplorerUrls: chainInformation.blockExplorerUrls
-      };
-    } else {
-      return {
-        chainId,
-        chainName: `unknown network: ${chainId}`,
-        nativeCurrency: initialChains[1].nativeCurrency,
-        rpcUrls: initialChains[1].urls,
-        blockExplorerUrls: initialChains[1].blockExplorerUrls
-      };
-    }
-  }
-  return {
-    urls,
-    providerInstances,
-    getChainParameters
-  };
-};
-
-// src/helpers/chains.ts
-var BNB = {
-  name: "Binance Coin",
-  symbol: "BNB",
-  decimals: 18
-};
-var CHAINS = {
-  5: {
-    urls: [`https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161`],
-    nativeCurrency: ETH,
-    name: "Goerli Testnet",
-    blockExplorerUrls: ["https://goerli.etherscan.io/"]
-  },
-  11155111: {
-    urls: [`https://ethereum-sepolia.blockpi.network/v1/rpc/public`],
-    nativeCurrency: ETH,
-    name: "Sepolia Testnet",
-    blockExplorerUrls: ["https://sepolia.etherscan.io/"]
-  },
-  80001: {
-    urls: [`https://rpc.ankr.com/polygon_mumbai`],
-    nativeCurrency: MATIC,
-    name: "Mumbai Testnet",
-    blockExplorerUrls: ["https://mumbai.polygonscan.com/"]
-  },
-  97: {
-    urls: [`https://data-seed-prebsc-1-s1.bnbchain.org:8545`],
-    nativeCurrency: BNB,
-    name: "BSC Testnet",
-    blockExplorerUrls: ["https://testnet.bscscan.com/"]
-  }
-};
-var internalChains = Object.assign(initialChains, CHAINS);
-var chainInfoHelper = initChainInformationConfig(CHAINS);
-
 // src/helpers/appConfig.ts
-var goerliChainId = 5;
-var goerliOptimismChainId = 420;
-var sepoliaChainId = 11155111;
-var mumbaiChainId = 80001;
 var govCoreConfig = {
   contractAddress: "0x84b3FE5eD74caC496BcB58d448A7c83c523F6E0E",
   dataHelperContractAddress: "0x74bb7b600fA33E2A1945F8493D17db3b129513D2",
   votingPortals: {
-    [sepoliaChainId]: "0x5C77bF8505716904a1a73eB8c3909c0Da0DD49b3"
+    [11155111 /* Sepolia */]: "0x5C77bF8505716904a1a73eB8c3909c0Da0DD49b3"
   }
 };
 var payloadsControllerConfig = {
-  [sepoliaChainId]: {
+  [11155111 /* Sepolia */]: {
     dataHelperContractAddress: "0x5c2AD703961c59Adb4412d402b8D694Eee48a822",
     // for create payload
     contractAddresses: ["0x7Bb94b2a8d9fD3f37345Ec5A0b46c234164b4f90"],
@@ -50081,61 +49922,55 @@ var payloadsControllerConfig = {
   }
 };
 var votingMachineConfig = {
-  [sepoliaChainId]: {
+  [11155111 /* Sepolia */]: {
     contractAddress: "0xB379f8a3E62Ff807E827F853B36688d1d7aD692f",
     dataHelperContractAddress: "0x8b5661024Bc97c1Fd71B4eCafCA88c316c3D438B",
     dataWarehouseAddress: "0xdF6C1affD18Ecb318e4468d96b588bbbEac180E2"
   }
 };
 var gelatoApiKeys = {
-  [goerliChainId]: process.env.NEXT_PUBLIC_RELAY_GELATO_API_KEY_GOERLI || "",
-  [goerliOptimismChainId]: process.env.NEXT_PUBLIC_RELAY_GELATO_API_KEY_GOERLI_OPTIMISM || "",
-  [mumbaiChainId]: process.env.NEXT_PUBLIC_RELAY_GELATO_API_KEY_MUMBAI || ""
+  [5 /* Goerli */]: process.env.NEXT_PUBLIC_RELAY_GELATO_API_KEY_GOERLI || "",
+  [420 /* GoerliOptimism */]: process.env.NEXT_PUBLIC_RELAY_GELATO_API_KEY_GOERLI_OPTIMISM || "",
+  [80001 /* Mumbai */]: process.env.NEXT_PUBLIC_RELAY_GELATO_API_KEY_MUMBAI || ""
 };
-var appConfig = {
-  providers: {
-    // [goerliChainId]: chainInfoHelper.providerInstances[goerliChainId].instance,
-    [sepoliaChainId]: chainInfoHelper.providerInstances[sepoliaChainId].instance
-    // [avalancheFujiChainId]:
-    //   chainInfoHelper.providerInstances[avalancheFujiChainId].instance,
-    // [mumbaiChainId]: chainInfoHelper.providerInstances[mumbaiChainId].instance,
-    // [bnbTestChainId]:
-    //   chainInfoHelper.providerInstances[bnbTestChainId].instance,
-  },
-  govCoreChainId: sepoliaChainId,
-  govCoreConfig,
-  votingMachineChainIds: [
-    // goerliChainId,
-    sepoliaChainId
-    // avalancheFujiChainId,
-    // mumbaiChainId,
-    // bnbTestChainId,
-  ],
-  payloadsControllerChainIds: [
-    // goerliChainId,
-    sepoliaChainId
-    // avalancheFujiChainId,
-    // mumbaiChainId,
-    // bnbTestChainId,
-  ],
-  payloadsControllerConfig,
-  votingMachineConfig,
-  gelatoApiKeys,
-  additional: {
-    aaveAddress: "0x64033B2270fd9D6bbFc35736d2aC812942cE75fE",
-    aAaveAddress: "0x7d9EB767eEc260d1bCe8C518276a894aE5535F04",
-    stkAAVEAddress: "0xA4FDAbdE9eF3045F0dcF9221bab436B784B7e42D",
-    // for delegation
-    delegationHelper: "0x1633Bd6772020a797fB09a3b17D6AD9a95b98f01"
-  }
+var appConfigInit = (providers2) => {
+  return {
+    providers: providers2,
+    govCoreChainId: 11155111 /* Sepolia */,
+    govCoreConfig,
+    votingMachineChainIds: [
+      // goerliChainId,
+      11155111 /* Sepolia */
+      // avalancheFujiChainId,
+      // mumbaiChainId,
+      // bnbTestChainId,
+    ],
+    payloadsControllerChainIds: [
+      // goerliChainId,
+      11155111 /* Sepolia */
+      // avalancheFujiChainId,
+      // mumbaiChainId,
+      // bnbTestChainId,
+    ],
+    payloadsControllerConfig,
+    votingMachineConfig,
+    gelatoApiKeys,
+    additional: {
+      aaveAddress: "0x64033B2270fd9D6bbFc35736d2aC812942cE75fE",
+      aAaveAddress: "0x7d9EB767eEc260d1bCe8C518276a894aE5535F04",
+      stkAAVEAddress: "0xA4FDAbdE9eF3045F0dcF9221bab436B784B7e42D",
+      // for delegation
+      delegationHelper: "0x1633Bd6772020a797fB09a3b17D6AD9a95b98f01"
+    }
+  };
 };
 
 // src/helpers/checkHash.ts
-var import_ethers7 = __toESM(require_lib32());
+var import_ethers6 = __toESM(require_lib32());
 function checkHash(hash) {
   return {
-    notZero: hash !== import_ethers7.ethers.constants.HashZero,
-    zero: hash === import_ethers7.ethers.constants.HashZero
+    notZero: hash !== import_ethers6.ethers.constants.HashZero,
+    zero: hash === import_ethers6.ethers.constants.HashZero
   };
 }
 
@@ -50363,11 +50198,11 @@ function getProposalState(_a) {
 }
 
 // src/helpers/getGovCoreConfigs.ts
-function getGovCoreConfigs(govCoreDataHelper) {
+function getGovCoreConfigs(govCoreDataHelper, govCoreContractAddress) {
   return __async(this, null, function* () {
     const accessLevels = [1, 2];
     const constants2 = yield govCoreDataHelper.getConstants(
-      appConfig.govCoreConfig.contractAddress,
+      govCoreContractAddress,
       accessLevels
     );
     const contractsConstants = {
@@ -50398,7 +50233,7 @@ function getGovCoreConfigs(govCoreDataHelper) {
 
 // src/helpers/getProposalData.ts
 var import_dayjs2 = __toESM(require_dayjs_min());
-var import_ethers8 = __toESM(require_lib32());
+var import_ethers7 = __toESM(require_lib32());
 function getVotingMachineProposalState(proposal) {
   const now = (0, import_dayjs2.default)().unix();
   if (proposal.votingMachineData.startTime === 0) {
@@ -50420,7 +50255,7 @@ function formatVotingMachineData(id, votingMachineData) {
     endTime: votingMachineData.proposalData.endTime,
     votingClosedAndSentBlockNumber: votingMachineData.proposalData.votingClosedAndSentBlockNumber.toNumber(),
     votingClosedAndSentTimestamp: votingMachineData.proposalData.votingClosedAndSentTimestamp,
-    l1BlockHash: (votingMachineData == null ? void 0 : votingMachineData.voteConfig.l1ProposalBlockHash) || import_ethers8.ethers.constants.HashZero,
+    l1BlockHash: (votingMachineData == null ? void 0 : votingMachineData.voteConfig.l1ProposalBlockHash) || import_ethers7.ethers.constants.HashZero,
     strategy: votingMachineData.strategy,
     sentToGovernance: votingMachineData.proposalData.sentToGovernance,
     createdBlock: votingMachineData.proposalData.creationBlockNumber.toNumber(),
@@ -50471,7 +50306,7 @@ function getDetailedProposalsData(govCoreDataHelperData, votingMachineDataHelper
 }
 
 // src/helpers/getProposalMetadata.ts
-var import_ethers9 = __toESM(require_lib32());
+var import_ethers8 = __toESM(require_lib32());
 var import_utils = __toESM(require_utils5());
 var import_gray_matter = __toESM(require_gray_matter());
 var ipfsGateway = "https://ipfs.io/ipfs";
@@ -50481,7 +50316,7 @@ function getLink(hash, gateway) {
 var MEMORIZE = {};
 var incorectedHashses = [
   "0x0000000000000000000000000000000000000000000000000000000000000020",
-  import_ethers9.ethers.constants.HashZero
+  import_ethers8.ethers.constants.HashZero
 ];
 function getProposalMetadata(_0) {
   return __async(this, arguments, function* (hash, gateway = ipfsGateway, setIpfsError, errorText) {
@@ -50535,6 +50370,14 @@ function getProposalMetadata(_0) {
     return MEMORIZE[ipfsHash];
   });
 }
+
+// src/helpers/providers.ts
+var import_ethers9 = __toESM(require_lib32());
+var providers = {
+  [11155111 /* Sepolia */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+    "https://ethereum-sepolia.blockpi.network/v1/rpc/public"
+  )
+};
 
 // src/lowdb/ipfs.ts
 var import_lodash = __toESM(require_lodash());
@@ -51075,6 +50918,7 @@ var Votes = class {
 };
 
 // src/lowdb/populateCache.ts
+var appConfig = appConfigInit(providers);
 function populateCache() {
   return __async(this, null, function* () {
     var _a, _b;
@@ -51159,7 +51003,10 @@ function populateCache() {
       proposalsIds,
       true
     );
-    const { contractsConstants, configs } = yield getGovCoreConfigs(govCoreDataHelper);
+    const { contractsConstants, configs } = yield getGovCoreConfigs(
+      govCoreDataHelper,
+      appConfig.govCoreConfig.contractAddress
+    );
     const ipfsData = {};
     const newIpfsHashes = [];
     proposalsIds.forEach((id) => {

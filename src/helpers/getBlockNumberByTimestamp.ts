@@ -1,21 +1,16 @@
 import { ethers } from 'ethers';
 
-import {
-  avalancheFujiChainId,
-  bnbTestChainId,
-  mumbaiChainId,
-  sepoliaChainId,
-} from './appConfig';
+import { ChainIdByName } from './chains';
 
 const getAverageBlockTime = (chainId: number) => {
   switch (chainId) {
-    case sepoliaChainId:
+    case ChainIdByName.Sepolia:
       return 15;
-    case avalancheFujiChainId:
+    case ChainIdByName.AvalancheFuji:
       return 5;
-    case mumbaiChainId:
+    case ChainIdByName.Mumbai:
       return 3;
-    case bnbTestChainId:
+    case ChainIdByName.BnbTest:
       return 3;
     default:
       return 15;
