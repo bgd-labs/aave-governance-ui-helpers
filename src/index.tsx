@@ -1,4 +1,3 @@
-export * from './helpers/appConfig';
 export * from './helpers/bignumber';
 export * from './helpers/checkHash';
 export * from './helpers/eventsHelpres';
