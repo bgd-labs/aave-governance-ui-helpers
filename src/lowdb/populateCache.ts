@@ -9,7 +9,7 @@ import { IVotingMachineDataHelper } from '../contracts/IVotingMachineDataHelper'
 import { IVotingMachineDataHelper__factory } from '../contracts/IVotingMachineDataHelper__factory';
 import { IVotingMachineWithProofs } from '../contracts/IVotingMachineWithProofs';
 import { IVotingMachineWithProofs__factory } from '../contracts/IVotingMachineWithProofs__factory';
-import { appConfig } from '../helpers/appConfig';
+import { appConfigInit } from '../helpers/appConfig';
 import { checkHash } from '../helpers/checkHash';
 import { getBlocksForEvents } from '../helpers/eventsHelpres';
 import {
@@ -22,6 +22,7 @@ import {
   getVotingMachineProposalState,
 } from '../helpers/getProposalData';
 import { getProposalMetadata } from '../helpers/getProposalMetadata';
+import { providers } from '../helpers/providers';
 import {
   BasicProposal,
   BasicProposalState,
@@ -35,6 +36,8 @@ import { ListViewProposal as ListViewProposalDB } from './listViewProposals';
 import { Payload as PayloadDB } from './payload';
 import { Proposal as ProposalDB } from './proposal';
 import { Votes as VotesDB } from './votes';
+
+const appConfig = appConfigInit(providers);
 
 export async function populateCache() {
   const proposalFetcher = new ProposalDB();
@@ -148,8 +151,10 @@ export async function populateCache() {
   );
 
   // configs and constants
-  const { contractsConstants, configs } =
-    await getGovCoreConfigs(govCoreDataHelper);
+  const { contractsConstants, configs } = await getGovCoreConfigs(
+    govCoreDataHelper,
+    appConfig.govCoreConfig.contractAddress,
+  );
 
   // populate ipfs data
   const ipfsData: Record<string, ProposalMetadata> = {};
