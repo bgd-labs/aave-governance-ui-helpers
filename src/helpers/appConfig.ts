@@ -1,7 +1,8 @@
 // TODO: need integrate address book
 
+import { ethers } from 'ethers';
+
 import { chainInfoHelper } from './chains';
-import { StaticJsonRpcBatchProvider } from './StaticJsonRpcBatchProvider';
 
 export const goerliChainId = 5;
 export const goerliOptimismChainId = 420;
@@ -69,7 +70,7 @@ export const appConfig = {
     // [mumbaiChainId]: chainInfoHelper.providerInstances[mumbaiChainId].instance,
     // [bnbTestChainId]:
     //   chainInfoHelper.providerInstances[bnbTestChainId].instance,
-  } as Record<number, StaticJsonRpcBatchProvider>,
+  } as Record<number, ethers.providers.JsonRpcBatchProvider>,
   govCoreChainId: sepoliaChainId,
   govCoreConfig: govCoreConfig,
   votingMachineChainIds: [

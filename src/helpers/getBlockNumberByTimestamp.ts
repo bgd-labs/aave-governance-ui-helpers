@@ -1,10 +1,11 @@
+import { ethers } from 'ethers';
+
 import {
   avalancheFujiChainId,
   bnbTestChainId,
   mumbaiChainId,
   sepoliaChainId,
 } from './appConfig';
-import { StaticJsonRpcBatchProvider } from './StaticJsonRpcBatchProvider';
 
 const getAverageBlockTime = (chainId: number) => {
   switch (chainId) {
@@ -24,7 +25,7 @@ const getAverageBlockTime = (chainId: number) => {
 export async function getBlockNumberByTimestamp(
   chainId: number,
   targetTimestamp: number,
-  provider: StaticJsonRpcBatchProvider,
+  provider: ethers.providers.JsonRpcBatchProvider,
 ) {
   const blocksDiff = 100;
 

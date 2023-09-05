@@ -9,7 +9,6 @@ var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __reflectGet = Reflect.get;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __spreadValues = (a, b) => {
   for (var prop in b || (b = {}))
@@ -63,7 +62,6 @@ var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
-var __superGet = (cls, obj, key) => __reflectGet(__getProtoOf(cls), key, obj);
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -3100,17 +3098,17 @@ var require_lib = __commonJS({
       ErrorCode2["ACTION_REJECTED"] = "ACTION_REJECTED";
     })(ErrorCode = exports2.ErrorCode || (exports2.ErrorCode = {}));
     var HEX = "0123456789abcdef";
-    var Logger2 = (
+    var Logger = (
       /** @class */
       function() {
-        function Logger3(version) {
+        function Logger2(version) {
           Object.defineProperty(this, "version", {
             enumerable: true,
             value: version,
             writable: false
           });
         }
-        Logger3.prototype._log = function(logLevel, args) {
+        Logger2.prototype._log = function(logLevel, args) {
           var level = logLevel.toLowerCase();
           if (LogLevels[level] == null) {
             this.throwArgumentError("invalid log level name", "logLevel", logLevel);
@@ -3120,33 +3118,33 @@ var require_lib = __commonJS({
           }
           console.log.apply(console, args);
         };
-        Logger3.prototype.debug = function() {
+        Logger2.prototype.debug = function() {
           var args = [];
           for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
-          this._log(Logger3.levels.DEBUG, args);
+          this._log(Logger2.levels.DEBUG, args);
         };
-        Logger3.prototype.info = function() {
+        Logger2.prototype.info = function() {
           var args = [];
           for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
-          this._log(Logger3.levels.INFO, args);
+          this._log(Logger2.levels.INFO, args);
         };
-        Logger3.prototype.warn = function() {
+        Logger2.prototype.warn = function() {
           var args = [];
           for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
-          this._log(Logger3.levels.WARNING, args);
+          this._log(Logger2.levels.WARNING, args);
         };
-        Logger3.prototype.makeError = function(message, code, params) {
+        Logger2.prototype.makeError = function(message, code, params) {
           if (_censorErrors) {
             return this.makeError("censored error", code, {});
           }
           if (!code) {
-            code = Logger3.errors.UNKNOWN_ERROR;
+            code = Logger2.errors.UNKNOWN_ERROR;
           }
           if (!params) {
             params = {};
@@ -3217,39 +3215,39 @@ var require_lib = __commonJS({
           });
           return error;
         };
-        Logger3.prototype.throwError = function(message, code, params) {
+        Logger2.prototype.throwError = function(message, code, params) {
           throw this.makeError(message, code, params);
         };
-        Logger3.prototype.throwArgumentError = function(message, name, value) {
-          return this.throwError(message, Logger3.errors.INVALID_ARGUMENT, {
+        Logger2.prototype.throwArgumentError = function(message, name, value) {
+          return this.throwError(message, Logger2.errors.INVALID_ARGUMENT, {
             argument: name,
             value
           });
         };
-        Logger3.prototype.assert = function(condition, message, code, params) {
+        Logger2.prototype.assert = function(condition, message, code, params) {
           if (!!condition) {
             return;
           }
           this.throwError(message, code, params);
         };
-        Logger3.prototype.assertArgument = function(condition, message, name, value) {
+        Logger2.prototype.assertArgument = function(condition, message, name, value) {
           if (!!condition) {
             return;
           }
           this.throwArgumentError(message, name, value);
         };
-        Logger3.prototype.checkNormalize = function(message) {
+        Logger2.prototype.checkNormalize = function(message) {
           if (message == null) {
             message = "platform missing String.prototype.normalize";
           }
           if (_normalizeError) {
-            this.throwError("platform missing String.prototype.normalize", Logger3.errors.UNSUPPORTED_OPERATION, {
+            this.throwError("platform missing String.prototype.normalize", Logger2.errors.UNSUPPORTED_OPERATION, {
               operation: "String.prototype.normalize",
               form: _normalizeError
             });
           }
         };
-        Logger3.prototype.checkSafeUint53 = function(value, message) {
+        Logger2.prototype.checkSafeUint53 = function(value, message) {
           if (typeof value !== "number") {
             return;
           }
@@ -3257,60 +3255,60 @@ var require_lib = __commonJS({
             message = "value not safe";
           }
           if (value < 0 || value >= 9007199254740991) {
-            this.throwError(message, Logger3.errors.NUMERIC_FAULT, {
+            this.throwError(message, Logger2.errors.NUMERIC_FAULT, {
               operation: "checkSafeInteger",
               fault: "out-of-safe-range",
               value
             });
           }
           if (value % 1) {
-            this.throwError(message, Logger3.errors.NUMERIC_FAULT, {
+            this.throwError(message, Logger2.errors.NUMERIC_FAULT, {
               operation: "checkSafeInteger",
               fault: "non-integer",
               value
             });
           }
         };
-        Logger3.prototype.checkArgumentCount = function(count, expectedCount, message) {
+        Logger2.prototype.checkArgumentCount = function(count, expectedCount, message) {
           if (message) {
             message = ": " + message;
           } else {
             message = "";
           }
           if (count < expectedCount) {
-            this.throwError("missing argument" + message, Logger3.errors.MISSING_ARGUMENT, {
+            this.throwError("missing argument" + message, Logger2.errors.MISSING_ARGUMENT, {
               count,
               expectedCount
             });
           }
           if (count > expectedCount) {
-            this.throwError("too many arguments" + message, Logger3.errors.UNEXPECTED_ARGUMENT, {
+            this.throwError("too many arguments" + message, Logger2.errors.UNEXPECTED_ARGUMENT, {
               count,
               expectedCount
             });
           }
         };
-        Logger3.prototype.checkNew = function(target, kind) {
+        Logger2.prototype.checkNew = function(target, kind) {
           if (target === Object || target == null) {
-            this.throwError("missing new", Logger3.errors.MISSING_NEW, { name: kind.name });
+            this.throwError("missing new", Logger2.errors.MISSING_NEW, { name: kind.name });
           }
         };
-        Logger3.prototype.checkAbstract = function(target, kind) {
+        Logger2.prototype.checkAbstract = function(target, kind) {
           if (target === kind) {
-            this.throwError("cannot instantiate abstract class " + JSON.stringify(kind.name) + " directly; use a sub-class", Logger3.errors.UNSUPPORTED_OPERATION, { name: target.name, operation: "new" });
+            this.throwError("cannot instantiate abstract class " + JSON.stringify(kind.name) + " directly; use a sub-class", Logger2.errors.UNSUPPORTED_OPERATION, { name: target.name, operation: "new" });
           } else if (target === Object || target == null) {
-            this.throwError("missing new", Logger3.errors.MISSING_NEW, { name: kind.name });
+            this.throwError("missing new", Logger2.errors.MISSING_NEW, { name: kind.name });
           }
         };
-        Logger3.globalLogger = function() {
+        Logger2.globalLogger = function() {
           if (!_globalLogger) {
-            _globalLogger = new Logger3(_version_1.version);
+            _globalLogger = new Logger2(_version_1.version);
           }
           return _globalLogger;
         };
-        Logger3.setCensorship = function(censorship, permanent) {
+        Logger2.setCensorship = function(censorship, permanent) {
           if (!censorship && permanent) {
-            this.globalLogger().throwError("cannot permanently disable censorship", Logger3.errors.UNSUPPORTED_OPERATION, {
+            this.globalLogger().throwError("cannot permanently disable censorship", Logger2.errors.UNSUPPORTED_OPERATION, {
               operation: "setCensorship"
             });
           }
@@ -3318,30 +3316,30 @@ var require_lib = __commonJS({
             if (!censorship) {
               return;
             }
-            this.globalLogger().throwError("error censorship permanent", Logger3.errors.UNSUPPORTED_OPERATION, {
+            this.globalLogger().throwError("error censorship permanent", Logger2.errors.UNSUPPORTED_OPERATION, {
               operation: "setCensorship"
             });
           }
           _censorErrors = !!censorship;
           _permanentCensorErrors = !!permanent;
         };
-        Logger3.setLogLevel = function(logLevel) {
+        Logger2.setLogLevel = function(logLevel) {
           var level = LogLevels[logLevel.toLowerCase()];
           if (level == null) {
-            Logger3.globalLogger().warn("invalid log level - " + logLevel);
+            Logger2.globalLogger().warn("invalid log level - " + logLevel);
             return;
           }
           _logLevel = level;
         };
-        Logger3.from = function(version) {
-          return new Logger3(version);
+        Logger2.from = function(version) {
+          return new Logger2(version);
         };
-        Logger3.errors = ErrorCode;
-        Logger3.levels = LogLevel;
-        return Logger3;
+        Logger2.errors = ErrorCode;
+        Logger2.levels = LogLevel;
+        return Logger2;
       }()
     );
-    exports2.Logger = Logger2;
+    exports2.Logger = Logger;
   }
 });
 
@@ -3363,7 +3361,7 @@ var require_lib2 = __commonJS({
     exports2.joinSignature = exports2.splitSignature = exports2.hexZeroPad = exports2.hexStripZeros = exports2.hexValue = exports2.hexConcat = exports2.hexDataSlice = exports2.hexDataLength = exports2.hexlify = exports2.isHexString = exports2.zeroPad = exports2.stripZeros = exports2.concat = exports2.arrayify = exports2.isBytes = exports2.isBytesLike = void 0;
     var logger_1 = require_lib();
     var _version_1 = require_version2();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function isHexable(value) {
       return !!value.toHexString;
     }
@@ -3411,7 +3409,7 @@ var require_lib2 = __commonJS({
         options2 = {};
       }
       if (typeof value === "number") {
-        logger2.checkSafeUint53(value, "invalid arrayify value");
+        logger.checkSafeUint53(value, "invalid arrayify value");
         var result = [];
         while (value) {
           result.unshift(value & 255);
@@ -3436,7 +3434,7 @@ var require_lib2 = __commonJS({
           } else if (options2.hexPad === "right") {
             hex += "0";
           } else {
-            logger2.throwArgumentError("hex data is odd-length", "value", value);
+            logger.throwArgumentError("hex data is odd-length", "value", value);
           }
         }
         var result = [];
@@ -3448,7 +3446,7 @@ var require_lib2 = __commonJS({
       if (isBytes(value)) {
         return addSlice(new Uint8Array(value));
       }
-      return logger2.throwArgumentError("invalid arrayify value", "value", value);
+      return logger.throwArgumentError("invalid arrayify value", "value", value);
     }
     exports2.arrayify = arrayify;
     function concat(items) {
@@ -3484,7 +3482,7 @@ var require_lib2 = __commonJS({
     function zeroPad(value, length) {
       value = arrayify(value);
       if (value.length > length) {
-        logger2.throwArgumentError("value out of range", "value", arguments[0]);
+        logger.throwArgumentError("value out of range", "value", arguments[0]);
       }
       var result = new Uint8Array(length);
       result.set(value, length - value.length);
@@ -3507,7 +3505,7 @@ var require_lib2 = __commonJS({
         options2 = {};
       }
       if (typeof value === "number") {
-        logger2.checkSafeUint53(value, "invalid hexlify value");
+        logger.checkSafeUint53(value, "invalid hexlify value");
         var hex = "";
         while (value) {
           hex = HexCharacters[value & 15] + hex;
@@ -3541,7 +3539,7 @@ var require_lib2 = __commonJS({
           } else if (options2.hexPad === "right") {
             value += "0";
           } else {
-            logger2.throwArgumentError("hex data is odd-length", "value", value);
+            logger.throwArgumentError("hex data is odd-length", "value", value);
           }
         }
         return value.toLowerCase();
@@ -3554,7 +3552,7 @@ var require_lib2 = __commonJS({
         }
         return result;
       }
-      return logger2.throwArgumentError("invalid hexlify value", "value", value);
+      return logger.throwArgumentError("invalid hexlify value", "value", value);
     }
     exports2.hexlify = hexlify;
     function hexDataLength(data) {
@@ -3570,7 +3568,7 @@ var require_lib2 = __commonJS({
       if (typeof data !== "string") {
         data = hexlify(data);
       } else if (!isHexString(data) || data.length % 2) {
-        logger2.throwArgumentError("invalid hexData", "value", data);
+        logger.throwArgumentError("invalid hexData", "value", data);
       }
       offset = 2 + 2 * offset;
       if (endOffset != null) {
@@ -3600,7 +3598,7 @@ var require_lib2 = __commonJS({
         value = hexlify(value);
       }
       if (!isHexString(value)) {
-        logger2.throwArgumentError("invalid hex string", "value", value);
+        logger.throwArgumentError("invalid hex string", "value", value);
       }
       value = value.substring(2);
       var offset = 0;
@@ -3614,10 +3612,10 @@ var require_lib2 = __commonJS({
       if (typeof value !== "string") {
         value = hexlify(value);
       } else if (!isHexString(value)) {
-        logger2.throwArgumentError("invalid hex string", "value", value);
+        logger.throwArgumentError("invalid hex string", "value", value);
       }
       if (value.length > 2 * length + 2) {
-        logger2.throwArgumentError("value out of range", "value", arguments[1]);
+        logger.throwArgumentError("value out of range", "value", arguments[1]);
       }
       while (value.length < 2 * length + 2) {
         value = "0x0" + value.substring(2);
@@ -3647,13 +3645,13 @@ var require_lib2 = __commonJS({
           result.s = hexlify(bytes.slice(32, 64));
           result.v = bytes[64];
         } else {
-          logger2.throwArgumentError("invalid signature string", "signature", signature);
+          logger.throwArgumentError("invalid signature string", "signature", signature);
         }
         if (result.v < 27) {
           if (result.v === 0 || result.v === 1) {
             result.v += 27;
           } else {
-            logger2.throwArgumentError("signature invalid v byte", "signature", signature);
+            logger.throwArgumentError("signature invalid v byte", "signature", signature);
           }
         }
         result.recoveryParam = 1 - result.v % 2;
@@ -3674,19 +3672,19 @@ var require_lib2 = __commonJS({
           if (result.recoveryParam == null) {
             result.recoveryParam = recoveryParam;
           } else if (result.recoveryParam !== recoveryParam) {
-            logger2.throwArgumentError("signature recoveryParam mismatch _vs", "signature", signature);
+            logger.throwArgumentError("signature recoveryParam mismatch _vs", "signature", signature);
           }
           vs_1[0] &= 127;
           var s = hexlify(vs_1);
           if (result.s == null) {
             result.s = s;
           } else if (result.s !== s) {
-            logger2.throwArgumentError("signature v mismatch _vs", "signature", signature);
+            logger.throwArgumentError("signature v mismatch _vs", "signature", signature);
           }
         }
         if (result.recoveryParam == null) {
           if (result.v == null) {
-            logger2.throwArgumentError("signature missing v and recoveryParam", "signature", signature);
+            logger.throwArgumentError("signature missing v and recoveryParam", "signature", signature);
           } else if (result.v === 0 || result.v === 1) {
             result.recoveryParam = result.v;
           } else {
@@ -3698,23 +3696,23 @@ var require_lib2 = __commonJS({
           } else {
             var recId = result.v === 0 || result.v === 1 ? result.v : 1 - result.v % 2;
             if (result.recoveryParam !== recId) {
-              logger2.throwArgumentError("signature recoveryParam mismatch v", "signature", signature);
+              logger.throwArgumentError("signature recoveryParam mismatch v", "signature", signature);
             }
           }
         }
         if (result.r == null || !isHexString(result.r)) {
-          logger2.throwArgumentError("signature missing or invalid r", "signature", signature);
+          logger.throwArgumentError("signature missing or invalid r", "signature", signature);
         } else {
           result.r = hexZeroPad(result.r, 32);
         }
         if (result.s == null || !isHexString(result.s)) {
-          logger2.throwArgumentError("signature missing or invalid s", "signature", signature);
+          logger.throwArgumentError("signature missing or invalid s", "signature", signature);
         } else {
           result.s = hexZeroPad(result.s, 32);
         }
         var vs = arrayify(result.s);
         if (vs[0] >= 128) {
-          logger2.throwArgumentError("signature s out of range", "signature", signature);
+          logger.throwArgumentError("signature s out of range", "signature", signature);
         }
         if (result.recoveryParam) {
           vs[0] |= 128;
@@ -3722,14 +3720,14 @@ var require_lib2 = __commonJS({
         var _vs = hexlify(vs);
         if (result._vs) {
           if (!isHexString(result._vs)) {
-            logger2.throwArgumentError("signature invalid _vs", "signature", signature);
+            logger.throwArgumentError("signature invalid _vs", "signature", signature);
           }
           result._vs = hexZeroPad(result._vs, 32);
         }
         if (result._vs == null) {
           result._vs = _vs;
         } else if (result._vs !== _vs) {
-          logger2.throwArgumentError("signature _vs mismatch v and s", "signature", signature);
+          logger.throwArgumentError("signature _vs mismatch v and s", "signature", signature);
         }
       }
       result.yParityAndS = result._vs;
@@ -3773,7 +3771,7 @@ var require_bignumber = __commonJS({
     var bytes_1 = require_lib2();
     var logger_1 = require_lib();
     var _version_1 = require_version3();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var _constructorGuard = {};
     var MAX_SAFE = 9007199254740991;
     function isBigNumberish(value) {
@@ -3786,7 +3784,7 @@ var require_bignumber = __commonJS({
       function() {
         function BigNumber3(constructorGuard, hex) {
           if (constructorGuard !== _constructorGuard) {
-            logger2.throwError("cannot call constructor directly; use BigNumber.from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("cannot call constructor directly; use BigNumber.from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "new (BigNumber)"
             });
           }
@@ -3909,7 +3907,7 @@ var require_bignumber = __commonJS({
             return BigInt(this.toString());
           } catch (e) {
           }
-          return logger2.throwError("this platform does not support BigInt", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+          return logger.throwError("this platform does not support BigInt", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
             value: this.toString()
           });
         };
@@ -3918,12 +3916,12 @@ var require_bignumber = __commonJS({
             if (arguments[0] === 10) {
               if (!_warnedToStringRadix) {
                 _warnedToStringRadix = true;
-                logger2.warn("BigNumber.toString does not accept any parameters; base-10 is assumed");
+                logger.warn("BigNumber.toString does not accept any parameters; base-10 is assumed");
               }
             } else if (arguments[0] === 16) {
-              logger2.throwError("BigNumber.toString does not accept any parameters; use bigNumber.toHexString()", logger_1.Logger.errors.UNEXPECTED_ARGUMENT, {});
+              logger.throwError("BigNumber.toString does not accept any parameters; use bigNumber.toHexString()", logger_1.Logger.errors.UNEXPECTED_ARGUMENT, {});
             } else {
-              logger2.throwError("BigNumber.toString does not accept parameters", logger_1.Logger.errors.UNEXPECTED_ARGUMENT, {});
+              logger.throwError("BigNumber.toString does not accept parameters", logger_1.Logger.errors.UNEXPECTED_ARGUMENT, {});
             }
           }
           return toBN(this).toString(10);
@@ -3945,7 +3943,7 @@ var require_bignumber = __commonJS({
             if (value.match(/^-?[0-9]+$/)) {
               return new BigNumber3(_constructorGuard, toHex(new BN(value)));
             }
-            return logger2.throwArgumentError("invalid BigNumber string", "value", value);
+            return logger.throwArgumentError("invalid BigNumber string", "value", value);
           }
           if (typeof value === "number") {
             if (value % 1) {
@@ -3981,7 +3979,7 @@ var require_bignumber = __commonJS({
               }
             }
           }
-          return logger2.throwArgumentError("invalid BigNumber value", "value", value);
+          return logger.throwArgumentError("invalid BigNumber value", "value", value);
         };
         BigNumber3.isBigNumber = function(value) {
           return !!(value && value._isBigNumber);
@@ -3997,7 +3995,7 @@ var require_bignumber = __commonJS({
       if (value[0] === "-") {
         value = value.substring(1);
         if (value[0] === "-") {
-          logger2.throwArgumentError("invalid hex", "value", value);
+          logger.throwArgumentError("invalid hex", "value", value);
         }
         value = toHex(value);
         if (value === "0x00") {
@@ -4034,7 +4032,7 @@ var require_bignumber = __commonJS({
       if (value != null) {
         params.value = value;
       }
-      return logger2.throwError(fault, logger_1.Logger.errors.NUMERIC_FAULT, params);
+      return logger.throwError(fault, logger_1.Logger.errors.NUMERIC_FAULT, params);
     }
     function _base36To16(value) {
       return new BN(value, 36).toString(16);
@@ -4056,7 +4054,7 @@ var require_fixednumber = __commonJS({
     var bytes_1 = require_lib2();
     var logger_1 = require_lib();
     var _version_1 = require_version3();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var bignumber_1 = require_bignumber();
     var _constructorGuard = {};
     var Zero = bignumber_1.BigNumber.from(0);
@@ -4066,7 +4064,7 @@ var require_fixednumber = __commonJS({
       if (value !== void 0) {
         params.value = value;
       }
-      return logger2.throwError(message, logger_1.Logger.errors.NUMERIC_FAULT, params);
+      return logger.throwError(message, logger_1.Logger.errors.NUMERIC_FAULT, params);
     }
     var zeros = "0";
     while (zeros.length < 256) {
@@ -4082,7 +4080,7 @@ var require_fixednumber = __commonJS({
       if (typeof decimals === "number" && decimals >= 0 && decimals <= 256 && !(decimals % 1)) {
         return "1" + zeros.substring(0, decimals);
       }
-      return logger2.throwArgumentError("invalid decimal size", "decimals", decimals);
+      return logger.throwArgumentError("invalid decimal size", "decimals", decimals);
     }
     function formatFixed(value, decimals) {
       if (decimals == null) {
@@ -4117,18 +4115,18 @@ var require_fixednumber = __commonJS({
       }
       var multiplier = getMultiplier(decimals);
       if (typeof value !== "string" || !value.match(/^-?[0-9.]+$/)) {
-        logger2.throwArgumentError("invalid decimal value", "value", value);
+        logger.throwArgumentError("invalid decimal value", "value", value);
       }
       var negative = value.substring(0, 1) === "-";
       if (negative) {
         value = value.substring(1);
       }
       if (value === ".") {
-        logger2.throwArgumentError("missing value", "value", value);
+        logger.throwArgumentError("missing value", "value", value);
       }
       var comps = value.split(".");
       if (comps.length > 2) {
-        logger2.throwArgumentError("too many decimal points", "value", value);
+        logger.throwArgumentError("too many decimal points", "value", value);
       }
       var whole = comps[0], fraction = comps[1];
       if (!whole) {
@@ -4163,7 +4161,7 @@ var require_fixednumber = __commonJS({
       function() {
         function FixedFormat2(constructorGuard, signed, width, decimals) {
           if (constructorGuard !== _constructorGuard) {
-            logger2.throwError("cannot use FixedFormat constructor; use FixedFormat.from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("cannot use FixedFormat constructor; use FixedFormat.from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "new FixedFormat"
             });
           }
@@ -4191,7 +4189,7 @@ var require_fixednumber = __commonJS({
             } else {
               var match = value.match(/^(u?)fixed([0-9]+)x([0-9]+)$/);
               if (!match) {
-                logger2.throwArgumentError("invalid fixed format", "format", value);
+                logger.throwArgumentError("invalid fixed format", "format", value);
               }
               signed = match[1] !== "u";
               width = parseInt(match[2]);
@@ -4203,7 +4201,7 @@ var require_fixednumber = __commonJS({
                 return defaultValue;
               }
               if (typeof value[key] !== type) {
-                logger2.throwArgumentError("invalid fixed format (" + key + " not " + type + ")", "format." + key, value[key]);
+                logger.throwArgumentError("invalid fixed format (" + key + " not " + type + ")", "format." + key, value[key]);
               }
               return value[key];
             };
@@ -4212,10 +4210,10 @@ var require_fixednumber = __commonJS({
             decimals = check("decimals", "number", decimals);
           }
           if (width % 8) {
-            logger2.throwArgumentError("invalid fixed format width (not byte aligned)", "format.width", width);
+            logger.throwArgumentError("invalid fixed format width (not byte aligned)", "format.width", width);
           }
           if (decimals > 80) {
-            logger2.throwArgumentError("invalid fixed format (decimals too large)", "format.decimals", decimals);
+            logger.throwArgumentError("invalid fixed format (decimals too large)", "format.decimals", decimals);
           }
           return new FixedFormat2(_constructorGuard, signed, width, decimals);
         };
@@ -4228,7 +4226,7 @@ var require_fixednumber = __commonJS({
       function() {
         function FixedNumber2(constructorGuard, hex, value, format) {
           if (constructorGuard !== _constructorGuard) {
-            logger2.throwError("cannot use FixedNumber constructor; use FixedNumber.from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("cannot use FixedNumber constructor; use FixedNumber.from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "new FixedFormat"
             });
           }
@@ -4240,7 +4238,7 @@ var require_fixednumber = __commonJS({
         }
         FixedNumber2.prototype._checkFormat = function(other) {
           if (this.format.name !== other.format.name) {
-            logger2.throwArgumentError("incompatible format; use fixedNumber.toFormat", "other", other);
+            logger.throwArgumentError("incompatible format; use fixedNumber.toFormat", "other", other);
           }
         };
         FixedNumber2.prototype.addUnsafe = function(other) {
@@ -4300,7 +4298,7 @@ var require_fixednumber = __commonJS({
             comps.push("0");
           }
           if (decimals < 0 || decimals > 80 || decimals % 1) {
-            logger2.throwArgumentError("invalid decimal count", "decimals", decimals);
+            logger.throwArgumentError("invalid decimal count", "decimals", decimals);
           }
           if (comps[1].length <= decimals) {
             return this;
@@ -4323,7 +4321,7 @@ var require_fixednumber = __commonJS({
             return this._hex;
           }
           if (width % 8) {
-            logger2.throwArgumentError("invalid byte width", "width", width);
+            logger.throwArgumentError("invalid byte width", "width", width);
           }
           var hex = bignumber_1.BigNumber.from(this._hex).fromTwos(this.format.width).toTwos(width).toHexString();
           return (0, bytes_1.hexZeroPad)(hex, width / 8);
@@ -4396,7 +4394,7 @@ var require_fixednumber = __commonJS({
               throw error;
             }
           }
-          return logger2.throwArgumentError("invalid FixedNumber value", "value", value);
+          return logger.throwArgumentError("invalid FixedNumber value", "value", value);
         };
         FixedNumber2.isFixedNumber = function(value) {
           return !!(value && value._isFixedNumber);
@@ -4564,15 +4562,15 @@ var require_lib4 = __commonJS({
     exports2.Description = exports2.deepCopy = exports2.shallowCopy = exports2.checkProperties = exports2.resolveProperties = exports2.getStatic = exports2.defineReadOnly = void 0;
     var logger_1 = require_lib();
     var _version_1 = require_version4();
-    var logger2 = new logger_1.Logger(_version_1.version);
-    function defineReadOnly2(object, name, value) {
+    var logger = new logger_1.Logger(_version_1.version);
+    function defineReadOnly(object, name, value) {
       Object.defineProperty(object, name, {
         enumerable: true,
         value,
         writable: false
       });
     }
-    exports2.defineReadOnly = defineReadOnly2;
+    exports2.defineReadOnly = defineReadOnly;
     function getStatic(ctor, key) {
       for (var i = 0; i < 32; i++) {
         if (ctor[key]) {
@@ -4612,11 +4610,11 @@ var require_lib4 = __commonJS({
     exports2.resolveProperties = resolveProperties;
     function checkProperties(object, properties) {
       if (!object || typeof object !== "object") {
-        logger2.throwArgumentError("invalid object", "object", object);
+        logger.throwArgumentError("invalid object", "object", object);
       }
       Object.keys(object).forEach(function(key) {
         if (!properties[key]) {
-          logger2.throwArgumentError("invalid object key - " + key, "transaction:" + key, object);
+          logger.throwArgumentError("invalid object key - " + key, "transaction:" + key, object);
         }
       });
     }
@@ -4652,7 +4650,7 @@ var require_lib4 = __commonJS({
         }
         return true;
       }
-      return logger2.throwArgumentError("Cannot deepCopy " + typeof object, "object", object);
+      return logger.throwArgumentError("Cannot deepCopy " + typeof object, "object", object);
     }
     function _deepCopy(object) {
       if (_isFrozen(object)) {
@@ -4670,11 +4668,11 @@ var require_lib4 = __commonJS({
           if (value === void 0) {
             continue;
           }
-          defineReadOnly2(result, key, deepCopy(value));
+          defineReadOnly(result, key, deepCopy(value));
         }
         return result;
       }
-      return logger2.throwArgumentError("Cannot deepCopy " + typeof object, "object", object);
+      return logger.throwArgumentError("Cannot deepCopy " + typeof object, "object", object);
     }
     function deepCopy(object) {
       return _deepCopy(object);
@@ -4736,7 +4734,7 @@ var require_fragments = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version5();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var _constructorGuard = {};
     var ModifiersBytes = { calldata: true, memory: true, storage: true };
     var ModifiersNest = { calldata: true, memory: true };
@@ -4755,14 +4753,14 @@ var require_fragments = __commonJS({
         }
       }
       if (ModifiersBytes[name] || name === "payable") {
-        logger2.throwArgumentError("invalid modifier", "name", name);
+        logger.throwArgumentError("invalid modifier", "name", name);
       }
       return false;
     }
     function parseParamType(param, allowIndexed) {
       var originalParam = param;
       function throwError(i2) {
-        logger2.throwArgumentError("unexpected character at position " + i2, "param", param);
+        logger.throwArgumentError("unexpected character at position " + i2, "param", param);
       }
       param = param.replace(/\s/g, " ");
       function newNode(parent2) {
@@ -4891,7 +4889,7 @@ var require_fragments = __commonJS({
         }
       }
       if (node.parent) {
-        logger2.throwArgumentError("unexpected eof", "param", param);
+        logger.throwArgumentError("unexpected eof", "param", param);
       }
       delete parent.state;
       if (node.name === "indexed") {
@@ -4930,7 +4928,7 @@ var require_fragments = __commonJS({
       function() {
         function ParamType2(constructorGuard, params) {
           if (constructorGuard !== _constructorGuard) {
-            logger2.throwError("use fromString", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("use fromString", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "new ParamType()"
             });
           }
@@ -4960,7 +4958,7 @@ var require_fragments = __commonJS({
             format = exports2.FormatTypes.sighash;
           }
           if (!exports2.FormatTypes[format]) {
-            logger2.throwArgumentError("invalid format type", "format", format);
+            logger.throwArgumentError("invalid format type", "format", format);
           }
           if (format === exports2.FormatTypes.json) {
             var result_1 = {
@@ -5048,7 +5046,7 @@ var require_fragments = __commonJS({
       function() {
         function Fragment2(constructorGuard, params) {
           if (constructorGuard !== _constructorGuard) {
-            logger2.throwError("use a static from method", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("use a static from method", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "new Fragment()"
             });
           }
@@ -5082,7 +5080,7 @@ var require_fragments = __commonJS({
             case "receive":
               return null;
           }
-          return logger2.throwArgumentError("invalid fragment object", "value", value);
+          return logger.throwArgumentError("invalid fragment object", "value", value);
         };
         Fragment2.fromString = function(value) {
           value = value.replace(/\s/g, " ");
@@ -5097,7 +5095,7 @@ var require_fragments = __commonJS({
           } else if (value.split(" ")[0] === "error") {
             return ErrorFragment.fromString(value.substring(5).trim());
           }
-          return logger2.throwArgumentError("unsupported fragment", "value", value);
+          return logger.throwArgumentError("unsupported fragment", "value", value);
         };
         Fragment2.isFragment = function(value) {
           return !!(value && value._isFragment);
@@ -5118,7 +5116,7 @@ var require_fragments = __commonJS({
             format = exports2.FormatTypes.sighash;
           }
           if (!exports2.FormatTypes[format]) {
-            logger2.throwArgumentError("invalid format type", "format", format);
+            logger.throwArgumentError("invalid format type", "format", format);
           }
           if (format === exports2.FormatTypes.json) {
             return JSON.stringify({
@@ -5155,7 +5153,7 @@ var require_fragments = __commonJS({
             return value;
           }
           if (value.type !== "event") {
-            logger2.throwArgumentError("invalid event object", "value", value);
+            logger.throwArgumentError("invalid event object", "value", value);
           }
           var params = {
             name: verifyIdentifier(value.name),
@@ -5168,7 +5166,7 @@ var require_fragments = __commonJS({
         EventFragment2.fromString = function(value) {
           var match = value.match(regexParen);
           if (!match) {
-            logger2.throwArgumentError("invalid event string", "value", value);
+            logger.throwArgumentError("invalid event string", "value", value);
           }
           var anonymous = false;
           match[3].split(" ").forEach(function(modifier) {
@@ -5179,7 +5177,7 @@ var require_fragments = __commonJS({
               case "":
                 break;
               default:
-                logger2.warn("unknown modifier: " + modifier);
+                logger.warn("unknown modifier: " + modifier);
             }
           });
           return EventFragment2.fromObject({
@@ -5201,10 +5199,10 @@ var require_fragments = __commonJS({
       var comps = value.split("@");
       if (comps.length !== 1) {
         if (comps.length > 2) {
-          logger2.throwArgumentError("invalid human-readable ABI signature", "value", value);
+          logger.throwArgumentError("invalid human-readable ABI signature", "value", value);
         }
         if (!comps[1].match(/^[0-9]+$/)) {
-          logger2.throwArgumentError("invalid human-readable ABI signature gas", "value", value);
+          logger.throwArgumentError("invalid human-readable ABI signature gas", "value", value);
         }
         params.gas = bignumber_1.BigNumber.from(comps[1]);
         return comps[0];
@@ -5256,19 +5254,19 @@ var require_fragments = __commonJS({
         result.constant = result.stateMutability === "view" || result.stateMutability === "pure";
         if (value.constant != null) {
           if (!!value.constant !== result.constant) {
-            logger2.throwArgumentError("cannot have constant function with mutability " + result.stateMutability, "value", value);
+            logger.throwArgumentError("cannot have constant function with mutability " + result.stateMutability, "value", value);
           }
         }
         result.payable = result.stateMutability === "payable";
         if (value.payable != null) {
           if (!!value.payable !== result.payable) {
-            logger2.throwArgumentError("cannot have payable function with mutability " + result.stateMutability, "value", value);
+            logger.throwArgumentError("cannot have payable function with mutability " + result.stateMutability, "value", value);
           }
         }
       } else if (value.payable != null) {
         result.payable = !!value.payable;
         if (value.constant == null && !result.payable && value.type !== "constructor") {
-          logger2.throwArgumentError("unable to determine stateMutability", "value", value);
+          logger.throwArgumentError("unable to determine stateMutability", "value", value);
         }
         result.constant = !!value.constant;
         if (result.constant) {
@@ -5277,14 +5275,14 @@ var require_fragments = __commonJS({
           result.stateMutability = result.payable ? "payable" : "nonpayable";
         }
         if (result.payable && result.constant) {
-          logger2.throwArgumentError("cannot have constant payable function", "value", value);
+          logger.throwArgumentError("cannot have constant payable function", "value", value);
         }
       } else if (value.constant != null) {
         result.constant = !!value.constant;
         result.payable = !result.constant;
         result.stateMutability = result.constant ? "view" : "payable";
       } else if (value.type !== "constructor") {
-        logger2.throwArgumentError("unable to determine stateMutability", "value", value);
+        logger.throwArgumentError("unable to determine stateMutability", "value", value);
       }
       return result;
     }
@@ -5300,7 +5298,7 @@ var require_fragments = __commonJS({
             format = exports2.FormatTypes.sighash;
           }
           if (!exports2.FormatTypes[format]) {
-            logger2.throwArgumentError("invalid format type", "format", format);
+            logger.throwArgumentError("invalid format type", "format", format);
           }
           if (format === exports2.FormatTypes.json) {
             return JSON.stringify({
@@ -5314,7 +5312,7 @@ var require_fragments = __commonJS({
             });
           }
           if (format === exports2.FormatTypes.sighash) {
-            logger2.throwError("cannot format a constructor for sighash", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("cannot format a constructor for sighash", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "format(sighash)"
             });
           }
@@ -5337,11 +5335,11 @@ var require_fragments = __commonJS({
             return value;
           }
           if (value.type !== "constructor") {
-            logger2.throwArgumentError("invalid constructor object", "value", value);
+            logger.throwArgumentError("invalid constructor object", "value", value);
           }
           var state = verifyState(value);
           if (state.constant) {
-            logger2.throwArgumentError("constructor cannot be constant", "value", value);
+            logger.throwArgumentError("constructor cannot be constant", "value", value);
           }
           var params = {
             name: null,
@@ -5358,7 +5356,7 @@ var require_fragments = __commonJS({
           value = parseGas(value, params);
           var parens = value.match(regexParen);
           if (!parens || parens[1].trim() !== "constructor") {
-            logger2.throwArgumentError("invalid constructor string", "value", value);
+            logger.throwArgumentError("invalid constructor string", "value", value);
           }
           params.inputs = parseParams(parens[2].trim(), false);
           parseModifiers(parens[3].trim(), params);
@@ -5383,7 +5381,7 @@ var require_fragments = __commonJS({
             format = exports2.FormatTypes.sighash;
           }
           if (!exports2.FormatTypes[format]) {
-            logger2.throwArgumentError("invalid format type", "format", format);
+            logger.throwArgumentError("invalid format type", "format", format);
           }
           if (format === exports2.FormatTypes.json) {
             return JSON.stringify({
@@ -5438,7 +5436,7 @@ var require_fragments = __commonJS({
             return value;
           }
           if (value.type !== "function") {
-            logger2.throwArgumentError("invalid function object", "value", value);
+            logger.throwArgumentError("invalid function object", "value", value);
           }
           var state = verifyState(value);
           var params = {
@@ -5458,11 +5456,11 @@ var require_fragments = __commonJS({
           value = parseGas(value, params);
           var comps = value.split(" returns ");
           if (comps.length > 2) {
-            logger2.throwArgumentError("invalid function string", "value", value);
+            logger.throwArgumentError("invalid function string", "value", value);
           }
           var parens = comps[0].match(regexParen);
           if (!parens) {
-            logger2.throwArgumentError("invalid function signature", "value", value);
+            logger.throwArgumentError("invalid function signature", "value", value);
           }
           params.name = parens[1].trim();
           if (params.name) {
@@ -5473,7 +5471,7 @@ var require_fragments = __commonJS({
           if (comps.length > 1) {
             var returns = comps[1].match(regexParen);
             if (returns[1].trim() != "" || returns[3].trim() != "") {
-              logger2.throwArgumentError("unexpected tokens", "value", value);
+              logger.throwArgumentError("unexpected tokens", "value", value);
             }
             params.outputs = parseParams(returns[2], false);
           } else {
@@ -5491,7 +5489,7 @@ var require_fragments = __commonJS({
     function checkForbidden(fragment) {
       var sig = fragment.format();
       if (sig === "Error(string)" || sig === "Panic(uint256)") {
-        logger2.throwArgumentError("cannot specify user defined " + sig + " error", "fragment", fragment);
+        logger.throwArgumentError("cannot specify user defined " + sig + " error", "fragment", fragment);
       }
       return fragment;
     }
@@ -5507,7 +5505,7 @@ var require_fragments = __commonJS({
             format = exports2.FormatTypes.sighash;
           }
           if (!exports2.FormatTypes[format]) {
-            logger2.throwArgumentError("invalid format type", "format", format);
+            logger.throwArgumentError("invalid format type", "format", format);
           }
           if (format === exports2.FormatTypes.json) {
             return JSON.stringify({
@@ -5538,7 +5536,7 @@ var require_fragments = __commonJS({
             return value;
           }
           if (value.type !== "error") {
-            logger2.throwArgumentError("invalid error object", "value", value);
+            logger.throwArgumentError("invalid error object", "value", value);
           }
           var params = {
             type: value.type,
@@ -5551,7 +5549,7 @@ var require_fragments = __commonJS({
           var params = { type: "error" };
           var parens = value.match(regexParen);
           if (!parens) {
-            logger2.throwArgumentError("invalid error signature", "value", value);
+            logger.throwArgumentError("invalid error signature", "value", value);
           }
           params.name = parens[1].trim();
           if (params.name) {
@@ -5578,7 +5576,7 @@ var require_fragments = __commonJS({
     var regexIdentifier = new RegExp("^[a-zA-Z$_][a-zA-Z0-9$_]*$");
     function verifyIdentifier(value) {
       if (!value || !value.match(regexIdentifier)) {
-        logger2.throwArgumentError('invalid identifier "' + value + '"', "value", value);
+        logger.throwArgumentError('invalid identifier "' + value + '"', "value", value);
       }
       return value;
     }
@@ -5600,7 +5598,7 @@ var require_fragments = __commonJS({
           } else if (c === ")") {
             depth--;
             if (depth === -1) {
-              logger2.throwArgumentError("unbalanced parenthesis", "value", value);
+              logger.throwArgumentError("unbalanced parenthesis", "value", value);
             }
           }
         }
@@ -5624,7 +5622,7 @@ var require_abstract_coder = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version5();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function checkResultErrors(result) {
       var errors = [];
       var checkErrors = function(path, object) {
@@ -5655,7 +5653,7 @@ var require_abstract_coder = __commonJS({
           this.dynamic = dynamic;
         }
         Coder2.prototype._throwError = function(message, value) {
-          logger2.throwArgumentError(message, this.localName, value);
+          logger.throwArgumentError(message, this.localName, value);
         };
         return Coder2;
       }()
@@ -5703,7 +5701,7 @@ var require_abstract_coder = __commonJS({
         Writer3.prototype._getValue = function(value) {
           var bytes = (0, bytes_1.arrayify)(bignumber_1.BigNumber.from(value));
           if (bytes.length > this.wordSize) {
-            logger2.throwError("value out-of-bounds", logger_1.Logger.errors.BUFFER_OVERRUN, {
+            logger.throwError("value out-of-bounds", logger_1.Logger.errors.BUFFER_OVERRUN, {
               length: this.wordSize,
               offset: bytes.length
             });
@@ -5772,7 +5770,7 @@ var require_abstract_coder = __commonJS({
             if (this.allowLoose && loose && this._offset + length <= this._data.length) {
               alignedLength = length;
             } else {
-              logger2.throwError("data out-of-bounds", logger_1.Logger.errors.BUFFER_OVERRUN, {
+              logger.throwError("data out-of-bounds", logger_1.Logger.errors.BUFFER_OVERRUN, {
                 length: this._data.length,
                 offset: this._offset + alignedLength
               });
@@ -6485,7 +6483,7 @@ var require_lib6 = __commonJS({
     var bytes_1 = require_lib2();
     var logger_1 = require_lib();
     var _version_1 = require_version6();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function arrayifyInteger(value) {
       var result = [];
       while (value) {
@@ -6516,7 +6514,7 @@ var require_lib6 = __commonJS({
         return length_1.concat(payload_1);
       }
       if (!(0, bytes_1.isBytesLike)(object)) {
-        logger2.throwArgumentError("RLP object must be BytesLike", "object", object);
+        logger.throwArgumentError("RLP object must be BytesLike", "object", object);
       }
       var data = Array.prototype.slice.call((0, bytes_1.arrayify)(object));
       if (data.length === 1 && data[0] <= 127) {
@@ -6540,46 +6538,46 @@ var require_lib6 = __commonJS({
         result.push(decoded.result);
         childOffset += decoded.consumed;
         if (childOffset > offset + 1 + length) {
-          logger2.throwError("child data too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+          logger.throwError("child data too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
         }
       }
       return { consumed: 1 + length, result };
     }
     function _decode(data, offset) {
       if (data.length === 0) {
-        logger2.throwError("data too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+        logger.throwError("data too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
       }
       if (data[offset] >= 248) {
         var lengthLength = data[offset] - 247;
         if (offset + 1 + lengthLength > data.length) {
-          logger2.throwError("data short segment too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+          logger.throwError("data short segment too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
         }
         var length_2 = unarrayifyInteger(data, offset + 1, lengthLength);
         if (offset + 1 + lengthLength + length_2 > data.length) {
-          logger2.throwError("data long segment too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+          logger.throwError("data long segment too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
         }
         return _decodeChildren(data, offset, offset + 1 + lengthLength, lengthLength + length_2);
       } else if (data[offset] >= 192) {
         var length_3 = data[offset] - 192;
         if (offset + 1 + length_3 > data.length) {
-          logger2.throwError("data array too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+          logger.throwError("data array too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
         }
         return _decodeChildren(data, offset, offset + 1, length_3);
       } else if (data[offset] >= 184) {
         var lengthLength = data[offset] - 183;
         if (offset + 1 + lengthLength > data.length) {
-          logger2.throwError("data array too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+          logger.throwError("data array too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
         }
         var length_4 = unarrayifyInteger(data, offset + 1, lengthLength);
         if (offset + 1 + lengthLength + length_4 > data.length) {
-          logger2.throwError("data array too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+          logger.throwError("data array too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
         }
         var result = (0, bytes_1.hexlify)(data.slice(offset + 1 + lengthLength, offset + 1 + lengthLength + length_4));
         return { consumed: 1 + lengthLength + length_4, result };
       } else if (data[offset] >= 128) {
         var length_5 = data[offset] - 128;
         if (offset + 1 + length_5 > data.length) {
-          logger2.throwError("data too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
+          logger.throwError("data too short", logger_1.Logger.errors.BUFFER_OVERRUN, {});
         }
         var result = (0, bytes_1.hexlify)(data.slice(offset + 1, offset + 1 + length_5));
         return { consumed: 1 + length_5, result };
@@ -6590,7 +6588,7 @@ var require_lib6 = __commonJS({
       var bytes = (0, bytes_1.arrayify)(data);
       var decoded = _decode(bytes, 0);
       if (decoded.consumed !== bytes.length) {
-        logger2.throwArgumentError("invalid rlp data", "data", data);
+        logger.throwArgumentError("invalid rlp data", "data", data);
       }
       return decoded.result;
     }
@@ -6620,10 +6618,10 @@ var require_lib7 = __commonJS({
     var rlp_1 = require_lib6();
     var logger_1 = require_lib();
     var _version_1 = require_version7();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function getChecksumAddress(address) {
       if (!(0, bytes_1.isHexString)(address, 20)) {
-        logger2.throwArgumentError("invalid address", "address", address);
+        logger.throwArgumentError("invalid address", "address", address);
       }
       address = address.toLowerCase();
       var chars = address.substring(2).split("");
@@ -6678,7 +6676,7 @@ var require_lib7 = __commonJS({
     function getAddress(address) {
       var result = null;
       if (typeof address !== "string") {
-        logger2.throwArgumentError("invalid address", "address", address);
+        logger.throwArgumentError("invalid address", "address", address);
       }
       if (address.match(/^(0x)?[0-9a-fA-F]{40}$/)) {
         if (address.substring(0, 2) !== "0x") {
@@ -6686,11 +6684,11 @@ var require_lib7 = __commonJS({
         }
         result = getChecksumAddress(address);
         if (address.match(/([A-F].*[a-f])|([a-f].*[A-F])/) && result !== address) {
-          logger2.throwArgumentError("bad address checksum", "address", address);
+          logger.throwArgumentError("bad address checksum", "address", address);
         }
       } else if (address.match(/^XE[0-9]{2}[0-9A-Za-z]{30,31}$/)) {
         if (address.substring(2, 4) !== ibanChecksum(address)) {
-          logger2.throwArgumentError("bad icap checksum", "address", address);
+          logger.throwArgumentError("bad icap checksum", "address", address);
         }
         result = (0, bignumber_1._base36To16)(address.substring(4));
         while (result.length < 40) {
@@ -6698,7 +6696,7 @@ var require_lib7 = __commonJS({
         }
         result = getChecksumAddress("0x" + result);
       } else {
-        logger2.throwArgumentError("invalid address", "address", address);
+        logger.throwArgumentError("invalid address", "address", address);
       }
       return result;
     }
@@ -6725,7 +6723,7 @@ var require_lib7 = __commonJS({
       try {
         from = getAddress(transaction.from);
       } catch (error) {
-        logger2.throwArgumentError("missing from address", "transaction", transaction);
+        logger.throwArgumentError("missing from address", "transaction", transaction);
       }
       var nonce = (0, bytes_1.stripZeros)((0, bytes_1.arrayify)(bignumber_1.BigNumber.from(transaction.nonce).toHexString()));
       return getAddress((0, bytes_1.hexDataSlice)((0, keccak256_1.keccak256)((0, rlp_1.encode)([from, nonce])), 12));
@@ -6733,10 +6731,10 @@ var require_lib7 = __commonJS({
     exports2.getContractAddress = getContractAddress;
     function getCreate2Address(from, salt, initCodeHash) {
       if ((0, bytes_1.hexDataLength)(salt) !== 32) {
-        logger2.throwArgumentError("salt must be 32 bytes", "salt", salt);
+        logger.throwArgumentError("salt must be 32 bytes", "salt", salt);
       }
       if ((0, bytes_1.hexDataLength)(initCodeHash) !== 32) {
-        logger2.throwArgumentError("initCodeHash must be 32 bytes", "initCodeHash", initCodeHash);
+        logger.throwArgumentError("initCodeHash must be 32 bytes", "initCodeHash", initCodeHash);
       }
       return getAddress((0, bytes_1.hexDataSlice)((0, keccak256_1.keccak256)((0, bytes_1.concat)(["0xff", getAddress(from), salt, initCodeHash])), 12));
     }
@@ -6884,7 +6882,7 @@ var require_array = __commonJS({
     exports2.ArrayCoder = exports2.unpack = exports2.pack = void 0;
     var logger_1 = require_lib();
     var _version_1 = require_version5();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var abstract_coder_1 = require_abstract_coder();
     var anonymous_1 = require_anonymous();
     function pack(writer, coders, values) {
@@ -6896,14 +6894,14 @@ var require_array = __commonJS({
         arrayValues = coders.map(function(coder) {
           var name = coder.localName;
           if (!name) {
-            logger2.throwError("cannot encode object for signature with missing names", logger_1.Logger.errors.INVALID_ARGUMENT, {
+            logger.throwError("cannot encode object for signature with missing names", logger_1.Logger.errors.INVALID_ARGUMENT, {
               argument: "values",
               coder,
               value: values
             });
           }
           if (unique_1[name]) {
-            logger2.throwError("cannot encode object for signature with duplicate names", logger_1.Logger.errors.INVALID_ARGUMENT, {
+            logger.throwError("cannot encode object for signature with duplicate names", logger_1.Logger.errors.INVALID_ARGUMENT, {
               argument: "values",
               coder,
               value: values
@@ -6913,10 +6911,10 @@ var require_array = __commonJS({
           return values[name];
         });
       } else {
-        logger2.throwArgumentError("invalid tuple value", "tuple", values);
+        logger.throwArgumentError("invalid tuple value", "tuple", values);
       }
       if (coders.length !== arrayValues.length) {
-        logger2.throwArgumentError("types/value length mismatch", "tuple", values);
+        logger.throwArgumentError("types/value length mismatch", "tuple", values);
       }
       var staticWriter = new abstract_coder_1.Writer(writer.wordSize);
       var dynamicWriter = new abstract_coder_1.Writer(writer.wordSize);
@@ -7058,7 +7056,7 @@ var require_array = __commonJS({
             count = value.length;
             writer.writeValue(value.length);
           }
-          logger2.checkArgumentCount(value.length, count, "coder array" + (this.localName ? " " + this.localName : ""));
+          logger.checkArgumentCount(value.length, count, "coder array" + (this.localName ? " " + this.localName : ""));
           var coders = [];
           for (var i = 0; i < value.length; i++) {
             coders.push(this.coder);
@@ -7070,7 +7068,7 @@ var require_array = __commonJS({
           if (count === -1) {
             count = reader.readValue().toNumber();
             if (count * 32 > reader._data.length) {
-              logger2.throwError("insufficient data length", logger_1.Logger.errors.BUFFER_OVERRUN, {
+              logger.throwError("insufficient data length", logger_1.Logger.errors.BUFFER_OVERRUN, {
                 length: reader._data.length,
                 count
               });
@@ -7521,7 +7519,7 @@ var require_utf8 = __commonJS({
     var bytes_1 = require_lib2();
     var logger_1 = require_lib();
     var _version_1 = require_version8();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var UnicodeNormalizationForm;
     (function(UnicodeNormalizationForm2) {
       UnicodeNormalizationForm2["current"] = "";
@@ -7541,7 +7539,7 @@ var require_utf8 = __commonJS({
       Utf8ErrorReason2["OVERLONG"] = "overlong representation";
     })(Utf8ErrorReason = exports2.Utf8ErrorReason || (exports2.Utf8ErrorReason = {}));
     function errorFunc(reason, offset, bytes, output, badCodepoint) {
-      return logger2.throwArgumentError("invalid codepoint at offset " + offset + "; " + reason, "bytes", bytes);
+      return logger.throwArgumentError("invalid codepoint at offset " + offset + "; " + reason, "bytes", bytes);
     }
     function ignoreFunc(reason, offset, bytes, output, badCodepoint) {
       if (reason === Utf8ErrorReason.BAD_PREFIX || reason === Utf8ErrorReason.UNEXPECTED_CONTINUE) {
@@ -7644,7 +7642,7 @@ var require_utf8 = __commonJS({
         form = UnicodeNormalizationForm.current;
       }
       if (form != UnicodeNormalizationForm.current) {
-        logger2.checkNormalize();
+        logger.checkNormalize();
         str2 = str2.normalize(form);
       }
       var result = [];
@@ -8149,7 +8147,7 @@ var require_abi_coder = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version5();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var abstract_coder_1 = require_abstract_coder();
     var address_1 = require_address();
     var array_1 = require_array();
@@ -8193,7 +8191,7 @@ var require_abi_coder = __commonJS({
           if (match) {
             var size = parseInt(match[2] || "256");
             if (size === 0 || size > 256 || size % 8 !== 0) {
-              logger2.throwArgumentError("invalid " + match[1] + " bit length", "param", param);
+              logger.throwArgumentError("invalid " + match[1] + " bit length", "param", param);
             }
             return new number_1.NumberCoder(size / 8, match[1] === "int", param.name);
           }
@@ -8201,11 +8199,11 @@ var require_abi_coder = __commonJS({
           if (match) {
             var size = parseInt(match[1]);
             if (size === 0 || size > 32) {
-              logger2.throwArgumentError("invalid bytes length", "param", param);
+              logger.throwArgumentError("invalid bytes length", "param", param);
             }
             return new fixed_bytes_1.FixedBytesCoder(size, param.name);
           }
-          return logger2.throwArgumentError("invalid type", "type", param.type);
+          return logger.throwArgumentError("invalid type", "type", param.type);
         };
         AbiCoder2.prototype._getWordSize = function() {
           return 32;
@@ -8227,7 +8225,7 @@ var require_abi_coder = __commonJS({
         AbiCoder2.prototype.encode = function(types, values) {
           var _this = this;
           if (types.length !== values.length) {
-            logger2.throwError("types/values length mismatch", logger_1.Logger.errors.INVALID_ARGUMENT, {
+            logger.throwError("types/values length mismatch", logger_1.Logger.errors.INVALID_ARGUMENT, {
               count: { types: types.length, values: values.length },
               value: { types, values }
             });
@@ -8717,7 +8715,7 @@ var require_namehash = __commonJS({
     var keccak256_1 = require_lib5();
     var logger_1 = require_lib();
     var _version_1 = require_version9();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var lib_1 = require_lib11();
     var Zeros = new Uint8Array(32);
     Zeros.fill(0);
@@ -8763,7 +8761,7 @@ var require_namehash = __commonJS({
     exports2.isValidName = isValidName;
     function namehash(name) {
       if (typeof name !== "string") {
-        logger2.throwArgumentError("invalid ENS name; not a string", "name", name);
+        logger.throwArgumentError("invalid ENS name; not a string", "name", name);
       }
       var result = Zeros;
       var comps = ensNameSplit(name);
@@ -8928,7 +8926,7 @@ var require_typed_data = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version9();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var id_1 = require_id();
     var padding = new Uint8Array(32);
     padding.fill(0);
@@ -8963,7 +8961,7 @@ var require_typed_data = __commonJS({
     function checkString(key) {
       return function(value) {
         if (typeof value !== "string") {
-          logger2.throwArgumentError("invalid domain value for " + JSON.stringify(key), "domain." + key, value);
+          logger.throwArgumentError("invalid domain value for " + JSON.stringify(key), "domain." + key, value);
         }
         return value;
       };
@@ -8976,14 +8974,14 @@ var require_typed_data = __commonJS({
           return bignumber_1.BigNumber.from(value).toString();
         } catch (error) {
         }
-        return logger2.throwArgumentError('invalid domain value for "chainId"', "domain.chainId", value);
+        return logger.throwArgumentError('invalid domain value for "chainId"', "domain.chainId", value);
       },
       verifyingContract: function(value) {
         try {
           return (0, address_1.getAddress)(value).toLowerCase();
         } catch (error) {
         }
-        return logger2.throwArgumentError('invalid domain value "verifyingContract"', "domain.verifyingContract", value);
+        return logger.throwArgumentError('invalid domain value "verifyingContract"', "domain.verifyingContract", value);
       },
       salt: function(value) {
         try {
@@ -8994,7 +8992,7 @@ var require_typed_data = __commonJS({
           return (0, bytes_1.hexlify)(bytes);
         } catch (error) {
         }
-        return logger2.throwArgumentError('invalid domain value "salt"', "domain.salt", value);
+        return logger.throwArgumentError('invalid domain value "salt"', "domain.salt", value);
       }
     };
     function getBaseEncoder(type) {
@@ -9004,14 +9002,14 @@ var require_typed_data = __commonJS({
           var signed = match[1] === "";
           var width = parseInt(match[2] || "256");
           if (width % 8 !== 0 || width > 256 || match[2] && match[2] !== String(width)) {
-            logger2.throwArgumentError("invalid numeric width", "type", type);
+            logger.throwArgumentError("invalid numeric width", "type", type);
           }
           var boundsUpper_1 = MaxUint256.mask(signed ? width - 1 : width);
           var boundsLower_1 = signed ? boundsUpper_1.add(One).mul(NegativeOne) : Zero;
           return function(value) {
             var v = bignumber_1.BigNumber.from(value);
             if (v.lt(boundsLower_1) || v.gt(boundsUpper_1)) {
-              logger2.throwArgumentError("value out-of-bounds for " + type, "value", value);
+              logger.throwArgumentError("value out-of-bounds for " + type, "value", value);
             }
             return (0, bytes_1.hexZeroPad)(v.toTwos(256).toHexString(), 32);
           };
@@ -9022,12 +9020,12 @@ var require_typed_data = __commonJS({
         if (match) {
           var width_1 = parseInt(match[1]);
           if (width_1 === 0 || width_1 > 32 || match[1] !== String(width_1)) {
-            logger2.throwArgumentError("invalid bytes width", "type", type);
+            logger.throwArgumentError("invalid bytes width", "type", type);
           }
           return function(value) {
             var bytes = (0, bytes_1.arrayify)(value);
             if (bytes.length !== width_1) {
-              logger2.throwArgumentError("invalid length for " + type, "value", value);
+              logger.throwArgumentError("invalid length for " + type, "value", value);
             }
             return hexPadRight(value);
           };
@@ -9078,19 +9076,19 @@ var require_typed_data = __commonJS({
             var uniqueNames = {};
             types[name_12].forEach(function(field) {
               if (uniqueNames[field.name]) {
-                logger2.throwArgumentError("duplicate variable name " + JSON.stringify(field.name) + " in " + JSON.stringify(name_12), "types", types);
+                logger.throwArgumentError("duplicate variable name " + JSON.stringify(field.name) + " in " + JSON.stringify(name_12), "types", types);
               }
               uniqueNames[field.name] = true;
               var baseType = field.type.match(/^([^\x5b]*)(\x5b|$)/)[1];
               if (baseType === name_12) {
-                logger2.throwArgumentError("circular type reference to " + JSON.stringify(baseType), "types", types);
+                logger.throwArgumentError("circular type reference to " + JSON.stringify(baseType), "types", types);
               }
               var encoder = getBaseEncoder(baseType);
               if (encoder) {
                 return;
               }
               if (!parents[baseType]) {
-                logger2.throwArgumentError("unknown type " + JSON.stringify(baseType), "types", types);
+                logger.throwArgumentError("unknown type " + JSON.stringify(baseType), "types", types);
               }
               parents[baseType].push(name_12);
               links[name_12][baseType] = true;
@@ -9103,16 +9101,16 @@ var require_typed_data = __commonJS({
             return parents[n].length === 0;
           });
           if (primaryTypes.length === 0) {
-            logger2.throwArgumentError("missing primary type", "types", types);
+            logger.throwArgumentError("missing primary type", "types", types);
           } else if (primaryTypes.length > 1) {
-            logger2.throwArgumentError("ambiguous primary types or unused types: " + primaryTypes.map(function(t) {
+            logger.throwArgumentError("ambiguous primary types or unused types: " + primaryTypes.map(function(t) {
               return JSON.stringify(t);
             }).join(", "), "types", types);
           }
           (0, properties_1.defineReadOnly)(this, "primaryType", primaryTypes[0]);
           function checkCircular(type, found) {
             if (found[type]) {
-              logger2.throwArgumentError("circular type reference to " + JSON.stringify(type), "types", types);
+              logger.throwArgumentError("circular type reference to " + JSON.stringify(type), "types", types);
             }
             found[type] = true;
             Object.keys(links[type]).forEach(function(child) {
@@ -9157,7 +9155,7 @@ var require_typed_data = __commonJS({
             var length_1 = parseInt(match[3]);
             return function(value) {
               if (length_1 >= 0 && value.length !== length_1) {
-                logger2.throwArgumentError("array length mismatch; expected length ${ arrayLength }", "value", value);
+                logger.throwArgumentError("array length mismatch; expected length ${ arrayLength }", "value", value);
               }
               var result = value.map(subEncoder_1);
               if (_this._types[subtype_1]) {
@@ -9182,12 +9180,12 @@ var require_typed_data = __commonJS({
               return (0, bytes_1.hexConcat)(values);
             };
           }
-          return logger2.throwArgumentError("unknown type: " + type, "type", type);
+          return logger.throwArgumentError("unknown type: " + type, "type", type);
         };
         TypedDataEncoder2.prototype.encodeType = function(name) {
           var result = this._types[name];
           if (!result) {
-            logger2.throwArgumentError("unknown type: " + JSON.stringify(name), "name", name);
+            logger.throwArgumentError("unknown type: " + JSON.stringify(name), "name", name);
           }
           return result;
         };
@@ -9216,7 +9214,7 @@ var require_typed_data = __commonJS({
             var subtype_2 = match[1];
             var length_2 = parseInt(match[3]);
             if (length_2 >= 0 && value.length !== length_2) {
-              logger2.throwArgumentError("array length mismatch; expected length ${ arrayLength }", "value", value);
+              logger.throwArgumentError("array length mismatch; expected length ${ arrayLength }", "value", value);
             }
             return value.map(function(v) {
               return _this._visit(subtype_2, v, callback);
@@ -9230,7 +9228,7 @@ var require_typed_data = __commonJS({
               return accum;
             }, {});
           }
-          return logger2.throwArgumentError("unknown type: " + type, "type", type);
+          return logger.throwArgumentError("unknown type: " + type, "type", type);
         };
         TypedDataEncoder2.prototype.visit = function(value, callback) {
           return this._visit(this.primaryType, value, callback);
@@ -9249,7 +9247,7 @@ var require_typed_data = __commonJS({
           for (var name_3 in domain) {
             var type = domainFieldTypes[name_3];
             if (!type) {
-              logger2.throwArgumentError("invalid typed-data domain key: " + JSON.stringify(name_3), "domain", domain);
+              logger.throwArgumentError("invalid typed-data domain key: " + JSON.stringify(name_3), "domain", domain);
             }
             domainFields.push({ name: name_3, type });
           }
@@ -9334,7 +9332,7 @@ var require_typed_data = __commonJS({
           var encoder = TypedDataEncoder2.from(types);
           var typesWithDomain = (0, properties_1.shallowCopy)(types);
           if (typesWithDomain.EIP712Domain) {
-            logger2.throwArgumentError("types must not contain EIP712Domain type", "types.EIP712Domain", types);
+            logger.throwArgumentError("types must not contain EIP712Domain type", "types.EIP712Domain", types);
           } else {
             typesWithDomain.EIP712Domain = domainTypes;
           }
@@ -9357,11 +9355,11 @@ var require_typed_data = __commonJS({
                   return !!value2;
                 case "string":
                   if (typeof value2 !== "string") {
-                    logger2.throwArgumentError("invalid string", "value", value2);
+                    logger.throwArgumentError("invalid string", "value", value2);
                   }
                   return value2;
               }
-              return logger2.throwArgumentError("unsupported type", "type", type);
+              return logger.throwArgumentError("unsupported type", "type", type);
             })
           };
         };
@@ -9451,7 +9449,7 @@ var require_interface = __commonJS({
     var fragments_1 = require_fragments();
     var logger_1 = require_lib();
     var _version_1 = require_version5();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var LogDescription = (
       /** @class */
       function(_super) {
@@ -9535,7 +9533,7 @@ var require_interface = __commonJS({
             switch (fragment.type) {
               case "constructor":
                 if (_this.deploy) {
-                  logger2.warn("duplicate definition - constructor");
+                  logger.warn("duplicate definition - constructor");
                   return;
                 }
                 (0, properties_1.defineReadOnly)(_this, "deploy", fragment);
@@ -9554,7 +9552,7 @@ var require_interface = __commonJS({
             }
             var signature = fragment.format();
             if (bucket[signature]) {
-              logger2.warn("duplicate definition - " + signature);
+              logger.warn("duplicate definition - " + signature);
               return;
             }
             bucket[signature] = fragment;
@@ -9572,7 +9570,7 @@ var require_interface = __commonJS({
             format = fragments_1.FormatTypes.full;
           }
           if (format === fragments_1.FormatTypes.sighash) {
-            logger2.throwArgumentError("interface does not support formatting sighash", "format", format);
+            logger.throwArgumentError("interface does not support formatting sighash", "format", format);
           }
           var abi = this.fragments.map(function(fragment) {
             return fragment.format(format);
@@ -9603,7 +9601,7 @@ var require_interface = __commonJS({
                 return this.functions[name_1];
               }
             }
-            logger2.throwArgumentError("no matching function", "sighash", nameOrSignatureOrSighash);
+            logger.throwArgumentError("no matching function", "sighash", nameOrSignatureOrSighash);
           }
           if (nameOrSignatureOrSighash.indexOf("(") === -1) {
             var name_2 = nameOrSignatureOrSighash.trim();
@@ -9614,15 +9612,15 @@ var require_interface = __commonJS({
               )[0] === name_2;
             });
             if (matching.length === 0) {
-              logger2.throwArgumentError("no matching function", "name", name_2);
+              logger.throwArgumentError("no matching function", "name", name_2);
             } else if (matching.length > 1) {
-              logger2.throwArgumentError("multiple matching functions", "name", name_2);
+              logger.throwArgumentError("multiple matching functions", "name", name_2);
             }
             return this.functions[matching[0]];
           }
           var result = this.functions[fragments_1.FunctionFragment.fromString(nameOrSignatureOrSighash).format()];
           if (!result) {
-            logger2.throwArgumentError("no matching function", "signature", nameOrSignatureOrSighash);
+            logger.throwArgumentError("no matching function", "signature", nameOrSignatureOrSighash);
           }
           return result;
         };
@@ -9634,7 +9632,7 @@ var require_interface = __commonJS({
                 return this.events[name_3];
               }
             }
-            logger2.throwArgumentError("no matching event", "topichash", topichash);
+            logger.throwArgumentError("no matching event", "topichash", topichash);
           }
           if (nameOrSignatureOrTopic.indexOf("(") === -1) {
             var name_4 = nameOrSignatureOrTopic.trim();
@@ -9645,15 +9643,15 @@ var require_interface = __commonJS({
               )[0] === name_4;
             });
             if (matching.length === 0) {
-              logger2.throwArgumentError("no matching event", "name", name_4);
+              logger.throwArgumentError("no matching event", "name", name_4);
             } else if (matching.length > 1) {
-              logger2.throwArgumentError("multiple matching events", "name", name_4);
+              logger.throwArgumentError("multiple matching events", "name", name_4);
             }
             return this.events[matching[0]];
           }
           var result = this.events[fragments_1.EventFragment.fromString(nameOrSignatureOrTopic).format()];
           if (!result) {
-            logger2.throwArgumentError("no matching event", "signature", nameOrSignatureOrTopic);
+            logger.throwArgumentError("no matching event", "signature", nameOrSignatureOrTopic);
           }
           return result;
         };
@@ -9666,7 +9664,7 @@ var require_interface = __commonJS({
                 return this.errors[name_5];
               }
             }
-            logger2.throwArgumentError("no matching error", "sighash", nameOrSignatureOrSighash);
+            logger.throwArgumentError("no matching error", "sighash", nameOrSignatureOrSighash);
           }
           if (nameOrSignatureOrSighash.indexOf("(") === -1) {
             var name_6 = nameOrSignatureOrSighash.trim();
@@ -9677,15 +9675,15 @@ var require_interface = __commonJS({
               )[0] === name_6;
             });
             if (matching.length === 0) {
-              logger2.throwArgumentError("no matching error", "name", name_6);
+              logger.throwArgumentError("no matching error", "name", name_6);
             } else if (matching.length > 1) {
-              logger2.throwArgumentError("multiple matching errors", "name", name_6);
+              logger.throwArgumentError("multiple matching errors", "name", name_6);
             }
             return this.errors[matching[0]];
           }
           var result = this.errors[fragments_1.FunctionFragment.fromString(nameOrSignatureOrSighash).format()];
           if (!result) {
-            logger2.throwArgumentError("no matching error", "signature", nameOrSignatureOrSighash);
+            logger.throwArgumentError("no matching error", "signature", nameOrSignatureOrSighash);
           }
           return result;
         };
@@ -9724,7 +9722,7 @@ var require_interface = __commonJS({
           }
           var bytes = (0, bytes_1.arrayify)(data);
           if ((0, bytes_1.hexlify)(bytes.slice(0, 4)) !== this.getSighash(fragment)) {
-            logger2.throwArgumentError("data signature does not match error " + fragment.name + ".", "data", (0, bytes_1.hexlify)(bytes));
+            logger.throwArgumentError("data signature does not match error " + fragment.name + ".", "data", (0, bytes_1.hexlify)(bytes));
           }
           return this._decodeParams(fragment.inputs, bytes.slice(4));
         };
@@ -9743,7 +9741,7 @@ var require_interface = __commonJS({
           }
           var bytes = (0, bytes_1.arrayify)(data);
           if ((0, bytes_1.hexlify)(bytes.slice(0, 4)) !== this.getSighash(functionFragment)) {
-            logger2.throwArgumentError("data signature does not match function " + functionFragment.name + ".", "data", (0, bytes_1.hexlify)(bytes));
+            logger.throwArgumentError("data signature does not match function " + functionFragment.name + ".", "data", (0, bytes_1.hexlify)(bytes));
           }
           return this._decodeParams(functionFragment.inputs, bytes.slice(4));
         };
@@ -9800,7 +9798,7 @@ var require_interface = __commonJS({
               break;
             }
           }
-          return logger2.throwError("call revert exception" + message, logger_1.Logger.errors.CALL_EXCEPTION, {
+          return logger.throwError("call revert exception" + message, logger_1.Logger.errors.CALL_EXCEPTION, {
             method: functionFragment.format(),
             data: (0, bytes_1.hexlify)(data),
             errorArgs,
@@ -9821,7 +9819,7 @@ var require_interface = __commonJS({
             eventFragment = this.getEvent(eventFragment);
           }
           if (values.length > eventFragment.inputs.length) {
-            logger2.throwError("too many arguments for " + eventFragment.format(), logger_1.Logger.errors.UNEXPECTED_ARGUMENT, {
+            logger.throwError("too many arguments for " + eventFragment.format(), logger_1.Logger.errors.UNEXPECTED_ARGUMENT, {
               argument: "values",
               value: values
             });
@@ -9851,14 +9849,14 @@ var require_interface = __commonJS({
             var param = eventFragment.inputs[index];
             if (!param.indexed) {
               if (value != null) {
-                logger2.throwArgumentError("cannot filter non-indexed parameters; must be null", "contract." + param.name, value);
+                logger.throwArgumentError("cannot filter non-indexed parameters; must be null", "contract." + param.name, value);
               }
               return;
             }
             if (value == null) {
               topics.push(null);
             } else if (param.baseType === "array" || param.baseType === "tuple") {
-              logger2.throwArgumentError("filtering with tuples or arrays not supported", "contract." + param.name, value);
+              logger.throwArgumentError("filtering with tuples or arrays not supported", "contract." + param.name, value);
             } else if (Array.isArray(value)) {
               topics.push(value.map(function(value2) {
                 return encodeTopic(param, value2);
@@ -9884,7 +9882,7 @@ var require_interface = __commonJS({
             topics.push(this.getEventTopic(eventFragment));
           }
           if (values.length !== eventFragment.inputs.length) {
-            logger2.throwArgumentError("event arguments/values mismatch", "values", values);
+            logger.throwArgumentError("event arguments/values mismatch", "values", values);
           }
           eventFragment.inputs.forEach(function(param, index) {
             var value = values[index];
@@ -9915,7 +9913,7 @@ var require_interface = __commonJS({
           if (topics != null && !eventFragment.anonymous) {
             var topicHash = this.getEventTopic(eventFragment);
             if (!(0, bytes_1.isHexString)(topics[0], 32) || topics[0].toLowerCase() !== topicHash) {
-              logger2.throwError("fragment/topic mismatch", logger_1.Logger.errors.INVALID_ARGUMENT, { argument: "topics[0]", expected: topicHash, value: topics[0] });
+              logger.throwError("fragment/topic mismatch", logger_1.Logger.errors.INVALID_ARGUMENT, { argument: "topics[0]", expected: topicHash, value: topics[0] });
             }
             topics = topics.slice(1);
           }
@@ -10240,7 +10238,7 @@ var require_lib14 = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version10();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var ForkEvent = (
       /** @class */
       function(_super) {
@@ -10262,7 +10260,7 @@ var require_lib14 = __commonJS({
         function BlockForkEvent2(blockHash, expiry) {
           var _this = this;
           if (!(0, bytes_1.isHexString)(blockHash, 32)) {
-            logger2.throwArgumentError("invalid blockHash", "blockHash", blockHash);
+            logger.throwArgumentError("invalid blockHash", "blockHash", blockHash);
           }
           _this = _super.call(this, {
             _isForkEvent: true,
@@ -10283,7 +10281,7 @@ var require_lib14 = __commonJS({
         function TransactionForkEvent2(hash, expiry) {
           var _this = this;
           if (!(0, bytes_1.isHexString)(hash, 32)) {
-            logger2.throwArgumentError("invalid transaction hash", "hash", hash);
+            logger.throwArgumentError("invalid transaction hash", "hash", hash);
           }
           _this = _super.call(this, {
             _isForkEvent: true,
@@ -10304,10 +10302,10 @@ var require_lib14 = __commonJS({
         function TransactionOrderForkEvent2(beforeHash, afterHash, expiry) {
           var _this = this;
           if (!(0, bytes_1.isHexString)(beforeHash, 32)) {
-            logger2.throwArgumentError("invalid transaction hash", "beforeHash", beforeHash);
+            logger.throwArgumentError("invalid transaction hash", "beforeHash", beforeHash);
           }
           if (!(0, bytes_1.isHexString)(afterHash, 32)) {
-            logger2.throwArgumentError("invalid transaction hash", "afterHash", afterHash);
+            logger.throwArgumentError("invalid transaction hash", "afterHash", afterHash);
           }
           _this = _super.call(this, {
             _isForkEvent: true,
@@ -10327,7 +10325,7 @@ var require_lib14 = __commonJS({
       function() {
         function Provider2() {
           var _newTarget = this.constructor;
-          logger2.checkAbstract(_newTarget, Provider2);
+          logger.checkAbstract(_newTarget, Provider2);
           (0, properties_1.defineReadOnly)(this, "_isProvider", true);
         }
         Provider2.prototype.getFeeData = function() {
@@ -10514,7 +10512,7 @@ var require_lib15 = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version11();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var allowedTransactionKeys = [
       "accessList",
       "ccipReadEnabled",
@@ -10541,7 +10539,7 @@ var require_lib15 = __commonJS({
       function() {
         function Signer7() {
           var _newTarget = this.constructor;
-          logger2.checkAbstract(_newTarget, Signer7);
+          logger.checkAbstract(_newTarget, Signer7);
           (0, properties_1.defineReadOnly)(this, "_isSigner", true);
         }
         Signer7.prototype.getBalance = function(blockTag) {
@@ -10681,7 +10679,7 @@ var require_lib15 = __commonJS({
         Signer7.prototype.checkTransaction = function(transaction) {
           for (var key in transaction) {
             if (allowedTransactionKeys.indexOf(key) === -1) {
-              logger2.throwArgumentError("invalid transaction key: " + key, "transaction", transaction);
+              logger.throwArgumentError("invalid transaction key: " + key, "transaction", transaction);
             }
           }
           var tx = (0, properties_1.shallowCopy)(transaction);
@@ -10693,7 +10691,7 @@ var require_lib15 = __commonJS({
               this.getAddress()
             ]).then(function(result) {
               if (result[0].toLowerCase() !== result[1].toLowerCase()) {
-                logger2.throwArgumentError("from address mismatch", "transaction", transaction);
+                logger.throwArgumentError("from address mismatch", "transaction", transaction);
               }
               return result[0];
             });
@@ -10724,7 +10722,7 @@ var require_lib15 = __commonJS({
                             case 1:
                               address = _a2.sent();
                               if (address == null) {
-                                logger2.throwArgumentError("provided ENS name resolves to null", "tx.to", to);
+                                logger.throwArgumentError("provided ENS name resolves to null", "tx.to", to);
                               }
                               return [2, address];
                           }
@@ -10736,9 +10734,9 @@ var require_lib15 = __commonJS({
                   }
                   hasEip1559 = tx.maxFeePerGas != null || tx.maxPriorityFeePerGas != null;
                   if (tx.gasPrice != null && (tx.type === 2 || hasEip1559)) {
-                    logger2.throwArgumentError("eip-1559 transaction do not support gasPrice", "transaction", transaction);
+                    logger.throwArgumentError("eip-1559 transaction do not support gasPrice", "transaction", transaction);
                   } else if ((tx.type === 0 || tx.type === 1) && hasEip1559) {
-                    logger2.throwArgumentError("pre-eip-1559 transaction do not support maxFeePerGas/maxPriorityFeePerGas", "transaction", transaction);
+                    logger.throwArgumentError("pre-eip-1559 transaction do not support maxFeePerGas/maxPriorityFeePerGas", "transaction", transaction);
                   }
                   if (!((tx.type === 2 || tx.type == null) && (tx.maxFeePerGas != null && tx.maxPriorityFeePerGas != null)))
                     return [3, 2];
@@ -10773,7 +10771,7 @@ var require_lib15 = __commonJS({
                       }
                     } else if (feeData.gasPrice != null) {
                       if (hasEip1559) {
-                        logger2.throwError("network does not support EIP-1559", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                        logger.throwError("network does not support EIP-1559", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                           operation: "populateTransaction"
                         });
                       }
@@ -10782,7 +10780,7 @@ var require_lib15 = __commonJS({
                       }
                       tx.type = 0;
                     } else {
-                      logger2.throwError("failed to get consistent fee data", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                      logger.throwError("failed to get consistent fee data", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                         operation: "signer.getFeeData"
                       });
                     }
@@ -10804,7 +10802,7 @@ var require_lib15 = __commonJS({
                       if (forwardErrors.indexOf(error.code) >= 0) {
                         throw error;
                       }
-                      return logger2.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+                      return logger.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
                         error,
                         tx
                       });
@@ -10818,7 +10816,7 @@ var require_lib15 = __commonJS({
                       this.getChainId()
                     ]).then(function(results) {
                       if (results[1] !== 0 && results[0] !== results[1]) {
-                        logger2.throwArgumentError("chainId address mismatch", "transaction", transaction);
+                        logger.throwArgumentError("chainId address mismatch", "transaction", transaction);
                       }
                       return results[0];
                     });
@@ -10832,7 +10830,7 @@ var require_lib15 = __commonJS({
         };
         Signer7.prototype._checkProvider = function(operation) {
           if (!this.provider) {
-            logger2.throwError("missing provider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("missing provider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: operation || "_checkProvider"
             });
           }
@@ -10859,7 +10857,7 @@ var require_lib15 = __commonJS({
         };
         VoidSigner2.prototype._fail = function(message, operation) {
           return Promise.resolve().then(function() {
-            logger2.throwError(message, logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation });
+            logger.throwError(message, logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation });
           });
         };
         VoidSigner2.prototype.signMessage = function(message) {
@@ -18905,7 +18903,7 @@ var require_lib16 = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version12();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var _curve = null;
     function getCurve() {
       if (!_curve) {
@@ -18920,7 +18918,7 @@ var require_lib16 = __commonJS({
           (0, properties_1.defineReadOnly)(this, "curve", "secp256k1");
           (0, properties_1.defineReadOnly)(this, "privateKey", (0, bytes_1.hexlify)(privateKey));
           if ((0, bytes_1.hexDataLength)(this.privateKey) !== 32) {
-            logger2.throwArgumentError("invalid private key", "privateKey", "[[ REDACTED ]]");
+            logger.throwArgumentError("invalid private key", "privateKey", "[[ REDACTED ]]");
           }
           var keyPair = getCurve().keyFromPrivate((0, bytes_1.arrayify)(this.privateKey));
           (0, properties_1.defineReadOnly)(this, "publicKey", "0x" + keyPair.getPublic(false, "hex"));
@@ -18936,7 +18934,7 @@ var require_lib16 = __commonJS({
           var keyPair = getCurve().keyFromPrivate((0, bytes_1.arrayify)(this.privateKey));
           var digestBytes = (0, bytes_1.arrayify)(digest);
           if (digestBytes.length !== 32) {
-            logger2.throwArgumentError("bad digest length", "digest", digest);
+            logger.throwArgumentError("bad digest length", "digest", digest);
           }
           var signature = keyPair.sign(digestBytes, { canonical: true });
           return (0, bytes_1.splitSignature)({
@@ -18982,7 +18980,7 @@ var require_lib16 = __commonJS({
         }
         return "0x" + getCurve().keyFromPublic(bytes).getPublic(true, "hex");
       }
-      return logger2.throwArgumentError("invalid public or private key", "key", "[REDACTED]");
+      return logger.throwArgumentError("invalid public or private key", "key", "[REDACTED]");
     }
     exports2.computePublicKey = computePublicKey;
   }
@@ -19042,7 +19040,7 @@ var require_lib17 = __commonJS({
     var signing_key_1 = require_lib16();
     var logger_1 = require_lib();
     var _version_1 = require_version13();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var TransactionTypes;
     (function(TransactionTypes2) {
       TransactionTypes2[TransactionTypes2["legacy"] = 0] = "legacy";
@@ -19091,7 +19089,7 @@ var require_lib17 = __commonJS({
     function formatNumber(value, name) {
       var result = (0, bytes_1.stripZeros)(bignumber_1.BigNumber.from(value).toHexString());
       if (result.length > 32) {
-        logger2.throwArgumentError("invalid length for " + name, "transaction:" + name, value);
+        logger.throwArgumentError("invalid length for " + name, "transaction:" + name, value);
       }
       return result;
     }
@@ -19100,7 +19098,7 @@ var require_lib17 = __commonJS({
         address: (0, address_1.getAddress)(addr),
         storageKeys: (storageKeys || []).map(function(storageKey, index) {
           if ((0, bytes_1.hexDataLength)(storageKey) !== 32) {
-            logger2.throwArgumentError("invalid access list storageKey", "accessList[" + addr + ":" + index + "]", storageKey);
+            logger.throwArgumentError("invalid access list storageKey", "accessList[" + addr + ":" + index + "]", storageKey);
           }
           return storageKey.toLowerCase();
         })
@@ -19111,7 +19109,7 @@ var require_lib17 = __commonJS({
         return value.map(function(set, index) {
           if (Array.isArray(set)) {
             if (set.length > 2) {
-              logger2.throwArgumentError("access list expected to be [ address, storageKeys[] ]", "value[" + index + "]", set);
+              logger.throwArgumentError("access list expected to be [ address, storageKeys[] ]", "value[" + index + "]", set);
             }
             return accessSetify(set[0], set[1]);
           }
@@ -19141,7 +19139,7 @@ var require_lib17 = __commonJS({
         var gasPrice = bignumber_1.BigNumber.from(transaction.gasPrice);
         var maxFeePerGas = bignumber_1.BigNumber.from(transaction.maxFeePerGas || 0);
         if (!gasPrice.eq(maxFeePerGas)) {
-          logger2.throwArgumentError("mismatch EIP-1559 gasPrice != maxFeePerGas", "tx", {
+          logger.throwArgumentError("mismatch EIP-1559 gasPrice != maxFeePerGas", "tx", {
             gasPrice,
             maxFeePerGas
           });
@@ -19196,12 +19194,12 @@ var require_lib17 = __commonJS({
         }
         value = (0, bytes_1.arrayify)((0, bytes_1.hexlify)(value, options2));
         if (fieldInfo.length && value.length !== fieldInfo.length && value.length > 0) {
-          logger2.throwArgumentError("invalid length for " + fieldInfo.name, "transaction:" + fieldInfo.name, value);
+          logger.throwArgumentError("invalid length for " + fieldInfo.name, "transaction:" + fieldInfo.name, value);
         }
         if (fieldInfo.maxLength) {
           value = (0, bytes_1.stripZeros)(value);
           if (value.length > fieldInfo.maxLength) {
-            logger2.throwArgumentError("invalid length for " + fieldInfo.name, "transaction:" + fieldInfo.name, value);
+            logger.throwArgumentError("invalid length for " + fieldInfo.name, "transaction:" + fieldInfo.name, value);
           }
         }
         raw.push((0, bytes_1.hexlify)(value));
@@ -19210,7 +19208,7 @@ var require_lib17 = __commonJS({
       if (transaction.chainId != null) {
         chainId = transaction.chainId;
         if (typeof chainId !== "number") {
-          logger2.throwArgumentError("invalid transaction.chainId", "transaction", transaction);
+          logger.throwArgumentError("invalid transaction.chainId", "transaction", transaction);
         }
       } else if (signature && !(0, bytes_1.isBytesLike)(signature) && signature.v > 28) {
         chainId = Math.floor((signature.v - 35) / 2);
@@ -19231,10 +19229,10 @@ var require_lib17 = __commonJS({
         raw.pop();
         v += chainId * 2 + 8;
         if (sig.v > 28 && sig.v !== v) {
-          logger2.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
+          logger.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
         }
       } else if (sig.v !== v) {
-        logger2.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
+        logger.throwArgumentError("transaction.chainId/signature.v mismatch", "signature", signature);
       }
       raw.push((0, bytes_1.hexlify)(v));
       raw.push((0, bytes_1.stripZeros)((0, bytes_1.arrayify)(sig.r)));
@@ -19244,7 +19242,7 @@ var require_lib17 = __commonJS({
     function serialize(transaction, signature) {
       if (transaction.type == null || transaction.type === 0) {
         if (transaction.accessList != null) {
-          logger2.throwArgumentError("untyped transactions do not support accessList; include type: 1", "transaction", transaction);
+          logger.throwArgumentError("untyped transactions do not support accessList; include type: 1", "transaction", transaction);
         }
         return _serialize(transaction, signature);
       }
@@ -19256,7 +19254,7 @@ var require_lib17 = __commonJS({
         default:
           break;
       }
-      return logger2.throwError("unsupported transaction type: " + transaction.type, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+      return logger.throwError("unsupported transaction type: " + transaction.type, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
         operation: "serializeTransaction",
         transactionType: transaction.type
       });
@@ -19270,7 +19268,7 @@ var require_lib17 = __commonJS({
         }
         tx.v = recid;
       } catch (error) {
-        logger2.throwArgumentError("invalid v for transaction type: 1", "v", fields[0]);
+        logger.throwArgumentError("invalid v for transaction type: 1", "v", fields[0]);
       }
       tx.r = (0, bytes_1.hexZeroPad)(fields[1], 32);
       tx.s = (0, bytes_1.hexZeroPad)(fields[2], 32);
@@ -19283,7 +19281,7 @@ var require_lib17 = __commonJS({
     function _parseEip1559(payload) {
       var transaction = RLP.decode(payload.slice(1));
       if (transaction.length !== 9 && transaction.length !== 12) {
-        logger2.throwArgumentError("invalid component count for transaction type: 2", "payload", (0, bytes_1.hexlify)(payload));
+        logger.throwArgumentError("invalid component count for transaction type: 2", "payload", (0, bytes_1.hexlify)(payload));
       }
       var maxPriorityFeePerGas = handleNumber(transaction[2]);
       var maxFeePerGas = handleNumber(transaction[3]);
@@ -19310,7 +19308,7 @@ var require_lib17 = __commonJS({
     function _parseEip2930(payload) {
       var transaction = RLP.decode(payload.slice(1));
       if (transaction.length !== 8 && transaction.length !== 11) {
-        logger2.throwArgumentError("invalid component count for transaction type: 1", "payload", (0, bytes_1.hexlify)(payload));
+        logger.throwArgumentError("invalid component count for transaction type: 1", "payload", (0, bytes_1.hexlify)(payload));
       }
       var tx = {
         type: 1,
@@ -19333,7 +19331,7 @@ var require_lib17 = __commonJS({
     function _parse(rawTransaction) {
       var transaction = RLP.decode(rawTransaction);
       if (transaction.length !== 9 && transaction.length !== 6) {
-        logger2.throwArgumentError("invalid raw transaction", "rawTransaction", rawTransaction);
+        logger.throwArgumentError("invalid raw transaction", "rawTransaction", rawTransaction);
       }
       var tx = {
         nonce: handleNumber(transaction[0]).toNumber(),
@@ -19393,7 +19391,7 @@ var require_lib17 = __commonJS({
         default:
           break;
       }
-      return logger2.throwError("unsupported transaction type: " + payload[0], logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+      return logger.throwError("unsupported transaction type: " + payload[0], logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
         operation: "parseTransaction",
         transactionType: payload[0]
       });
@@ -19563,7 +19561,7 @@ var require_lib18 = __commonJS({
     var transactions_1 = require_lib17();
     var logger_1 = require_lib();
     var _version_1 = require_version14();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var allowedTransactionKeys = {
       chainId: true,
       data: true,
@@ -19590,14 +19588,14 @@ var require_lib18 = __commonJS({
             case 1:
               name = _a.sent();
               if (typeof name !== "string") {
-                logger2.throwArgumentError("invalid address or ENS name", "name", name);
+                logger.throwArgumentError("invalid address or ENS name", "name", name);
               }
               try {
                 return [2, (0, address_1.getAddress)(name)];
               } catch (error) {
               }
               if (!resolver) {
-                logger2.throwError("a provider or signer is needed to resolve ENS names", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                logger.throwError("a provider or signer is needed to resolve ENS names", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                   operation: "resolveName"
                 });
               }
@@ -19605,7 +19603,7 @@ var require_lib18 = __commonJS({
             case 2:
               address = _a.sent();
               if (address == null) {
-                logger2.throwArgumentError("resolver or addr is not configured for ENS name", "name", name);
+                logger.throwArgumentError("resolver or addr is not configured for ENS name", "name", name);
               }
               return [2, address];
           }
@@ -19640,7 +19638,7 @@ var require_lib18 = __commonJS({
               if (!(paramType.baseType === "array"))
                 return [3, 8];
               if (!Array.isArray(value)) {
-                return [2, Promise.reject(logger2.makeError("invalid value for array", logger_1.Logger.errors.INVALID_ARGUMENT, {
+                return [2, Promise.reject(logger.makeError("invalid value for array", logger_1.Logger.errors.INVALID_ARGUMENT, {
                   argument: "value",
                   value
                 }))];
@@ -19667,7 +19665,7 @@ var require_lib18 = __commonJS({
               if (args.length === fragment.inputs.length + 1 && typeof args[args.length - 1] === "object") {
                 overrides = (0, properties_1.shallowCopy)(args.pop());
               }
-              logger2.checkArgumentCount(args.length, fragment.inputs.length, "passed to contract");
+              logger.checkArgumentCount(args.length, fragment.inputs.length, "passed to contract");
               if (contract.signer) {
                 if (overrides.from) {
                   overrides.from = (0, properties_1.resolveProperties)({
@@ -19677,7 +19675,7 @@ var require_lib18 = __commonJS({
                     return __awaiter(_this, void 0, void 0, function() {
                       return __generator(this, function(_a2) {
                         if ((0, address_1.getAddress)(check.signer) !== check.override) {
-                          logger2.throwError("Contract with a Signer cannot override from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                          logger.throwError("Contract with a Signer cannot override from", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                             operation: "overrides.from"
                           });
                         }
@@ -19742,7 +19740,7 @@ var require_lib18 = __commonJS({
               if (ro.value) {
                 roValue = bignumber_1.BigNumber.from(ro.value);
                 if (!roValue.isZero() && !fragment.payable) {
-                  logger2.throwError("non-payable method cannot override value", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                  logger.throwError("non-payable method cannot override value", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "overrides.value",
                     value: overrides.value
                   });
@@ -19770,7 +19768,7 @@ var require_lib18 = __commonJS({
                 return overrides[key] != null;
               });
               if (leftovers.length) {
-                logger2.throwError("cannot override " + leftovers.map(function(l) {
+                logger.throwError("cannot override " + leftovers.map(function(l) {
                   return JSON.stringify(l);
                 }).join(","), logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                   operation: "overrides",
@@ -19804,7 +19802,7 @@ var require_lib18 = __commonJS({
             switch (_a.label) {
               case 0:
                 if (!signerOrProvider) {
-                  logger2.throwError("estimate require a provider or signer", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                  logger.throwError("estimate require a provider or signer", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "estimateGas"
                   });
                 }
@@ -19931,7 +19929,7 @@ var require_lib18 = __commonJS({
             switch (_a.label) {
               case 0:
                 if (!contract.signer) {
-                  logger2.throwError("sending a transaction requires a signer", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                  logger.throwError("sending a transaction requires a signer", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "sendTransaction"
                   });
                 }
@@ -20046,7 +20044,7 @@ var require_lib18 = __commonJS({
           var topic = contractInterface.getEventTopic(fragment);
           if (topics) {
             if (topic !== topics[0]) {
-              logger2.throwArgumentError("topic mismatch", "topics", topics);
+              logger.throwArgumentError("topic mismatch", "topics", topics);
             }
             filter.topics = topics.slice();
           } else {
@@ -20129,7 +20127,7 @@ var require_lib18 = __commonJS({
             (0, properties_1.defineReadOnly)(this, "provider", signerOrProvider);
             (0, properties_1.defineReadOnly)(this, "signer", null);
           } else {
-            logger2.throwArgumentError("invalid signer or provider", "signerOrProvider", signerOrProvider);
+            logger.throwArgumentError("invalid signer or provider", "signerOrProvider", signerOrProvider);
           }
           (0, properties_1.defineReadOnly)(this, "callStatic", {});
           (0, properties_1.defineReadOnly)(this, "estimateGas", {});
@@ -20160,14 +20158,14 @@ var require_lib18 = __commonJS({
               if (filters.length === 1) {
                 (0, properties_1.defineReadOnly)(_this.filters, name, _this.filters[filters[0]]);
               } else {
-                logger2.warn("Duplicate definition of " + name + " (" + filters.join(", ") + ")");
+                logger.warn("Duplicate definition of " + name + " (" + filters.join(", ") + ")");
               }
             });
           }
           (0, properties_1.defineReadOnly)(this, "_runningEvents", {});
           (0, properties_1.defineReadOnly)(this, "_wrappedEmits", {});
           if (addressOrName == null) {
-            logger2.throwArgumentError("invalid contract address or ENS name", "addressOrName", addressOrName);
+            logger.throwArgumentError("invalid contract address or ENS name", "addressOrName", addressOrName);
           }
           (0, properties_1.defineReadOnly)(this, "address", addressOrName);
           if (this.provider) {
@@ -20176,7 +20174,7 @@ var require_lib18 = __commonJS({
             try {
               (0, properties_1.defineReadOnly)(this, "resolvedAddress", Promise.resolve((0, address_1.getAddress)(addressOrName)));
             } catch (error) {
-              logger2.throwError("provider is required to use ENS name as contract address", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+              logger.throwError("provider is required to use ENS name as contract address", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "new Contract"
               });
             }
@@ -20188,7 +20186,7 @@ var require_lib18 = __commonJS({
           Object.keys(this.interface.functions).forEach(function(signature) {
             var fragment = _this.interface.functions[signature];
             if (uniqueSignatures[signature]) {
-              logger2.warn("Duplicate ABI entry for " + JSON.stringify(signature));
+              logger.warn("Duplicate ABI entry for " + JSON.stringify(signature));
               return;
             }
             uniqueSignatures[signature] = true;
@@ -20264,7 +20262,7 @@ var require_lib18 = __commonJS({
             } else {
               this._deployedPromise = this.provider.getCode(this.address, blockTag).then(function(code) {
                 if (code === "0x") {
-                  logger2.throwError("contract not deployed", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                  logger.throwError("contract not deployed", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                     contractAddress: _this.address,
                     operation: "getDeployed"
                   });
@@ -20278,14 +20276,14 @@ var require_lib18 = __commonJS({
         BaseContract2.prototype.fallback = function(overrides) {
           var _this = this;
           if (!this.signer) {
-            logger2.throwError("sending a transactions require a signer", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: "sendTransaction(fallback)" });
+            logger.throwError("sending a transactions require a signer", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: "sendTransaction(fallback)" });
           }
           var tx = (0, properties_1.shallowCopy)(overrides || {});
           ["from", "to"].forEach(function(key) {
             if (tx[key] == null) {
               return;
             }
-            logger2.throwError("cannot override " + key, logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: key });
+            logger.throwError("cannot override " + key, logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: key });
           });
           tx.to = this.resolvedAddress;
           return this.deployed().then(function() {
@@ -20381,7 +20379,7 @@ var require_lib18 = __commonJS({
         BaseContract2.prototype._addEventListener = function(runningEvent, listener, once) {
           var _this = this;
           if (!this.provider) {
-            logger2.throwError("events require a provider or a signer with a provider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: "once" });
+            logger.throwError("events require a provider or a signer with a provider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: "once" });
           }
           runningEvent.addListener(listener, once);
           this._runningEvents[runningEvent.tag] = runningEvent;
@@ -20415,7 +20413,7 @@ var require_lib18 = __commonJS({
           var filter = (0, properties_1.shallowCopy)(runningEvent.filter);
           if (typeof fromBlockOrBlockhash === "string" && (0, bytes_1.isHexString)(fromBlockOrBlockhash, 32)) {
             if (toBlock != null) {
-              logger2.throwArgumentError("cannot specify toBlock with blockhash", "toBlock", toBlock);
+              logger.throwArgumentError("cannot specify toBlock with blockhash", "toBlock", toBlock);
             }
             filter.blockHash = fromBlockOrBlockhash;
           } else {
@@ -20539,10 +20537,10 @@ var require_lib18 = __commonJS({
             bytecodeHex = "0x" + bytecodeHex;
           }
           if (!(0, bytes_1.isHexString)(bytecodeHex) || bytecodeHex.length % 2) {
-            logger2.throwArgumentError("invalid bytecode", "bytecode", bytecode);
+            logger.throwArgumentError("invalid bytecode", "bytecode", bytecode);
           }
           if (signer && !abstract_signer_1.Signer.isSigner(signer)) {
-            logger2.throwArgumentError("invalid signer", "signer", signer);
+            logger.throwArgumentError("invalid signer", "signer", signer);
           }
           (0, properties_1.defineReadOnly)(this, "bytecode", bytecodeHex);
           (0, properties_1.defineReadOnly)(this, "interface", (0, properties_1.getStatic)(_newTarget, "getInterface")(contractInterface));
@@ -20566,18 +20564,18 @@ var require_lib18 = __commonJS({
             if (tx[key2] == null) {
               return;
             }
-            logger2.throwError("cannot override " + key2, logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: key2 });
+            logger.throwError("cannot override " + key2, logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: key2 });
           });
           if (tx.value) {
             var value = bignumber_1.BigNumber.from(tx.value);
             if (!value.isZero() && !this.interface.deploy.payable) {
-              logger2.throwError("non-payable constructor cannot override value", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+              logger.throwError("non-payable constructor cannot override value", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "overrides.value",
                 value: tx.value
               });
             }
           }
-          logger2.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
+          logger.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
           tx.data = (0, bytes_1.hexlify)((0, bytes_1.concat)([
             this.bytecode,
             this.interface.encodeDeploy(args)
@@ -20598,7 +20596,7 @@ var require_lib18 = __commonJS({
                   if (args.length === this.interface.deploy.inputs.length + 1) {
                     overrides = args.pop();
                   }
-                  logger2.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
+                  logger.checkArgumentCount(args.length, this.interface.deploy.inputs.length, " in Contract constructor");
                   return [4, resolveAddresses(this.signer, args, this.interface.deploy.inputs)];
                 case 1:
                   params = _a.sent();
@@ -20624,7 +20622,7 @@ var require_lib18 = __commonJS({
         };
         ContractFactory2.fromSolidity = function(compilerOutput, signer) {
           if (compilerOutput == null) {
-            logger2.throwError("missing compiler output", logger_1.Logger.errors.MISSING_ARGUMENT, { argument: "compilerOutput" });
+            logger.throwError("missing compiler output", logger_1.Logger.errors.MISSING_ARGUMENT, { argument: "compilerOutput" });
           }
           if (typeof compilerOutput === "string") {
             compilerOutput = JSON.parse(compilerOutput);
@@ -20812,7 +20810,7 @@ var require_sha2 = __commonJS({
     var types_1 = require_types();
     var logger_1 = require_lib();
     var _version_1 = require_version15();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function ripemd160(data) {
       return "0x" + hash_js_1.default.ripemd160().update((0, bytes_1.arrayify)(data)).digest("hex");
     }
@@ -20827,7 +20825,7 @@ var require_sha2 = __commonJS({
     exports2.sha512 = sha512;
     function computeHmac(algorithm, key, data) {
       if (!types_1.SupportedAlgorithm[algorithm]) {
-        logger2.throwError("unsupported algorithm - " + algorithm, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+        logger.throwError("unsupported algorithm - " + algorithm, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
           operation: "computeHmac",
           algorithm
         });
@@ -21727,7 +21725,7 @@ var require_lib23 = __commonJS({
     var wordlists_1 = require_lib22();
     var logger_1 = require_lib();
     var _version_1 = require_version17();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var N = bignumber_1.BigNumber.from("0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141");
     var MasterSecret = (0, strings_1.toUtf8Bytes)("Bitcoin seed");
     var HardenedBit = 2147483648;
@@ -21750,7 +21748,7 @@ var require_lib23 = __commonJS({
       if (typeof wordlist === "string") {
         var words = wordlists_1.wordlists[wordlist];
         if (words == null) {
-          logger2.throwArgumentError("unknown locale", "wordlist", wordlist);
+          logger.throwArgumentError("unknown locale", "wordlist", wordlist);
         }
         return words;
       }
@@ -21907,7 +21905,7 @@ var require_lib23 = __commonJS({
         HDNode2.fromExtendedKey = function(extendedKey) {
           var bytes = basex_1.Base58.decode(extendedKey);
           if (bytes.length !== 82 || base58check(bytes.slice(0, 78)) !== extendedKey) {
-            logger2.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
+            logger.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
           }
           var depth = bytes[4];
           var parentFingerprint = (0, bytes_1.hexlify)(bytes.slice(5, 9));
@@ -21925,7 +21923,7 @@ var require_lib23 = __commonJS({
               }
               return new HDNode2(_constructorGuard, (0, bytes_1.hexlify)(key.slice(1)), null, parentFingerprint, chainCode, index, depth, null);
           }
-          return logger2.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
+          return logger.throwArgumentError("invalid extended key", "extendedKey", "[REDACTED]");
         };
         return HDNode2;
       }()
@@ -21941,7 +21939,7 @@ var require_lib23 = __commonJS({
     exports2.mnemonicToSeed = mnemonicToSeed;
     function mnemonicToEntropy(mnemonic, wordlist) {
       wordlist = getWordlist(wordlist);
-      logger2.checkNormalize();
+      logger.checkNormalize();
       var words = wordlist.split(mnemonic);
       if (words.length % 3 !== 0) {
         throw new Error("invalid mnemonic");
@@ -22010,7 +22008,7 @@ var require_lib23 = __commonJS({
     exports2.isValidMnemonic = isValidMnemonic;
     function getAccountPath(index) {
       if (typeof index !== "number" || index < 0 || index >= HardenedBit || index % 1) {
-        logger2.throwArgumentError("invalid account index", "index", index);
+        logger.throwArgumentError("invalid account index", "index", index);
       }
       return "m/44'/60'/" + index + "'/0/0";
     }
@@ -22737,7 +22735,7 @@ var require_crowdsale = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version18();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var utils_1 = require_utils4();
     var CrowdsaleAccount = (
       /** @class */
@@ -22759,7 +22757,7 @@ var require_crowdsale = __commonJS({
       var ethaddr = (0, address_1.getAddress)((0, utils_1.searchPath)(data, "ethaddr"));
       var encseed = (0, utils_1.looseArrayify)((0, utils_1.searchPath)(data, "encseed"));
       if (!encseed || encseed.length % 16 !== 0) {
-        logger2.throwArgumentError("invalid encseed", "json", json);
+        logger.throwArgumentError("invalid encseed", "json", json);
       }
       var key = (0, bytes_1.arrayify)((0, pbkdf2_1.pbkdf2)(password, password, 2e3, 32, "sha256")).slice(0, 16);
       var iv = encseed.slice(0, 16);
@@ -23450,7 +23448,7 @@ var require_keystore = __commonJS({
     var utils_1 = require_utils4();
     var logger_1 = require_lib();
     var _version_1 = require_version18();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function hasMnemonic(value) {
       return value != null && value.mnemonic && value.mnemonic.phrase;
     }
@@ -23486,7 +23484,7 @@ var require_keystore = __commonJS({
       }
       var privateKey = _decrypt(data, key.slice(0, 16), ciphertext);
       if (!privateKey) {
-        logger2.throwError("unsupported cipher", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+        logger.throwError("unsupported cipher", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
           operation: "decrypt"
         });
       }
@@ -23540,7 +23538,7 @@ var require_keystore = __commonJS({
       var kdf = (0, utils_1.searchPath)(data, "crypto/kdf");
       if (kdf && typeof kdf === "string") {
         var throwError = function(name, value) {
-          return logger2.throwArgumentError("invalid key-derivation function parameters", name, value);
+          return logger.throwArgumentError("invalid key-derivation function parameters", name, value);
         };
         if (kdf.toLowerCase() === "scrypt") {
           var salt = (0, utils_1.looseArrayify)((0, utils_1.searchPath)(data, "crypto/kdfparams/salt"));
@@ -23577,7 +23575,7 @@ var require_keystore = __commonJS({
           return pbkdf2Func(passwordBytes, salt, count, dkLen, prfFunc);
         }
       }
-      return logger2.throwArgumentError("unsupported key-derivation function", "kdf", kdf);
+      return logger.throwArgumentError("unsupported key-derivation function", "kdf", kdf);
     }
     function decryptSync(json, password) {
       var data = JSON.parse(json);
@@ -23943,7 +23941,7 @@ var require_lib26 = __commonJS({
     var transactions_1 = require_lib17();
     var logger_1 = require_lib();
     var _version_1 = require_version19();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function isAccount(value) {
       return value != null && (0, bytes_1.isHexString)(value.privateKey, 32) && value.address != null;
     }
@@ -23964,7 +23962,7 @@ var require_lib26 = __commonJS({
             });
             (0, properties_1.defineReadOnly)(_this, "address", (0, transactions_1.computeAddress)(_this.publicKey));
             if (_this.address !== (0, address_1.getAddress)(privateKey.address)) {
-              logger2.throwArgumentError("privateKey/address mismatch", "privateKey", "[REDACTED]");
+              logger.throwArgumentError("privateKey/address mismatch", "privateKey", "[REDACTED]");
             }
             if (hasMnemonic(privateKey)) {
               var srcMnemonic_1 = privateKey.mnemonic;
@@ -23978,7 +23976,7 @@ var require_lib26 = __commonJS({
               var mnemonic = _this.mnemonic;
               var node = hdnode_1.HDNode.fromMnemonic(mnemonic.phrase, null, mnemonic.locale).derivePath(mnemonic.path);
               if ((0, transactions_1.computeAddress)(node.privateKey) !== _this.address) {
-                logger2.throwArgumentError("mnemonic/address mismatch", "privateKey", "[REDACTED]");
+                logger.throwArgumentError("mnemonic/address mismatch", "privateKey", "[REDACTED]");
               }
             } else {
               (0, properties_1.defineReadOnly)(_this, "_mnemonic", function() {
@@ -23988,7 +23986,7 @@ var require_lib26 = __commonJS({
           } else {
             if (signing_key_1.SigningKey.isSigningKey(privateKey)) {
               if (privateKey.curve !== "secp256k1") {
-                logger2.throwArgumentError("unsupported curve; must be secp256k1", "privateKey", "[REDACTED]");
+                logger.throwArgumentError("unsupported curve; must be secp256k1", "privateKey", "[REDACTED]");
               }
               (0, properties_1.defineReadOnly)(_this, "_signingKey", function() {
                 return privateKey;
@@ -24010,7 +24008,7 @@ var require_lib26 = __commonJS({
             (0, properties_1.defineReadOnly)(_this, "address", (0, transactions_1.computeAddress)(_this.publicKey));
           }
           if (provider && !abstract_provider_1.Provider.isProvider(provider)) {
-            logger2.throwArgumentError("invalid provider", "provider", provider);
+            logger.throwArgumentError("invalid provider", "provider", provider);
           }
           (0, properties_1.defineReadOnly)(_this, "provider", provider || null);
           return _this;
@@ -24047,7 +24045,7 @@ var require_lib26 = __commonJS({
           return (0, properties_1.resolveProperties)(transaction).then(function(tx) {
             if (tx.from != null) {
               if ((0, address_1.getAddress)(tx.from) !== _this.address) {
-                logger2.throwArgumentError("transaction from address mismatch", "transaction.from", transaction.from);
+                logger.throwArgumentError("transaction from address mismatch", "transaction.from", transaction.from);
               }
               delete tx.from;
             }
@@ -24071,7 +24069,7 @@ var require_lib26 = __commonJS({
                 case 0:
                   return [4, hash_1._TypedDataEncoder.resolveNames(domain, types, value, function(name) {
                     if (_this.provider == null) {
-                      logger2.throwError("cannot resolve ENS names without a provider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                      logger.throwError("cannot resolve ENS names without a provider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                         operation: "resolveName",
                         value: name
                       });
@@ -24156,54 +24154,54 @@ var require_lib27 = __commonJS({
     exports2.getNetwork = void 0;
     var logger_1 = require_lib();
     var _version_1 = require_version20();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function isRenetworkable(value) {
       return value && typeof value.renetwork === "function";
     }
     function ethDefaultProvider(network) {
-      var func = function(providers2, options2) {
+      var func = function(providers, options2) {
         if (options2 == null) {
           options2 = {};
         }
         var providerList = [];
-        if (providers2.InfuraProvider && options2.infura !== "-") {
+        if (providers.InfuraProvider && options2.infura !== "-") {
           try {
-            providerList.push(new providers2.InfuraProvider(network, options2.infura));
+            providerList.push(new providers.InfuraProvider(network, options2.infura));
           } catch (error) {
           }
         }
-        if (providers2.EtherscanProvider && options2.etherscan !== "-") {
+        if (providers.EtherscanProvider && options2.etherscan !== "-") {
           try {
-            providerList.push(new providers2.EtherscanProvider(network, options2.etherscan));
+            providerList.push(new providers.EtherscanProvider(network, options2.etherscan));
           } catch (error) {
           }
         }
-        if (providers2.AlchemyProvider && options2.alchemy !== "-") {
+        if (providers.AlchemyProvider && options2.alchemy !== "-") {
           try {
-            providerList.push(new providers2.AlchemyProvider(network, options2.alchemy));
+            providerList.push(new providers.AlchemyProvider(network, options2.alchemy));
           } catch (error) {
           }
         }
-        if (providers2.PocketProvider && options2.pocket !== "-") {
+        if (providers.PocketProvider && options2.pocket !== "-") {
           var skip = ["goerli", "ropsten", "rinkeby", "sepolia"];
           try {
-            var provider = new providers2.PocketProvider(network, options2.pocket);
+            var provider = new providers.PocketProvider(network, options2.pocket);
             if (provider.network && skip.indexOf(provider.network.name) === -1) {
               providerList.push(provider);
             }
           } catch (error) {
           }
         }
-        if (providers2.CloudflareProvider && options2.cloudflare !== "-") {
+        if (providers.CloudflareProvider && options2.cloudflare !== "-") {
           try {
-            providerList.push(new providers2.CloudflareProvider(network));
+            providerList.push(new providers.CloudflareProvider(network));
           } catch (error) {
           }
         }
-        if (providers2.AnkrProvider && options2.ankr !== "-") {
+        if (providers.AnkrProvider && options2.ankr !== "-") {
           try {
             var skip = ["ropsten"];
-            var provider = new providers2.AnkrProvider(network, options2.ankr);
+            var provider = new providers.AnkrProvider(network, options2.ankr);
             if (provider.network && skip.indexOf(provider.network.name) === -1) {
               providerList.push(provider);
             }
@@ -24213,14 +24211,14 @@ var require_lib27 = __commonJS({
         if (providerList.length === 0) {
           return null;
         }
-        if (providers2.FallbackProvider) {
+        if (providers.FallbackProvider) {
           var quorum = 1;
           if (options2.quorum != null) {
             quorum = options2.quorum;
           } else if (network === "homestead") {
             quorum = 2;
           }
-          return new providers2.FallbackProvider(providerList, quorum);
+          return new providers.FallbackProvider(providerList, quorum);
         }
         return providerList[0];
       };
@@ -24230,9 +24228,9 @@ var require_lib27 = __commonJS({
       return func;
     }
     function etcDefaultProvider(url, network) {
-      var func = function(providers2, options2) {
-        if (providers2.JsonRpcProvider) {
-          return new providers2.JsonRpcProvider(url, network);
+      var func = function(providers, options2) {
+        if (providers.JsonRpcProvider) {
+          return new providers.JsonRpcProvider(url, network);
         }
         return null;
       };
@@ -24358,12 +24356,12 @@ var require_lib27 = __commonJS({
       var standard = networks[network.name];
       if (!standard) {
         if (typeof network.chainId !== "number") {
-          logger2.throwArgumentError("invalid network chainId", "network", network);
+          logger.throwArgumentError("invalid network chainId", "network", network);
         }
         return network;
       }
       if (network.chainId !== 0 && network.chainId !== standard.chainId) {
-        logger2.throwArgumentError("network chainId mismatch", "network", network);
+        logger.throwArgumentError("network chainId mismatch", "network", network);
       }
       var defaultProvider = network._defaultProvider || null;
       if (defaultProvider == null && standard._defaultProvider) {
@@ -24514,7 +24512,7 @@ var require_geturl = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version21();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function getResponse(request) {
       return new Promise(function(resolve, reject) {
         request.once("response", function(resp) {
@@ -24589,7 +24587,7 @@ var require_geturl = __commonJS({
                   req = https_1.default.request(request);
                   break;
                 default:
-                  logger2.throwError("unsupported protocol " + url.protocol, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                  logger.throwError("unsupported protocol " + url.protocol, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                     protocol: url.protocol,
                     operation: "request"
                   });
@@ -24725,7 +24723,7 @@ var require_lib28 = __commonJS({
     var strings_1 = require_lib9();
     var logger_1 = require_lib();
     var _version_1 = require_version21();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var geturl_1 = require_geturl();
     function staller(duration) {
       return new Promise(function(resolve) {
@@ -24758,10 +24756,10 @@ var require_lib28 = __commonJS({
     }
     function _fetchData(connection, body, processFunc) {
       var attemptLimit = typeof connection === "object" && connection.throttleLimit != null ? connection.throttleLimit : 12;
-      logger2.assertArgument(attemptLimit > 0 && attemptLimit % 1 === 0, "invalid connection throttle limit", "connection.throttleLimit", attemptLimit);
+      logger.assertArgument(attemptLimit > 0 && attemptLimit % 1 === 0, "invalid connection throttle limit", "connection.throttleLimit", attemptLimit);
       var throttleCallback = typeof connection === "object" ? connection.throttleCallback : null;
       var throttleSlotInterval = typeof connection === "object" && typeof connection.throttleSlotInterval === "number" ? connection.throttleSlotInterval : 100;
-      logger2.assertArgument(throttleSlotInterval > 0 && throttleSlotInterval % 1 === 0, "invalid connection throttle slot interval", "connection.throttleSlotInterval", throttleSlotInterval);
+      logger.assertArgument(throttleSlotInterval > 0 && throttleSlotInterval % 1 === 0, "invalid connection throttle slot interval", "connection.throttleSlotInterval", throttleSlotInterval);
       var errorPassThrough = typeof connection === "object" ? !!connection.errorPassThrough : false;
       var headers = {};
       var url = null;
@@ -24774,7 +24772,7 @@ var require_lib28 = __commonJS({
         url = connection;
       } else if (typeof connection === "object") {
         if (connection == null || connection.url == null) {
-          logger2.throwArgumentError("missing URL", "connection.url", connection);
+          logger.throwArgumentError("missing URL", "connection.url", connection);
         }
         url = connection.url;
         if (typeof connection.timeout === "number" && connection.timeout > 0) {
@@ -24791,7 +24789,7 @@ var require_lib28 = __commonJS({
         options2.allowGzip = !!connection.allowGzip;
         if (connection.user != null && connection.password != null) {
           if (url.substring(0, 6) !== "https:" && connection.allowInsecureAuthentication !== true) {
-            logger2.throwError("basic authentication requires a secure https url", logger_1.Logger.errors.INVALID_ARGUMENT, { argument: "url", url, user: connection.user, password: "[REDACTED]" });
+            logger.throwError("basic authentication requires a secure https url", logger_1.Logger.errors.INVALID_ARGUMENT, { argument: "url", url, user: connection.user, password: "[REDACTED]" });
           }
           var authorization = connection.user + ":" + connection.password;
           headers["authorization"] = {
@@ -24822,7 +24820,7 @@ var require_lib28 = __commonJS({
           }
           return Promise.resolve(result);
         } catch (error) {
-          logger2.throwError("processing response error", logger_1.Logger.errors.SERVER_ERROR, {
+          logger.throwError("processing response error", logger_1.Logger.errors.SERVER_ERROR, {
             body: bodyify(dataMatch[1], dataMatch[2]),
             error,
             requestBody: null,
@@ -24856,7 +24854,7 @@ var require_lib28 = __commonJS({
                 return;
               }
               timer = null;
-              reject(logger2.makeError("timeout", logger_1.Logger.errors.TIMEOUT, {
+              reject(logger.makeError("timeout", logger_1.Logger.errors.TIMEOUT, {
                 requestBody: bodyify(options2.body, flatHeaders["content-type"]),
                 requestMethod: options2.method,
                 timeout,
@@ -24933,7 +24931,7 @@ var require_lib28 = __commonJS({
                 response2 = error_1.response;
                 if (response2 == null) {
                   runningTimeout.cancel();
-                  logger2.throwError("missing response", logger_1.Logger.errors.SERVER_ERROR, {
+                  logger.throwError("missing response", logger_1.Logger.errors.SERVER_ERROR, {
                     requestBody: bodyify(options2.body, flatHeaders["content-type"]),
                     requestMethod: options2.method,
                     serverError: error_1,
@@ -24947,7 +24945,7 @@ var require_lib28 = __commonJS({
                   body_1 = null;
                 } else if (!errorPassThrough && (response2.statusCode < 200 || response2.statusCode >= 300)) {
                   runningTimeout.cancel();
-                  logger2.throwError("bad response", logger_1.Logger.errors.SERVER_ERROR, {
+                  logger.throwError("bad response", logger_1.Logger.errors.SERVER_ERROR, {
                     status: response2.statusCode,
                     headers: response2.headers,
                     body: bodyify(body_1, response2.headers ? response2.headers["content-type"] : null),
@@ -24987,7 +24985,7 @@ var require_lib28 = __commonJS({
                 return [3, 19];
               case 17:
                 runningTimeout.cancel();
-                logger2.throwError("processing response error", logger_1.Logger.errors.SERVER_ERROR, {
+                logger.throwError("processing response error", logger_1.Logger.errors.SERVER_ERROR, {
                   body: bodyify(body_1, response2.headers ? response2.headers["content-type"] : null),
                   error: error_2,
                   requestBody: bodyify(options2.body, flatHeaders["content-type"]),
@@ -25002,7 +25000,7 @@ var require_lib28 = __commonJS({
                 attempt++;
                 return [3, 1];
               case 20:
-                return [2, logger2.throwError("failed response", logger_1.Logger.errors.SERVER_ERROR, {
+                return [2, logger.throwError("failed response", logger_1.Logger.errors.SERVER_ERROR, {
                   requestBody: bodyify(options2.body, flatHeaders["content-type"]),
                   requestMethod: options2.method,
                   url
@@ -25021,7 +25019,7 @@ var require_lib28 = __commonJS({
           try {
             result = JSON.parse((0, strings_1.toUtf8String)(value));
           } catch (error) {
-            logger2.throwError("invalid JSON", logger_1.Logger.errors.SERVER_ERROR, {
+            logger.throwError("invalid JSON", logger_1.Logger.errors.SERVER_ERROR, {
               body: value,
               error
             });
@@ -25320,7 +25318,7 @@ var require_formatter = __commonJS({
     var transactions_1 = require_lib17();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var Formatter = (
       /** @class */
       function() {
@@ -25486,7 +25484,7 @@ var require_formatter = __commonJS({
               return value.toLowerCase();
             }
           }
-          return logger2.throwArgumentError("invalid hash", "value", value);
+          return logger.throwArgumentError("invalid hash", "value", value);
         };
         Formatter2.prototype.data = function(value, strict) {
           var result = this.hex(value, strict);
@@ -25532,7 +25530,7 @@ var require_formatter = __commonJS({
         Formatter2.prototype.hash = function(value, strict) {
           var result = this.hex(value, strict);
           if ((0, bytes_1.hexDataLength)(result) !== 32) {
-            return logger2.throwArgumentError("invalid hash", "value", value);
+            return logger.throwArgumentError("invalid hash", "value", value);
           }
           return result;
         };
@@ -25632,15 +25630,15 @@ var require_formatter = __commonJS({
               var value_1 = bignumber_1.BigNumber.from(result.root).toNumber();
               if (value_1 === 0 || value_1 === 1) {
                 if (result.status != null && result.status !== value_1) {
-                  logger2.throwArgumentError("alt-root-status/status mismatch", "value", { root: result.root, status: result.status });
+                  logger.throwArgumentError("alt-root-status/status mismatch", "value", { root: result.root, status: result.status });
                 }
                 result.status = value_1;
                 delete result.root;
               } else {
-                logger2.throwArgumentError("invalid alt-root-status", "value.root", result.root);
+                logger.throwArgumentError("invalid alt-root-status", "value.root", result.root);
               }
             } else if (result.root.length !== 66) {
-              logger2.throwArgumentError("invalid root hash", "value.root", result.root);
+              logger.throwArgumentError("invalid root hash", "value.root", result.root);
             }
           }
           if (result.status != null) {
@@ -25892,7 +25890,7 @@ var require_base_provider = __commonJS({
     var bech32_1 = __importDefault(require_bech32());
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var formatter_1 = require_formatter();
     var MAX_CCIP_REDIRECTS = 10;
     function checkTopic(topic) {
@@ -25900,7 +25898,7 @@ var require_base_provider = __commonJS({
         return "null";
       }
       if ((0, bytes_1.hexDataLength)(topic) !== 32) {
-        logger2.throwArgumentError("invalid topic", "topic", topic);
+        logger.throwArgumentError("invalid topic", "topic", topic);
       }
       return topic.toLowerCase();
     }
@@ -25949,7 +25947,7 @@ var require_base_provider = __commonJS({
       } else if (Array.isArray(eventName)) {
         return "filter:*:" + serializeTopics(eventName);
       } else if (abstract_provider_1.ForkEvent.isForkEvent(eventName)) {
-        logger2.warn("not implemented");
+        logger.warn("not implemented");
         throw new Error("not implemented");
       } else if (eventName && typeof eventName === "object") {
         return "filter:" + (eventName.address || "*") + ":" + serializeTopics(eventName.topics || []);
@@ -26075,7 +26073,7 @@ var require_base_provider = __commonJS({
       } else if (link.match(/^ipfs:\/\//i)) {
         link = link.substring(7);
       } else {
-        logger2.throwArgumentError("unsupported IPFS format", "link", link);
+        logger.throwArgumentError("unsupported IPFS format", "link", link);
       }
       return "https://gateway.ipfs.io/ipfs/" + link;
     }
@@ -26164,7 +26162,7 @@ var require_base_provider = __commonJS({
                 case 3:
                   result = _a.sent();
                   if ((0, bytes_1.arrayify)(result).length % 32 === 4) {
-                    logger2.throwError("resolver threw error", logger_1.Logger.errors.CALL_EXCEPTION, {
+                    logger.throwError("resolver threw error", logger_1.Logger.errors.CALL_EXCEPTION, {
                       transaction: tx,
                       data: result
                     });
@@ -26208,7 +26206,7 @@ var require_base_provider = __commonJS({
         Resolver2.prototype._getAddress = function(coinType, hexBytes) {
           var coinInfo = coinInfos[String(coinType)];
           if (coinInfo == null) {
-            logger2.throwError("unsupported coin type: " + coinType, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("unsupported coin type: " + coinType, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "getAddress(" + coinType + ")"
             });
           }
@@ -26288,7 +26286,7 @@ var require_base_provider = __commonJS({
                   }
                   address = this._getAddress(coinType, hexBytes);
                   if (address == null) {
-                    logger2.throwError("invalid or unsupported coin data", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                    logger.throwError("invalid or unsupported coin data", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                       operation: "getAddress(" + coinType + ")",
                       coinType,
                       data: hexBytes
@@ -26496,7 +26494,7 @@ var require_base_provider = __commonJS({
                       return [2, "sia://" + hash];
                     }
                   }
-                  return [2, logger2.throwError("invalid or unsupported content hash data", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                  return [2, logger.throwError("invalid or unsupported content hash data", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                     operation: "getContentHash()",
                     data: hexBytes
                   })];
@@ -26559,7 +26557,7 @@ var require_base_provider = __commonJS({
               (0, properties_1.defineReadOnly)(_this, "_network", knownNetwork);
               _this.emit("network", knownNetwork, null);
             } else {
-              logger2.throwArgumentError("invalid network", "network", network);
+              logger.throwArgumentError("invalid network", "network", network);
             }
           }
           _this._maxInternalBlockNumber = -1024;
@@ -26599,7 +26597,7 @@ var require_base_provider = __commonJS({
                   _a.label = 6;
                 case 6:
                   if (!network) {
-                    logger2.throwError("no network detected", logger_1.Logger.errors.UNKNOWN_ERROR, {});
+                    logger.throwError("no network detected", logger_1.Logger.errors.UNKNOWN_ERROR, {});
                   }
                   if (this._network == null) {
                     if (this.anyNetwork) {
@@ -26676,7 +26674,7 @@ var require_base_provider = __commonJS({
                   }
                   errorMessage = result.message || "unknown error";
                   if (result.status >= 400 && result.status < 500) {
-                    return [2, logger2.throwError("response not found during CCIP fetch: " + errorMessage, logger_1.Logger.errors.SERVER_ERROR, { url, errorMessage })];
+                    return [2, logger.throwError("response not found during CCIP fetch: " + errorMessage, logger_1.Logger.errors.SERVER_ERROR, { url, errorMessage })];
                   }
                   errorMessages.push(errorMessage);
                   _a.label = 3;
@@ -26684,7 +26682,7 @@ var require_base_provider = __commonJS({
                   i++;
                   return [3, 1];
                 case 4:
-                  return [2, logger2.throwError("error encountered during CCIP fetch: " + errorMessages.map(function(m) {
+                  return [2, logger.throwError("error encountered during CCIP fetch: " + errorMessages.map(function(m) {
                     return JSON.stringify(m);
                   }).join(", "), logger_1.Logger.errors.SERVER_ERROR, {
                     urls,
@@ -26806,8 +26804,8 @@ var require_base_provider = __commonJS({
                     this._emitted.block = blockNumber - 1;
                   }
                   if (Math.abs(this._emitted.block - blockNumber) > 1e3) {
-                    logger2.warn("network block skew detected; skipping block events (emitted=" + this._emitted.block + " blockNumber" + blockNumber + ")");
-                    this.emit("error", logger2.makeError("network block skew detected", logger_1.Logger.errors.NETWORK_ERROR, {
+                    logger.warn("network block skew detected; skipping block events (emitted=" + this._emitted.block + " blockNumber" + blockNumber + ")");
+                    this.emit("error", logger.makeError("network block skew detected", logger_1.Logger.errors.NETWORK_ERROR, {
                       blockNumber,
                       event: "blockSkew",
                       previousBlockNumber: this._emitted.block
@@ -26922,7 +26920,7 @@ var require_base_provider = __commonJS({
         BaseProvider2.prototype.detectNetwork = function() {
           return __awaiter(this, void 0, void 0, function() {
             return __generator(this, function(_a) {
-              return [2, logger2.throwError("provider does not support network detection", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+              return [2, logger.throwError("provider does not support network detection", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "provider.detectNetwork"
               })];
             });
@@ -26958,7 +26956,7 @@ var require_base_provider = __commonJS({
                   _a.sent();
                   return [2, this._network];
                 case 4:
-                  error = logger2.makeError("underlying network changed", logger_1.Logger.errors.NETWORK_ERROR, {
+                  error = logger.makeError("underlying network changed", logger_1.Logger.errors.NETWORK_ERROR, {
                     event: "changed",
                     network,
                     detectedNetwork: currentNetwork
@@ -27200,7 +27198,7 @@ var require_base_provider = __commonJS({
                                           } else if (tx.data === "0x" && tx.from === tx.to && tx.value.isZero()) {
                                             reason = "cancelled";
                                           }
-                                          reject(logger2.makeError("transaction was replaced", logger_1.Logger.errors.TRANSACTION_REPLACED, {
+                                          reject(logger.makeError("transaction was replaced", logger_1.Logger.errors.TRANSACTION_REPLACED, {
                                             cancelled: reason === "replaced" || reason === "cancelled",
                                             reason,
                                             replacement: this._wrapTransaction(tx),
@@ -27259,7 +27257,7 @@ var require_base_provider = __commonJS({
                         if (alreadyDone()) {
                           return;
                         }
-                        reject(logger2.makeError("timeout exceeded", logger_1.Logger.errors.TIMEOUT, { timeout }));
+                        reject(logger.makeError("timeout exceeded", logger_1.Logger.errors.TIMEOUT, { timeout }));
                       }, timeout);
                       if (timer_1.unref) {
                         timer_1.unref();
@@ -27295,7 +27293,7 @@ var require_base_provider = __commonJS({
                   try {
                     return [2, bignumber_1.BigNumber.from(result)];
                   } catch (error) {
-                    return [2, logger2.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
+                    return [2, logger.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
                       method: "getGasPrice",
                       result,
                       error
@@ -27330,7 +27328,7 @@ var require_base_provider = __commonJS({
                   try {
                     return [2, bignumber_1.BigNumber.from(result)];
                   } catch (error) {
-                    return [2, logger2.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
+                    return [2, logger.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
                       method: "getBalance",
                       params,
                       result,
@@ -27366,7 +27364,7 @@ var require_base_provider = __commonJS({
                   try {
                     return [2, bignumber_1.BigNumber.from(result).toNumber()];
                   } catch (error) {
-                    return [2, logger2.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
+                    return [2, logger.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
                       method: "getTransactionCount",
                       params,
                       result,
@@ -27402,7 +27400,7 @@ var require_base_provider = __commonJS({
                   try {
                     return [2, (0, bytes_1.hexlify)(result)];
                   } catch (error) {
-                    return [2, logger2.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
+                    return [2, logger.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
                       method: "getCode",
                       params,
                       result,
@@ -27441,7 +27439,7 @@ var require_base_provider = __commonJS({
                   try {
                     return [2, (0, bytes_1.hexlify)(result)];
                   } catch (error) {
-                    return [2, logger2.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
+                    return [2, logger.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
                       method: "getStorageAt",
                       params,
                       result,
@@ -27463,7 +27461,7 @@ var require_base_provider = __commonJS({
           }
           var result = tx;
           if (hash != null && tx.hash !== hash) {
-            logger2.throwError("Transaction hash mismatch from Provider.sendTransaction.", logger_1.Logger.errors.UNKNOWN_ERROR, { expectedHash: tx.hash, returnedHash: hash });
+            logger.throwError("Transaction hash mismatch from Provider.sendTransaction.", logger_1.Logger.errors.UNKNOWN_ERROR, { expectedHash: tx.hash, returnedHash: hash });
           }
           result.wait = function(confirms, timeout) {
             return __awaiter(_this, void 0, void 0, function() {
@@ -27496,7 +27494,7 @@ var require_base_provider = __commonJS({
                     }
                     this._emitted["t:" + tx.hash] = receipt.blockNumber;
                     if (receipt.status === 0) {
-                      logger2.throwError("transaction failed", logger_1.Logger.errors.CALL_EXCEPTION, {
+                      logger.throwError("transaction failed", logger_1.Logger.errors.CALL_EXCEPTION, {
                         transactionHash: tx.hash,
                         transaction: tx,
                         receipt
@@ -27646,7 +27644,7 @@ var require_base_provider = __commonJS({
               switch (_a.label) {
                 case 0:
                   if (attempt >= MAX_CCIP_REDIRECTS) {
-                    logger2.throwError("CCIP read exceeded maximum redirections", logger_1.Logger.errors.SERVER_ERROR, {
+                    logger.throwError("CCIP read exceeded maximum redirections", logger_1.Logger.errors.SERVER_ERROR, {
                       redirects: attempt,
                       transaction
                     });
@@ -27663,7 +27661,7 @@ var require_base_provider = __commonJS({
                   data = (0, bytes_1.hexDataSlice)(result, 4);
                   sender = (0, bytes_1.hexDataSlice)(data, 0, 32);
                   if (!bignumber_1.BigNumber.from(sender).eq(txSender)) {
-                    logger2.throwError("CCIP Read sender did not match", logger_1.Logger.errors.CALL_EXCEPTION, {
+                    logger.throwError("CCIP Read sender did not match", logger_1.Logger.errors.CALL_EXCEPTION, {
                       name: "OffchainLookup",
                       signature: "OffchainLookup(address,string[],bytes,bytes4,bytes)",
                       transaction,
@@ -27677,7 +27675,7 @@ var require_base_provider = __commonJS({
                   for (u = 0; u < urlsLength; u++) {
                     url = _parseString(urlsData, u * 32);
                     if (url == null) {
-                      logger2.throwError("CCIP Read contained corrupt URL string", logger_1.Logger.errors.CALL_EXCEPTION, {
+                      logger.throwError("CCIP Read contained corrupt URL string", logger_1.Logger.errors.CALL_EXCEPTION, {
                         name: "OffchainLookup",
                         signature: "OffchainLookup(address,string[],bytes,bytes4,bytes)",
                         transaction,
@@ -27688,7 +27686,7 @@ var require_base_provider = __commonJS({
                   }
                   calldata = _parseBytes(data, 64);
                   if (!bignumber_1.BigNumber.from((0, bytes_1.hexDataSlice)(data, 100, 128)).isZero()) {
-                    logger2.throwError("CCIP Read callback selector included junk", logger_1.Logger.errors.CALL_EXCEPTION, {
+                    logger.throwError("CCIP Read callback selector included junk", logger_1.Logger.errors.CALL_EXCEPTION, {
                       name: "OffchainLookup",
                       signature: "OffchainLookup(address,string[],bytes,bytes4,bytes)",
                       transaction,
@@ -27701,7 +27699,7 @@ var require_base_provider = __commonJS({
                 case 3:
                   ccipResult = _a.sent();
                   if (ccipResult == null) {
-                    logger2.throwError("CCIP Read disabled or provided no URLs", logger_1.Logger.errors.CALL_EXCEPTION, {
+                    logger.throwError("CCIP Read disabled or provided no URLs", logger_1.Logger.errors.CALL_EXCEPTION, {
                       name: "OffchainLookup",
                       signature: "OffchainLookup(address,string[],bytes,bytes4,bytes)",
                       transaction,
@@ -27723,7 +27721,7 @@ var require_base_provider = __commonJS({
                   try {
                     return [2, (0, bytes_1.hexlify)(result)];
                   } catch (error) {
-                    return [2, logger2.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
+                    return [2, logger.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
                       method: "call",
                       params: { transaction, blockTag },
                       result,
@@ -27779,7 +27777,7 @@ var require_base_provider = __commonJS({
                   try {
                     return [2, bignumber_1.BigNumber.from(result)];
                   } catch (error) {
-                    return [2, logger2.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
+                    return [2, logger.throwError("bad result from backend", logger_1.Logger.errors.SERVER_ERROR, {
                       method: "estimateGas",
                       params,
                       result,
@@ -27804,13 +27802,13 @@ var require_base_provider = __commonJS({
                 case 1:
                   addressOrName = _a.sent();
                   if (typeof addressOrName !== "string") {
-                    logger2.throwArgumentError("invalid address or ENS name", "name", addressOrName);
+                    logger.throwArgumentError("invalid address or ENS name", "name", addressOrName);
                   }
                   return [4, this.resolveName(addressOrName)];
                 case 2:
                   address = _a.sent();
                   if (address == null) {
-                    logger2.throwError("ENS name not configured", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+                    logger.throwError("ENS name not configured", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                       operation: "resolveName(" + JSON.stringify(addressOrName) + ")"
                     });
                   }
@@ -27852,7 +27850,7 @@ var require_base_provider = __commonJS({
                   return [3, 6];
                 case 5:
                   error_9 = _b.sent();
-                  logger2.throwArgumentError("invalid block hash or block tag", "blockHashOrBlockTag", blockHashOrBlockTag);
+                  logger.throwArgumentError("invalid block hash or block tag", "blockHashOrBlockTag", blockHashOrBlockTag);
                   return [3, 6];
                 case 6:
                   return [2, (0, web_1.poll)(function() {
@@ -28097,7 +28095,7 @@ var require_base_provider = __commonJS({
                   if (!(typeof blockTag === "number" && blockTag < 0))
                     return [3, 3];
                   if (blockTag % 1) {
-                    logger2.throwArgumentError("invalid BlockTag", "blockTag", blockTag);
+                    logger.throwArgumentError("invalid BlockTag", "blockTag", blockTag);
                   }
                   return [4, this._getInternalBlockNumber(100 + 2 * this.pollingInterval)];
                 case 2:
@@ -28173,7 +28171,7 @@ var require_base_provider = __commonJS({
                 case 1:
                   network = _a.sent();
                   if (!network.ensAddress) {
-                    logger2.throwError("network does not support ENS", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation, network: network.name });
+                    logger.throwError("network does not support ENS", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation, network: network.name });
                   }
                   _a.label = 2;
                 case 2:
@@ -28211,7 +28209,7 @@ var require_base_provider = __commonJS({
                     }
                   }
                   if (typeof name !== "string") {
-                    logger2.throwArgumentError("invalid ENS name", "name", name);
+                    logger.throwArgumentError("invalid ENS name", "name", name);
                   }
                   return [4, this.getResolver(name)];
                 case 2:
@@ -28337,7 +28335,7 @@ var require_base_provider = __commonJS({
           });
         };
         BaseProvider2.prototype.perform = function(method, params) {
-          return logger2.throwError(method + " not implemented", logger_1.Logger.errors.NOT_IMPLEMENTED, { operation: method });
+          return logger.throwError(method + " not implemented", logger_1.Logger.errors.NOT_IMPLEMENTED, { operation: method });
         };
         BaseProvider2.prototype._startEvent = function(event) {
           this.polling = this._events.filter(function(e) {
@@ -28603,7 +28601,7 @@ var require_json_rpc_provider = __commonJS({
     var web_1 = require_lib28();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var base_provider_1 = require_base_provider();
     var errorGas = ["call", "estimateGas"];
     function spelunk(value, requireData) {
@@ -28640,7 +28638,7 @@ var require_json_rpc_provider = __commonJS({
         if (result) {
           return result.data;
         }
-        logger2.throwError("missing revert data in call exception; Transaction reverted without a reason string", logger_1.Logger.errors.CALL_EXCEPTION, {
+        logger.throwError("missing revert data in call exception; Transaction reverted without a reason string", logger_1.Logger.errors.CALL_EXCEPTION, {
           data: "0x",
           transaction,
           error
@@ -28652,7 +28650,7 @@ var require_json_rpc_provider = __commonJS({
           result = spelunk(error, false);
         }
         if (result) {
-          logger2.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+          logger.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
             reason: result.message,
             method,
             transaction,
@@ -28670,35 +28668,35 @@ var require_json_rpc_provider = __commonJS({
       }
       message = (message || "").toLowerCase();
       if (message.match(/insufficient funds|base fee exceeds gas limit|InsufficientFunds/i)) {
-        logger2.throwError("insufficient funds for intrinsic transaction cost", logger_1.Logger.errors.INSUFFICIENT_FUNDS, {
+        logger.throwError("insufficient funds for intrinsic transaction cost", logger_1.Logger.errors.INSUFFICIENT_FUNDS, {
           error,
           method,
           transaction
         });
       }
       if (message.match(/nonce (is )?too low/i)) {
-        logger2.throwError("nonce has already been used", logger_1.Logger.errors.NONCE_EXPIRED, {
+        logger.throwError("nonce has already been used", logger_1.Logger.errors.NONCE_EXPIRED, {
           error,
           method,
           transaction
         });
       }
       if (message.match(/replacement transaction underpriced|transaction gas price.*too low/i)) {
-        logger2.throwError("replacement fee too low", logger_1.Logger.errors.REPLACEMENT_UNDERPRICED, {
+        logger.throwError("replacement fee too low", logger_1.Logger.errors.REPLACEMENT_UNDERPRICED, {
           error,
           method,
           transaction
         });
       }
       if (message.match(/only replay-protected/i)) {
-        logger2.throwError("legacy pre-eip-155 transactions not supported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+        logger.throwError("legacy pre-eip-155 transactions not supported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
           error,
           method,
           transaction
         });
       }
       if (errorGas.indexOf(method) >= 0 && message.match(/gas required exceeds allowance|always failing transaction|execution reverted|revert/)) {
-        logger2.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+        logger.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
           error,
           method,
           transaction
@@ -28747,12 +28745,12 @@ var require_json_rpc_provider = __commonJS({
             (0, properties_1.defineReadOnly)(_this, "_index", addressOrIndex);
             (0, properties_1.defineReadOnly)(_this, "_address", null);
           } else {
-            logger2.throwArgumentError("invalid address or index", "addressOrIndex", addressOrIndex);
+            logger.throwArgumentError("invalid address or index", "addressOrIndex", addressOrIndex);
           }
           return _this;
         }
         JsonRpcSigner2.prototype.connect = function(provider) {
-          return logger2.throwError("cannot alter JSON-RPC Signer connection", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+          return logger.throwError("cannot alter JSON-RPC Signer connection", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "connect"
           });
         };
@@ -28766,7 +28764,7 @@ var require_json_rpc_provider = __commonJS({
           }
           return this.provider.send("eth_accounts", []).then(function(accounts) {
             if (accounts.length <= _this._index) {
-              logger2.throwError("unknown account #" + _this._index, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+              logger.throwError("unknown account #" + _this._index, logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
                 operation: "getAddress"
               });
             }
@@ -28801,7 +28799,7 @@ var require_json_rpc_provider = __commonJS({
                     case 1:
                       address = _a.sent();
                       if (address == null) {
-                        logger2.throwArgumentError("provided ENS name resolves to null", "tx.to", to);
+                        logger.throwArgumentError("provided ENS name resolves to null", "tx.to", to);
                       }
                       return [2, address];
                   }
@@ -28816,7 +28814,7 @@ var require_json_rpc_provider = __commonJS({
             var tx = _a.tx, sender = _a.sender;
             if (tx.from != null) {
               if (tx.from.toLowerCase() !== sender) {
-                logger2.throwArgumentError("from address mismatch", "transaction", transaction);
+                logger.throwArgumentError("from address mismatch", "transaction", transaction);
               }
             } else {
               tx.from = sender;
@@ -28826,7 +28824,7 @@ var require_json_rpc_provider = __commonJS({
               return hash;
             }, function(error) {
               if (typeof error.message === "string" && error.message.match(/user denied/i)) {
-                logger2.throwError("user rejected transaction", logger_1.Logger.errors.ACTION_REJECTED, {
+                logger.throwError("user rejected transaction", logger_1.Logger.errors.ACTION_REJECTED, {
                   action: "sendTransaction",
                   transaction: tx
                 });
@@ -28836,7 +28834,7 @@ var require_json_rpc_provider = __commonJS({
           });
         };
         JsonRpcSigner2.prototype.signTransaction = function(transaction) {
-          return logger2.throwError("signing transactions is unsupported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+          return logger.throwError("signing transactions is unsupported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "signTransaction"
           });
         };
@@ -28907,7 +28905,7 @@ var require_json_rpc_provider = __commonJS({
                 case 4:
                   error_2 = _a.sent();
                   if (typeof error_2.message === "string" && error_2.message.match(/user denied/i)) {
-                    logger2.throwError("user rejected signing", logger_1.Logger.errors.ACTION_REJECTED, {
+                    logger.throwError("user rejected signing", logger_1.Logger.errors.ACTION_REJECTED, {
                       action: "signMessage",
                       from: address,
                       messageData: message
@@ -28942,7 +28940,7 @@ var require_json_rpc_provider = __commonJS({
                 case 4:
                   error_3 = _a.sent();
                   if (typeof error_3.message === "string" && error_3.message.match(/user denied/i)) {
-                    logger2.throwError("user rejected signing", logger_1.Logger.errors.ACTION_REJECTED, {
+                    logger.throwError("user rejected signing", logger_1.Logger.errors.ACTION_REJECTED, {
                       action: "_legacySignMessage",
                       from: address,
                       messageData: message
@@ -28985,7 +28983,7 @@ var require_json_rpc_provider = __commonJS({
                 case 5:
                   error_4 = _a.sent();
                   if (typeof error_4.message === "string" && error_4.message.match(/user denied/i)) {
-                    logger2.throwError("user rejected signing", logger_1.Logger.errors.ACTION_REJECTED, {
+                    logger.throwError("user rejected signing", logger_1.Logger.errors.ACTION_REJECTED, {
                       action: "_signTypedData",
                       from: address,
                       messageData: { domain: populated.domain, types, value: populated.value }
@@ -29154,14 +29152,14 @@ var require_json_rpc_provider = __commonJS({
                     try {
                       return [2, getNetwork(bignumber_1.BigNumber.from(chainId).toNumber())];
                     } catch (error) {
-                      return [2, logger2.throwError("could not detect network", logger_1.Logger.errors.NETWORK_ERROR, {
+                      return [2, logger.throwError("could not detect network", logger_1.Logger.errors.NETWORK_ERROR, {
                         chainId,
                         event: "invalidNetwork",
                         serverError: error
                       })];
                     }
                   }
-                  return [2, logger2.throwError("could not detect network", logger_1.Logger.errors.NETWORK_ERROR, {
+                  return [2, logger.throwError("could not detect network", logger_1.Logger.errors.NETWORK_ERROR, {
                     event: "noNetwork"
                   })];
               }
@@ -29294,7 +29292,7 @@ var require_json_rpc_provider = __commonJS({
                 case 2:
                   args = this.prepareRequest(method, params);
                   if (args == null) {
-                    logger2.throwError(method + " not implemented", logger_1.Logger.errors.NOT_IMPLEMENTED, { operation: method });
+                    logger.throwError(method + " not implemented", logger_1.Logger.errors.NOT_IMPLEMENTED, { operation: method });
                   }
                   _a.label = 3;
                 case 3:
@@ -32462,7 +32460,7 @@ var require_websocket_provider = __commonJS({
     var ws_1 = require_ws2();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var NextId = 1;
     var WebSocketProvider = (
       /** @class */
@@ -32471,7 +32469,7 @@ var require_websocket_provider = __commonJS({
         function WebSocketProvider2(url, network) {
           var _this = this;
           if (network === "any") {
-            logger2.throwError("WebSocketProvider does not support 'any' network yet", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("WebSocketProvider does not support 'any' network yet", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "network:any"
             });
           }
@@ -32563,7 +32561,7 @@ var require_websocket_provider = __commonJS({
             return 0;
           },
           set: function(value) {
-            logger2.throwError("cannot set polling interval on WebSocketProvider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("cannot set polling interval on WebSocketProvider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "setPollingInterval"
             });
           },
@@ -32571,7 +32569,7 @@ var require_websocket_provider = __commonJS({
           configurable: true
         });
         WebSocketProvider2.prototype.resetEventsBlock = function(blockNumber) {
-          logger2.throwError("cannot reset events block on WebSocketProvider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+          logger.throwError("cannot reset events block on WebSocketProvider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
             operation: "resetEventBlock"
           });
         };
@@ -32587,7 +32585,7 @@ var require_websocket_provider = __commonJS({
             if (!value) {
               return;
             }
-            logger2.throwError("cannot set polling on WebSocketProvider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("cannot set polling on WebSocketProvider", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "setPolling"
             });
           },
@@ -32897,7 +32895,7 @@ var require_url_json_rpc_provider = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var json_rpc_provider_1 = require_json_rpc_provider();
     var StaticJsonRpcProvider = (
       /** @class */
@@ -32919,7 +32917,7 @@ var require_url_json_rpc_provider = __commonJS({
                 case 1:
                   network = _a.sent();
                   if (!network) {
-                    logger2.throwError("no network detected", logger_1.Logger.errors.UNKNOWN_ERROR, {});
+                    logger.throwError("no network detected", logger_1.Logger.errors.UNKNOWN_ERROR, {});
                   }
                   if (this._network == null) {
                     (0, properties_1.defineReadOnly)(this, "_network", network);
@@ -32943,7 +32941,7 @@ var require_url_json_rpc_provider = __commonJS({
         function UrlJsonRpcProvider2(network, apiKey) {
           var _newTarget = this.constructor;
           var _this = this;
-          logger2.checkAbstract(_newTarget, UrlJsonRpcProvider2);
+          logger.checkAbstract(_newTarget, UrlJsonRpcProvider2);
           network = (0, properties_1.getStatic)(_newTarget, "getNetwork")(network);
           apiKey = (0, properties_1.getStatic)(_newTarget, "getApiKey")(apiKey);
           var connection = (0, properties_1.getStatic)(_newTarget, "getUrl")(network, apiKey);
@@ -32958,13 +32956,13 @@ var require_url_json_rpc_provider = __commonJS({
           return _this;
         }
         UrlJsonRpcProvider2.prototype._startPending = function() {
-          logger2.warn("WARNING: API provider does not support pending filters");
+          logger.warn("WARNING: API provider does not support pending filters");
         };
         UrlJsonRpcProvider2.prototype.isCommunityResource = function() {
           return false;
         };
         UrlJsonRpcProvider2.prototype.getSigner = function(address) {
-          return logger2.throwError("API provider does not support signing", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: "getSigner" });
+          return logger.throwError("API provider does not support signing", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { operation: "getSigner" });
         };
         UrlJsonRpcProvider2.prototype.listAccounts = function() {
           return Promise.resolve([]);
@@ -32973,7 +32971,7 @@ var require_url_json_rpc_provider = __commonJS({
           return apiKey;
         };
         UrlJsonRpcProvider2.getUrl = function(network, apiKey) {
-          return logger2.throwError("not implemented; sub-classes must override getUrl", logger_1.Logger.errors.NOT_IMPLEMENTED, {
+          return logger.throwError("not implemented; sub-classes must override getUrl", logger_1.Logger.errors.NOT_IMPLEMENTED, {
             operation: "getUrl"
           });
         };
@@ -33016,7 +33014,7 @@ var require_alchemy_provider = __commonJS({
     var websocket_provider_1 = require_websocket_provider();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var url_json_rpc_provider_1 = require_url_json_rpc_provider();
     var defaultApiKey = "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC";
     var AlchemyWebSocketProvider = (
@@ -33053,7 +33051,7 @@ var require_alchemy_provider = __commonJS({
             return defaultApiKey;
           }
           if (apiKey && typeof apiKey !== "string") {
-            logger2.throwArgumentError("invalid apiKey", "apiKey", apiKey);
+            logger.throwArgumentError("invalid apiKey", "apiKey", apiKey);
           }
           return apiKey;
         };
@@ -33085,7 +33083,7 @@ var require_alchemy_provider = __commonJS({
               host = "opt-goerli.g.alchemy.com/v2/";
               break;
             default:
-              logger2.throwArgumentError("unsupported network", "network", arguments[0]);
+              logger.throwArgumentError("unsupported network", "network", arguments[0]);
           }
           return {
             allowGzip: true,
@@ -33139,7 +33137,7 @@ var require_ankr_provider = __commonJS({
     var url_json_rpc_provider_1 = require_url_json_rpc_provider();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var defaultApiKey = "9f7d929b018cdffb338517efa06f58359e86ff1ffd350bc889738523659e7972";
     function getHost(name) {
       switch (name) {
@@ -33156,7 +33154,7 @@ var require_ankr_provider = __commonJS({
         case "arbitrum":
           return "rpc.ankr.com/arbitrum/";
       }
-      return logger2.throwArgumentError("unsupported network", "name", name);
+      return logger.throwArgumentError("unsupported network", "name", name);
     }
     var AnkrProvider = (
       /** @class */
@@ -33334,7 +33332,7 @@ var require_cloudflare_provider = __commonJS({
     var url_json_rpc_provider_1 = require_url_json_rpc_provider();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var CloudflareProvider = (
       /** @class */
       function(_super) {
@@ -33344,7 +33342,7 @@ var require_cloudflare_provider = __commonJS({
         }
         CloudflareProvider2.getApiKey = function(apiKey) {
           if (apiKey != null) {
-            logger2.throwArgumentError("apiKey not supported for cloudflare", "apiKey", apiKey);
+            logger.throwArgumentError("apiKey not supported for cloudflare", "apiKey", apiKey);
           }
           return null;
         };
@@ -33355,7 +33353,7 @@ var require_cloudflare_provider = __commonJS({
               host = "https://cloudflare-eth.com/";
               break;
             default:
-              logger2.throwArgumentError("unsupported network", "network", arguments[0]);
+              logger.throwArgumentError("unsupported network", "network", arguments[0]);
           }
           return host;
         };
@@ -33521,7 +33519,7 @@ var require_etherscan_provider = __commonJS({
     var formatter_1 = require_formatter();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var base_provider_1 = require_base_provider();
     function getTransactionPostData(transaction) {
       var result = {};
@@ -33604,7 +33602,7 @@ var require_etherscan_provider = __commonJS({
           if ((0, bytes_1.isHexString)(data)) {
             return data;
           }
-          logger2.throwError("missing revert data in call exception", logger_1.Logger.errors.CALL_EXCEPTION, {
+          logger.throwError("missing revert data in call exception", logger_1.Logger.errors.CALL_EXCEPTION, {
             error,
             data: "0x"
           });
@@ -33622,28 +33620,28 @@ var require_etherscan_provider = __commonJS({
       }
       message = (message || "").toLowerCase();
       if (message.match(/insufficient funds/)) {
-        logger2.throwError("insufficient funds for intrinsic transaction cost", logger_1.Logger.errors.INSUFFICIENT_FUNDS, {
+        logger.throwError("insufficient funds for intrinsic transaction cost", logger_1.Logger.errors.INSUFFICIENT_FUNDS, {
           error,
           method,
           transaction
         });
       }
       if (message.match(/same hash was already imported|transaction nonce is too low|nonce too low/)) {
-        logger2.throwError("nonce has already been used", logger_1.Logger.errors.NONCE_EXPIRED, {
+        logger.throwError("nonce has already been used", logger_1.Logger.errors.NONCE_EXPIRED, {
           error,
           method,
           transaction
         });
       }
       if (message.match(/another transaction with same nonce/)) {
-        logger2.throwError("replacement fee too low", logger_1.Logger.errors.REPLACEMENT_UNDERPRICED, {
+        logger.throwError("replacement fee too low", logger_1.Logger.errors.REPLACEMENT_UNDERPRICED, {
           error,
           method,
           transaction
         });
       }
       if (message.match(/execution failed due to an exception|execution reverted/)) {
-        logger2.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
+        logger.throwError("cannot estimate gas; transaction may fail or may require manual gas limit", logger_1.Logger.errors.UNPREDICTABLE_GAS_LIMIT, {
           error,
           method,
           transaction
@@ -33683,7 +33681,7 @@ var require_etherscan_provider = __commonJS({
               return "https://api-goerli-optimistic.etherscan.io";
             default:
           }
-          return logger2.throwArgumentError("unsupported network", "network", this.network.name);
+          return logger.throwArgumentError("unsupported network", "network", this.network.name);
         };
         EtherscanProvider2.prototype.getUrl = function(module3, params) {
           var query = Object.keys(params).reduce(function(accum, key) {
@@ -33892,12 +33890,12 @@ var require_etherscan_provider = __commonJS({
                   }
                   if (params.filter.topics && params.filter.topics.length > 0) {
                     if (params.filter.topics.length > 1) {
-                      logger2.throwError("unsupported topic count", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { topics: params.filter.topics });
+                      logger.throwError("unsupported topic count", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { topics: params.filter.topics });
                     }
                     if (params.filter.topics.length === 1) {
                       topic0 = params.filter.topics[0];
                       if (typeof topic0 !== "string" || topic0.length !== 66) {
-                        logger2.throwError("unsupported topic format", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { topic0 });
+                        logger.throwError("unsupported topic format", logger_1.Logger.errors.UNSUPPORTED_OPERATION, { topic0 });
                       }
                       args.topic0 = topic0;
                     }
@@ -34134,7 +34132,7 @@ var require_fallback_provider = __commonJS({
     var formatter_1 = require_formatter();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function now() {
       return (/* @__PURE__ */ new Date()).getTime();
     }
@@ -34147,7 +34145,7 @@ var require_fallback_provider = __commonJS({
         }
         if (result) {
           if (!(result.name === network.name && result.chainId === network.chainId && (result.ensAddress === network.ensAddress || result.ensAddress == null && network.ensAddress == null))) {
-            logger2.throwArgumentError("provider mismatch", "networks", networks);
+            logger.throwArgumentError("provider mismatch", "networks", networks);
           }
         } else {
           result = network;
@@ -34479,7 +34477,7 @@ var require_fallback_provider = __commonJS({
             case 18:
               return [2, provider.getLogs(filter)];
             case 19:
-              return [2, logger2.throwError("unknown method error", logger_1.Logger.errors.UNKNOWN_ERROR, {
+              return [2, logger.throwError("unknown method error", logger_1.Logger.errors.UNKNOWN_ERROR, {
                 method,
                 params
               })];
@@ -34491,12 +34489,12 @@ var require_fallback_provider = __commonJS({
       /** @class */
       function(_super) {
         __extends(FallbackProvider2, _super);
-        function FallbackProvider2(providers2, quorum) {
+        function FallbackProvider2(providers, quorum) {
           var _this = this;
-          if (providers2.length === 0) {
-            logger2.throwArgumentError("missing providers", "providers", providers2);
+          if (providers.length === 0) {
+            logger.throwArgumentError("missing providers", "providers", providers);
           }
-          var providerConfigs = providers2.map(function(configOrProvider, index) {
+          var providerConfigs = providers.map(function(configOrProvider, index) {
             if (abstract_provider_1.Provider.isProvider(configOrProvider)) {
               var stallTimeout = (0, formatter_1.isCommunityResource)(configOrProvider) ? 2e3 : 750;
               var priority = 1;
@@ -34514,7 +34512,7 @@ var require_fallback_provider = __commonJS({
             }
             var weight = config.weight;
             if (weight % 1 || weight > 512 || weight < 1) {
-              logger2.throwArgumentError("invalid weight; must be integer in [1, 512]", "providers[" + index + "].weight", weight);
+              logger.throwArgumentError("invalid weight; must be integer in [1, 512]", "providers[" + index + "].weight", weight);
             }
             return Object.freeze(config);
           });
@@ -34524,7 +34522,7 @@ var require_fallback_provider = __commonJS({
           if (quorum == null) {
             quorum = total / 2;
           } else if (quorum > total) {
-            logger2.throwArgumentError("quorum will always fail; larger than total weight", "quorum", quorum);
+            logger.throwArgumentError("quorum will always fail; larger than total weight", "quorum", quorum);
           }
           var networkOrReady = checkNetworks(providerConfigs.map(function(c) {
             return c.provider.network;
@@ -34731,7 +34729,7 @@ var require_fallback_provider = __commonJS({
                               }
                               props[name] = e[name];
                             });
-                            logger2.throwError(e.reason || e.message, errorCode, props);
+                            logger.throwError(e.reason || e.message, errorCode, props);
                           });
                           if (configs.filter(function(c) {
                             return !c.done;
@@ -34765,7 +34763,7 @@ var require_fallback_provider = __commonJS({
                     }
                     c.cancelled = true;
                   });
-                  return [2, logger2.throwError("failed to meet quorum", logger_1.Logger.errors.SERVER_ERROR, {
+                  return [2, logger.throwError("failed to meet quorum", logger_1.Logger.errors.SERVER_ERROR, {
                     method,
                     params,
                     //results: configs.map((c) => c.result),
@@ -34817,7 +34815,7 @@ var require_ipc_provider = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var json_rpc_provider_1 = require_json_rpc_provider();
     var IpcProvider = (
       /** @class */
@@ -34826,7 +34824,7 @@ var require_ipc_provider = __commonJS({
         function IpcProvider2(path, network) {
           var _this = this;
           if (path == null) {
-            logger2.throwError("missing path", logger_1.Logger.errors.MISSING_ARGUMENT, { arg: "path" });
+            logger.throwError("missing path", logger_1.Logger.errors.MISSING_ARGUMENT, { arg: "path" });
           }
           _this = _super.call(this, "ipc://" + path, network) || this;
           (0, properties_1.defineReadOnly)(_this, "path", path);
@@ -34902,7 +34900,7 @@ var require_infura_provider = __commonJS({
     var formatter_1 = require_formatter();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var url_json_rpc_provider_1 = require_url_json_rpc_provider();
     var defaultProjectId = "84842078b09946638c03157f83405213";
     var InfuraWebSocketProvider = (
@@ -34914,7 +34912,7 @@ var require_infura_provider = __commonJS({
           var provider = new InfuraProvider(network, apiKey);
           var connection = provider.connection;
           if (connection.password) {
-            logger2.throwError("INFURA WebSocket project secrets unsupported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
+            logger.throwError("INFURA WebSocket project secrets unsupported", logger_1.Logger.errors.UNSUPPORTED_OPERATION, {
               operation: "InfuraProvider.getWebSocketProvider()"
             });
           }
@@ -34954,8 +34952,8 @@ var require_infura_provider = __commonJS({
           if (typeof apiKey === "string") {
             apiKeyObj.projectId = apiKey;
           } else if (apiKey.projectSecret != null) {
-            logger2.assertArgument(typeof apiKey.projectId === "string", "projectSecret requires a projectId", "projectId", apiKey.projectId);
-            logger2.assertArgument(typeof apiKey.projectSecret === "string", "invalid projectSecret", "projectSecret", "[REDACTED]");
+            logger.assertArgument(typeof apiKey.projectId === "string", "projectSecret requires a projectId", "projectId", apiKey.projectId);
+            logger.assertArgument(typeof apiKey.projectSecret === "string", "invalid projectSecret", "projectSecret", "[REDACTED]");
             apiKeyObj.projectId = apiKey.projectId;
             apiKeyObj.projectSecret = apiKey.projectSecret;
           } else if (apiKey.projectId) {
@@ -34995,7 +34993,7 @@ var require_infura_provider = __commonJS({
               host = "arbitrum-goerli.infura.io";
               break;
             default:
-              logger2.throwError("unsupported network", logger_1.Logger.errors.INVALID_ARGUMENT, {
+              logger.throwError("unsupported network", logger_1.Logger.errors.INVALID_ARGUMENT, {
                 argument: "network",
                 value: network
               });
@@ -35163,7 +35161,7 @@ var require_nodesmith_provider = __commonJS({
     var url_json_rpc_provider_1 = require_url_json_rpc_provider();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var defaultApiKey = "ETHERS_JS_SHARED";
     var NodesmithProvider = (
       /** @class */
@@ -35174,12 +35172,12 @@ var require_nodesmith_provider = __commonJS({
         }
         NodesmithProvider2.getApiKey = function(apiKey) {
           if (apiKey && typeof apiKey !== "string") {
-            logger2.throwArgumentError("invalid apiKey", "apiKey", apiKey);
+            logger.throwArgumentError("invalid apiKey", "apiKey", apiKey);
           }
           return apiKey || defaultApiKey;
         };
         NodesmithProvider2.getUrl = function(network, apiKey) {
-          logger2.warn("NodeSmith will be discontinued on 2019-12-20; please migrate to another platform.");
+          logger.warn("NodeSmith will be discontinued on 2019-12-20; please migrate to another platform.");
           var host = null;
           switch (network.name) {
             case "homestead":
@@ -35198,7 +35196,7 @@ var require_nodesmith_provider = __commonJS({
               host = "https://ethereum.api.nodesmith.io/v1/kovan/jsonrpc";
               break;
             default:
-              logger2.throwArgumentError("unsupported network", "network", arguments[0]);
+              logger.throwArgumentError("unsupported network", "network", arguments[0]);
           }
           return host + "?apiKey=" + apiKey;
         };
@@ -35238,7 +35236,7 @@ var require_pocket_provider = __commonJS({
     exports2.PocketProvider = void 0;
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var url_json_rpc_provider_1 = require_url_json_rpc_provider();
     var defaultApplicationId = "62e1ad51b37b8e00394bda3b";
     var PocketProvider = (
@@ -35264,7 +35262,7 @@ var require_pocket_provider = __commonJS({
           } else if (apiKey.applicationId) {
             apiKeyObj.applicationId = apiKey.applicationId;
           } else {
-            logger2.throwArgumentError("unsupported PocketProvider apiKey", "apiKey", apiKey);
+            logger.throwArgumentError("unsupported PocketProvider apiKey", "apiKey", apiKey);
           }
           return apiKeyObj;
         };
@@ -35293,7 +35291,7 @@ var require_pocket_provider = __commonJS({
               host = "eth-ropsten.gateway.pokt.network";
               break;
             default:
-              logger2.throwError("unsupported network", logger_1.Logger.errors.INVALID_ARGUMENT, {
+              logger.throwError("unsupported network", logger_1.Logger.errors.INVALID_ARGUMENT, {
                 argument: "network",
                 value: network
               });
@@ -35346,7 +35344,7 @@ var require_web3_provider = __commonJS({
     var properties_1 = require_lib4();
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var json_rpc_provider_1 = require_json_rpc_provider();
     var _nextId = 1;
     function buildWeb3LegacyFetcher(provider, sendFunc) {
@@ -35436,7 +35434,7 @@ var require_web3_provider = __commonJS({
         function Web3Provider2(provider, network) {
           var _this = this;
           if (provider == null) {
-            logger2.throwArgumentError("missing provider", "provider", provider);
+            logger.throwArgumentError("missing provider", "provider", provider);
           }
           var path = null;
           var jsonRpcFetchFunc = null;
@@ -35460,7 +35458,7 @@ var require_web3_provider = __commonJS({
             } else if (provider.send) {
               jsonRpcFetchFunc = buildWeb3LegacyFetcher(provider, provider.send.bind(provider));
             } else {
-              logger2.throwArgumentError("unsupported provider", "provider", provider);
+              logger.throwArgumentError("unsupported provider", "provider", provider);
             }
             if (!path) {
               path = "unknown:";
@@ -35585,7 +35583,7 @@ var require_lib29 = __commonJS({
     } });
     var logger_1 = require_lib();
     var _version_1 = require_version22();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function getDefaultProvider(network, options2) {
       if (network == null) {
         network = "homestead";
@@ -35601,13 +35599,13 @@ var require_lib29 = __commonJS({
             case "wss":
               return new websocket_provider_1.WebSocketProvider(network);
             default:
-              logger2.throwArgumentError("unsupported URL scheme", "network", network);
+              logger.throwArgumentError("unsupported URL scheme", "network", network);
           }
         }
       }
       var n = (0, networks_1.getNetwork)(network);
       if (!n || !n._defaultProvider) {
-        logger2.throwError("unsupported getDefaultProvider network", logger_1.Logger.errors.NETWORK_ERROR, {
+        logger.throwError("unsupported getDefaultProvider network", logger_1.Logger.errors.NETWORK_ERROR, {
           operation: "getDefaultProvider",
           network
         });
@@ -35657,7 +35655,7 @@ var require_lib30 = __commonJS({
     var Zeros = "0000000000000000000000000000000000000000000000000000000000000000";
     var logger_1 = require_lib();
     var _version_1 = require_version23();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     function _pack(type, value, isArray) {
       switch (type) {
         case "address":
@@ -35680,7 +35678,7 @@ var require_lib30 = __commonJS({
       if (match) {
         var size = parseInt(match[2] || "256");
         if (match[2] && String(size) !== match[2] || size % 8 !== 0 || size === 0 || size > 256) {
-          logger2.throwArgumentError("invalid number type", "type", type);
+          logger.throwArgumentError("invalid number type", "type", type);
         }
         if (isArray) {
           size = 256;
@@ -35692,10 +35690,10 @@ var require_lib30 = __commonJS({
       if (match) {
         var size = parseInt(match[1]);
         if (String(size) !== match[1] || size === 0 || size > 32) {
-          logger2.throwArgumentError("invalid bytes type", "type", type);
+          logger.throwArgumentError("invalid bytes type", "type", type);
         }
         if ((0, bytes_1.arrayify)(value).byteLength !== size) {
-          logger2.throwArgumentError("invalid value for " + type, "value", value);
+          logger.throwArgumentError("invalid value for " + type, "value", value);
         }
         if (isArray) {
           return (0, bytes_1.arrayify)((value + Zeros).substring(0, 66));
@@ -35707,7 +35705,7 @@ var require_lib30 = __commonJS({
         var baseType_1 = match[1];
         var count = parseInt(match[2] || String(value.length));
         if (count != value.length) {
-          logger2.throwArgumentError("invalid array length for " + type, "value", value);
+          logger.throwArgumentError("invalid array length for " + type, "value", value);
         }
         var result_1 = [];
         value.forEach(function(value2) {
@@ -35715,11 +35713,11 @@ var require_lib30 = __commonJS({
         });
         return (0, bytes_1.concat)(result_1);
       }
-      return logger2.throwArgumentError("invalid type", "type", type);
+      return logger.throwArgumentError("invalid type", "type", type);
     }
     function pack(types, values) {
       if (types.length != values.length) {
-        logger2.throwArgumentError("wrong number of values; expected ${ types.length }", "values", values);
+        logger.throwArgumentError("wrong number of values; expected ${ types.length }", "values", values);
       }
       var tight = [];
       types.forEach(function(type, index) {
@@ -35758,7 +35756,7 @@ var require_lib31 = __commonJS({
     var bignumber_1 = require_lib3();
     var logger_1 = require_lib();
     var _version_1 = require_version24();
-    var logger2 = new logger_1.Logger(_version_1.version);
+    var logger = new logger_1.Logger(_version_1.version);
     var names = [
       "wei",
       "kwei",
@@ -35771,7 +35769,7 @@ var require_lib31 = __commonJS({
     function commify(value) {
       var comps = String(value).split(".");
       if (comps.length > 2 || !comps[0].match(/^-?[0-9]*$/) || comps[1] && !comps[1].match(/^[0-9]*$/) || value === "." || value === "-.") {
-        logger2.throwArgumentError("invalid value", "value", value);
+        logger.throwArgumentError("invalid value", "value", value);
       }
       var whole = comps[0];
       var negative = "";
@@ -35818,7 +35816,7 @@ var require_lib31 = __commonJS({
     exports2.formatUnits = formatUnits;
     function parseUnits(value, unitName) {
       if (typeof value !== "string") {
-        logger2.throwArgumentError("value must be a string", "value", value);
+        logger.throwArgumentError("value must be a string", "value", value);
       }
       if (typeof unitName === "string") {
         var index = names.indexOf(unitName);
@@ -36268,8 +36266,8 @@ var require_ethers = __commonJS({
     } });
     var constants2 = __importStar(require_lib8());
     exports2.constants = constants2;
-    var providers2 = __importStar(require_lib29());
-    exports2.providers = providers2;
+    var providers = __importStar(require_lib29());
+    exports2.providers = providers;
     var providers_1 = require_lib29();
     Object.defineProperty(exports2, "getDefaultProvider", { enumerable: true, get: function() {
       return providers_1.getDefaultProvider;
@@ -36291,8 +36289,8 @@ var require_ethers = __commonJS({
     Object.defineProperty(exports2, "version", { enumerable: true, get: function() {
       return _version_1.version;
     } });
-    var logger2 = new logger_1.Logger(_version_1.version);
-    exports2.logger = logger2;
+    var logger = new logger_1.Logger(_version_1.version);
+    exports2.logger = logger;
   }
 });
 
@@ -36330,12 +36328,12 @@ var require_lib32 = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.Wordlist = exports2.version = exports2.wordlists = exports2.utils = exports2.logger = exports2.errors = exports2.constants = exports2.FixedNumber = exports2.BigNumber = exports2.ContractFactory = exports2.Contract = exports2.BaseContract = exports2.providers = exports2.getDefaultProvider = exports2.VoidSigner = exports2.Wallet = exports2.Signer = exports2.ethers = void 0;
-    var ethers4 = __importStar(require_ethers());
-    exports2.ethers = ethers4;
+    var ethers5 = __importStar(require_ethers());
+    exports2.ethers = ethers5;
     try {
       anyGlobal = window;
       if (anyGlobal._ethers == null) {
-        anyGlobal._ethers = ethers4;
+        anyGlobal._ethers = ethers5;
       }
     } catch (error) {
     }
@@ -49906,34 +49904,8 @@ var IVotingMachineWithProofs__factory = class {
 };
 __publicField(IVotingMachineWithProofs__factory, "abi", _abi5);
 
-// src/helpers/StaticJsonRpcBatchProvider.ts
-var import_logger = __toESM(require_lib());
-var import_properties = __toESM(require_lib4());
-var import_ethers6 = __toESM(require_lib32());
-var StaticJsonRpcBatchProvider = class _StaticJsonRpcBatchProvider extends import_ethers6.providers.JsonRpcBatchProvider {
-  detectNetwork() {
-    return __async(this, null, function* () {
-      let network = this.network;
-      if (network == null) {
-        network = yield __superGet(_StaticJsonRpcBatchProvider.prototype, this, "detectNetwork").call(this);
-        if (!network) {
-          import_ethers6.logger.throwError(
-            "no network detected",
-            import_logger.Logger.errors.UNKNOWN_ERROR,
-            {}
-          );
-        }
-        if (this._network == null) {
-          (0, import_properties.defineReadOnly)(this, "_network", network);
-          this.emit("network", network, null);
-        }
-      }
-      return network;
-    });
-  }
-};
-
 // src/helpers/chainInfoHelpers.ts
+var import_ethers6 = __toESM(require_lib32());
 var ETH = {
   name: "Ether",
   symbol: "ETH",
@@ -50014,7 +49986,7 @@ var initChainInformationConfig = (chains) => {
         if (initalizedProviders[numberChainId]) {
           return initalizedProviders[numberChainId];
         } else {
-          const provider = new StaticJsonRpcBatchProvider(
+          const provider = new import_ethers6.ethers.providers.JsonRpcBatchProvider(
             urls[numberChainId][0]
           );
           initalizedProviders[numberChainId] = provider;

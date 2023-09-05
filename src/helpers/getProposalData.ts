@@ -66,7 +66,7 @@ export function updateVotingMachineData(
           (proposal) => proposal.proposalData.id.toNumber() === govData.id,
         ) || votingMachineDataHelperData[0];
 
-      const proposalData: BasicProposal = {
+      const proposalData = {
         id: govData.id,
         votingDuration:
           +votingMachineData?.voteConfig.votingDuration ||
@@ -113,7 +113,7 @@ export function getDetailedProposalsData(
           proposal.proposalData.id.toNumber() === govData.id.toNumber(),
       ) || votingMachineDataHelperData[i];
 
-    const proposalData: BasicProposal = {
+    const proposalData = {
       id: govData.id.toNumber(),
       votingDuration:
         +votingMachineData?.voteConfig.votingDuration ||
