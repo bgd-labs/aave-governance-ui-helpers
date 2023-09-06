@@ -20,7 +20,7 @@ export const govCoreConfig: Record<
     contractAddress: '0x586207Df62c7D5D1c9dBb8F61EdF77cc30925C4F',
     dataHelperContractAddress: '0x160e2d1456B815d6a3d281218538dd6E2e3C841f',
     votingPortals: {
-      [ChainIdByName.Goerli]: '0xEAae3F747f6f566cDc9887c2616B587F91aE7310',
+      [ChainIdByName.Goerli]: '0xFf376b6db4AF0d87Dba35860B3B87F526d7879cF',
     },
   },
   sepolia: {
@@ -50,7 +50,7 @@ export const payloadsControllerConfig: Record<
       // for create payload
       contractAddresses: ['0x064361B3761CcDd17300146bf58a79d1E570382E'],
       // TODO: (remove after release)
-      payloadAddress: '0xf6b9c3fcf7f91817e7bf0eff792ba692c7bd372a',
+      payloadAddress: '0xf6b9c3fCF7f91817E7bF0efF792BA692c7bd372A',
     },
   },
   sepolia: {
@@ -72,7 +72,7 @@ const votingMachineConfig: Record<
   // testnets
   goerli: {
     [ChainIdByName.Goerli]: {
-      contractAddress: '0xA02178e19C23d09fCbaAaEBba2c1D868339Fff40',
+      contractAddress: '0xE8AD5ab6295c16D04257BC6Cd6D447ff4018FF89',
       dataHelperContractAddress: '0xe10617A1ea760E174E82fBeb38a540d8ACe566f5',
       dataWarehouseAddress: '0xC946cc6bb934bAf2A539BaB62c647aff09D2e2D8',
     },
