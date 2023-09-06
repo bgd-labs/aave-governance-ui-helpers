@@ -49970,7 +49970,7 @@ var aditionalsAddresses = {
   goerli: {
     aaveAddress: "0xb6D88BfC5b145a558b279cf7692e6F02064889d0",
     aAaveAddress: "0xD1ff82609FB63A0eee6FE7D2896d80d29491cCCd",
-    stkAAVEAddress: "0x1406a9ea2b0ec8fd4bca4f876daae2a70a9856ec",
+    stkAAVEAddress: "0x1406A9Ea2B0ec8FD4bCa4F876DAae2a70a9856Ec",
     // for delegation
     delegationHelper: "0x1966133c190475E8385Dc1b4150B5f81c70DC578"
   },
