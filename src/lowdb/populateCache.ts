@@ -31,13 +31,14 @@ import {
   ProposalState,
   VotingMachineProposalState,
 } from '../types';
+import { coreName } from './helpers';
 import { Ipfs as IpfsDB } from './ipfs';
 import { ListViewProposal as ListViewProposalDB } from './listViewProposals';
 import { Payload as PayloadDB } from './payload';
 import { Proposal as ProposalDB } from './proposal';
 import { Votes as VotesDB } from './votes';
 
-const appConfig = appConfigInit(providers);
+const appConfig = appConfigInit(providers, coreName);
 
 export async function populateCache() {
   const proposalFetcher = new ProposalDB();

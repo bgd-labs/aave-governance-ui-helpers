@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 
-const coreDirName = process.env.CORE_NETWORK || 'sepolia';
+const coreDirName = process.env.CORE_NETWORK || 'mainnet';
 const cacheBuildDir = `src/generated-cache/${coreDirName}`;
 
 function pathToWrite(dir, name, id) {

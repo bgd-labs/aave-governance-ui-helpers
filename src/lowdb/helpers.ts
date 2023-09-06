@@ -1,4 +1,7 @@
+import { CoreNetworkName } from '../helpers/appConfig';
+
 require('dotenv').config();
 
-const coreDirName = process.env.CORE_NETWORK || 'sepolia';
-export const baseDirName = `src/generated-cache/${coreDirName}`;
+export const coreName: CoreNetworkName =
+  (process.env.CORE_NETWORK as CoreNetworkName) || 'mainnet';
+export const baseDirName = `src/generated-cache/${coreName}`;
