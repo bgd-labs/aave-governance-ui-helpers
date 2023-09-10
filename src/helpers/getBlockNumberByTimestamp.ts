@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 
 import { ChainIdByName } from './chains';
 
+// TODO: need added mainnets
 const getAverageBlockTime = (chainId: number) => {
   switch (chainId) {
     case ChainIdByName.Sepolia:
@@ -24,34 +25,58 @@ export async function getBlockNumberByTimestamp(
 ) {
   const blocksDiff = 100;
 
-  const averageBlockTime = getAverageBlockTime(chainId);
-  const lowerLimitStamp = targetTimestamp - blocksDiff * averageBlockTime;
+  let averageBlockTime = getAverageBlockTime(chainId);
 
   const currentBlockNumber = await provider.getBlockNumber();
   let block = await provider.getBlock(currentBlockNumber);
+  let isAverageBlockTimeFinal = false;
+  let prevBlock = undefined;
 
   let blockNumber = currentBlockNumber;
 
   while (block?.timestamp > targetTimestamp) {
-    let decreaseBlocks = (block.timestamp - targetTimestamp) / averageBlockTime;
-    decreaseBlocks = Math.floor(decreaseBlocks);
+    if (typeof prevBlock !== 'undefined' && !isAverageBlockTimeFinal) {
+      averageBlockTime = Math.ceil(
+        (prevBlock.timestamp - block.timestamp) /
+          (prevBlock.number - block.number),
+      );
+      isAverageBlockTimeFinal = true;
+    }
+
+    const decreaseBlocks = Math.floor(
+      (block.timestamp - targetTimestamp) / averageBlockTime,
+    );
+
     if (decreaseBlocks <= blocksDiff) {
       break;
     }
+
     blockNumber -= decreaseBlocks;
+    if (typeof prevBlock === 'undefined') {
+      prevBlock = block;
+    }
     block = await provider.getBlock(blockNumber);
   }
 
-  if (block?.timestamp < lowerLimitStamp) {
-    while (block.timestamp <= lowerLimitStamp) {
-      blockNumber += blocksDiff;
+  if (block?.timestamp < targetTimestamp) {
+    while (block.timestamp <= targetTimestamp) {
+      const increaseBlocks = Math.floor(
+        (targetTimestamp - block.timestamp) / averageBlockTime,
+      );
+
+      if (increaseBlocks <= blocksDiff) {
+        break;
+      }
+
+      blockNumber += increaseBlocks;
       block = await provider.getBlock(blockNumber);
     }
   }
 
   return {
-    minBlockNumber: block.number - blocksDiff * 2,
-    blockNumber: block.number,
-    maxBlockNumber: block.number + blocksDiff * 2,
+    minBlockNumber: (block?.number || currentBlockNumber) - blocksDiff * 2,
+    blockNumber: block?.number || currentBlockNumber,
+    maxBlockNumber:
+      (block?.number || currentBlockNumber - blocksDiff * 2) + blocksDiff * 2,
   };
 }
