@@ -112,12 +112,12 @@ const aditionalsAddresses: Record<CoreNetworkName, Record<string, string>> = {
   },
 };
 
-const votingMachineChainIds: Record<CoreNetworkName, number[]> = {
+export const votingMachineChainIds: Record<CoreNetworkName, number[]> = {
   goerli: [ChainIdByName.Goerli],
   sepolia: [ChainIdByName.Sepolia],
 };
 
-const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
+export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
   goerli: [ChainIdByName.Goerli],
   sepolia: [ChainIdByName.Sepolia],
 };
