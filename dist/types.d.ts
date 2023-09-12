@@ -178,7 +178,7 @@ export declare enum ProposalStateWithName {
     ActiveAll = "Active"
 }
 export declare enum ProposalEstimatedState {
-    Active = "Will be voting",
+    Active = "Will open for voting",
     Succeed = "Will pass",
     Defeated = "Will fail",
     ProposalExecuted = "Proposal will be executed",

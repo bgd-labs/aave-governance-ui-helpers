@@ -583,7 +583,7 @@ function _getEventsBySteps() {
   ProposalStateWithName["ActiveAll"] = "Active";
 })(exports.ProposalStateWithName || (exports.ProposalStateWithName = {}));
 (function (ProposalEstimatedState) {
-  ProposalEstimatedState["Active"] = "Will be voting";
+  ProposalEstimatedState["Active"] = "Will open for voting";
   ProposalEstimatedState["Succeed"] = "Will pass";
   ProposalEstimatedState["Defeated"] = "Will fail";
   ProposalEstimatedState["ProposalExecuted"] = "Proposal will be executed";
