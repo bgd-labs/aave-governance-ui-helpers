@@ -18,7 +18,7 @@ export const govCoreConfig: Record<
   // testnets
   goerli: {
     contractAddress: '0x586207Df62c7D5D1c9dBb8F61EdF77cc30925C4F',
-    dataHelperContractAddress: '0x160e2d1456B815d6a3d281218538dd6E2e3C841f',
+    dataHelperContractAddress: '0xB84D6c8b2cFC98191a1D6d00B38c1057252d876b',
     votingPortals: {
       [ChainIdByName.Goerli]: '0xFf376b6db4AF0d87Dba35860B3B87F526d7879cF',
     },
