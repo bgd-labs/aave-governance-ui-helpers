@@ -24,59 +24,66 @@ export async function getBlockNumberByTimestamp(
   provider: ethers.providers.JsonRpcBatchProvider,
 ) {
   const blocksDiff = 100;
+  const MAX_ITERATIONS = 10;
 
+  let iterationCount = 0;
   let averageBlockTime = getAverageBlockTime(chainId);
 
-  const currentBlockNumber = await provider.getBlockNumber();
-  let block = await provider.getBlock(currentBlockNumber);
-  let isAverageBlockTimeFinal = false;
-  let prevBlock = undefined;
+  const currentBlock = await provider.getBlock('latest');
 
-  let blockNumber = currentBlockNumber;
-
-  while (block?.timestamp > targetTimestamp) {
-    if (typeof prevBlock !== 'undefined' && !isAverageBlockTimeFinal) {
-      averageBlockTime = Math.ceil(
-        (prevBlock.timestamp - block.timestamp) /
-          (prevBlock.number - block.number),
-      );
-      isAverageBlockTimeFinal = true;
-    }
-
-    const decreaseBlocks = Math.floor(
-      (block.timestamp - targetTimestamp) / averageBlockTime,
-    );
-
-    if (decreaseBlocks <= blocksDiff) {
-      break;
-    }
-
-    blockNumber -= decreaseBlocks;
-    if (typeof prevBlock === 'undefined') {
-      prevBlock = block;
-    }
-    block = await provider.getBlock(blockNumber);
+  if (targetTimestamp > currentBlock.timestamp) {
+    throw new Error('Target timestamp is in the future.');
   }
 
-  if (block?.timestamp < targetTimestamp) {
-    while (block.timestamp <= targetTimestamp) {
-      const increaseBlocks = Math.floor(
-        (targetTimestamp - block.timestamp) / averageBlockTime,
-      );
+  let previousBlockTimestamp = currentBlock.timestamp;
+  let previousBlockNumber = currentBlock.number;
+  let estimatedBlockNumber;
+  let estimatedBlock;
 
-      if (increaseBlocks <= blocksDiff) {
-        break;
-      }
+  do {
+    // Make a guess
+    estimatedBlockNumber = Math.max(
+      0,
+      currentBlock.number -
+        Math.floor(
+          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+        ),
+    );
 
-      blockNumber += increaseBlocks;
-      block = await provider.getBlock(blockNumber);
-    }
+    // Get block data
+    estimatedBlock = await provider.getBlock(estimatedBlockNumber);
+
+    // Calculate a new average block time based on the difference of the timestamps
+    averageBlockTime =
+      (estimatedBlock.timestamp - previousBlockTimestamp) /
+      (estimatedBlockNumber - previousBlockNumber);
+
+    previousBlockTimestamp = estimatedBlock.timestamp;
+    previousBlockNumber = estimatedBlock.number;
+
+    iterationCount++;
+  } while (
+    Math.abs(estimatedBlock.timestamp - targetTimestamp) >
+      blocksDiff * averageBlockTime &&
+    iterationCount < MAX_ITERATIONS
+  );
+
+  if (iterationCount === MAX_ITERATIONS) {
+    throw new Error('Maximum iterations reached without converging.');
+  }
+
+  // if estimated block timestamp <= target
+  let minBlockNumber = estimatedBlock.number - 1;
+  let maxBlockNumber = estimatedBlock.number + blocksDiff * 2;
+
+  // if estimated block timestamp > target
+  if (estimatedBlock.timestamp > targetTimestamp) {
+    minBlockNumber = estimatedBlock.number - blocksDiff * 2;
+    maxBlockNumber = estimatedBlock.number;
   }
 
   return {
-    minBlockNumber: (block?.number || currentBlockNumber) - blocksDiff * 2,
-    blockNumber: block?.number || currentBlockNumber,
-    maxBlockNumber:
-      (block?.number || currentBlockNumber - blocksDiff * 2) + blocksDiff * 2,
+    minBlockNumber,
+    maxBlockNumber,
   };
 }
