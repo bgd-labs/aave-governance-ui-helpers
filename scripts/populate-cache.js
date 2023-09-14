@@ -48804,22 +48804,46 @@ var _abi2 = [
         type: "address"
       },
       {
-        internalType: "uint256",
-        name: "chainId",
-        type: "uint256"
+        internalType: "uint256[]",
+        name: "chainIds",
+        type: "uint256[]"
       }
     ],
     name: "getRepresentationData",
     outputs: [
       {
-        internalType: "address",
+        components: [
+          {
+            internalType: "uint256",
+            name: "chainId",
+            type: "uint256"
+          },
+          {
+            internalType: "address",
+            name: "representative",
+            type: "address"
+          }
+        ],
+        internalType: "struct IGovernanceDataHelper.Representatives[]",
         name: "",
-        type: "address"
+        type: "tuple[]"
       },
       {
-        internalType: "address[]",
+        components: [
+          {
+            internalType: "uint256",
+            name: "chainId",
+            type: "uint256"
+          },
+          {
+            internalType: "address[]",
+            name: "votersRepresented",
+            type: "address[]"
+          }
+        ],
+        internalType: "struct IGovernanceDataHelper.Represented[]",
         name: "",
-        type: "address[]"
+        type: "tuple[]"
       }
     ],
     stateMutability: "view",
@@ -49909,7 +49933,7 @@ var govCoreConfig = {
   // testnets
   goerli: {
     contractAddress: "0x586207Df62c7D5D1c9dBb8F61EdF77cc30925C4F",
-    dataHelperContractAddress: "0x160e2d1456B815d6a3d281218538dd6E2e3C841f",
+    dataHelperContractAddress: "0xB84D6c8b2cFC98191a1D6d00B38c1057252d876b",
     votingPortals: {
       [5 /* Goerli */]: "0xFf376b6db4AF0d87Dba35860B3B87F526d7879cF"
     }
