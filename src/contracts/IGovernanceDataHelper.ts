@@ -145,6 +145,26 @@ export declare namespace IGovernanceDataHelper {
     votingChainId: BigNumber;
     proposalData: IGovernanceCore.ProposalStructOutput;
   };
+
+  export type RepresentativesStruct = {
+    chainId: PromiseOrValue<BigNumberish>;
+    representative: PromiseOrValue<string>;
+  };
+
+  export type RepresentativesStructOutput = [BigNumber, string] & {
+    chainId: BigNumber;
+    representative: string;
+  };
+
+  export type RepresentedStruct = {
+    chainId: PromiseOrValue<BigNumberish>;
+    votersRepresented: PromiseOrValue<string>[];
+  };
+
+  export type RepresentedStructOutput = [BigNumber, string[]] & {
+    chainId: BigNumber;
+    votersRepresented: string[];
+  };
 }
 
 export declare namespace PayloadsControllerUtils {
@@ -167,7 +187,7 @@ export interface IGovernanceDataHelperInterface extends utils.Interface {
   functions: {
     "getConstants(address,uint8[])": FunctionFragment;
     "getProposalsData(address,uint256,uint256,uint256)": FunctionFragment;
-    "getRepresentationData(address,address,uint256)": FunctionFragment;
+    "getRepresentationData(address,address,uint256[])": FunctionFragment;
   };
 
   getFunction(
@@ -195,7 +215,7 @@ export interface IGovernanceDataHelperInterface extends utils.Interface {
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
+      PromiseOrValue<BigNumberish>[]
     ]
   ): string;
 
@@ -259,9 +279,14 @@ export interface IGovernanceDataHelper extends BaseContract {
     getRepresentationData(
       govCore: PromiseOrValue<string>,
       wallet: PromiseOrValue<string>,
-      chainId: PromiseOrValue<BigNumberish>,
+      chainIds: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
-    ): Promise<[string, string[]]>;
+    ): Promise<
+      [
+        IGovernanceDataHelper.RepresentativesStructOutput[],
+        IGovernanceDataHelper.RepresentedStructOutput[]
+      ]
+    >;
   };
 
   getConstants(
@@ -281,9 +306,14 @@ export interface IGovernanceDataHelper extends BaseContract {
   getRepresentationData(
     govCore: PromiseOrValue<string>,
     wallet: PromiseOrValue<string>,
-    chainId: PromiseOrValue<BigNumberish>,
+    chainIds: PromiseOrValue<BigNumberish>[],
     overrides?: CallOverrides
-  ): Promise<[string, string[]]>;
+  ): Promise<
+    [
+      IGovernanceDataHelper.RepresentativesStructOutput[],
+      IGovernanceDataHelper.RepresentedStructOutput[]
+    ]
+  >;
 
   callStatic: {
     getConstants(
@@ -303,9 +333,14 @@ export interface IGovernanceDataHelper extends BaseContract {
     getRepresentationData(
       govCore: PromiseOrValue<string>,
       wallet: PromiseOrValue<string>,
-      chainId: PromiseOrValue<BigNumberish>,
+      chainIds: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
-    ): Promise<[string, string[]]>;
+    ): Promise<
+      [
+        IGovernanceDataHelper.RepresentativesStructOutput[],
+        IGovernanceDataHelper.RepresentedStructOutput[]
+      ]
+    >;
   };
 
   filters: {};
@@ -328,7 +363,7 @@ export interface IGovernanceDataHelper extends BaseContract {
     getRepresentationData(
       govCore: PromiseOrValue<string>,
       wallet: PromiseOrValue<string>,
-      chainId: PromiseOrValue<BigNumberish>,
+      chainIds: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -351,7 +386,7 @@ export interface IGovernanceDataHelper extends BaseContract {
     getRepresentationData(
       govCore: PromiseOrValue<string>,
       wallet: PromiseOrValue<string>,
-      chainId: PromiseOrValue<BigNumberish>,
+      chainIds: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

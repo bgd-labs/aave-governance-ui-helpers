@@ -263,22 +263,46 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
-        name: "chainId",
-        type: "uint256",
+        internalType: "uint256[]",
+        name: "chainIds",
+        type: "uint256[]",
       },
     ],
     name: "getRepresentationData",
     outputs: [
       {
-        internalType: "address",
+        components: [
+          {
+            internalType: "uint256",
+            name: "chainId",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "representative",
+            type: "address",
+          },
+        ],
+        internalType: "struct IGovernanceDataHelper.Representatives[]",
         name: "",
-        type: "address",
+        type: "tuple[]",
       },
       {
-        internalType: "address[]",
+        components: [
+          {
+            internalType: "uint256",
+            name: "chainId",
+            type: "uint256",
+          },
+          {
+            internalType: "address[]",
+            name: "votersRepresented",
+            type: "address[]",
+          },
+        ],
+        internalType: "struct IGovernanceDataHelper.Represented[]",
         name: "",
-        type: "address[]",
+        type: "tuple[]",
       },
     ],
     stateMutability: "view",
