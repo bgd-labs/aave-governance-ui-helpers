@@ -29,15 +29,14 @@ export async function getBlockNumberByTimestamp(
   let iterationCount = 0;
   let averageBlockTime = getAverageBlockTime(chainId);
 
-  const currentBlockNumber = await provider.getBlockNumber();
-  let currentBlock = await provider.getBlock(currentBlockNumber);
+  const currentBlock = await provider.getBlock('latest');
 
   if (targetTimestamp > currentBlock.timestamp) {
     throw new Error('Target timestamp is in the future.');
   }
 
   let previousBlockTimestamp = currentBlock.timestamp;
-  let previousBlockNumber = currentBlockNumber;
+  let previousBlockNumber = currentBlock.number;
   let estimatedBlockNumber;
   let estimatedBlock;
 
@@ -45,7 +44,7 @@ export async function getBlockNumberByTimestamp(
     // Make a guess
     estimatedBlockNumber = Math.max(
       0,
-      currentBlockNumber -
+      currentBlock.number -
         Math.floor(
           (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
         ),

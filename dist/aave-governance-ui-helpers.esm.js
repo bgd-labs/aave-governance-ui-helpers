@@ -978,78 +978,63 @@ function getBlockNumberByTimestamp(_x, _x2, _x3) {
 }
 function _getBlockNumberByTimestamp() {
   _getBlockNumberByTimestamp = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(chainId, targetTimestamp, provider) {
-    var BLOCKS_DIFF, MAX_ITERATIONS, iterationCount, averageBlockTime, currentBlockNumber, currentBlock, estimatedBlockNumber, estimatedBlock, previousBlockTimestamp, previousBlockNumber, minBlockNumber, maxBlockNumber;
+    var blocksDiff, MAX_ITERATIONS, iterationCount, averageBlockTime, currentBlock, previousBlockTimestamp, previousBlockNumber, estimatedBlockNumber, estimatedBlock, minBlockNumber, maxBlockNumber;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          BLOCKS_DIFF = 100;
+          blocksDiff = 100;
           MAX_ITERATIONS = 10;
           iterationCount = 0;
           averageBlockTime = getAverageBlockTime(chainId);
           _context.next = 6;
-          return provider.getBlockNumber();
+          return provider.getBlock('latest');
         case 6:
-          currentBlockNumber = _context.sent;
-          _context.next = 9;
-          return provider.getBlock(currentBlockNumber);
-        case 9:
           currentBlock = _context.sent;
           if (!(targetTimestamp > currentBlock.timestamp)) {
-            _context.next = 12;
+            _context.next = 9;
             break;
           }
           throw new Error('Target timestamp is in the future.');
-        case 12:
-          // initial guess
-          estimatedBlockNumber = Math.max(0, currentBlockNumber - Math.floor((currentBlock.timestamp - targetTimestamp) / averageBlockTime));
-          _context.next = 15;
-          return provider.getBlock(estimatedBlockNumber);
-        case 15:
-          estimatedBlock = _context.sent;
+        case 9:
           previousBlockTimestamp = currentBlock.timestamp;
-          previousBlockNumber = currentBlockNumber;
-          do {
-            iterationCount++;
-          } while (Math.abs(estimatedBlock.timestamp - targetTimestamp) > BLOCKS_DIFF * averageBlockTime && iterationCount < MAX_ITERATIONS);
-          // until difference is less that blocks diff
-        case 19:
-          if (!(Math.abs(estimatedBlock.timestamp - targetTimestamp) > BLOCKS_DIFF * averageBlockTime && iterationCount < MAX_ITERATIONS)) {
-            _context.next = 30;
-            break;
-          }
+          previousBlockNumber = currentBlock.number;
+        case 11:
+          // Make a guess
+          estimatedBlockNumber = Math.max(0, currentBlock.number - Math.floor((previousBlockTimestamp - targetTimestamp) / averageBlockTime));
+          // Get block data
+          _context.next = 14;
+          return provider.getBlock(estimatedBlockNumber);
+        case 14:
+          estimatedBlock = _context.sent;
           // Calculate a new average block time based on the difference of the timestamps
           averageBlockTime = (estimatedBlock.timestamp - previousBlockTimestamp) / (estimatedBlockNumber - previousBlockNumber);
           previousBlockTimestamp = estimatedBlock.timestamp;
           previousBlockNumber = estimatedBlock.number;
-          // Make a new guess
-          estimatedBlockNumber = Math.max(0, estimatedBlockNumber - Math.floor((estimatedBlock.timestamp - targetTimestamp) / averageBlockTime));
-          // Get block data
-          _context.next = 26;
-          return provider.getBlock(estimatedBlockNumber);
-        case 26:
-          estimatedBlock = _context.sent;
           iterationCount++;
-          _context.next = 19;
-          break;
-        case 30:
+        case 19:
+          if (Math.abs(estimatedBlock.timestamp - targetTimestamp) > blocksDiff * averageBlockTime && iterationCount < MAX_ITERATIONS) {
+            _context.next = 11;
+            break;
+          }
+        case 20:
           if (!(iterationCount === MAX_ITERATIONS)) {
-            _context.next = 32;
+            _context.next = 22;
             break;
           }
           throw new Error('Maximum iterations reached without converging.');
-        case 32:
+        case 22:
           // if estimated block timestamp <= target
           minBlockNumber = estimatedBlock.number - 1;
-          maxBlockNumber = estimatedBlock.number + BLOCKS_DIFF * 2; // if estimated block timestamp > target
+          maxBlockNumber = estimatedBlock.number + blocksDiff * 2; // if estimated block timestamp > target
           if (estimatedBlock.timestamp > targetTimestamp) {
-            minBlockNumber = estimatedBlock.number - BLOCKS_DIFF * 2;
+            minBlockNumber = estimatedBlock.number - blocksDiff * 2;
             maxBlockNumber = estimatedBlock.number;
           }
           return _context.abrupt("return", {
             minBlockNumber: minBlockNumber,
             maxBlockNumber: maxBlockNumber
           });
-        case 36:
+        case 26:
         case "end":
           return _context.stop();
       }
