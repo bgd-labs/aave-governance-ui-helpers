@@ -116,17 +116,13 @@ export function getProposalStepsAndAmounts({
   const lastPayloadExpiredAt = Math.max.apply(
     null,
     proposalData.payloads.map((payload) => {
-      if (!!payload?.executedAt) {
-        if (payload.queuedAt <= 0 && payload.state === PayloadState.Expired) {
-          return payload.expirationTime;
-        } else if (
-          payload.queuedAt > 0 &&
-          payload.state === PayloadState.Expired
-        ) {
-          return payload.queuedAt + payload.delay + payload.gracePeriod;
-        } else {
-          return 0;
-        }
+      if (payload.queuedAt <= 0 && payload.state === PayloadState.Expired) {
+        return payload.expirationTime;
+      } else if (
+        payload.queuedAt > 0 &&
+        payload.state === PayloadState.Expired
+      ) {
+        return payload.queuedAt + payload.delay + payload.gracePeriod;
       } else {
         return 0;
       }
