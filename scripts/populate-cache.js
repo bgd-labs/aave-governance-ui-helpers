@@ -50454,6 +50454,9 @@ var providers = {
   [1 /* EthereumMainnet */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
     "https://cloudflare-eth.com"
   ),
+  [43113 /* AvalancheFuji */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+    "https://api.avax-test.network/ext/bc/C/rpc"
+  ),
   [5 /* Goerli */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
     "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   ),
