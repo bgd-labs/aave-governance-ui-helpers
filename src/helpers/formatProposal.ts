@@ -553,7 +553,6 @@ export function formatProposal(proposal: Proposal) {
   const votingTokens = proposal.balances;
 
   const requiredForVotes =
-    forVotes < normalizeMinQuorumVotes &&
     againstVotes + normalizeRequiredDiff < normalizeMinQuorumVotes
       ? normalizeMinQuorumVotes
       : againstVotes + normalizeRequiredDiff;
