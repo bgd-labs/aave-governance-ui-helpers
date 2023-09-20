@@ -164,8 +164,7 @@ export function getProposalStepsAndAmounts({
 
   const isVotingFailed =
     isVotingEnded &&
-    (againstVotes > forVotes + normalizeRequiredDiff ||
-      (againstVotes === 0 && forVotes === 0));
+    (againstVotes >= forVotes || (againstVotes === 0 && forVotes === 0));
 
   const isProposalQueued =
     isVotingStarted &&
@@ -389,7 +388,7 @@ export function getEstimatedState(
   );
 
   const isVotingDefeated =
-    againstVotes > forVotes + normalizeRequiredDiff ||
+    againstVotes >= forVotes ||
     (againstVotes === 0 && forVotes === 0) ||
     !quorumReached;
 
