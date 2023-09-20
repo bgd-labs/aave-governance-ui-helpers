@@ -1,4 +1,5 @@
 export enum ChainIdByName {
+  EthereumMainnet = 1,
   Goerli = 5,
   GoerliOptimism = 420,
   AvalancheFuji = 43113,

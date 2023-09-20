@@ -50,6 +50,7 @@ export type VotersData = {
   transactionHash: string;
   blockNumber: number;
   chainId: number;
+  ensName?: string;
 };
 
 export type InitialProposal = {

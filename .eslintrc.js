@@ -16,4 +16,5 @@ module.exports = {
     'import/no-unresolved': 'off', // TODO: maybe need change to 'warn'
     'react/self-closing-comp': 'warn',
   },
+  ignorePatterns: ['scripts/**/*'],
 };

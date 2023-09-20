@@ -1,12 +1,14 @@
-import { providers } from 'ethers';
+import { providers as ethersProviders } from 'ethers';
 import lodash from 'lodash';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import { join } from 'path';
 
 import { IVotingMachineWithProofs } from '../contracts/IVotingMachineWithProofs';
+import { ChainIdByName } from '../helpers/chains';
 import { blockLimit, getBlocksForEvents } from '../helpers/eventsHelpres';
 import { getVoters } from '../helpers/getProposalEvents';
+import { providers } from '../helpers/providers';
 import { VotersData } from '../types';
 import { baseDirName } from './helpers';
 
@@ -44,12 +46,13 @@ export class Votes {
   }
 
   async populate(
-    votingMachineProvider: providers.JsonRpcBatchProvider,
+    votingMachineProvider: ethersProviders.JsonRpcBatchProvider,
     votingMachine: IVotingMachineWithProofs,
     startBlockNumber: number,
     endBlockNumber: number,
     chainId: number,
   ) {
+    const mainnetProvider = providers[ChainIdByName.EthereumMainnet];
     // fallback to empty array
     db.data ||= { voters: [], lastVoteBlockNumber: {} };
 
@@ -75,6 +78,31 @@ export class Votes {
         chainId,
       );
 
+      const fiveTopVoters = await Promise.all(
+        newVoters
+          .sort((a, b) => b.votingPower - a.votingPower)
+          .slice(0, 5)
+          .map(async (vote) => {
+            const name = await mainnetProvider.lookupAddress(vote.address);
+
+            return {
+              ...vote,
+              ensName: name ? name : undefined,
+            };
+          }),
+      );
+
+      fiveTopVoters.forEach((vote: VotersData) => {
+        const cache = isCached.voters.find(
+          (cacheVote: VotersData) =>
+            vote.transactionHash === cacheVote.transactionHash,
+        );
+
+        if (!cache) {
+          voters.push(vote);
+        }
+      });
+
       newVoters.forEach((vote: VotersData) => {
         const cache = isCached.voters.find(
           (cacheVote: VotersData) =>
@@ -82,7 +110,7 @@ export class Votes {
         );
 
         if (!cache) {
-          voters.push(...newVoters);
+          voters.push(vote);
         }
       });
     }

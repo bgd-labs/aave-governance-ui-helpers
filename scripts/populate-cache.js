@@ -50451,6 +50451,9 @@ function getProposalMetadata(_0) {
 // src/helpers/providers.ts
 var import_ethers9 = __toESM(require_lib32());
 var providers = {
+  [1 /* EthereumMainnet */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+    "https://cloudflare-eth.com"
+  ),
   [5 /* Goerli */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
     "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   ),
@@ -50953,6 +50956,7 @@ var Votes = class {
   }
   populate(votingMachineProvider, votingMachine, startBlockNumber, endBlockNumber, chainId) {
     return __async(this, null, function* () {
+      const mainnetProvider = providers[1 /* EthereumMainnet */];
       db5.data || (db5.data = { voters: [], lastVoteBlockNumber: {} });
       const isCached = db5.data || (db5.data = { voters: [], lastVoteBlockNumber: {} });
       const currentBlock = yield votingMachineProvider.getBlockNumber();
@@ -50971,12 +50975,28 @@ var Votes = class {
           votingMachine,
           chainId
         );
+        const fiveTopVoters = yield Promise.all(
+          newVoters.sort((a, b) => b.votingPower - a.votingPower).slice(0, 5).map((vote) => __async(this, null, function* () {
+            const name = yield mainnetProvider.lookupAddress(vote.address);
+            return __spreadProps(__spreadValues({}, vote), {
+              ensName: name ? name : void 0
+            });
+          }))
+        );
+        fiveTopVoters.forEach((vote) => {
+          const cache = isCached.voters.find(
+            (cacheVote) => vote.transactionHash === cacheVote.transactionHash
+          );
+          if (!cache) {
+            voters.push(vote);
+          }
+        });
         newVoters.forEach((vote) => {
           const cache = isCached.voters.find(
             (cacheVote) => vote.transactionHash === cacheVote.transactionHash
           );
           if (!cache) {
-            voters.push(...newVoters);
+            voters.push(vote);
           }
         });
       }
