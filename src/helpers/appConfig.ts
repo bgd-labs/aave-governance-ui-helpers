@@ -24,10 +24,12 @@ export const govCoreConfig: Record<
     },
   },
   sepolia: {
-    contractAddress: '0x84b3FE5eD74caC496BcB58d448A7c83c523F6E0E',
-    dataHelperContractAddress: '0x74bb7b600fA33E2A1945F8493D17db3b129513D2',
+    contractAddress: '0xc4ABF658C3Dda84225cF8A07d7D5Bb6Aa41d9E59',
+    dataHelperContractAddress: '0x863f9De2f82AB502612E8B7d4f4863c8535cb8cA',
     votingPortals: {
-      [ChainIdByName.Sepolia]: '0x5C77bF8505716904a1a73eB8c3909c0Da0DD49b3',
+      [ChainIdByName.Sepolia]: '0x1079bAa48E56065d43b4344866B187a485cb0A92',
+      [ChainIdByName.AvalancheFuji]:
+        '0x4f47EdF2577995aBd7B875Eed75b3F28a20E696F',
     },
   },
 };
@@ -55,12 +57,20 @@ export const payloadsControllerConfig: Record<
   },
   sepolia: {
     [ChainIdByName.Sepolia]: {
-      dataHelperContractAddress: '0x5c2AD703961c59Adb4412d402b8D694Eee48a822',
+      dataHelperContractAddress: '0x6B9AF21B95FE20b5a878b43670c23124841ec31A',
 
       // for create payload
-      contractAddresses: ['0x7Bb94b2a8d9fD3f37345Ec5A0b46c234164b4f90'],
+      contractAddresses: ['0x7E314a46AA6dF79c51869967B9b8e9f8Bb20781d'],
       // TODO: (remove after release)
       payloadAddress: '0xf19de078dbac9db382caf8015cb208667ec581c0',
+    },
+    [ChainIdByName.AvalancheFuji]: {
+      dataHelperContractAddress: '0x6B9AF21B95FE20b5a878b43670c23124841ec31A',
+
+      // for create payload
+      contractAddresses: ['0x1fad4eac642D8CAFb7fC5d38973D1C2764202da5'],
+      // TODO: (remove after release)
+      payloadAddress: '0xdf9f39247c553485ac3bf974418947d9b2f969e5',
     },
   },
 };
@@ -79,9 +89,14 @@ const votingMachineConfig: Record<
   },
   sepolia: {
     [ChainIdByName.Sepolia]: {
-      contractAddress: '0xB379f8a3E62Ff807E827F853B36688d1d7aD692f',
-      dataHelperContractAddress: '0x8b5661024Bc97c1Fd71B4eCafCA88c316c3D438B',
-      dataWarehouseAddress: '0xdF6C1affD18Ecb318e4468d96b588bbbEac180E2',
+      contractAddress: '0xA1995F1d5A8A247c064a76F336E1C2ecD24Ef0D9',
+      dataHelperContractAddress: '0x133210F3fe2deEB34e65deB6861ee3dF87393977',
+      dataWarehouseAddress: '0xACd2b1bA0B85FaF0f45D4974Ba8ee538E157fBc6',
+    },
+    [ChainIdByName.AvalancheFuji]: {
+      contractAddress: '0x767AA57554690D23D1E0594E8746271C97e1A1e4',
+      dataHelperContractAddress: '0x133210F3fe2deEB34e65deB6861ee3dF87393977',
+      dataWarehouseAddress: '0x2F4bc3128D0D52ef954552FfEC28BC523462dc02',
     },
   },
 };
@@ -103,23 +118,23 @@ const aditionalsAddresses: Record<CoreNetworkName, Record<string, string>> = {
     delegationHelper: '0x1966133c190475E8385Dc1b4150B5f81c70DC578',
   },
   sepolia: {
-    aaveAddress: '0x64033B2270fd9D6bbFc35736d2aC812942cE75fE',
-    aAaveAddress: '0x7d9EB767eEc260d1bCe8C518276a894aE5535F04',
-    stkAAVEAddress: '0xA4FDAbdE9eF3045F0dcF9221bab436B784B7e42D',
+    aaveAddress: '0xdaEcee477B931b209e8123401EA37582ACB3811d',
+    aAaveAddress: '0x26aAB2aE39897338c2d91491C46c14a8c2a67919',
+    stkAAVEAddress: '0x354032B31339853A3D682613749F183328d07275',
 
     // for delegation
-    delegationHelper: '0x1633Bd6772020a797fB09a3b17D6AD9a95b98f01',
+    delegationHelper: '0x7cc468E937ec7B06A2816B33AC159BC1273dF4A3',
   },
-};
-
-export const votingMachineChainIds: Record<CoreNetworkName, number[]> = {
-  goerli: [ChainIdByName.Goerli],
-  sepolia: [ChainIdByName.Sepolia],
 };
 
 export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
   goerli: [ChainIdByName.Goerli],
-  sepolia: [ChainIdByName.Sepolia],
+  sepolia: [ChainIdByName.Sepolia, ChainIdByName.AvalancheFuji],
+};
+
+export const votingMachineChainIds: Record<CoreNetworkName, number[]> = {
+  goerli: [ChainIdByName.Goerli],
+  sepolia: [ChainIdByName.Sepolia, ChainIdByName.AvalancheFuji],
 };
 
 const gelatoApiKeys: Record<string, string> = {
