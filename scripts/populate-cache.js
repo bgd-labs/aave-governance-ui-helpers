@@ -50722,7 +50722,7 @@ function getProposalStepsAndAmounts({
   const isCanceled = proposalData.basicState === 6 /* Cancelled */ || allPayloadsCanceled;
   const isExpired = proposalData.basicState === 7 /* Expired */ || allPayloadsExpired;
   const isVotingActive = isVotingStarted && !isVotingEnded && !isCanceled;
-  const isVotingFailed = isVotingEnded && (againstVotes > forVotes + normalizeRequiredDiff || againstVotes === 0 && forVotes === 0);
+  const isVotingFailed = isVotingEnded && (againstVotes >= forVotes || againstVotes === 0 && forVotes === 0);
   const isProposalQueued = isVotingStarted && isVotingEnded && isVotingClosed && proposalData.votingMachineData.sentToGovernance && proposalData.queuingTime > 0 && now > proposalData.queuingTime + cooldownPeriod;
   const isProposalExecuted = isVotingEnded && isVotingClosed && !isVotingFailed && proposalData.basicState === 4 /* Executed */ && !isCanceled;
   const isPayloadsQueued = isProposalExecuted && now > lastPayloadQueuedAt + executionPayloadTime;
