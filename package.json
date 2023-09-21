@@ -16,7 +16,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -50,7 +50,6 @@
     }
   ],
   "devDependencies": {
-    "@bgd-labs/aave-address-book": "^2.4.1",
     "@size-limit/preset-small-lib": "^9.0.0",
     "@types/lodash": "^4.14.198",
     "bignumber.js": "^9.1.2",
@@ -73,8 +72,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@bgd-labs/aave-address-book": "^2.4.2",
     "@web3-react/core": "^8.2.2",
-    "dayjs": "^1.11.9",
+    "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3"
   }
 }

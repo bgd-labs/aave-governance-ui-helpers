@@ -123,17 +123,17 @@ const votingMachineConfig: Record<
     [ChainIdByName.EthereumMainnet]: {
       contractAddress: GovernanceV3Ethereum.VOTING_MACHINE,
       dataHelperContractAddress: GovernanceV3Ethereum.VM_DATA_HELPER,
-      dataWarehouseAddress: '', // TODO: wait for address in address book
+      dataWarehouseAddress: GovernanceV3Ethereum.DATA_WAREHOUSE,
     },
     [ChainIdByName.Polygon]: {
       contractAddress: GovernanceV3Polygon.VOTING_MACHINE,
       dataHelperContractAddress: GovernanceV3Polygon.VM_DATA_HELPER,
-      dataWarehouseAddress: '', // TODO: wait for address in address book
+      dataWarehouseAddress: GovernanceV3Polygon.DATA_WAREHOUSE,
     },
     [ChainIdByName.Avalanche]: {
       contractAddress: GovernanceV3Avalanche.VOTING_MACHINE,
       dataHelperContractAddress: GovernanceV3Avalanche.VM_DATA_HELPER,
-      dataWarehouseAddress: '', // TODO: wait for address in address book
+      dataWarehouseAddress: GovernanceV3Avalanche.DATA_WAREHOUSE,
     },
   },
   // testnets
