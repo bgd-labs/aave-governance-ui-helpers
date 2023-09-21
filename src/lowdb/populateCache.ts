@@ -207,19 +207,9 @@ export async function populateCache() {
         .shiftedBy(18 * -1)
         .toNumber();
 
-      const requiredDiff = new BigNumber(
-        configs.find(
-          (config) => config.accessLevel === proposalData.accessLevel,
-        )?.differential || 0,
-      ).multipliedBy(contractsConstants.precisionDivider);
-      const normalizeRequiredDiff = new BigNumber(requiredDiff)
-        .shiftedBy(18 * -1)
-        .toNumber();
-
       const isVotingFailed =
         isVotingEndedN &&
-        (againstVotes > forVotes + normalizeRequiredDiff ||
-          (againstVotes === 0 && forVotes === 0));
+        (againstVotes >= forVotes || (againstVotes === 0 && forVotes === 0));
 
       const isProposalCanceled =
         proposalData.basicState === BasicProposalState.Cancelled;

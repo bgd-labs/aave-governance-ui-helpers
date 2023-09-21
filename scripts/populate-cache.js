@@ -51569,7 +51569,7 @@ var Votes = class {
 var appConfig = appConfigInit(providers, coreName);
 function populateCache() {
   return __async(this, null, function* () {
-    var _a, _b;
+    var _a;
     const proposalFetcher = new Proposal2();
     const listViewProposalFetcher = new ListViewProposal();
     const payloadFetcher = new Payload();
@@ -51685,13 +51685,7 @@ function populateCache() {
         const againstVotes = new BigNumber(
           proposalData.votingMachineData.againstVotes
         ).shiftedBy(18 * -1).toNumber();
-        const requiredDiff = new BigNumber(
-          ((_a = configs.find(
-            (config) => config.accessLevel === proposalData.accessLevel
-          )) == null ? void 0 : _a.differential) || 0
-        ).multipliedBy(contractsConstants.precisionDivider);
-        const normalizeRequiredDiff = new BigNumber(requiredDiff).shiftedBy(18 * -1).toNumber();
-        const isVotingFailed = isVotingEndedN && (againstVotes > forVotes + normalizeRequiredDiff || againstVotes === 0 && forVotes === 0);
+        const isVotingFailed = isVotingEndedN && (againstVotes >= forVotes || againstVotes === 0 && forVotes === 0);
         const isProposalCanceled = proposalData.basicState === 6 /* Cancelled */;
         const isProposalExpired = proposalData.basicState === 7 /* Expired */ || now > proposalData.creationTime + contractsConstants.expirationTime;
         const payloadsChainIds = proposalData.initialPayloads.map((payload) => payload.chainId).filter((value, index, self2) => self2.indexOf(value) === index);
@@ -51796,9 +51790,9 @@ function populateCache() {
           // @ts-ignore
           proposalPayloadsData.map((payload) => (payload == null ? void 0 : payload.delay) || 0)
         );
-        const proposalTitle = ((_b = allIpfsData.find(
+        const proposalTitle = ((_a = allIpfsData.find(
           (ipfs) => ipfs.originalIpfsHash === proposalData.ipfsHash
-        )) == null ? void 0 : _b.title) || "";
+        )) == null ? void 0 : _a.title) || "";
         const formattedProposalData = __spreadProps(__spreadValues({}, proposalData), {
           payloads: proposalPayloadsData,
           title: proposalTitle,
