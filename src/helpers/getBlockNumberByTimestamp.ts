@@ -42,21 +42,35 @@ export async function getBlockNumberByTimestamp(
 
   do {
     // Make a guess
-    estimatedBlockNumber = Math.max(
-      0,
-      currentBlock.number -
-        Math.floor(
-          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-        ),
-    );
+
+    if (previousBlockTimestamp >= targetTimestamp) {
+      // step back
+      estimatedBlockNumber = Math.max(
+        0,
+        previousBlockNumber -
+          Math.floor(
+            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+          ),
+      );
+    } else {
+      // step forward
+      estimatedBlockNumber = Math.max(
+        0,
+        previousBlockNumber +
+          Math.floor(
+            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+          ),
+      );
+    }
 
     // Get block data
     estimatedBlock = await provider.getBlock(estimatedBlockNumber);
 
     // Calculate a new average block time based on the difference of the timestamps
-    averageBlockTime =
+    averageBlockTime = Math.round(
       (estimatedBlock.timestamp - previousBlockTimestamp) /
-      (estimatedBlockNumber - previousBlockNumber);
+        (estimatedBlockNumber - previousBlockNumber),
+    );
 
     previousBlockTimestamp = estimatedBlock.timestamp;
     previousBlockNumber = estimatedBlock.number;
