@@ -30,60 +30,83 @@ export async function getBlockNumberByTimestamp(
   let averageBlockTime = getAverageBlockTime(chainId);
 
   const currentBlock = await provider.getBlock('latest');
+  iterationCount++;
 
   if (targetTimestamp > currentBlock.timestamp) {
     throw new Error('Target timestamp is in the future.');
   }
 
-  let previousBlockTimestamp = currentBlock.timestamp;
-  let previousBlockNumber = currentBlock.number;
-  let estimatedBlockNumber;
-  let estimatedBlock;
+  const currentBlockNumber = currentBlock.number;
+  let estimatedBlock = currentBlock;
+  let isAverageBlockTimeFinal = false;
+  let prevBlock = undefined;
 
-  do {
-    // Make a guess
-    estimatedBlockNumber = Math.max(
-      0,
-      currentBlock.number -
-        Math.floor(
-          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-        ),
+  let workingBlockNumber = currentBlockNumber;
+
+  // if estimated block timestamp > target (if everything is correct, then the estimatedBlock timestamp will always be larger than the one we need, since it's current block at first)
+  while (estimatedBlock?.timestamp > targetTimestamp) {
+    if (iterationCount === MAX_ITERATIONS) {
+      throw new Error('Maximum iterations reached without converging.');
+    }
+
+    // only once we correct the averageBlockTime after first iteration
+    if (typeof prevBlock !== 'undefined' && !isAverageBlockTimeFinal) {
+      averageBlockTime = Math.ceil(
+        (prevBlock.timestamp - estimatedBlock.timestamp) /
+          (prevBlock.number - estimatedBlock.number),
+      );
+      isAverageBlockTimeFinal = true;
+    }
+
+    // calculate how many blocks we will move down from the estimatedBlock based on averageBlockTime
+    const decreaseBlocks = Math.floor(
+      (estimatedBlock.timestamp - targetTimestamp) / averageBlockTime,
     );
 
-    // Get block data
-    estimatedBlock = await provider.getBlock(estimatedBlockNumber);
+    // if we go down less than we need, we leave this cycle
+    if (decreaseBlocks <= blocksDiff) {
+      break;
+    }
 
-    // Calculate a new average block time based on the difference of the timestamps
-    averageBlockTime =
-      (estimatedBlock.timestamp - previousBlockTimestamp) /
-      (estimatedBlockNumber - previousBlockNumber);
+    workingBlockNumber -= decreaseBlocks;
 
-    previousBlockTimestamp = estimatedBlock.timestamp;
-    previousBlockNumber = estimatedBlock.number;
+    if (typeof prevBlock === 'undefined') {
+      prevBlock = estimatedBlock;
+    }
 
+    // we set the estimatedBlock taking into account how far we have gone down
+    estimatedBlock = await provider.getBlock(workingBlockNumber);
     iterationCount++;
-  } while (
-    Math.abs(estimatedBlock.timestamp - targetTimestamp) >
-      blocksDiff * averageBlockTime &&
-    iterationCount < MAX_ITERATIONS
-  );
-
-  if (iterationCount === MAX_ITERATIONS) {
-    throw new Error('Maximum iterations reached without converging.');
   }
 
-  // if estimated block timestamp <= target
-  let minBlockNumber = estimatedBlock.number - 1;
-  let maxBlockNumber = estimatedBlock.number + blocksDiff * 2;
+  // if we go too low in the first cycle, we go to the second
+  if (estimatedBlock?.timestamp < targetTimestamp) {
+    while (estimatedBlock.timestamp <= targetTimestamp) {
+      if (iterationCount === MAX_ITERATIONS) {
+        throw new Error('Maximum iterations reached without converging.');
+      }
 
-  // if estimated block timestamp > target
-  if (estimatedBlock.timestamp > targetTimestamp) {
-    minBlockNumber = estimatedBlock.number - blocksDiff * 2;
-    maxBlockNumber = estimatedBlock.number;
+      // calculate how many blocks we will move up from the estimatedBlock based on averageBlockTime
+      const increaseBlocks = Math.floor(
+        (targetTimestamp - estimatedBlock.timestamp) / averageBlockTime,
+      );
+
+      // if we rise more than we need, then we are already at the goal, we can leave this cycle
+      if (increaseBlocks <= blocksDiff) {
+        break;
+      }
+
+      workingBlockNumber += increaseBlocks;
+
+      // we set the estimatedBlock taking into account how far we have gone up
+      estimatedBlock = await provider.getBlock(workingBlockNumber);
+      iterationCount++;
+    }
   }
 
   return {
-    minBlockNumber,
-    maxBlockNumber,
+    minBlockNumber: estimatedBlock.number - blocksDiff * 2,
+    blockNumber: estimatedBlock.number,
+    maxBlockNumber: estimatedBlock.number + blocksDiff * 2,
   };
 }
