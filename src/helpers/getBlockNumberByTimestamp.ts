@@ -2,19 +2,38 @@ import { ethers } from 'ethers';
 
 import { ChainIdByName } from './chains';
 
-// TODO: need added mainnets
 const getAverageBlockTime = (chainId: number) => {
   switch (chainId) {
+    case ChainIdByName.EthereumMainnet:
+      return 13;
+    case ChainIdByName.Polygon:
+      return 3;
+    case ChainIdByName.Avalanche:
+      return 5;
+    case ChainIdByName.Binance:
+      return 4;
+    case ChainIdByName.Base:
+      return 2;
+    case ChainIdByName.Arbitrum:
+      return 1;
+    case ChainIdByName.Metis:
+      return 2;
+    case ChainIdByName.Optimism:
+      return 2;
     case ChainIdByName.Sepolia:
-      return 15;
+      return 13;
+    case ChainIdByName.Goerli:
+      return 13;
+    case ChainIdByName.GoerliOptimism:
+      return 2;
     case ChainIdByName.AvalancheFuji:
       return 5;
     case ChainIdByName.Mumbai:
       return 3;
     case ChainIdByName.BnbTest:
-      return 3;
+      return 4;
     default:
-      return 15;
+      return 13;
   }
 };
 
@@ -42,21 +61,35 @@ export async function getBlockNumberByTimestamp(
 
   do {
     // Make a guess
-    estimatedBlockNumber = Math.max(
-      0,
-      currentBlock.number -
+
+    if (previousBlockTimestamp >= targetTimestamp) {
+      // step back
+      estimatedBlockNumber =
+        previousBlockNumber -
         Math.floor(
           (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-        ),
-    );
+        );
+    } else {
+      // step forward
+      estimatedBlockNumber =
+        previousBlockNumber +
+        Math.floor(
+          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+        );
+    }
+
+    if (estimatedBlockNumber < 0) {
+      throw new Error('Estimated block number is below zero.');
+    }
 
     // Get block data
     estimatedBlock = await provider.getBlock(estimatedBlockNumber);
 
     // Calculate a new average block time based on the difference of the timestamps
-    averageBlockTime =
+    averageBlockTime = Math.ceil(
       (estimatedBlock.timestamp - previousBlockTimestamp) /
-      (estimatedBlockNumber - previousBlockNumber);
+        (estimatedBlockNumber - previousBlockNumber),
+    );
 
     previousBlockTimestamp = estimatedBlock.timestamp;
     previousBlockNumber = estimatedBlock.number;
