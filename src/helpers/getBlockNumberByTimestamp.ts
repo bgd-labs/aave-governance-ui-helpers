@@ -45,22 +45,22 @@ export async function getBlockNumberByTimestamp(
 
     if (previousBlockTimestamp >= targetTimestamp) {
       // step back
-      estimatedBlockNumber = Math.max(
-        0,
+      estimatedBlockNumber =
         previousBlockNumber -
-          Math.floor(
-            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-          ),
-      );
+        Math.floor(
+          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+        );
     } else {
       // step forward
-      estimatedBlockNumber = Math.max(
-        0,
+      estimatedBlockNumber =
         previousBlockNumber +
-          Math.floor(
-            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-          ),
-      );
+        Math.floor(
+          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+        );
+    }
+
+    if (estimatedBlockNumber < 0) {
+      throw new Error('Estimated block number is below zero.');
     }
 
     // Get block data
