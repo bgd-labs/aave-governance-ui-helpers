@@ -8,18 +8,21 @@ function pathToWrite(dir, name, id) {
   return `${cacheBuildDir}/${dir}/${name}_${id}.json`;
 }
 
+const listViewProposalsJson = `${cacheBuildDir}/list_view_proposals.json`;
 const payloadsJson = `${cacheBuildDir}/payloads.json`;
 const ipfsJson = `${cacheBuildDir}/ipfs.json`;
 const proposalsJson = `${cacheBuildDir}/proposals.json`;
 const votesJson = `${cacheBuildDir}/votes.json`;
 
 function getDataFromDb() {
+  const listViewProposals = JSON.parse(fs.readFileSync(listViewProposalsJson).toString());
   const payloadsData = JSON.parse(fs.readFileSync(payloadsJson).toString());
   const ipfsData = JSON.parse(fs.readFileSync(ipfsJson).toString());
   const proposalsData = JSON.parse(fs.readFileSync(proposalsJson).toString());
   const votesData = JSON.parse(fs.readFileSync(votesJson).toString());
 
   return {
+    totalProposalCount: listViewProposals.totalProposalCount,
     payloadsData: payloadsData.payloads,
     ipfsData: ipfsData.ipfs,
     proposalsData,
@@ -28,7 +31,7 @@ function getDataFromDb() {
 }
 
 function formatData() {
-  const { payloadsData, ipfsData, proposalsData, votesData } = getDataFromDb();
+  const { payloadsData, ipfsData, proposalsData, totalProposalCount } = getDataFromDb();
 
   const detailedPayloadsData = {};
   payloadsData.forEach((payload) => {
@@ -55,6 +58,7 @@ function formatData() {
   });
 
   return {
+    totalProposalsIds: Array.from(Array(totalProposalCount).keys()),
     cachedProposalsIds: proposalsData.map((proposal) => proposal.id),
     data: proposalsData.map((proposal) => {
       return {
@@ -64,7 +68,6 @@ function formatData() {
           )?.payloads || [],
         ipfs: objectIpfsData[proposal.ipfsHash],
         proposal,
-        votes: votesData.filter((vote) => vote.proposalId === proposal.id),
       };
     }),
   };
@@ -84,10 +87,12 @@ const writeProposalData = (data) => {
   };
 };
 
-const writeVotesData = (data) => {
+const writeVotesData = (proposalId) => {
+  const { votesData } = getDataFromDb();
+
   return {
-    path: pathToWrite(votesDirName, 'vote_for_proposal', data.proposal.id),
-    data: JSON.stringify({ votes: data.votes }),
+    path: pathToWrite(votesDirName, 'vote_for_proposal', proposalId),
+    data: JSON.stringify({ votes: votesData.filter((vote) => vote.proposalId === proposalId) }),
   };
 };
 
@@ -129,34 +134,39 @@ function writeData() {
         }
       },
     );
-    fs.writeFile(
-      writeVotesData(data).path,
-      writeVotesData(data).data,
-      (error) => {
-        if (error) {
-          console.error('Error when create votes file', error);
-          if (error.message.includes('no such file or directory')) {
-            fs.mkdir(`${cacheBuildDir}/${votesDirName}`, (err) => {
-              if (err) {
-                console.log(`dir ${votesDirName} exists already`);
-                fs.writeFileSync(
-                  writeVotesData(data).path,
-                  writeVotesData(data).data,
-                );
-              } else {
-                fs.writeFileSync(
-                  writeVotesData(data).path,
-                  writeVotesData(data).data,
-                );
-              }
-            });
-          }
-        } else {
-          console.log(`Votes for proposal #${data.proposal.id} file created`);
-        }
-      },
-    );
   });
+
+  if (!!formattedData.totalProposalsIds.length) {
+    formattedData.totalProposalsIds.forEach((proposalId) => {
+      fs.writeFile(
+        writeVotesData(proposalId).path,
+        writeVotesData(proposalId).data,
+        (error) => {
+          if (error) {
+            console.error('Error when create votes file', error);
+            if (error.message.includes('no such file or directory')) {
+              fs.mkdir(`${cacheBuildDir}/${votesDirName}`, (err) => {
+                if (err) {
+                  console.log(`dir ${votesDirName} exists already`);
+                  fs.writeFileSync(
+                    writeVotesData(proposalId).path,
+                    writeVotesData(proposalId).data,
+                  );
+                } else {
+                  fs.writeFileSync(
+                    writeVotesData(proposalId).path,
+                    writeVotesData(proposalId).data,
+                  );
+                }
+              });
+            }
+          } else {
+            console.log(`Votes for proposal #${proposalId} file created`);
+          }
+        },
+      );
+    })
+  }
 }
 
 writeData();
