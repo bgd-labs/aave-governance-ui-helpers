@@ -208,7 +208,7 @@ export enum ProposalEstimatedState {
   Succeed = 'Will pass',
   Defeated = 'Will fail',
   ProposalExecuted = 'Proposal will be executed',
-  PayloadsExecuted = 'Payloads will be executed',
+  PayloadsExecuted = 'Payloads will start being executed',
   Expired = 'Will expire',
 }
 
