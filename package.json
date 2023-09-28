@@ -31,7 +31,12 @@
     "cache:parse": "node scripts/parseProposalDetails.js"
   },
   "peerDependencies": {
-    "ethers": ">=5.6"
+    "@bgd-labs/aave-address-book": ">=2.6.0",
+    "ethers": "5.x",
+    "@web3-react/core": "~8.2.2",
+    "dayjs": "1.x",
+    "lodash": "4.x",
+    "@types/lodash": "4.x"
   },
   "husky": {
     "hooks": {
@@ -72,7 +77,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@bgd-labs/aave-address-book": "^2.4.2",
+    "@bgd-labs/aave-address-book": "^2.6.0",
     "@web3-react/core": "^8.2.2",
     "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3"
