@@ -1,5 +1,5 @@
 {
-  "name": "aave-governance-ui-helpers",
+  "name": "@bgd-labs/aave-governance-ui-helpers",
   "author": "BGD labs",
   "contributors": [
     {
@@ -31,7 +31,9 @@
     "cache:parse": "node scripts/parseProposalDetails.js"
   },
   "peerDependencies": {
-    "ethers": ">=5.6"
+    "@bgd-labs/aave-address-book": ">=2.6.0 < 3",
+    "ethers": "5.x",
+    "@web3-react/core": "~8.2.2"
   },
   "husky": {
     "hooks": {
@@ -51,10 +53,10 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^9.0.0",
-    "@types/lodash": "^4.14.198",
+    "@types/lodash": "^4.14.199",
     "bignumber.js": "^9.1.2",
     "dotenv": "^16.3.1",
-    "eslint": "8.49.0",
+    "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.28.1",
@@ -72,7 +74,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@bgd-labs/aave-address-book": "^2.4.2",
+    "@bgd-labs/aave-address-book": "^2.6.0",
     "@web3-react/core": "^8.2.2",
     "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3"
