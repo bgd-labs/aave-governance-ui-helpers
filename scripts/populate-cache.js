@@ -50565,8 +50565,7 @@ var votingMachineChainIds = {
 };
 var gelatoApiKeys = {
   testnet: "qGvvlJMoyDKyuMxqJjDwFslpgiBKZCXNXpnSjIxsICY_",
-  mainnet: ""
-  // TODO: need add
+  mainnet: "XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_"
 };
 var appConfigInit = (providers2, coreNetwork) => {
   return {

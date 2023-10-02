@@ -1,0 +1,57 @@
+name: Update cache mainnet governance core
+# This action checks if there's new proposal data every 3h
+# If new proposal data is found the cache will be warmed up & push
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 */3 * * *
+
+env:
+  CORE_NETWORK: mainnet
+
+jobs:
+  cache-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive --init
+
+      - name: Packages install
+        shell: sh
+        run: yarn --frozen-lockfile --prefer-offline
+
+      - name: Build cache script
+        run: yarn build:populate-cache
+
+      - name: Update cache
+        run: yarn cache:update
+
+      - name: Parse cache to separate files
+        run: yarn cache:parse
+
+      - name: Check code diff
+        run: |
+          if [[ -z $(git status -s) ]]
+          then
+            echo "tree is clean"
+          else
+            git config --global user.name 'Cache update'
+            git config --global user.email 'cache-bot@bgd.com'
+            git add .
+            git commit -am "chore: automated cache update"
+            git push
+          exit
+          fi
