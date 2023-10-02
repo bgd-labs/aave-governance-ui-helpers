@@ -50565,8 +50565,7 @@ var votingMachineChainIds = {
 };
 var gelatoApiKeys = {
   testnet: "qGvvlJMoyDKyuMxqJjDwFslpgiBKZCXNXpnSjIxsICY_",
-  mainnet: ""
-  // TODO: need add
+  mainnet: "XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_"
 };
 var appConfigInit = (providers2, coreNetwork) => {
   return {
@@ -51619,261 +51618,263 @@ function populateCache() {
       );
     });
     const proposalsCount = yield govCore.getProposalsCount();
-    const govCoreDataHelperData = yield govCoreDataHelper.getProposalsData(
-      appConfig.govCoreConfig.contractAddress,
-      0,
-      0,
-      proposalsCount
-    );
-    const getVotingData = (initialProposals2, userAddress) => __async(this, null, function* () {
-      const votingMachineChainIds2 = initialProposals2.map((data2) => data2.votingChainId).filter((value, index, self2) => self2.indexOf(value) === index);
-      const data = yield Promise.all(
-        votingMachineChainIds2.map((chainId) => __async(this, null, function* () {
-          const votingMachineDataHelper = votingMachineDataHelpers[chainId];
-          const formattedInitialProposals = initialProposals2.filter((proposal) => proposal.votingChainId === chainId).map((proposal) => {
-            return {
-              id: proposal.id,
-              snapshotBlockHash: proposal.snapshotBlockHash
-            };
+    if (proposalsCount.toNumber() > 0) {
+      const govCoreDataHelperData = yield govCoreDataHelper.getProposalsData(
+        appConfig.govCoreConfig.contractAddress,
+        0,
+        0,
+        proposalsCount
+      );
+      const getVotingData = (initialProposals2, userAddress) => __async(this, null, function* () {
+        const votingMachineChainIds2 = initialProposals2.map((data2) => data2.votingChainId).filter((value, index, self2) => self2.indexOf(value) === index);
+        const data = yield Promise.all(
+          votingMachineChainIds2.map((chainId) => __async(this, null, function* () {
+            const votingMachineDataHelper = votingMachineDataHelpers[chainId];
+            const formattedInitialProposals = initialProposals2.filter((proposal) => proposal.votingChainId === chainId).map((proposal) => {
+              return {
+                id: proposal.id,
+                snapshotBlockHash: proposal.snapshotBlockHash
+              };
+            });
+            return (yield votingMachineDataHelper.getProposalsData(
+              appConfig.votingMachineConfig[chainId].contractAddress,
+              formattedInitialProposals,
+              userAddress || import_ethers10.constants.AddressZero
+            )) || [];
+          }))
+        );
+        return data.flat();
+      });
+      const initialProposals = govCoreDataHelperData.map((proposal) => {
+        return {
+          id: proposal.id.toNumber(),
+          votingChainId: proposal.votingChainId.toNumber(),
+          snapshotBlockHash: proposal.proposalData.snapshotBlockHash
+        };
+      });
+      const votingMachineDataHelperData = yield getVotingData(initialProposals);
+      const proposalsIds = govCoreDataHelperData.map(
+        (proposal) => proposal.id.toNumber()
+      );
+      const proposalsData = getDetailedProposalsData(
+        govCoreDataHelperData,
+        votingMachineDataHelperData,
+        proposalsIds,
+        true
+      );
+      const { contractsConstants, configs } = yield getGovCoreConfigs(
+        govCoreDataHelper,
+        appConfig.govCoreConfig.contractAddress
+      );
+      const ipfsData = {};
+      const newIpfsHashes = [];
+      proposalsIds.forEach((id) => {
+        const proposalData = proposalsData.find((proposal) => proposal.id === id);
+        if (proposalData && typeof ipfsData[proposalData.ipfsHash] === "undefined") {
+          newIpfsHashes.push(proposalData.ipfsHash);
+        }
+      });
+      const allIpfsData = yield Promise.all(
+        newIpfsHashes.filter((value, index, self2) => self2.indexOf(value) === index).map((hash) => __async(this, null, function* () {
+          const ipfsData2 = yield getProposalMetadata(hash);
+          return __spreadProps(__spreadValues({}, ipfsData2), {
+            originalIpfsHash: hash
           });
-          return (yield votingMachineDataHelper.getProposalsData(
-            appConfig.votingMachineConfig[chainId].contractAddress,
-            formattedInitialProposals,
-            userAddress || import_ethers10.constants.AddressZero
-          )) || [];
         }))
       );
-      return data.flat();
-    });
-    const initialProposals = govCoreDataHelperData.map((proposal) => {
-      return {
-        id: proposal.id.toNumber(),
-        votingChainId: proposal.votingChainId.toNumber(),
-        snapshotBlockHash: proposal.proposalData.snapshotBlockHash
-      };
-    });
-    const votingMachineDataHelperData = yield getVotingData(initialProposals);
-    const proposalsIds = govCoreDataHelperData.map(
-      (proposal) => proposal.id.toNumber()
-    );
-    const proposalsData = getDetailedProposalsData(
-      govCoreDataHelperData,
-      votingMachineDataHelperData,
-      proposalsIds,
-      true
-    );
-    const { contractsConstants, configs } = yield getGovCoreConfigs(
-      govCoreDataHelper,
-      appConfig.govCoreConfig.contractAddress
-    );
-    const ipfsData = {};
-    const newIpfsHashes = [];
-    proposalsIds.forEach((id) => {
-      const proposalData = proposalsData.find((proposal) => proposal.id === id);
-      if (proposalData && typeof ipfsData[proposalData.ipfsHash] === "undefined") {
-        newIpfsHashes.push(proposalData.ipfsHash);
-      }
-    });
-    const allIpfsData = yield Promise.all(
-      newIpfsHashes.filter((value, index, self2) => self2.indexOf(value) === index).map((hash) => __async(this, null, function* () {
-        const ipfsData2 = yield getProposalMetadata(hash);
-        return __spreadProps(__spreadValues({}, ipfsData2), {
-          originalIpfsHash: hash
-        });
-      }))
-    );
-    yield Promise.all(
-      allIpfsData.map((ipfs) => __async(this, null, function* () {
-        yield ipfsFetcher.populate(ipfs.originalIpfsHash, ipfs);
-      }))
-    );
-    const now = Date.now() / 1e3;
-    for (let i = 0; i < proposalsIds.length; i++) {
-      const proposalData = proposalsData.find((proposal) => proposal.id === i);
-      if (proposalData) {
-        const isVotingEndedN = proposalData.votingMachineData.endTime > 0 && now > proposalData.votingMachineData.endTime;
-        const forVotes = new BigNumber(proposalData.votingMachineData.forVotes).shiftedBy(18 * -1).toNumber();
-        const againstVotes = new BigNumber(
-          proposalData.votingMachineData.againstVotes
-        ).shiftedBy(18 * -1).toNumber();
-        const isVotingFailed = isVotingEndedN && (againstVotes >= forVotes || againstVotes === 0 && forVotes === 0);
-        const isProposalCanceled = proposalData.basicState === 6 /* Cancelled */;
-        const isProposalExpired = proposalData.basicState === 7 /* Expired */ || now > proposalData.creationTime + contractsConstants.expirationTime;
-        const payloadsChainIds = proposalData.initialPayloads.map((payload) => payload.chainId).filter((value, index, self2) => self2.indexOf(value) === index);
-        const payloadsControllers = proposalData.initialPayloads.map((payload) => payload.payloadsController).filter((value, index, self2) => self2.indexOf(value) === index);
-        const payloadsData = yield Promise.all(
-          payloadsChainIds.map((id) => __async(this, null, function* () {
-            return yield Promise.all(
-              payloadsControllers.map((controller) => __async(this, null, function* () {
-                const proposalPayloadsIds = proposalData.initialPayloads.filter(
-                  (payload) => payload.payloadsController === controller && payload.chainId === id
-                ).map((payload) => payload.id);
-                const payloadController = appConfig.payloadsControllerConfig[id].contractAddresses.some(
-                  (address) => address === controller
-                ) && controller;
-                if (payloadController) {
-                  const payloadsData2 = (yield payloadsControllerDataHelpers[id].getPayloadsData(
-                    controller,
-                    proposalPayloadsIds
-                  )) || [];
-                  return payloadsData2.map((payload) => {
-                    return {
-                      id: payload.id.toNumber(),
-                      chainId: id,
-                      maximumAccessLevelRequired: payload.data.maximumAccessLevelRequired,
-                      state: payload.data.state,
-                      createdAt: payload.data.createdAt,
-                      queuedAt: payload.data.queuedAt,
-                      executedAt: payload.data.executedAt,
-                      cancelledAt: payload.data.cancelledAt,
-                      expirationTime: payload.data.expirationTime,
-                      delay: payload.data.delay,
-                      gracePeriod: payload.data.gracePeriod,
-                      payloadsController: controller,
-                      actionAddresses: payload.data.actions.map(
-                        (action) => action.target
-                      )
-                    };
-                  });
-                } else {
-                  return proposalData.initialPayloads;
-                }
-              }))
-            );
-          }))
-        );
-        const proposalPayloadsData = yield Promise.all(
-          proposalData.initialPayloads.map((payload) => __async(this, null, function* () {
-            const payloadData = payloadsData.flat().flat().find(
-              (payloadS) => payloadS.id === payload.id && payloadS.payloadsController === payload.payloadsController && payloadS.chainId === payload.chainId
-            );
-            if (payloadData) {
-              yield payloadFetcher.populate(
-                payload.id,
-                payloadData,
-                isVotingFailed,
-                isProposalCanceled,
-                isProposalExpired,
-                payload.chainId,
-                payload.payloadsController
+      yield Promise.all(
+        allIpfsData.map((ipfs) => __async(this, null, function* () {
+          yield ipfsFetcher.populate(ipfs.originalIpfsHash, ipfs);
+        }))
+      );
+      const now = Date.now() / 1e3;
+      for (let i = 0; i < proposalsIds.length; i++) {
+        const proposalData = proposalsData.find((proposal) => proposal.id === i);
+        if (proposalData) {
+          const isVotingEndedN = proposalData.votingMachineData.endTime > 0 && now > proposalData.votingMachineData.endTime;
+          const forVotes = new BigNumber(proposalData.votingMachineData.forVotes).shiftedBy(18 * -1).toNumber();
+          const againstVotes = new BigNumber(
+            proposalData.votingMachineData.againstVotes
+          ).shiftedBy(18 * -1).toNumber();
+          const isVotingFailed = isVotingEndedN && (againstVotes >= forVotes || againstVotes === 0 && forVotes === 0);
+          const isProposalCanceled = proposalData.basicState === 6 /* Cancelled */;
+          const isProposalExpired = proposalData.basicState === 7 /* Expired */ || now > proposalData.creationTime + contractsConstants.expirationTime;
+          const payloadsChainIds = proposalData.initialPayloads.map((payload) => payload.chainId).filter((value, index, self2) => self2.indexOf(value) === index);
+          const payloadsControllers = proposalData.initialPayloads.map((payload) => payload.payloadsController).filter((value, index, self2) => self2.indexOf(value) === index);
+          const payloadsData = yield Promise.all(
+            payloadsChainIds.map((id) => __async(this, null, function* () {
+              return yield Promise.all(
+                payloadsControllers.map((controller) => __async(this, null, function* () {
+                  const proposalPayloadsIds = proposalData.initialPayloads.filter(
+                    (payload) => payload.payloadsController === controller && payload.chainId === id
+                  ).map((payload) => payload.id);
+                  const payloadController = appConfig.payloadsControllerConfig[id].contractAddresses.some(
+                    (address) => address === controller
+                  ) && controller;
+                  if (payloadController) {
+                    const payloadsData2 = (yield payloadsControllerDataHelpers[id].getPayloadsData(
+                      controller,
+                      proposalPayloadsIds
+                    )) || [];
+                    return payloadsData2.map((payload) => {
+                      return {
+                        id: payload.id.toNumber(),
+                        chainId: id,
+                        maximumAccessLevelRequired: payload.data.maximumAccessLevelRequired,
+                        state: payload.data.state,
+                        createdAt: payload.data.createdAt,
+                        queuedAt: payload.data.queuedAt,
+                        executedAt: payload.data.executedAt,
+                        cancelledAt: payload.data.cancelledAt,
+                        expirationTime: payload.data.expirationTime,
+                        delay: payload.data.delay,
+                        gracePeriod: payload.data.gracePeriod,
+                        payloadsController: controller,
+                        actionAddresses: payload.data.actions.map(
+                          (action) => action.target
+                        )
+                      };
+                    });
+                  } else {
+                    return proposalData.initialPayloads;
+                  }
+                }))
               );
-              return payloadData;
-            } else {
-              return payloadsData.flat().flat()[0];
-            }
-          }))
-        );
-        const currentBlock = yield appConfig.providers[proposalData.votingChainId].getBlockNumber();
-        const startBlockNumber = proposalData.votingMachineData.createdBlock;
-        const endBlockNumber = proposalData.votingMachineData.votingClosedAndSentBlockNumber;
-        const { startBlock, endBlock } = getBlocksForEvents(
-          currentBlock,
-          startBlockNumber,
-          endBlockNumber,
-          void 0
-        );
-        if (isFinite(startBlock) && startBlock > 0 && isFinite(endBlock) && endBlock > 0) {
-          yield votesFetcher.populate(
-            appConfig.providers[proposalData.votingChainId],
-            votingMachines[proposalData.votingChainId],
-            startBlock,
-            endBlock,
-            proposalData.votingChainId
+            }))
+          );
+          const proposalPayloadsData = yield Promise.all(
+            proposalData.initialPayloads.map((payload) => __async(this, null, function* () {
+              const payloadData = payloadsData.flat().flat().find(
+                (payloadS) => payloadS.id === payload.id && payloadS.payloadsController === payload.payloadsController && payloadS.chainId === payload.chainId
+              );
+              if (payloadData) {
+                yield payloadFetcher.populate(
+                  payload.id,
+                  payloadData,
+                  isVotingFailed,
+                  isProposalCanceled,
+                  isProposalExpired,
+                  payload.chainId,
+                  payload.payloadsController
+                );
+                return payloadData;
+              } else {
+                return payloadsData.flat().flat()[0];
+              }
+            }))
+          );
+          const currentBlock = yield appConfig.providers[proposalData.votingChainId].getBlockNumber();
+          const startBlockNumber = proposalData.votingMachineData.createdBlock;
+          const endBlockNumber = proposalData.votingMachineData.votingClosedAndSentBlockNumber;
+          const { startBlock, endBlock } = getBlocksForEvents(
+            currentBlock,
+            startBlockNumber,
+            endBlockNumber,
+            void 0
+          );
+          if (isFinite(startBlock) && startBlock > 0 && isFinite(endBlock) && endBlock > 0) {
+            yield votesFetcher.populate(
+              appConfig.providers[proposalData.votingChainId],
+              votingMachines[proposalData.votingChainId],
+              startBlock,
+              endBlock,
+              proposalData.votingChainId
+            );
+          }
+          const isProposalPayloadsFinished = proposalPayloadsData.every(
+            // @ts-ignore
+            (payload) => payload && (payload == null ? void 0 : payload.state) > 2
+          );
+          yield proposalFetcher.populate(
+            i,
+            proposalData,
+            isVotingFailed,
+            isProposalPayloadsFinished,
+            isProposalCanceled,
+            isProposalExpired
+          );
+          const proposalConfig = configs.filter(
+            (config) => config.accessLevel === proposalData.accessLevel
+          )[0];
+          const executionPayloadTime = Math.max.apply(
+            null,
+            // @ts-ignore
+            proposalPayloadsData.map((payload) => (payload == null ? void 0 : payload.delay) || 0)
+          );
+          const proposalTitle = ((_a = allIpfsData.find(
+            (ipfs) => ipfs.originalIpfsHash === proposalData.ipfsHash
+          )) == null ? void 0 : _a.title) || "";
+          const formattedProposalData = __spreadProps(__spreadValues({}, proposalData), {
+            payloads: proposalPayloadsData,
+            title: proposalTitle,
+            votingMachineState: getVotingMachineProposalState(proposalData)
+          });
+          const proposalState = getProposalState({
+            // @ts-ignore
+            proposalData: formattedProposalData,
+            quorum: proposalConfig.quorum,
+            differential: proposalConfig.differential,
+            precisionDivider: contractsConstants.precisionDivider,
+            cooldownPeriod: contractsConstants.cooldownPeriod,
+            executionPayloadTime
+          });
+          let finishedTimestamp = formattedProposalData.creationTime;
+          const {
+            isVotingEnded,
+            isVotingStarted,
+            isExpired,
+            lastPayloadExecutedAt,
+            lastPayloadCanceledAt,
+            lastPayloadExpiredAt,
+            allPayloadsExpired,
+            isCanceled
+          } = getProposalStepsAndAmounts({
+            // @ts-ignore
+            proposalData: formattedProposalData,
+            quorum: proposalConfig.quorum,
+            differential: proposalConfig.differential,
+            precisionDivider: contractsConstants.precisionDivider,
+            cooldownPeriod: contractsConstants.cooldownPeriod,
+            executionPayloadTime
+          });
+          if (proposalState === 0 /* Created */ && !isExpired && !isCanceled) {
+            finishedTimestamp = formattedProposalData.creationTime;
+          } else if (formattedProposalData.votingMachineState === 0 /* NotCreated */ && !isExpired && !isCanceled) {
+            finishedTimestamp = formattedProposalData.creationTime + proposalConfig.coolDownBeforeVotingStart;
+          } else if (checkHash(formattedProposalData.snapshotBlockHash).notZero && !isVotingStarted && !isExpired && !isCanceled) {
+            finishedTimestamp = formattedProposalData.votingActivationTime;
+          } else if (!isVotingEnded && isVotingStarted && !isExpired && !isCanceled) {
+            finishedTimestamp = formattedProposalData.votingMachineData.startTime;
+          } else if (isVotingStarted && isVotingEnded && proposalState !== 4 /* Executed */ && !isExpired && !isCanceled) {
+            finishedTimestamp = formattedProposalData.votingMachineData.endTime > 0 ? formattedProposalData.votingMachineData.endTime : formattedProposalData.creationTime + proposalConfig.coolDownBeforeVotingStart;
+          } else if (proposalState === 3 /* Defeated */) {
+            finishedTimestamp = formattedProposalData.votingMachineData.endTime;
+          } else if (proposalState === 4 /* Executed */) {
+            finishedTimestamp = lastPayloadExecutedAt;
+          } else if (proposalState === 6 /* Canceled */) {
+            finishedTimestamp = lastPayloadCanceledAt > formattedProposalData.canceledAt ? lastPayloadCanceledAt : formattedProposalData.canceledAt;
+          } else if (formattedProposalData.basicState === 4 /* Executed */ && allPayloadsExpired) {
+            finishedTimestamp = lastPayloadExpiredAt;
+          } else {
+            finishedTimestamp = formattedProposalData.creationTime + contractsConstants.expirationTime;
+          }
+          const listViewProposalData = {
+            id: formattedProposalData.id,
+            title: formattedProposalData.title,
+            state: proposalState,
+            finishedTimestamp,
+            ipfsHash: formattedProposalData.ipfsHash
+          };
+          yield listViewProposalFetcher.populate(
+            i,
+            listViewProposalData,
+            isVotingFailed,
+            isProposalPayloadsFinished,
+            isProposalCanceled,
+            isProposalExpired,
+            proposalsCount.toNumber()
           );
         }
-        const isProposalPayloadsFinished = proposalPayloadsData.every(
-          // @ts-ignore
-          (payload) => payload && (payload == null ? void 0 : payload.state) > 2
-        );
-        yield proposalFetcher.populate(
-          i,
-          proposalData,
-          isVotingFailed,
-          isProposalPayloadsFinished,
-          isProposalCanceled,
-          isProposalExpired
-        );
-        const proposalConfig = configs.filter(
-          (config) => config.accessLevel === proposalData.accessLevel
-        )[0];
-        const executionPayloadTime = Math.max.apply(
-          null,
-          // @ts-ignore
-          proposalPayloadsData.map((payload) => (payload == null ? void 0 : payload.delay) || 0)
-        );
-        const proposalTitle = ((_a = allIpfsData.find(
-          (ipfs) => ipfs.originalIpfsHash === proposalData.ipfsHash
-        )) == null ? void 0 : _a.title) || "";
-        const formattedProposalData = __spreadProps(__spreadValues({}, proposalData), {
-          payloads: proposalPayloadsData,
-          title: proposalTitle,
-          votingMachineState: getVotingMachineProposalState(proposalData)
-        });
-        const proposalState = getProposalState({
-          // @ts-ignore
-          proposalData: formattedProposalData,
-          quorum: proposalConfig.quorum,
-          differential: proposalConfig.differential,
-          precisionDivider: contractsConstants.precisionDivider,
-          cooldownPeriod: contractsConstants.cooldownPeriod,
-          executionPayloadTime
-        });
-        let finishedTimestamp = formattedProposalData.creationTime;
-        const {
-          isVotingEnded,
-          isVotingStarted,
-          isExpired,
-          lastPayloadExecutedAt,
-          lastPayloadCanceledAt,
-          lastPayloadExpiredAt,
-          allPayloadsExpired,
-          isCanceled
-        } = getProposalStepsAndAmounts({
-          // @ts-ignore
-          proposalData: formattedProposalData,
-          quorum: proposalConfig.quorum,
-          differential: proposalConfig.differential,
-          precisionDivider: contractsConstants.precisionDivider,
-          cooldownPeriod: contractsConstants.cooldownPeriod,
-          executionPayloadTime
-        });
-        if (proposalState === 0 /* Created */ && !isExpired && !isCanceled) {
-          finishedTimestamp = formattedProposalData.creationTime;
-        } else if (formattedProposalData.votingMachineState === 0 /* NotCreated */ && !isExpired && !isCanceled) {
-          finishedTimestamp = formattedProposalData.creationTime + proposalConfig.coolDownBeforeVotingStart;
-        } else if (checkHash(formattedProposalData.snapshotBlockHash).notZero && !isVotingStarted && !isExpired && !isCanceled) {
-          finishedTimestamp = formattedProposalData.votingActivationTime;
-        } else if (!isVotingEnded && isVotingStarted && !isExpired && !isCanceled) {
-          finishedTimestamp = formattedProposalData.votingMachineData.startTime;
-        } else if (isVotingStarted && isVotingEnded && proposalState !== 4 /* Executed */ && !isExpired && !isCanceled) {
-          finishedTimestamp = formattedProposalData.votingMachineData.endTime > 0 ? formattedProposalData.votingMachineData.endTime : formattedProposalData.creationTime + proposalConfig.coolDownBeforeVotingStart;
-        } else if (proposalState === 3 /* Defeated */) {
-          finishedTimestamp = formattedProposalData.votingMachineData.endTime;
-        } else if (proposalState === 4 /* Executed */) {
-          finishedTimestamp = lastPayloadExecutedAt;
-        } else if (proposalState === 6 /* Canceled */) {
-          finishedTimestamp = lastPayloadCanceledAt > formattedProposalData.canceledAt ? lastPayloadCanceledAt : formattedProposalData.canceledAt;
-        } else if (formattedProposalData.basicState === 4 /* Executed */ && allPayloadsExpired) {
-          finishedTimestamp = lastPayloadExpiredAt;
-        } else {
-          finishedTimestamp = formattedProposalData.creationTime + contractsConstants.expirationTime;
-        }
-        const listViewProposalData = {
-          id: formattedProposalData.id,
-          title: formattedProposalData.title,
-          state: proposalState,
-          finishedTimestamp,
-          ipfsHash: formattedProposalData.ipfsHash
-        };
-        yield listViewProposalFetcher.populate(
-          i,
-          listViewProposalData,
-          isVotingFailed,
-          isProposalPayloadsFinished,
-          isProposalCanceled,
-          isProposalExpired,
-          proposalsCount.toNumber()
-        );
       }
     }
   });

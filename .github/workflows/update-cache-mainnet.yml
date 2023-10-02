@@ -1,4 +1,4 @@
-name: Update cache sepolia governance core
+name: Update cache mainnet governance core
 # This action checks if there's new proposal data every 3h
 # If new proposal data is found the cache will be warmed up & push
 concurrency:
@@ -11,7 +11,7 @@ on:
     - cron: 0 */3 * * *
 
 env:
-  CORE_NETWORK: sepolia
+  CORE_NETWORK: mainnet
 
 jobs:
   cache-refresh:
