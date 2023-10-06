@@ -23,6 +23,20 @@ jobs:
       - name: Update cache for mainnet gov core
         uses: ./.github/actions/updateCache
 
+      - name: Check code diff
+        run: |
+          if [[ -z $(git status -s) ]]
+          then
+            echo "tree is clean"
+          else
+            git config --global user.name 'Cache update'
+            git config --global user.email 'cache-bot@bgd.com'
+            git add .
+            git commit -am "chore: automated cache update"
+            git push
+          exit
+          fi
+
   sepolia-core:
     env:
       CORE_NETWORK: sepolia
@@ -35,6 +49,20 @@ jobs:
       - name: Update cache for sepolia gov core
         uses: ./.github/actions/updateCache
 
+      - name: Check code diff
+        run: |
+          if [[ -z $(git status -s) ]]
+          then
+            echo "tree is clean"
+          else
+            git config --global user.name 'Cache update'
+            git config --global user.email 'cache-bot@bgd.com'
+            git add .
+            git commit -am "chore: automated cache update"
+            git push
+          exit
+          fi
+
   goerli-core:
     env:
       CORE_NETWORK: goerli
@@ -46,4 +74,18 @@ jobs:
 
       - name: Update cache for goerli gov core
         uses: ./.github/actions/updateCache
+
+      - name: Check code diff
+        run: |
+          if [[ -z $(git status -s) ]]
+          then
+            echo "tree is clean"
+          else
+            git config --global user.name 'Cache update'
+            git config --global user.email 'cache-bot@bgd.com'
+            git add .
+            git commit -am "chore: automated cache update"
+            git push
+          exit
+          fi
 
