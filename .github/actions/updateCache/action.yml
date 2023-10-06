@@ -10,7 +10,7 @@ runs:
         cache: 'yarn'
 
     - name: Packages install
-      shell: sh
+      shell: bash
       run: yarn --frozen-lockfile --prefer-offline
 
     - name: Build cache script
