@@ -16,6 +16,10 @@ jobs:
       CORE_NETWORK: mainnet
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update cache for mainnet gov core
         uses: ./.github/actions/updateCache
 
@@ -24,6 +28,10 @@ jobs:
       CORE_NETWORK: sepolia
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update cache for sepolia gov core
         uses: ./.github/actions/updateCache
 
@@ -32,6 +40,10 @@ jobs:
       CORE_NETWORK: goerli
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Update cache for goerli gov core
         uses: ./.github/actions/updateCache
 
