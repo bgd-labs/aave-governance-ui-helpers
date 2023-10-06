@@ -11,17 +11,18 @@ on:
     - cron: 0 */3 * * *
 
 jobs:
-  mainnet-core:
-    env:
-      CORE_NETWORK: mainnet
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update cache for mainnet gov core
-        uses: ./.github/actions/updateCache
+  # TODO: turn on when mainnet will be life
+  #  mainnet-core:
+  #    env:
+  #      CORE_NETWORK: mainnet
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - uses: actions/checkout@v3
+  #        with:
+  #          token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #      - name: Update cache for mainnet gov core
+  #        uses: ./.github/actions/updateCache
 
   sepolia-core:
     env:
@@ -50,7 +51,7 @@ jobs:
 
   check-diffs-and-push:
     runs-on: ubuntu-latest
-    needs: [mainnet-core, sepolia-core, goerli-core]
+    needs: [sepolia-core, goerli-core]
     steps:
       - name: Check code diff
         run: |
