@@ -1,0 +1,21 @@
+name: Push changes
+description: Check code diff and push
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Check code diff and push
+      shell: sh
+      run: |
+        if [[ -z $(git status -s) ]]
+        then
+          echo "tree is clean"
+        else
+          git config --global user.name 'Cache update'
+          git config --global user.email 'cache-bot@bgd.com'
+          git pull
+          git add .
+          git commit -am "chore: automated cache update"
+          git push
+        exit
+        fi
