@@ -1,0 +1,37 @@
+name: Update cache
+# This action checks if there's new finished proposals every 3h
+# If new finished proposal data is found the cache will be warmed up & push
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 */3 * * *
+
+jobs:
+  mainnet-core:
+    env:
+      CORE_NETWORK: mainnet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update cache for mainnet gov core
+        uses: ./.github/actions/updateCache
+
+  sepolia-core:
+    env:
+      CORE_NETWORK: sepolia
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update cache for sepolia gov core
+        uses: ./.github/actions/updateCache
+
+  goerli-core:
+    env:
+      CORE_NETWORK: goerli
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update cache for goerli gov core
+        uses: ./.github/actions/updateCache
+

@@ -1,0 +1,41 @@
+name: Update cache
+description: Install packages and update cache
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
+
+    - name: Packages install
+      shell: sh
+      run: yarn --frozen-lockfile --prefer-offline
+
+    - name: Build cache script
+      run: yarn build:populate-cache
+
+    - name: Update cache
+      run: yarn cache:update
+
+    - name: Parse cache to separate files
+      run: yarn cache:parse
+
+    - name: Check code diff
+      run: |
+        if [[ -z $(git status -s) ]]
+        then
+          echo "tree is clean"
+        else
+          git config --global user.name 'Cache update'
+          git config --global user.email 'cache-bot@bgd.com'
+          git add .
+          git commit -am "chore: automated cache update"
+          git push
+        exit
+        fi

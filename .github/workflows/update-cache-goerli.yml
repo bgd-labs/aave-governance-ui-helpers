@@ -10,12 +10,15 @@ on:
   schedule:
     - cron: 0 */3 * * *
 
-env:
-  CORE_NETWORK: goerli
+
 
 jobs:
   cache-refresh:
+    env:
+      CORE_NETWORK: goerli
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
         with:
