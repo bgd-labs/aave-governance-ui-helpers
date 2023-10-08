@@ -9,7 +9,7 @@ import {
   GovernanceV3Optimism,
   GovernanceV3Polygon,
 } from '@bgd-labs/aave-address-book';
-import { ethers } from 'ethers';
+import { providers } from 'ethers';
 
 import { ChainIdByName } from './chains';
 
@@ -218,7 +218,10 @@ const gelatoApiKeys: Record<string, string> = {
 };
 
 export const appConfigInit = (
-  providers: Record<number, ethers.providers.JsonRpcBatchProvider>,
+  providers: Record<
+    number,
+    providers.JsonRpcBatchProvider | providers.JsonRpcProvider
+  >,
   coreNetwork: CoreNetworkName,
 ) => {
   return {

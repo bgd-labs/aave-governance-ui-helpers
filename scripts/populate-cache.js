@@ -36328,12 +36328,12 @@ var require_lib32 = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.Wordlist = exports2.version = exports2.wordlists = exports2.utils = exports2.logger = exports2.errors = exports2.constants = exports2.FixedNumber = exports2.BigNumber = exports2.ContractFactory = exports2.Contract = exports2.BaseContract = exports2.providers = exports2.getDefaultProvider = exports2.VoidSigner = exports2.Wallet = exports2.Signer = exports2.ethers = void 0;
-    var ethers5 = __importStar(require_ethers());
-    exports2.ethers = ethers5;
+    var ethers4 = __importStar(require_ethers());
+    exports2.ethers = ethers4;
     try {
       anyGlobal = window;
       if (anyGlobal._ethers == null) {
-        anyGlobal._ethers = ethers5;
+        anyGlobal._ethers = ethers4;
       }
     } catch (error) {
     }
@@ -50986,38 +50986,38 @@ function getProposalMetadata(_0) {
 // src/helpers/providers.ts
 var import_ethers9 = __toESM(require_lib32());
 var providers = {
-  [1 /* EthereumMainnet */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [1 /* EthereumMainnet */]: new import_ethers9.providers.JsonRpcProvider(
     "https://cloudflare-eth.com"
   ),
-  [137 /* Polygon */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [137 /* Polygon */]: new import_ethers9.providers.JsonRpcProvider(
     "https://polygon.llamarpc.com"
   ),
-  [43114 /* Avalanche */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [43114 /* Avalanche */]: new import_ethers9.providers.JsonRpcProvider(
     "https://avalanche.drpc.org"
   ),
-  [56 /* Binance */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [56 /* Binance */]: new import_ethers9.providers.JsonRpcProvider(
     "https://binance.llamarpc.com"
   ),
-  [8453 /* Base */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [8453 /* Base */]: new import_ethers9.providers.JsonRpcProvider(
     "https://base-mainnet.public.blastapi.io"
   ),
-  [42161 /* Arbitrum */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [42161 /* Arbitrum */]: new import_ethers9.providers.JsonRpcProvider(
     "https://arbitrum.llamarpc.com"
   ),
-  [1088 /* Metis */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [1088 /* Metis */]: new import_ethers9.providers.JsonRpcProvider(
     "https://metis-mainnet.public.blastapi.io"
   ),
-  [10 /* Optimism */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [10 /* Optimism */]: new import_ethers9.providers.JsonRpcProvider(
     "https://optimism.llamarpc.com"
   ),
   // testnets
-  [43113 /* AvalancheFuji */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
-    "https://api.avax-test.network/ext/bc/C/rpc"
+  [43113 /* AvalancheFuji */]: new import_ethers9.providers.JsonRpcProvider(
+    "https://avalanche-fuji.blockpi.network/v1/rpc/public"
   ),
-  [5 /* Goerli */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [5 /* Goerli */]: new import_ethers9.providers.JsonRpcProvider(
     "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
   ),
-  [11155111 /* Sepolia */]: new import_ethers9.ethers.providers.JsonRpcBatchProvider(
+  [11155111 /* Sepolia */]: new import_ethers9.providers.JsonRpcProvider(
     "https://ethereum-sepolia.blockpi.network/v1/rpc/public"
   )
 };

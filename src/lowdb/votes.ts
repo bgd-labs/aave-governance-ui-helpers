@@ -46,7 +46,9 @@ export class Votes {
   }
 
   async populate(
-    votingMachineProvider: ethersProviders.JsonRpcBatchProvider,
+    votingMachineProvider:
+      | ethersProviders.JsonRpcBatchProvider
+      | ethersProviders.JsonRpcProvider,
     votingMachine: IVotingMachineWithProofs,
     startBlockNumber: number,
     endBlockNumber: number,
