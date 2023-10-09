@@ -673,5 +673,75 @@
       "hasRequiredRoots": true
     },
     "prerender": true
+  },
+  {
+    "id": 17,
+    "votingDuration": 600,
+    "creationTime": 1695806172,
+    "accessLevel": 1,
+    "basicState": 2,
+    "queuingTime": 0,
+    "ipfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1",
+    "initialPayloads": [
+      {
+        "id": 13,
+        "chainId": 11155111,
+        "payloadsController": "0x7E314a46AA6dF79c51869967B9b8e9f8Bb20781d"
+      },
+      {
+        "id": 14,
+        "chainId": 11155111,
+        "payloadsController": "0x7E314a46AA6dF79c51869967B9b8e9f8Bb20781d"
+      },
+      {
+        "id": 15,
+        "chainId": 11155111,
+        "payloadsController": "0x7E314a46AA6dF79c51869967B9b8e9f8Bb20781d"
+      },
+      {
+        "id": 4,
+        "chainId": 43113,
+        "payloadsController": "0x1fad4eac642D8CAFb7fC5d38973D1C2764202da5"
+      },
+      {
+        "id": 5,
+        "chainId": 43113,
+        "payloadsController": "0x1fad4eac642D8CAFb7fC5d38973D1C2764202da5"
+      },
+      {
+        "id": 6,
+        "chainId": 43113,
+        "payloadsController": "0x1fad4eac642D8CAFb7fC5d38973D1C2764202da5"
+      }
+    ],
+    "snapshotBlockHash": "0x48667f73ef895df93c918af981fd06fe619b30e23601dc40343dfac3cc08a13e",
+    "creator": "0xAd9A211D227d2D9c1B5573f73CDa0284b758Ac0C",
+    "canceledAt": 0,
+    "votingActivationTime": 1696856604,
+    "votingChainId": 11155111,
+    "votingMachineData": {
+      "id": 17,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 1696856808,
+      "endTime": 1696857408,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x48667f73ef895df93c918af981fd06fe619b30e23601dc40343dfac3cc08a13e",
+      "strategy": "0xd3FbD65A1Ea9b58E7047fA57AF1E051e023C0361",
+      "sentToGovernance": false,
+      "createdBlock": 4456675,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0xdaEcee477B931b209e8123401EA37582ACB3811d",
+        "0x354032B31339853A3D682613749F183328d07275",
+        "0x26aAB2aE39897338c2d91491C46c14a8c2a67919"
+      ],
+      "hasRequiredRoots": true
+    },
+    "prerender": true
   }
 ]
