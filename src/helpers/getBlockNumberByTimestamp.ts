@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { providers } from 'ethers';
 
 import { ChainIdByName } from './chains';
 
@@ -40,7 +40,7 @@ const getAverageBlockTime = (chainId: number) => {
 export async function getBlockNumberByTimestamp(
   chainId: number,
   targetTimestamp: number,
-  provider: ethers.providers.JsonRpcBatchProvider,
+  provider: providers.JsonRpcBatchProvider | providers.JsonRpcProvider,
 ) {
   const blocksDiff = 100;
   const MAX_ITERATIONS = 10;
