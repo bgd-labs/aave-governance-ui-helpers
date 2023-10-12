@@ -50567,9 +50567,8 @@ var gelatoApiKeys = {
   testnet: "qGvvlJMoyDKyuMxqJjDwFslpgiBKZCXNXpnSjIxsICY_",
   mainnet: "XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_"
 };
-var appConfigInit = (providers2, coreNetwork) => {
+var appConfigInit = (coreNetwork) => {
   return {
-    providers: providers2,
     govCoreChainId: govCoreChainId[coreNetwork],
     govCoreConfig: govCoreConfig[coreNetwork],
     votingMachineConfig: votingMachineConfig[coreNetwork],
@@ -50579,6 +50578,13 @@ var appConfigInit = (providers2, coreNetwork) => {
     additional: aditionalsAddresses[coreNetwork],
     gelatoApiKeys
   };
+};
+
+// src/helpers/appConfigWithProviders.ts
+var appConfigInitWithProviders = (providers2, coreNetwork) => {
+  return __spreadValues({
+    providers: providers2
+  }, appConfigInit(coreNetwork));
 };
 
 // src/helpers/checkHash.ts
@@ -51576,7 +51582,7 @@ var Votes = class {
 };
 
 // src/lowdb/populateCache.ts
-var appConfig = appConfigInit(providers, coreName);
+var appConfig = appConfigInitWithProviders(providers, coreName);
 function populateCache() {
   return __async(this, null, function* () {
     var _a;

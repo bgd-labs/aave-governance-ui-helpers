@@ -9,7 +9,6 @@ import {
   GovernanceV3Optimism,
   GovernanceV3Polygon,
 } from '@bgd-labs/aave-address-book';
-import { providers } from 'ethers';
 
 import { ChainIdByName } from './chains';
 
@@ -217,15 +216,8 @@ const gelatoApiKeys: Record<string, string> = {
   mainnet: 'XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_',
 };
 
-export const appConfigInit = (
-  providers: Record<
-    number,
-    providers.JsonRpcBatchProvider | providers.JsonRpcProvider
-  >,
-  coreNetwork: CoreNetworkName,
-) => {
+export const appConfigInit = (coreNetwork: CoreNetworkName) => {
   return {
-    providers,
     govCoreChainId: govCoreChainId[coreNetwork],
     govCoreConfig: govCoreConfig[coreNetwork],
     votingMachineConfig: votingMachineConfig[coreNetwork],

@@ -9,7 +9,7 @@ import { IVotingMachineDataHelper } from '../contracts/IVotingMachineDataHelper'
 import { IVotingMachineDataHelper__factory } from '../contracts/IVotingMachineDataHelper__factory';
 import { IVotingMachineWithProofs } from '../contracts/IVotingMachineWithProofs';
 import { IVotingMachineWithProofs__factory } from '../contracts/IVotingMachineWithProofs__factory';
-import { appConfigInit } from '../helpers/appConfig';
+import { appConfigInitWithProviders } from '../helpers/appConfigWithProviders';
 import { checkHash } from '../helpers/checkHash';
 import { getBlocksForEvents } from '../helpers/eventsHelpres';
 import {
@@ -38,7 +38,7 @@ import { Payload as PayloadDB } from './payload';
 import { Proposal as ProposalDB } from './proposal';
 import { Votes as VotesDB } from './votes';
 
-const appConfig = appConfigInit(providers, coreName);
+const appConfig = appConfigInitWithProviders(providers, coreName);
 
 export async function populateCache() {
   const proposalFetcher = new ProposalDB();
