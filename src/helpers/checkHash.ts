@@ -1,8 +1,11 @@
-import { ethers } from 'ethers';
+import { Hex } from 'viem';
+
+export const HashZero: Hex =
+  '0x0000000000000000000000000000000000000000000000000000000000000000';
 
 export function checkHash(hash: string) {
   return {
-    notZero: hash !== ethers.constants.HashZero,
-    zero: hash === ethers.constants.HashZero,
+    notZero: hash !== HashZero,
+    zero: hash === HashZero,
   };
 }

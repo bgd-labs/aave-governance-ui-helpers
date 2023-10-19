@@ -1,14 +1,13 @@
-import { providers as ethersProviders } from 'ethers';
 import lodash from 'lodash';
 import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import { join } from 'path';
+import { Hex } from 'viem';
+import { mainnet } from 'viem/chains';
 
-import { IVotingMachineWithProofs } from '../contracts/IVotingMachineWithProofs';
-import { ChainIdByName } from '../helpers/chains';
+import { clients } from '../helpers/clients';
 import { blockLimit, getBlocksForEvents } from '../helpers/eventsHelpres';
 import { getVoters } from '../helpers/getProposalEvents';
-import { providers } from '../helpers/providers';
 import { VotersData } from '../types';
 import { baseDirName } from './helpers';
 
@@ -46,24 +45,23 @@ export class Votes {
   }
 
   async populate(
-    votingMachineProvider:
-      | ethersProviders.JsonRpcBatchProvider
-      | ethersProviders.JsonRpcProvider,
-    votingMachine: IVotingMachineWithProofs,
+    contractAddress: Hex,
     startBlockNumber: number,
     endBlockNumber: number,
     chainId: number,
   ) {
-    const mainnetProvider = providers[ChainIdByName.EthereumMainnet];
+    const mainnetClient = clients[mainnet.id];
+    const votingMachineClient = clients[chainId];
+
     // fallback to empty array
     db.data ||= { voters: [], lastVoteBlockNumber: {} };
 
     const isCached = (db.data ||= { voters: [], lastVoteBlockNumber: {} });
 
-    const currentBlock = await votingMachineProvider.getBlockNumber();
+    const currentBlock = await votingMachineClient.getBlockNumber();
 
     const { endBlock, startBlock } = getBlocksForEvents(
-      currentBlock,
+      Number(currentBlock),
       startBlockNumber,
       endBlockNumber,
       isCached.lastVoteBlockNumber[chainId],
@@ -73,10 +71,11 @@ export class Votes {
 
     if (endBlock) {
       const newVoters = await getVoters(
+        contractAddress,
+        votingMachineClient,
         endBlock,
         startBlock,
         blockLimit,
-        votingMachine,
         chainId,
       );
 
@@ -85,7 +84,9 @@ export class Votes {
           .sort((a, b) => b.votingPower - a.votingPower)
           .slice(0, 5)
           .map(async (vote) => {
-            const name = await mainnetProvider.lookupAddress(vote.address);
+            const name = await mainnetClient.getEnsName({
+              address: vote.address,
+            });
 
             return {
               ...vote,

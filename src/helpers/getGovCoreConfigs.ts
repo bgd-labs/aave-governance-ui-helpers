@@ -1,20 +1,28 @@
-import { IGovernanceDataHelper } from '../contracts/IGovernanceDataHelper';
+import { Hex, PublicClient } from 'viem';
+
 import { VotingConfig } from '../types';
+import { govCoreDataHelperContract } from './contracts';
 
 export async function getGovCoreConfigs(
-  govCoreDataHelper: IGovernanceDataHelper,
-  govCoreContractAddress: string,
+  client: PublicClient,
+  govCoreContractAddress: Hex,
+  govCoreDataHelperContractAddress: Hex,
 ) {
-  const accessLevels = [1, 2]; // access levels that we can’t get from contracts in any way, so far there are only two of them, we need to keep an eye on that suddenly there will be more of them
-  const constants = await govCoreDataHelper.getConstants(
+  const govCoreDataHelper = govCoreDataHelperContract(
+    govCoreDataHelperContractAddress,
+    client,
+  );
+
+  const accessLevels: Readonly<number[]> = [1, 2]; // access levels that we can’t get from contracts in any way, so far there are only two of them, we need to keep an eye on that suddenly there will be more of them
+  const constants = await govCoreDataHelper.read.getConstants([
     govCoreContractAddress,
     accessLevels,
-  );
+  ]);
 
   const contractsConstants = {
     precisionDivider: constants.precisionDivider.toString(),
-    cooldownPeriod: constants.cooldownPeriod.toNumber(),
-    expirationTime: constants.expirationTime.toNumber(),
+    cooldownPeriod: Number(constants.cooldownPeriod),
+    expirationTime: Number(constants.expirationTime),
     cancellationFee: constants.cancellationFee.toString(),
   };
 
@@ -26,10 +34,10 @@ export async function getGovCoreConfigs(
     const config: VotingConfig = {
       accessLevel: votingConfig.accessLevel,
       votingDuration: votingConfig.config.votingDuration,
-      quorum: votingConfig.config.yesThreshold.toNumber() || 200,
-      differential: votingConfig.config.yesNoDifferential.toNumber() || 50,
+      quorum: Number(votingConfig.config.yesThreshold) || 200,
+      differential: Number(votingConfig.config.yesNoDifferential) || 50,
       coolDownBeforeVotingStart: votingConfig.config.coolDownBeforeVotingStart,
-      minPropositionPower: votingConfig.config.minPropositionPower.toNumber(),
+      minPropositionPower: Number(votingConfig.config.minPropositionPower),
     };
 
     configs.push(config);

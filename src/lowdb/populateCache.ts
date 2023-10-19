@@ -1,16 +1,15 @@
 import { BigNumber } from 'bignumber.js';
-import { constants } from 'ethers';
+import { Hex, zeroAddress } from 'viem';
 
-import { IGovernanceCore__factory } from '../contracts/IGovernanceCore__factory';
-import { IGovernanceDataHelper__factory } from '../contracts/IGovernanceDataHelper__factory';
-import { IPayloadsControllerDataHelper } from '../contracts/IPayloadsControllerDataHelper';
-import { IPayloadsControllerDataHelper__factory } from '../contracts/IPayloadsControllerDataHelper__factory';
-import { IVotingMachineDataHelper } from '../contracts/IVotingMachineDataHelper';
-import { IVotingMachineDataHelper__factory } from '../contracts/IVotingMachineDataHelper__factory';
-import { IVotingMachineWithProofs } from '../contracts/IVotingMachineWithProofs';
-import { IVotingMachineWithProofs__factory } from '../contracts/IVotingMachineWithProofs__factory';
-import { appConfigInitWithProviders } from '../helpers/appConfigWithProviders';
+import { appConfigWithClients } from '../helpers/appConfigWithClients';
 import { checkHash } from '../helpers/checkHash';
+import { clients } from '../helpers/clients';
+import {
+  govCoreContract,
+  govCoreDataHelperContract,
+  payloadsControllerDataHelperContract,
+  votingMachineDataHelperContract,
+} from '../helpers/contracts';
 import { getBlocksForEvents } from '../helpers/eventsHelpres';
 import {
   getProposalState,
@@ -22,7 +21,6 @@ import {
   getVotingMachineProposalState,
 } from '../helpers/getProposalData';
 import { getProposalMetadata } from '../helpers/getProposalMetadata';
-import { providers } from '../helpers/providers';
 import {
   BasicProposal,
   BasicProposalState,
@@ -38,7 +36,7 @@ import { Payload as PayloadDB } from './payload';
 import { Proposal as ProposalDB } from './proposal';
 import { Votes as VotesDB } from './votes';
 
-const appConfig = appConfigInitWithProviders(providers, coreName);
+const appConfig = appConfigWithClients(clients, coreName);
 
 export async function populateCache() {
   const proposalFetcher = new ProposalDB();
@@ -47,60 +45,69 @@ export async function populateCache() {
   const ipfsFetcher = new IpfsDB();
   const votesFetcher = new VotesDB();
 
-  const govCore = IGovernanceCore__factory.connect(
+  const govCore = govCoreContract(
     appConfig.govCoreConfig.contractAddress,
-    appConfig.providers[appConfig.govCoreChainId],
+    appConfig.clients[appConfig.govCoreChainId],
   );
-  const govCoreDataHelper = IGovernanceDataHelper__factory.connect(
+  const govCoreDataHelper = govCoreDataHelperContract(
     appConfig.govCoreConfig.dataHelperContractAddress,
-    appConfig.providers[appConfig.govCoreChainId],
+    appConfig.clients[appConfig.govCoreChainId],
   );
 
-  const votingMachines: Record<number, IVotingMachineWithProofs> = {};
-  appConfig.votingMachineChainIds.forEach((chainId) => {
-    const votingMachineConfig = appConfig.votingMachineConfig[chainId];
-    votingMachines[chainId] = IVotingMachineWithProofs__factory.connect(
-      votingMachineConfig.contractAddress,
-      appConfig.providers[chainId],
-    );
-  });
-  const votingMachineDataHelpers: Record<number, IVotingMachineDataHelper> = {};
-  appConfig.votingMachineChainIds.forEach((chainId) => {
-    const votingMachineConfig = appConfig.votingMachineConfig[chainId];
-    votingMachineDataHelpers[chainId] =
-      IVotingMachineDataHelper__factory.connect(
+  const votingMachineDataHelpers = {
+    [appConfig.votingMachineChainIds[0]]: votingMachineDataHelperContract(
+      appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]]
+        .dataHelperContractAddress,
+      appConfig.clients[appConfig.votingMachineChainIds[0]],
+    ),
+  };
+  if (appConfig.votingMachineChainIds.length > 1) {
+    appConfig.votingMachineChainIds.forEach((chainId) => {
+      const votingMachineConfig = appConfig.votingMachineConfig[chainId];
+      votingMachineDataHelpers[chainId] = votingMachineDataHelperContract(
         votingMachineConfig.dataHelperContractAddress,
-        appConfig.providers[chainId],
+        appConfig.clients[chainId],
       );
-  });
+    });
+  }
 
-  const payloadsControllerDataHelpers: Record<
-    number,
-    IPayloadsControllerDataHelper
-  > = {};
-  appConfig.payloadsControllerChainIds.forEach((chainId) => {
-    const payloadsControllerConfig =
-      appConfig.payloadsControllerConfig[chainId];
-    payloadsControllerDataHelpers[chainId] =
-      IPayloadsControllerDataHelper__factory.connect(
-        payloadsControllerConfig.dataHelperContractAddress,
-        appConfig.providers[chainId],
-      );
-  });
+  const payloadsControllerDataHelpers = {
+    [appConfig.payloadsControllerChainIds[0]]:
+      payloadsControllerDataHelperContract(
+        appConfig.payloadsControllerConfig[
+          appConfig.payloadsControllerChainIds[0]
+        ].dataHelperContractAddress,
+        appConfig.clients[appConfig.payloadsControllerChainIds[0]],
+      ),
+  };
+  if (appConfig.payloadsControllerChainIds.length > 1) {
+    appConfig.payloadsControllerChainIds.forEach((chainId) => {
+      const payloadsControllerConfig =
+        appConfig.payloadsControllerConfig[chainId];
+      payloadsControllerDataHelpers[chainId] =
+        payloadsControllerDataHelperContract(
+          payloadsControllerConfig.dataHelperContractAddress,
+          appConfig.clients[chainId],
+        );
+    });
+  }
 
-  const proposalsCount = await govCore.getProposalsCount();
+  const proposalsCountInit = await govCore.read.getProposalsCount();
+  const proposalsCount = Number(proposalsCountInit);
 
-  if (proposalsCount.toNumber() > 0) {
-    const govCoreDataHelperData = await govCoreDataHelper.getProposalsData(
-      appConfig.govCoreConfig.contractAddress,
-      0,
-      0,
-      proposalsCount,
+  if (proposalsCount > 0) {
+    const govCoreDataHelperData = await govCoreDataHelper.read.getProposalsData(
+      [
+        appConfig.govCoreConfig.contractAddress,
+        BigInt(0),
+        BigInt(0),
+        BigInt(proposalsCount),
+      ],
     );
 
     const getVotingData = async (
       initialProposals: InitialProposal[],
-      userAddress?: string,
+      userAddress?: Hex,
     ) => {
       const votingMachineChainIds = initialProposals
         .map((data) => data.votingChainId)
@@ -120,11 +127,11 @@ export async function populateCache() {
             });
 
           return (
-            (await votingMachineDataHelper.getProposalsData(
+            (await votingMachineDataHelper.read.getProposalsData([
               appConfig.votingMachineConfig[chainId].contractAddress,
               formattedInitialProposals,
-              userAddress || constants.AddressZero,
-            )) || []
+              userAddress || zeroAddress,
+            ])) || []
           );
         }),
       );
@@ -134,8 +141,8 @@ export async function populateCache() {
 
     const initialProposals = govCoreDataHelperData.map((proposal) => {
       return {
-        id: proposal.id.toNumber(),
-        votingChainId: proposal.votingChainId.toNumber(),
+        id: proposal.id,
+        votingChainId: Number(proposal.votingChainId),
         snapshotBlockHash: proposal.proposalData.snapshotBlockHash,
       };
     });
@@ -143,7 +150,7 @@ export async function populateCache() {
     const votingMachineDataHelperData = await getVotingData(initialProposals);
 
     const proposalsIds = govCoreDataHelperData.map((proposal) =>
-      proposal.id.toNumber(),
+      Number(proposal.id),
     );
 
     const proposalsData: BasicProposal[] = getDetailedProposalsData(
@@ -155,8 +162,9 @@ export async function populateCache() {
 
     // configs and constants
     const { contractsConstants, configs } = await getGovCoreConfigs(
-      govCoreDataHelper,
+      appConfig.clients[appConfig.govCoreChainId],
       appConfig.govCoreConfig.contractAddress,
+      appConfig.govCoreConfig.dataHelperContractAddress,
     );
 
     // populate ipfs data
@@ -246,14 +254,16 @@ export async function populateCache() {
 
                 if (payloadController) {
                   const payloadsData =
-                    (await payloadsControllerDataHelpers[id].getPayloadsData(
+                    (await payloadsControllerDataHelpers[
+                      id
+                    ].read.getPayloadsData([
                       controller,
                       proposalPayloadsIds,
-                    )) || [];
+                    ])) || [];
 
                   return payloadsData.map((payload) => {
                     return {
-                      id: payload.id.toNumber(),
+                      id: Number(payload.id),
                       chainId: id,
                       maximumAccessLevelRequired:
                         payload.data.maximumAccessLevelRequired,
@@ -309,15 +319,13 @@ export async function populateCache() {
         );
 
         const currentBlock =
-          await appConfig.providers[
-            proposalData.votingChainId
-          ].getBlockNumber();
+          await appConfig.clients[proposalData.votingChainId].getBlockNumber();
         const startBlockNumber = proposalData.votingMachineData.createdBlock;
         const endBlockNumber =
           proposalData.votingMachineData.votingClosedAndSentBlockNumber;
 
         const { startBlock, endBlock } = getBlocksForEvents(
-          currentBlock,
+          Number(currentBlock),
           startBlockNumber,
           endBlockNumber,
           undefined,
@@ -330,8 +338,8 @@ export async function populateCache() {
           endBlock > 0
         ) {
           await votesFetcher.populate(
-            appConfig.providers[proposalData.votingChainId],
-            votingMachines[proposalData.votingChainId],
+            appConfig.votingMachineConfig[proposalData.votingChainId]
+              .contractAddress,
             startBlock,
             endBlock,
             proposalData.votingChainId,
@@ -481,7 +489,7 @@ export async function populateCache() {
           isProposalPayloadsFinished,
           isProposalCanceled,
           isProposalExpired,
-          proposalsCount.toNumber(),
+          proposalsCount,
         );
       }
     }

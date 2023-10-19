@@ -1,3 +1,66 @@
+import { Hex } from 'viem';
+
+// from contracts
+type PayloadStructOutput = {
+  chain: bigint;
+  accessLevel: number;
+  payloadsController: Hex;
+  payloadId: number;
+};
+
+export type ProposalStructOutput = {
+  id: bigint;
+  votingChainId: bigint;
+  proposalData: {
+    state: number;
+    accessLevel: number;
+    creationTime: number;
+    votingDuration: number;
+    votingActivationTime: number;
+    queuingTime: number;
+    cancelTimestamp: number;
+    creator: Hex;
+    votingPortal: Hex;
+    snapshotBlockHash: Hex;
+    ipfsHash: Hex;
+    forVotes: bigint;
+    againstVotes: bigint;
+    cancellationFee: bigint;
+    payloads: Readonly<PayloadStructOutput[]>;
+  };
+};
+
+type VMProposalWithoutVotesStructOutput = {
+  id: bigint;
+  sentToGovernance: boolean;
+  startTime: number;
+  endTime: number;
+  votingClosedAndSentTimestamp: number;
+  forVotes: bigint;
+  againstVotes: bigint;
+  creationBlockNumber: bigint;
+  votingClosedAndSentBlockNumber: bigint;
+};
+
+export type VMProposalStructOutput = {
+  proposalData: Readonly<VMProposalWithoutVotesStructOutput>;
+  votedInfo: Readonly<{
+    support: boolean;
+    votingPower: bigint;
+  }>;
+  strategy: Hex;
+  dataWarehouse: Hex;
+  votingAssets: Readonly<Hex[]>;
+  hasRequiredRoots: boolean;
+  voteConfig: Readonly<{
+    votingDuration: number;
+    l1ProposalBlockHash: Hex;
+  }>;
+  state: number;
+};
+
+// end
+
 export interface PayloadForCreation {
   chain: number;
   accessLevel: number;
@@ -44,19 +107,19 @@ export enum ProposalState {
 
 export type VotersData = {
   proposalId: number;
-  address: string;
+  address: Hex;
   support: boolean;
   votingPower: number;
-  transactionHash: string;
+  transactionHash: Hex;
   blockNumber: number;
   chainId: number;
   ensName?: string;
 };
 
 export type InitialProposal = {
-  id: number;
+  id: bigint;
   votingChainId: number;
-  snapshotBlockHash: string;
+  snapshotBlockHash: Hex;
 };
 
 export type VotingMachineData = {
@@ -67,15 +130,15 @@ export type VotingMachineData = {
   endTime: number;
   votingClosedAndSentBlockNumber: number;
   votingClosedAndSentTimestamp: number;
-  l1BlockHash: string;
-  strategy: string;
+  l1BlockHash: Hex;
+  strategy: Hex;
   sentToGovernance: boolean;
   createdBlock: number;
   votedInfo: {
     support: boolean;
     votingPower: string;
   };
-  votingAssets: string[];
+  votingAssets: Readonly<Hex[]>;
   hasRequiredRoots: boolean;
 };
 
@@ -91,13 +154,13 @@ export type Payload = {
   expirationTime: number;
   delay: number;
   gracePeriod: number;
-  payloadsController: string;
-  actionAddresses: string[];
+  payloadsController: Hex;
+  actionAddresses: Hex[];
 };
 
 // type for create payload actions
 export type PayloadAction = {
-  payloadAddress: string;
+  payloadAddress: Hex;
   withDelegateCall: boolean;
   accessLevel: number;
   value: number;
@@ -124,7 +187,7 @@ export type ContractsConstants = {
 export type InitialPayload = {
   id: number;
   chainId: number;
-  payloadsController: string;
+  payloadsController: Hex;
 };
 
 export interface BasicProposal {

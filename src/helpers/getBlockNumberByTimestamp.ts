@@ -1,36 +1,50 @@
-import { providers } from 'ethers';
-
-import { ChainIdByName } from './chains';
+import { PublicClient } from 'viem';
+import {
+  arbitrum,
+  avalanche,
+  avalancheFuji,
+  base,
+  bsc,
+  bscTestnet,
+  goerli,
+  mainnet,
+  metis,
+  optimism,
+  optimismGoerli,
+  polygon,
+  polygonMumbai,
+  sepolia,
+} from 'viem/chains';
 
 const getAverageBlockTime = (chainId: number) => {
   switch (chainId) {
-    case ChainIdByName.EthereumMainnet:
+    case mainnet.id:
       return 13;
-    case ChainIdByName.Polygon:
+    case polygon.id:
       return 3;
-    case ChainIdByName.Avalanche:
+    case avalanche.id:
       return 5;
-    case ChainIdByName.Binance:
+    case bsc.id:
       return 4;
-    case ChainIdByName.Base:
+    case base.id:
       return 2;
-    case ChainIdByName.Arbitrum:
+    case arbitrum.id:
       return 1;
-    case ChainIdByName.Metis:
+    case metis.id:
       return 2;
-    case ChainIdByName.Optimism:
+    case optimism.id:
       return 2;
-    case ChainIdByName.Sepolia:
+    case sepolia.id:
       return 13;
-    case ChainIdByName.Goerli:
+    case goerli.id:
       return 13;
-    case ChainIdByName.GoerliOptimism:
+    case optimismGoerli.id:
       return 2;
-    case ChainIdByName.AvalancheFuji:
+    case avalancheFuji.id:
       return 5;
-    case ChainIdByName.Mumbai:
+    case polygonMumbai.id:
       return 3;
-    case ChainIdByName.BnbTest:
+    case bscTestnet.id:
       return 4;
     default:
       return 13;
@@ -40,7 +54,7 @@ const getAverageBlockTime = (chainId: number) => {
 export async function getBlockNumberByTimestamp(
   chainId: number,
   targetTimestamp: number,
-  provider: providers.JsonRpcBatchProvider | providers.JsonRpcProvider,
+  client: PublicClient,
 ) {
   const blocksDiff = 100;
   const MAX_ITERATIONS = 10;
@@ -48,14 +62,14 @@ export async function getBlockNumberByTimestamp(
   let iterationCount = 0;
   let averageBlockTime = getAverageBlockTime(chainId);
 
-  const currentBlock = await provider.getBlock('latest');
+  const currentBlock = await client.getBlock({ blockTag: 'latest' });
 
   if (targetTimestamp > currentBlock.timestamp) {
     throw new Error('Target timestamp is in the future.');
   }
 
-  let previousBlockTimestamp = currentBlock.timestamp;
-  let previousBlockNumber = currentBlock.number;
+  let previousBlockTimestamp = Number(currentBlock.timestamp);
+  let previousBlockNumber = Number(currentBlock.number);
   let estimatedBlockNumber;
   let estimatedBlock;
 
@@ -83,20 +97,22 @@ export async function getBlockNumberByTimestamp(
     }
 
     // Get block data
-    estimatedBlock = await provider.getBlock(estimatedBlockNumber);
+    estimatedBlock = await client.getBlock({
+      blockNumber: BigInt(estimatedBlockNumber),
+    });
 
     // Calculate a new average block time based on the difference of the timestamps
     averageBlockTime = Math.ceil(
-      (estimatedBlock.timestamp - previousBlockTimestamp) /
+      (Number(estimatedBlock.timestamp) - previousBlockTimestamp) /
         (estimatedBlockNumber - previousBlockNumber),
     );
 
-    previousBlockTimestamp = estimatedBlock.timestamp;
-    previousBlockNumber = estimatedBlock.number;
+    previousBlockTimestamp = Number(estimatedBlock.timestamp);
+    previousBlockNumber = Number(estimatedBlock.number);
 
     iterationCount++;
   } while (
-    Math.abs(estimatedBlock.timestamp - targetTimestamp) >
+    Math.abs(Number(estimatedBlock.timestamp) - targetTimestamp) >
       blocksDiff * averageBlockTime &&
     iterationCount < MAX_ITERATIONS
   );
@@ -106,13 +122,13 @@ export async function getBlockNumberByTimestamp(
   }
 
   // if estimated block timestamp <= target
-  let minBlockNumber = estimatedBlock.number - 1;
-  let maxBlockNumber = estimatedBlock.number + blocksDiff * 2;
+  let minBlockNumber = Number(estimatedBlock.number) - 1;
+  let maxBlockNumber = Number(estimatedBlock.number) + blocksDiff * 2;
 
   // if estimated block timestamp > target
   if (estimatedBlock.timestamp > targetTimestamp) {
-    minBlockNumber = estimatedBlock.number - blocksDiff * 2;
-    maxBlockNumber = estimatedBlock.number;
+    minBlockNumber = Number(estimatedBlock.number) - blocksDiff * 2;
+    maxBlockNumber = Number(estimatedBlock.number);
   }
 
   return {
