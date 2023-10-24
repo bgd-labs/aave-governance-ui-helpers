@@ -13,12 +13,20 @@ export function govCoreContract(
   client: PublicClient,
   walletClient?: WalletClient,
 ) {
-  return getContract({
-    address: contractAddress,
-    abi: IGovernanceCore_ABI,
-    publicClient: client,
-    walletClient,
-  });
+  if (walletClient) {
+    return getContract({
+      address: contractAddress,
+      abi: IGovernanceCore_ABI,
+      publicClient: client,
+      walletClient,
+    });
+  } else {
+    return getContract({
+      address: contractAddress,
+      abi: IGovernanceCore_ABI,
+      publicClient: client,
+    });
+  }
 }
 
 export function govCoreDataHelperContract(

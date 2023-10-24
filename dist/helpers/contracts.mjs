@@ -9,12 +9,20 @@ import {
 } from "@bgd-labs/aave-address-book";
 import { getContract } from "viem";
 function govCoreContract(contractAddress, client, walletClient) {
-  return getContract({
-    address: contractAddress,
-    abi: IGovernanceCore_ABI,
-    publicClient: client,
-    walletClient
-  });
+  if (walletClient) {
+    return getContract({
+      address: contractAddress,
+      abi: IGovernanceCore_ABI,
+      publicClient: client,
+      walletClient
+    });
+  } else {
+    return getContract({
+      address: contractAddress,
+      abi: IGovernanceCore_ABI,
+      publicClient: client
+    });
+  }
 }
 function govCoreDataHelperContract(contractAddress, client, walletClient) {
   return getContract({

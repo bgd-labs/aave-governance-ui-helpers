@@ -31,12 +31,20 @@ module.exports = __toCommonJS(contracts_exports);
 var import_aave_address_book = require("@bgd-labs/aave-address-book");
 var import_viem = require("viem");
 function govCoreContract(contractAddress, client, walletClient) {
-  return (0, import_viem.getContract)({
-    address: contractAddress,
-    abi: import_aave_address_book.IGovernanceCore_ABI,
-    publicClient: client,
-    walletClient
-  });
+  if (walletClient) {
+    return (0, import_viem.getContract)({
+      address: contractAddress,
+      abi: import_aave_address_book.IGovernanceCore_ABI,
+      publicClient: client,
+      walletClient
+    });
+  } else {
+    return (0, import_viem.getContract)({
+      address: contractAddress,
+      abi: import_aave_address_book.IGovernanceCore_ABI,
+      publicClient: client
+    });
+  }
 }
 function govCoreDataHelperContract(contractAddress, client, walletClient) {
   return (0, import_viem.getContract)({
