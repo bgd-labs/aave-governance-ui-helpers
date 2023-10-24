@@ -1,4 +1,5 @@
-import { Hex, PublicClient } from 'viem';
+import { PublicClient } from '@wagmi/core';
+import { Hex } from 'viem';
 
 import { normalizeBN } from './bignumber';
 import { votingMachineContract } from './contracts';
@@ -11,7 +12,10 @@ async function getVoteEvents(
   endBlock: number,
   chainId: number,
 ) {
-  const votingMachine = votingMachineContract(contractAddress, client);
+  const votingMachine = votingMachineContract({
+    contractAddress,
+    client,
+  });
 
   const events = await client.getContractEvents({
     abi: votingMachine.abi,

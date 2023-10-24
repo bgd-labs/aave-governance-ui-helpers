@@ -1,4 +1,5 @@
-import { Hex, PublicClient } from 'viem';
+import { PublicClient } from '@wagmi/core';
+import { Hex } from 'viem';
 
 declare function getPayloadsCreated(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number, chainId: number): Promise<{
     payloadId: number | undefined;

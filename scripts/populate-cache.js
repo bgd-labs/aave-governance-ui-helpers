@@ -22720,7 +22720,11 @@ var clients = {
 };
 
 // src/helpers/contracts.ts
-function govCoreContract(contractAddress, client, walletClient) {
+function govCoreContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IGovernanceCore_ABI,
@@ -22728,7 +22732,11 @@ function govCoreContract(contractAddress, client, walletClient) {
     walletClient
   });
 }
-function govCoreDataHelperContract(contractAddress, client, walletClient) {
+function govCoreDataHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IGovernanceDataHelper_ABI,
@@ -22736,7 +22744,11 @@ function govCoreDataHelperContract(contractAddress, client, walletClient) {
     walletClient
   });
 }
-function votingMachineContract(contractAddress, client, walletClient) {
+function votingMachineContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineWithProofs_ABI,
@@ -22744,7 +22756,11 @@ function votingMachineContract(contractAddress, client, walletClient) {
     walletClient
   });
 }
-function votingMachineDataHelperContract(contractAddress, client, walletClient) {
+function votingMachineDataHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineDataHelper_ABI,
@@ -22752,7 +22768,11 @@ function votingMachineDataHelperContract(contractAddress, client, walletClient) 
     walletClient
   });
 }
-function payloadsControllerDataHelperContract(contractAddress, client, walletClient) {
+function payloadsControllerDataHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerDataHelper_ABI,
@@ -22979,10 +22999,10 @@ function getProposalState({ ...data }) {
 
 // src/helpers/getGovCoreConfigs.ts
 async function getGovCoreConfigs(client, govCoreContractAddress, govCoreDataHelperContractAddress) {
-  const govCoreDataHelper = govCoreDataHelperContract(
-    govCoreDataHelperContractAddress,
+  const govCoreDataHelper = govCoreDataHelperContract({
+    contractAddress: govCoreDataHelperContractAddress,
     client
-  );
+  });
   const accessLevels = [1, 2];
   const constants = await govCoreDataHelper.read.getConstants([
     govCoreContractAddress,
@@ -23466,7 +23486,10 @@ var import_path5 = require("path");
 
 // src/helpers/getProposalEvents.ts
 async function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
-  const votingMachine = votingMachineContract(contractAddress, client);
+  const votingMachine = votingMachineContract({
+    contractAddress,
+    client
+  });
   const events = await client.getContractEvents({
     abi: votingMachine.abi,
     eventName: "VoteEmitted",
@@ -23600,42 +23623,42 @@ async function populateCache() {
   const payloadFetcher = new Payload();
   const ipfsFetcher = new Ipfs();
   const votesFetcher = new Votes();
-  const govCore = govCoreContract(
-    appConfig.govCoreConfig.contractAddress,
-    appConfig.clients[appConfig.govCoreChainId]
-  );
-  const govCoreDataHelper = govCoreDataHelperContract(
-    appConfig.govCoreConfig.dataHelperContractAddress,
-    appConfig.clients[appConfig.govCoreChainId]
-  );
+  const govCore = govCoreContract({
+    contractAddress: appConfig.govCoreConfig.contractAddress,
+    client: appConfig.clients[appConfig.govCoreChainId]
+  });
+  const govCoreDataHelper = govCoreDataHelperContract({
+    contractAddress: appConfig.govCoreConfig.dataHelperContractAddress,
+    client: appConfig.clients[appConfig.govCoreChainId]
+  });
   const votingMachineDataHelpers = {
-    [appConfig.votingMachineChainIds[0]]: votingMachineDataHelperContract(
-      appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]].dataHelperContractAddress,
-      appConfig.clients[appConfig.votingMachineChainIds[0]]
-    )
+    [appConfig.votingMachineChainIds[0]]: votingMachineDataHelperContract({
+      contractAddress: appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]].dataHelperContractAddress,
+      client: appConfig.clients[appConfig.votingMachineChainIds[0]]
+    })
   };
   if (appConfig.votingMachineChainIds.length > 1) {
     appConfig.votingMachineChainIds.forEach((chainId) => {
       const votingMachineConfig2 = appConfig.votingMachineConfig[chainId];
-      votingMachineDataHelpers[chainId] = votingMachineDataHelperContract(
-        votingMachineConfig2.dataHelperContractAddress,
-        appConfig.clients[chainId]
-      );
+      votingMachineDataHelpers[chainId] = votingMachineDataHelperContract({
+        contractAddress: votingMachineConfig2.dataHelperContractAddress,
+        client: appConfig.clients[chainId]
+      });
     });
   }
   const payloadsControllerDataHelpers = {
-    [appConfig.payloadsControllerChainIds[0]]: payloadsControllerDataHelperContract(
-      appConfig.payloadsControllerConfig[appConfig.payloadsControllerChainIds[0]].dataHelperContractAddress,
-      appConfig.clients[appConfig.payloadsControllerChainIds[0]]
-    )
+    [appConfig.payloadsControllerChainIds[0]]: payloadsControllerDataHelperContract({
+      contractAddress: appConfig.payloadsControllerConfig[appConfig.payloadsControllerChainIds[0]].dataHelperContractAddress,
+      client: appConfig.clients[appConfig.payloadsControllerChainIds[0]]
+    })
   };
   if (appConfig.payloadsControllerChainIds.length > 1) {
     appConfig.payloadsControllerChainIds.forEach((chainId) => {
       const payloadsControllerConfig2 = appConfig.payloadsControllerConfig[chainId];
-      payloadsControllerDataHelpers[chainId] = payloadsControllerDataHelperContract(
-        payloadsControllerConfig2.dataHelperContractAddress,
-        appConfig.clients[chainId]
-      );
+      payloadsControllerDataHelpers[chainId] = payloadsControllerDataHelperContract({
+        contractAddress: payloadsControllerConfig2.dataHelperContractAddress,
+        client: appConfig.clients[chainId]
+      });
     });
   }
   const proposalsCountInit = await govCore.read.getProposalsCount();

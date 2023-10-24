@@ -48,7 +48,10 @@ var import_contracts = require("./contracts.js");
 var import_eventsHelpres = require("./eventsHelpres.js");
 function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
   return __async(this, null, function* () {
-    const votingMachine = (0, import_contracts.votingMachineContract)(contractAddress, client);
+    const votingMachine = (0, import_contracts.votingMachineContract)({
+      contractAddress,
+      client
+    });
     const events = yield client.getContractEvents({
       abi: votingMachine.abi,
       eventName: "VoteEmitted",

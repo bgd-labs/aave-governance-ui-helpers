@@ -1,4 +1,4 @@
-import { PublicClient } from 'viem';
+import { PublicClient } from '@wagmi/core';
 
 import { appConfigInit, CoreNetworkName } from './appConfig';
 

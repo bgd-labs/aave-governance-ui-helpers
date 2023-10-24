@@ -49,46 +49,48 @@ export async function populateCache() {
     contractAddress: appConfig.govCoreConfig.contractAddress,
     client: appConfig.clients[appConfig.govCoreChainId],
   });
-  const govCoreDataHelper = govCoreDataHelperContract(
-    appConfig.govCoreConfig.dataHelperContractAddress,
-    appConfig.clients[appConfig.govCoreChainId],
-  );
+  const govCoreDataHelper = govCoreDataHelperContract({
+    contractAddress: appConfig.govCoreConfig.dataHelperContractAddress,
+    client: appConfig.clients[appConfig.govCoreChainId],
+  });
 
   const votingMachineDataHelpers = {
-    [appConfig.votingMachineChainIds[0]]: votingMachineDataHelperContract(
-      appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]]
-        .dataHelperContractAddress,
-      appConfig.clients[appConfig.votingMachineChainIds[0]],
-    ),
+    [appConfig.votingMachineChainIds[0]]: votingMachineDataHelperContract({
+      contractAddress:
+        appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]]
+          .dataHelperContractAddress,
+      client: appConfig.clients[appConfig.votingMachineChainIds[0]],
+    }),
   };
   if (appConfig.votingMachineChainIds.length > 1) {
     appConfig.votingMachineChainIds.forEach((chainId) => {
       const votingMachineConfig = appConfig.votingMachineConfig[chainId];
-      votingMachineDataHelpers[chainId] = votingMachineDataHelperContract(
-        votingMachineConfig.dataHelperContractAddress,
-        appConfig.clients[chainId],
-      );
+      votingMachineDataHelpers[chainId] = votingMachineDataHelperContract({
+        contractAddress: votingMachineConfig.dataHelperContractAddress,
+        client: appConfig.clients[chainId],
+      });
     });
   }
 
   const payloadsControllerDataHelpers = {
     [appConfig.payloadsControllerChainIds[0]]:
-      payloadsControllerDataHelperContract(
-        appConfig.payloadsControllerConfig[
-          appConfig.payloadsControllerChainIds[0]
-        ].dataHelperContractAddress,
-        appConfig.clients[appConfig.payloadsControllerChainIds[0]],
-      ),
+      payloadsControllerDataHelperContract({
+        contractAddress:
+          appConfig.payloadsControllerConfig[
+            appConfig.payloadsControllerChainIds[0]
+          ].dataHelperContractAddress,
+        client: appConfig.clients[appConfig.payloadsControllerChainIds[0]],
+      }),
   };
   if (appConfig.payloadsControllerChainIds.length > 1) {
     appConfig.payloadsControllerChainIds.forEach((chainId) => {
       const payloadsControllerConfig =
         appConfig.payloadsControllerConfig[chainId];
       payloadsControllerDataHelpers[chainId] =
-        payloadsControllerDataHelperContract(
-          payloadsControllerConfig.dataHelperContractAddress,
-          appConfig.clients[chainId],
-        );
+        payloadsControllerDataHelperContract({
+          contractAddress: payloadsControllerConfig.dataHelperContractAddress,
+          client: appConfig.clients[chainId],
+        });
     });
   }
 

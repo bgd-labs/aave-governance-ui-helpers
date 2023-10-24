@@ -1,7 +1,7 @@
 export { CoreNetworkName, appConfigInit, govCoreConfig, payloadsControllerChainIds, payloadsControllerConfig, votingMachineChainIds } from './helpers/appConfig.js';
 export { BigNumberValue, normalize, normalizeBN, valueToBigNumber } from './helpers/bignumber.js';
 export { HashZero, checkHash } from './helpers/checkHash.js';
-export { InitContract, InitContractWithClient, connectedGovCoreContract, govCoreContract, govCoreDataHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract } from './helpers/contracts.js';
+export { InitContract, govCoreContract, govCoreDataHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract } from './helpers/contracts.js';
 export { blockLimit, getBlocksForEvents, getEventsBySteps } from './helpers/eventsHelpres.js';
 export { formatDiff, formatProposal, formatQuorum, getEstimatedState, getProposalState, getProposalStepsAndAmounts, getWaitForState, normalizeVotes } from './helpers/formatProposal.js';
 export { getBlockNumberByTimestamp } from './helpers/getBlockNumberByTimestamp.js';
@@ -14,13 +14,5 @@ export { Balance, BasicProposal, BasicProposalState, CachedDetails, CachedPropos
 import 'viem';
 import 'bignumber.js';
 import 'viem/_types/actions/wallet/signTransaction';
-import 'viem/_types/actions/public/verifyTypedData';
-import 'viem/_types/actions/public/verifyMessage';
 import 'viem/_types/actions/wallet/sendRawTransaction';
-import 'viem/_types/actions/public/getProof';
-import 'viem/_types/types/filter';
-import 'viem/_types/actions/ens/getEnsText';
-import 'viem/_types/actions/ens/getEnsAvatar';
-import 'viem/_types/actions/public/getContractEvents';
-import 'abitype';
-import 'viem/_types/types/contract';
+import '@wagmi/core';

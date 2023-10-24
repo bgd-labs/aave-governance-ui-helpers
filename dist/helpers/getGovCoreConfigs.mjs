@@ -23,10 +23,10 @@ var __async = (__this, __arguments, generator) => {
 import { govCoreDataHelperContract } from "./contracts.mjs";
 function getGovCoreConfigs(client, govCoreContractAddress, govCoreDataHelperContractAddress) {
   return __async(this, null, function* () {
-    const govCoreDataHelper = govCoreDataHelperContract(
-      govCoreDataHelperContractAddress,
+    const govCoreDataHelper = govCoreDataHelperContract({
+      contractAddress: govCoreDataHelperContractAddress,
       client
-    );
+    });
     const accessLevels = [1, 2];
     const constants = yield govCoreDataHelper.read.getConstants([
       govCoreContractAddress,

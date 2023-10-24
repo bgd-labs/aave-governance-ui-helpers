@@ -8,14 +8,7 @@ import {
   IVotingMachineWithProofs_ABI
 } from "@bgd-labs/aave-address-book";
 import { getContract } from "viem";
-function govCoreContract({ contractAddress, client }) {
-  return getContract({
-    address: contractAddress,
-    abi: IGovernanceCore_ABI,
-    publicClient: client
-  });
-}
-function connectedGovCoreContract({
+function govCoreContract({
   contractAddress,
   client,
   walletClient
@@ -27,7 +20,11 @@ function connectedGovCoreContract({
     walletClient
   });
 }
-function govCoreDataHelperContract(contractAddress, client, walletClient) {
+function govCoreDataHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IGovernanceDataHelper_ABI,
@@ -35,7 +32,11 @@ function govCoreDataHelperContract(contractAddress, client, walletClient) {
     walletClient
   });
 }
-function votingMachineContract(contractAddress, client, walletClient) {
+function votingMachineContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineWithProofs_ABI,
@@ -43,7 +44,11 @@ function votingMachineContract(contractAddress, client, walletClient) {
     walletClient
   });
 }
-function votingMachineDataHelperContract(contractAddress, client, walletClient) {
+function votingMachineDataHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineDataHelper_ABI,
@@ -51,7 +56,11 @@ function votingMachineDataHelperContract(contractAddress, client, walletClient) 
     walletClient
   });
 }
-function payloadsControllerContract(contractAddress, client, walletClient) {
+function payloadsControllerContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerCore_ABI,
@@ -59,7 +68,11 @@ function payloadsControllerContract(contractAddress, client, walletClient) {
     walletClient
   });
 }
-function payloadsControllerDataHelperContract(contractAddress, client, walletClient) {
+function payloadsControllerDataHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerDataHelper_ABI,
@@ -68,7 +81,6 @@ function payloadsControllerDataHelperContract(contractAddress, client, walletCli
   });
 }
 export {
-  connectedGovCoreContract,
   govCoreContract,
   govCoreDataHelperContract,
   payloadsControllerContract,

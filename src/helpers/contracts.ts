@@ -6,30 +6,20 @@ import {
   IVotingMachineDataHelper_ABI,
   IVotingMachineWithProofs_ABI,
 } from '@bgd-labs/aave-address-book';
-import { getContract, Hex, PublicClient, WalletClient } from 'viem';
+import { PublicClient, WalletClient } from '@wagmi/core';
+import { getContract, Hex } from 'viem';
 
 export type InitContract = {
   contractAddress: Hex;
   client: PublicClient;
+  walletClient?: WalletClient;
 };
 
-export type InitContractWithClient = InitContract & {
-  walletClient: WalletClient;
-};
-
-export function govCoreContract({ contractAddress, client }: InitContract) {
-  return getContract({
-    address: contractAddress,
-    abi: IGovernanceCore_ABI,
-    publicClient: client,
-  });
-}
-
-export function connectedGovCoreContract({
+export function govCoreContract({
   contractAddress,
   client,
   walletClient,
-}: InitContractWithClient) {
+}: InitContract) {
   return getContract({
     address: contractAddress,
     abi: IGovernanceCore_ABI,
@@ -38,11 +28,11 @@ export function connectedGovCoreContract({
   });
 }
 
-export function govCoreDataHelperContract(
-  contractAddress: Hex,
-  client: PublicClient,
-  walletClient?: WalletClient,
-) {
+export function govCoreDataHelperContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
   return getContract({
     address: contractAddress,
     abi: IGovernanceDataHelper_ABI,
@@ -51,11 +41,11 @@ export function govCoreDataHelperContract(
   });
 }
 
-export function votingMachineContract(
-  contractAddress: Hex,
-  client: PublicClient,
-  walletClient?: WalletClient,
-) {
+export function votingMachineContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineWithProofs_ABI,
@@ -64,11 +54,11 @@ export function votingMachineContract(
   });
 }
 
-export function votingMachineDataHelperContract(
-  contractAddress: Hex,
-  client: PublicClient,
-  walletClient?: WalletClient,
-) {
+export function votingMachineDataHelperContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineDataHelper_ABI,
@@ -77,11 +67,11 @@ export function votingMachineDataHelperContract(
   });
 }
 
-export function payloadsControllerContract(
-  contractAddress: Hex,
-  client: PublicClient,
-  walletClient?: WalletClient,
-) {
+export function payloadsControllerContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerCore_ABI,
@@ -90,11 +80,11 @@ export function payloadsControllerContract(
   });
 }
 
-export function payloadsControllerDataHelperContract(
-  contractAddress: Hex,
-  client: PublicClient,
-  walletClient?: WalletClient,
-) {
+export function payloadsControllerDataHelperContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerDataHelper_ABI,

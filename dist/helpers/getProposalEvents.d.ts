@@ -1,4 +1,5 @@
-import { Hex, PublicClient } from 'viem';
+import { PublicClient } from '@wagmi/core';
+import { Hex } from 'viem';
 
 declare function getVoters(contractAddress: Hex, client: PublicClient, endBlock: number, startBlock: number, blockLimit: number, chainId: number): Promise<{
     proposalId: number;

@@ -1,4 +1,5 @@
-import { Chain, createPublicClient, http, PublicClient } from 'viem';
+import { PublicClient } from '@wagmi/core';
+import { Chain, createPublicClient, http } from 'viem';
 import {
   arbitrum,
   avalanche,

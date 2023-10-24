@@ -25,7 +25,10 @@ import { votingMachineContract } from "./contracts.mjs";
 import { getEventsBySteps } from "./eventsHelpres.mjs";
 function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
   return __async(this, null, function* () {
-    const votingMachine = votingMachineContract(contractAddress, client);
+    const votingMachine = votingMachineContract({
+      contractAddress,
+      client
+    });
     const events = yield client.getContractEvents({
       abi: votingMachine.abi,
       eventName: "VoteEmitted",

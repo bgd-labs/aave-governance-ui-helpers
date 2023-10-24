@@ -28,10 +28,10 @@ import {
 import { blockLimit, getEventsBySteps } from "./eventsHelpres.mjs";
 function getPayloadsCreatedEvents(contractAddress, client, startBlock, endBlock, chainId) {
   return __async(this, null, function* () {
-    const payloadsController = payloadsControllerContract(
+    const payloadsController = payloadsControllerContract({
       contractAddress,
       client
-    );
+    });
     const events = yield client.getContractEvents({
       abi: payloadsController.abi,
       eventName: "PayloadCreated",
@@ -121,7 +121,7 @@ function getProposalActivated(contractAddress, client, startBlock, endBlock) {
 }
 function getProposalActivatedOnVMEvents(contractAddress, client, startBlock, endBlock) {
   return __async(this, null, function* () {
-    const votingMachine = votingMachineContract(contractAddress, client);
+    const votingMachine = votingMachineContract({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: votingMachine.abi,
       eventName: "ProposalVoteStarted",
@@ -150,7 +150,7 @@ function getProposalActivatedOnVM(contractAddress, client, startBlock, endBlock)
 }
 function getProposalVotingClosedEvents(contractAddress, client, startBlock, endBlock) {
   return __async(this, null, function* () {
-    const votingMachine = votingMachineContract(contractAddress, client);
+    const votingMachine = votingMachineContract({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: votingMachine.abi,
       eventName: "ProposalResultsSent",
@@ -208,10 +208,10 @@ function getProposalQueued(contractAddress, client, startBlock, endBlock) {
 }
 function getPayloadsQueuedEvents(contractAddress, client, startBlock, endBlock, chainId) {
   return __async(this, null, function* () {
-    const payloadsController = payloadsControllerContract(
+    const payloadsController = payloadsControllerContract({
       contractAddress,
       client
-    );
+    });
     const events = yield client.getContractEvents({
       abi: payloadsController.abi,
       eventName: "PayloadQueued",
@@ -243,10 +243,10 @@ function getPayloadsQueued(contractAddress, client, startBlock, endBlock, chainI
 }
 function getPayloadsExecutedEvents(contractAddress, client, startBlock, endBlock, chainId) {
   return __async(this, null, function* () {
-    const payloadsController = payloadsControllerContract(
+    const payloadsController = payloadsControllerContract({
       contractAddress,
       client
-    );
+    });
     const events = yield client.getContractEvents({
       abi: payloadsController.abi,
       eventName: "PayloadExecuted",

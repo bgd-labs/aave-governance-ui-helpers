@@ -46,10 +46,10 @@ module.exports = __toCommonJS(getGovCoreConfigs_exports);
 var import_contracts = require("./contracts.js");
 function getGovCoreConfigs(client, govCoreContractAddress, govCoreDataHelperContractAddress) {
   return __async(this, null, function* () {
-    const govCoreDataHelper = (0, import_contracts.govCoreDataHelperContract)(
-      govCoreDataHelperContractAddress,
+    const govCoreDataHelper = (0, import_contracts.govCoreDataHelperContract)({
+      contractAddress: govCoreDataHelperContractAddress,
       client
-    );
+    });
     const accessLevels = [1, 2];
     const constants = yield govCoreDataHelper.read.getConstants([
       govCoreContractAddress,

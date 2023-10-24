@@ -1,4 +1,5 @@
-import { Hex, PublicClient } from 'viem';
+import { PublicClient } from '@wagmi/core';
+import { Hex } from 'viem';
 
 import {
   govCoreContract,
@@ -15,10 +16,10 @@ async function getPayloadsCreatedEvents(
   endBlock: number,
   chainId: number,
 ) {
-  const payloadsController = payloadsControllerContract(
+  const payloadsController = payloadsControllerContract({
     contractAddress,
     client,
-  );
+  });
 
   const events = await client.getContractEvents({
     abi: payloadsController.abi,
@@ -160,7 +161,7 @@ async function getProposalActivatedOnVMEvents(
   startBlock: number,
   endBlock: number,
 ) {
-  const votingMachine = votingMachineContract(contractAddress, client);
+  const votingMachine = votingMachineContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
     abi: votingMachine.abi,
@@ -206,7 +207,7 @@ async function getProposalVotingClosedEvents(
   startBlock: number,
   endBlock: number,
 ) {
-  const votingMachine = votingMachineContract(contractAddress, client);
+  const votingMachine = votingMachineContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
     abi: votingMachine.abi,
@@ -299,10 +300,10 @@ async function getPayloadsQueuedEvents(
   endBlock: number,
   chainId: number,
 ) {
-  const payloadsController = payloadsControllerContract(
+  const payloadsController = payloadsControllerContract({
     contractAddress,
     client,
-  );
+  });
 
   const events = await client.getContractEvents({
     abi: payloadsController.abi,
@@ -353,10 +354,10 @@ async function getPayloadsExecutedEvents(
   endBlock: number,
   chainId: number,
 ) {
-  const payloadsController = payloadsControllerContract(
+  const payloadsController = payloadsControllerContract({
     contractAddress,
     client,
-  );
+  });
 
   const events = await client.getContractEvents({
     abi: payloadsController.abi,
