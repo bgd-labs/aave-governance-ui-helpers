@@ -3,7 +3,7 @@ import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import { join } from 'path';
 
-import { InitialPayload, Payload as PayloadType } from '../types';
+import { InitialPayload, Payload as PayloadType } from '../helpers/types';
 import { baseDirName } from './helpers';
 
 class LowWithLodash<T> extends Low<T> {

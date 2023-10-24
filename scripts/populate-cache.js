@@ -4944,9 +4944,9 @@ var require_section_matter = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/common.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/common.js
 var require_common = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/common.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/common.js"(exports2, module2) {
     "use strict";
     function isNothing(subject) {
       return typeof subject === "undefined" || subject === null;
@@ -4991,9 +4991,9 @@ var require_common = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/exception.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/exception.js
 var require_exception = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/exception.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/exception.js"(exports2, module2) {
     "use strict";
     function YAMLException(reason, mark) {
       Error.call(this);
@@ -5021,9 +5021,9 @@ var require_exception = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/mark.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/mark.js
 var require_mark = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/mark.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/mark.js"(exports2, module2) {
     "use strict";
     var common = require_common();
     function Mark(name, buffer2, position, line, column) {
@@ -5080,9 +5080,9 @@ var require_mark = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type.js
 var require_type = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type.js"(exports2, module2) {
     "use strict";
     var YAMLException = require_exception();
     var TYPE_CONSTRUCTOR_OPTIONS = [
@@ -5139,9 +5139,9 @@ var require_type = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/schema.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema.js
 var require_schema = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/schema.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema.js"(exports2, module2) {
     "use strict";
     var common = require_common();
     var YAMLException = require_exception();
@@ -5227,9 +5227,9 @@ var require_schema = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/str.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/str.js
 var require_str = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/str.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/str.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     module2.exports = new Type("tag:yaml.org,2002:str", {
@@ -5241,9 +5241,9 @@ var require_str = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/seq.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/seq.js
 var require_seq = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/seq.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/seq.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     module2.exports = new Type("tag:yaml.org,2002:seq", {
@@ -5255,9 +5255,9 @@ var require_seq = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/map.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/map.js
 var require_map = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/map.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/map.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     module2.exports = new Type("tag:yaml.org,2002:map", {
@@ -5269,9 +5269,9 @@ var require_map = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/schema/failsafe.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/failsafe.js
 var require_failsafe = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/schema/failsafe.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/failsafe.js"(exports2, module2) {
     "use strict";
     var Schema = require_schema();
     module2.exports = new Schema({
@@ -5284,9 +5284,9 @@ var require_failsafe = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/null.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/null.js
 var require_null = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/null.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/null.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     function resolveYamlNull(data) {
@@ -5325,9 +5325,9 @@ var require_null = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/bool.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/bool.js
 var require_bool = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/bool.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/bool.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     function resolveYamlBoolean(data) {
@@ -5363,9 +5363,9 @@ var require_bool = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/int.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/int.js
 var require_int = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/int.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/int.js"(exports2, module2) {
     "use strict";
     var common = require_common();
     var Type = require_type();
@@ -5514,9 +5514,9 @@ var require_int = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/float.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/float.js
 var require_float = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/float.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/float.js"(exports2, module2) {
     "use strict";
     var common = require_common();
     var Type = require_type();
@@ -5610,9 +5610,9 @@ var require_float = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/schema/json.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/json.js
 var require_json = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/schema/json.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/json.js"(exports2, module2) {
     "use strict";
     var Schema = require_schema();
     module2.exports = new Schema({
@@ -5629,9 +5629,9 @@ var require_json = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/schema/core.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/core.js
 var require_core = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/schema/core.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/core.js"(exports2, module2) {
     "use strict";
     var Schema = require_schema();
     module2.exports = new Schema({
@@ -5642,9 +5642,9 @@ var require_core = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/timestamp.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/timestamp.js
 var require_timestamp = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/timestamp.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/timestamp.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     var YAML_DATE_REGEXP = new RegExp(
@@ -5710,9 +5710,9 @@ var require_timestamp = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/merge.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/merge.js
 var require_merge = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/merge.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/merge.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     function resolveYamlMerge(data) {
@@ -5725,9 +5725,9 @@ var require_merge = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/binary.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/binary.js
 var require_binary = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/binary.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/binary.js"(exports2, module2) {
     "use strict";
     var NodeBuffer;
     try {
@@ -5821,9 +5821,9 @@ var require_binary = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/omap.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/omap.js
 var require_omap = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/omap.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/omap.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     var _hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -5865,9 +5865,9 @@ var require_omap = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/pairs.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/pairs.js
 var require_pairs = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/pairs.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/pairs.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     var _toString = Object.prototype.toString;
@@ -5907,9 +5907,9 @@ var require_pairs = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/set.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/set.js
 var require_set = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/set.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/set.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     var _hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -5936,9 +5936,9 @@ var require_set = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/schema/default_safe.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/default_safe.js
 var require_default_safe = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/schema/default_safe.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/default_safe.js"(exports2, module2) {
     "use strict";
     var Schema = require_schema();
     module2.exports = new Schema({
@@ -5959,9 +5959,9 @@ var require_default_safe = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/js/undefined.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/js/undefined.js
 var require_undefined = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/js/undefined.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/js/undefined.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     function resolveJavascriptUndefined() {
@@ -5986,9 +5986,9 @@ var require_undefined = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/js/regexp.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/js/regexp.js
 var require_regexp = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/js/regexp.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/js/regexp.js"(exports2, module2) {
     "use strict";
     var Type = require_type();
     function resolveJavascriptRegExp(data) {
@@ -6039,9 +6039,9 @@ var require_regexp = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/type/js/function.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/js/function.js
 var require_function = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/type/js/function.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/type/js/function.js"(exports2, module2) {
     "use strict";
     var esprima;
     try {
@@ -6096,9 +6096,9 @@ var require_function = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/schema/default_full.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/default_full.js
 var require_default_full = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/schema/default_full.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/schema/default_full.js"(exports2, module2) {
     "use strict";
     var Schema = require_schema();
     module2.exports = Schema.DEFAULT = new Schema({
@@ -6114,9 +6114,9 @@ var require_default_full = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/loader.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js
 var require_loader = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/loader.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/loader.js"(exports2, module2) {
     "use strict";
     var common = require_common();
     var YAMLException = require_exception();
@@ -7226,9 +7226,9 @@ var require_loader = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml/dumper.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/dumper.js
 var require_dumper = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml/dumper.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml/dumper.js"(exports2, module2) {
     "use strict";
     var common = require_common();
     var YAMLException = require_exception();
@@ -7784,9 +7784,9 @@ var require_dumper = __commonJS({
   }
 });
 
-// node_modules/js-yaml/lib/js-yaml.js
+// node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml.js
 var require_js_yaml = __commonJS({
-  "node_modules/js-yaml/lib/js-yaml.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/lib/js-yaml.js"(exports2, module2) {
     "use strict";
     var loader = require_loader();
     var dumper = require_dumper();
@@ -7819,9 +7819,9 @@ var require_js_yaml = __commonJS({
   }
 });
 
-// node_modules/js-yaml/index.js
+// node_modules/gray-matter/node_modules/js-yaml/index.js
 var require_js_yaml2 = __commonJS({
-  "node_modules/js-yaml/index.js"(exports2, module2) {
+  "node_modules/gray-matter/node_modules/js-yaml/index.js"(exports2, module2) {
     "use strict";
     var yaml2 = require_js_yaml();
     module2.exports = yaml2;
@@ -23287,7 +23287,10 @@ var JSONFile = class {
 // src/lowdb/ipfs.ts
 var import_path = require("path");
 var LowWithLodash = class extends Low {
-  chain = import_lodash.default.chain(this).get("data");
+  constructor() {
+    super(...arguments);
+    this.chain = import_lodash.default.chain(this).get("data");
+  }
 };
 var file = (0, import_path.join)(process.cwd(), baseDirName, "ipfs.json");
 var adapter = new JSONFile(file);
@@ -23322,7 +23325,10 @@ var Ipfs = class {
 var import_lodash2 = __toESM(require_lodash());
 var import_path2 = require("path");
 var LowWithLodash2 = class extends Low {
-  chain = import_lodash2.default.chain(this).get("data");
+  constructor() {
+    super(...arguments);
+    this.chain = import_lodash2.default.chain(this).get("data");
+  }
 };
 var file2 = (0, import_path2.join)(process.cwd(), baseDirName, "list_view_proposals.json");
 var adapter2 = new JSONFile(file2);
@@ -23358,7 +23364,10 @@ var ListViewProposal = class {
 var import_lodash3 = __toESM(require_lodash());
 var import_path3 = require("path");
 var LowWithLodash3 = class extends Low {
-  chain = import_lodash3.default.chain(this).get("data");
+  constructor() {
+    super(...arguments);
+    this.chain = import_lodash3.default.chain(this).get("data");
+  }
 };
 var file3 = (0, import_path3.join)(process.cwd(), baseDirName, "payloads.json");
 var adapter3 = new JSONFile(
@@ -23412,13 +23421,16 @@ var Payload = class {
 var import_lodash4 = __toESM(require_lodash());
 var import_path4 = require("path");
 var LowWithLodash4 = class extends Low {
-  chain = import_lodash4.default.chain(this).get("data");
+  constructor() {
+    super(...arguments);
+    this.chain = import_lodash4.default.chain(this).get("data");
+  }
 };
 var file4 = (0, import_path4.join)(process.cwd(), baseDirName, "proposals.json");
 var adapter4 = new JSONFile(file4);
 var db4 = new LowWithLodash4(adapter4, []);
 db4.read();
-var Proposal2 = class {
+var Proposal = class {
   getIds() {
     return db4.data.map((proposal) => proposal.id) || [];
   }
@@ -23484,7 +23496,10 @@ async function getVoters(contractAddress, client, endBlock, startBlock, blockLim
 
 // src/lowdb/votes.ts
 var LowWithLodash5 = class extends Low {
-  chain = import_lodash5.default.chain(this).get("data");
+  constructor() {
+    super(...arguments);
+    this.chain = import_lodash5.default.chain(this).get("data");
+  }
 };
 var file5 = (0, import_path5.join)(process.cwd(), baseDirName, "votes.json");
 var adapter5 = new JSONFile(file5);
@@ -23575,7 +23590,7 @@ var Votes = class {
 // src/lowdb/populateCache.ts
 var appConfig = appConfigWithClients(clients, coreName);
 async function populateCache() {
-  const proposalFetcher = new Proposal2();
+  const proposalFetcher = new Proposal();
   const listViewProposalFetcher = new ListViewProposal();
   const payloadFetcher = new Payload();
   const ipfsFetcher = new Ipfs();

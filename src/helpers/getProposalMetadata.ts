@@ -1,8 +1,8 @@
 import base58 from 'bs58';
 import matter from 'gray-matter';
 
-import { ProposalMetadata } from '../types';
 import { HashZero } from './checkHash';
+import { ProposalMetadata } from './types';
 
 export const ipfsGateway = 'https://ipfs.io/ipfs';
 

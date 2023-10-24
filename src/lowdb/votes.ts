@@ -8,7 +8,7 @@ import { mainnet } from 'viem/chains';
 import { clients } from '../helpers/clients';
 import { blockLimit, getBlocksForEvents } from '../helpers/eventsHelpres';
 import { getVoters } from '../helpers/getProposalEvents';
-import { VotersData } from '../types';
+import { VotersData } from '../helpers/types';
 import { baseDirName } from './helpers';
 
 class LowWithLodash<T> extends Low<T> {

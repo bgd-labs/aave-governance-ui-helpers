@@ -10,4 +10,4 @@ export * from './helpers/getHistoryEvents';
 export * from './helpers/getProposalData';
 export * from './helpers/getProposalEvents';
 export * from './helpers/getProposalMetadata';
-export * from './types';
+export * from './helpers/types';

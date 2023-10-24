@@ -1,7 +1,7 @@
 import { Hex, PublicClient } from 'viem';
 
-import { VotingConfig } from '../types';
 import { govCoreDataHelperContract } from './contracts';
+import { VotingConfig } from './types';
 
 export async function getGovCoreConfigs(
   client: PublicClient,

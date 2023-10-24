@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 
+import { HashZero } from './checkHash';
 import {
   BasicProposal,
   ProposalData,
   ProposalStructOutput,
   VMProposalStructOutput,
   VotingMachineProposalState,
-} from '../types';
-import { HashZero } from './checkHash';
+} from './types';
 
 export function getVotingMachineProposalState(proposal: BasicProposal) {
   const now = dayjs().unix();

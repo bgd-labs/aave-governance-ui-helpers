@@ -28,7 +28,7 @@ import {
   ProposalMetadata,
   ProposalState,
   VotingMachineProposalState,
-} from '../types';
+} from '../helpers/types';
 import { coreName } from './helpers';
 import { Ipfs as IpfsDB } from './ipfs';
 import { ListViewProposal as ListViewProposalDB } from './listViewProposals';
