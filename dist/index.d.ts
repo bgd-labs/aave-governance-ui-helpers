@@ -1,7 +1,7 @@
 export { CoreNetworkName, appConfigInit, govCoreConfig, payloadsControllerChainIds, payloadsControllerConfig, votingMachineChainIds } from './helpers/appConfig.js';
 export { BigNumberValue, normalize, normalizeBN, valueToBigNumber } from './helpers/bignumber.js';
 export { HashZero, checkHash } from './helpers/checkHash.js';
-export { govCoreContract, govCoreDataHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract } from './helpers/contracts.js';
+export { InitContract, InitContractWithClient, connectedGovCoreContract, govCoreContract, govCoreDataHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract } from './helpers/contracts.js';
 export { blockLimit, getBlocksForEvents, getEventsBySteps } from './helpers/eventsHelpres.js';
 export { formatDiff, formatProposal, formatQuorum, getEstimatedState, getProposalState, getProposalStepsAndAmounts, getWaitForState, normalizeVotes } from './helpers/formatProposal.js';
 export { getBlockNumberByTimestamp } from './helpers/getBlockNumberByTimestamp.js';

@@ -68,7 +68,7 @@ async function getProposalCreatedEvents(
   startBlock: number,
   endBlock: number,
 ) {
-  const govCore = govCoreContract(contractAddress, client);
+  const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
     abi: govCore.abi,
@@ -114,7 +114,7 @@ async function getProposalActivatedEvents(
   startBlock: number,
   endBlock: number,
 ) {
-  const govCore = govCoreContract(contractAddress, client);
+  const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
     abi: govCore.abi,
@@ -252,7 +252,7 @@ async function getProposalQueuedEvents(
   startBlock: number,
   endBlock: number,
 ) {
-  const govCore = govCoreContract(contractAddress, client);
+  const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
     abi: govCore.abi,

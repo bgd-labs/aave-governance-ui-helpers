@@ -8,21 +8,24 @@ import {
   IVotingMachineWithProofs_ABI
 } from "@bgd-labs/aave-address-book";
 import { getContract } from "viem";
-function govCoreContract(contractAddress, client, walletClient) {
-  if (walletClient) {
-    return getContract({
-      address: contractAddress,
-      abi: IGovernanceCore_ABI,
-      publicClient: client,
-      walletClient
-    });
-  } else {
-    return getContract({
-      address: contractAddress,
-      abi: IGovernanceCore_ABI,
-      publicClient: client
-    });
-  }
+function govCoreContract({ contractAddress, client }) {
+  return getContract({
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
+    publicClient: client
+  });
+}
+function connectedGovCoreContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
+  return getContract({
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
+    publicClient: client,
+    walletClient
+  });
 }
 function govCoreDataHelperContract(contractAddress, client, walletClient) {
   return getContract({
@@ -65,6 +68,7 @@ function payloadsControllerDataHelperContract(contractAddress, client, walletCli
   });
 }
 export {
+  connectedGovCoreContract,
   govCoreContract,
   govCoreDataHelperContract,
   payloadsControllerContract,

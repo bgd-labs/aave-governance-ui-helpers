@@ -89,7 +89,7 @@ function getPayloadsCreated(contractAddress, client, startBlock, endBlock, chain
 }
 function getProposalCreatedEvents(contractAddress, client, startBlock, endBlock) {
   return __async(this, null, function* () {
-    const govCore = (0, import_contracts.govCoreContract)(contractAddress, client);
+    const govCore = (0, import_contracts.govCoreContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: govCore.abi,
       eventName: "ProposalCreated",
@@ -118,7 +118,7 @@ function getProposalCreated(contractAddress, client, startBlock, endBlock) {
 }
 function getProposalActivatedEvents(contractAddress, client, startBlock, endBlock) {
   return __async(this, null, function* () {
-    const govCore = (0, import_contracts.govCoreContract)(contractAddress, client);
+    const govCore = (0, import_contracts.govCoreContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: govCore.abi,
       eventName: "VotingActivated",
@@ -205,7 +205,7 @@ function getProposalVotingClosed(contractAddress, client, startBlock, endBlock) 
 }
 function getProposalQueuedEvents(contractAddress, client, startBlock, endBlock) {
   return __async(this, null, function* () {
-    const govCore = (0, import_contracts.govCoreContract)(contractAddress, client);
+    const govCore = (0, import_contracts.govCoreContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: govCore.abi,
       eventName: "ProposalQueued",

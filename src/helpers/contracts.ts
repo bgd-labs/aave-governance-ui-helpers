@@ -8,25 +8,34 @@ import {
 } from '@bgd-labs/aave-address-book';
 import { getContract, Hex, PublicClient, WalletClient } from 'viem';
 
-export function govCoreContract(
-  contractAddress: Hex,
-  client: PublicClient,
-  walletClient?: WalletClient,
-) {
-  if (walletClient) {
-    return getContract({
-      address: contractAddress,
-      abi: IGovernanceCore_ABI,
-      publicClient: client,
-      walletClient,
-    });
-  } else {
-    return getContract({
-      address: contractAddress,
-      abi: IGovernanceCore_ABI,
-      publicClient: client,
-    });
-  }
+export type InitContract = {
+  contractAddress: Hex;
+  client: PublicClient;
+};
+
+export type InitContractWithClient = InitContract & {
+  walletClient: WalletClient;
+};
+
+export function govCoreContract({ contractAddress, client }: InitContract) {
+  return getContract({
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
+    publicClient: client,
+  });
+}
+
+export function connectedGovCoreContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContractWithClient) {
+  return getContract({
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
+    publicClient: client,
+    walletClient,
+  });
 }
 
 export function govCoreDataHelperContract(

@@ -45,10 +45,10 @@ export async function populateCache() {
   const ipfsFetcher = new IpfsDB();
   const votesFetcher = new VotesDB();
 
-  const govCore = govCoreContract(
-    appConfig.govCoreConfig.contractAddress,
-    appConfig.clients[appConfig.govCoreChainId],
-  );
+  const govCore = govCoreContract({
+    contractAddress: appConfig.govCoreConfig.contractAddress,
+    client: appConfig.clients[appConfig.govCoreChainId],
+  });
   const govCoreDataHelper = govCoreDataHelperContract(
     appConfig.govCoreConfig.dataHelperContractAddress,
     appConfig.clients[appConfig.govCoreChainId],
