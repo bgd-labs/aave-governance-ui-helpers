@@ -30,46 +30,52 @@ __export(contracts_exports, {
 module.exports = __toCommonJS(contracts_exports);
 var import_aave_address_book = require("@bgd-labs/aave-address-book");
 var import_viem = require("viem");
-function govCoreContract(contractAddress, client) {
+function govCoreContract(contractAddress, client, walletClient) {
   return (0, import_viem.getContract)({
     address: contractAddress,
     abi: import_aave_address_book.IGovernanceCore_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function govCoreDataHelperContract(contractAddress, client) {
+function govCoreDataHelperContract(contractAddress, client, walletClient) {
   return (0, import_viem.getContract)({
     address: contractAddress,
     abi: import_aave_address_book.IGovernanceDataHelper_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function votingMachineContract(contractAddress, client) {
+function votingMachineContract(contractAddress, client, walletClient) {
   return (0, import_viem.getContract)({
     address: contractAddress,
     abi: import_aave_address_book.IVotingMachineWithProofs_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function votingMachineDataHelperContract(contractAddress, client) {
+function votingMachineDataHelperContract(contractAddress, client, walletClient) {
   return (0, import_viem.getContract)({
     address: contractAddress,
     abi: import_aave_address_book.IVotingMachineDataHelper_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function payloadsControllerContract(contractAddress, client) {
+function payloadsControllerContract(contractAddress, client, walletClient) {
   return (0, import_viem.getContract)({
     address: contractAddress,
     abi: import_aave_address_book.IPayloadsControllerCore_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function payloadsControllerDataHelperContract(contractAddress, client) {
+function payloadsControllerDataHelperContract(contractAddress, client, walletClient) {
   return (0, import_viem.getContract)({
     address: contractAddress,
     abi: import_aave_address_book.IPayloadsControllerDataHelper_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
 // Annotate the CommonJS export names for ESM import in node:

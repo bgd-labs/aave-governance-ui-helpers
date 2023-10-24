@@ -22720,39 +22720,44 @@ var clients = {
 };
 
 // src/helpers/contracts.ts
-function govCoreContract(contractAddress, client) {
+function govCoreContract(contractAddress, client, walletClient) {
   return getContract({
     address: contractAddress,
     abi: IGovernanceCore_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function govCoreDataHelperContract(contractAddress, client) {
+function govCoreDataHelperContract(contractAddress, client, walletClient) {
   return getContract({
     address: contractAddress,
     abi: IGovernanceDataHelper_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function votingMachineContract(contractAddress, client) {
+function votingMachineContract(contractAddress, client, walletClient) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineWithProofs_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function votingMachineDataHelperContract(contractAddress, client) {
+function votingMachineDataHelperContract(contractAddress, client, walletClient) {
   return getContract({
     address: contractAddress,
     abi: IVotingMachineDataHelper_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
-function payloadsControllerDataHelperContract(contractAddress, client) {
+function payloadsControllerDataHelperContract(contractAddress, client, walletClient) {
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerDataHelper_ABI,
-    publicClient: client
+    publicClient: client,
+    walletClient
   });
 }
 

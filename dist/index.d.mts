@@ -13,6 +13,7 @@ export { getLink, getProposalMetadata, ipfsGateway } from './helpers/getProposal
 export { Balance, BasicProposal, BasicProposalState, CachedDetails, CachedProposalDataItem, CachedProposalDataItemWithId, ContractsConstants, FinishedProposalForList, InitialPayload, InitialProposal, Payload, PayloadAction, PayloadForCreation, PayloadState, Proposal, ProposalData, ProposalEstimatedState, ProposalMetadata, ProposalState, ProposalStateWithName, ProposalStructOutput, ProposalWaitForState, ProposalWithId, ProposalWithLoadings, ProposalWithoutState, VMProposalStructOutput, VotersData, VotingBalance, VotingConfig, VotingMachineData, VotingMachineProposalState } from './helpers/types.mjs';
 import 'viem';
 import 'bignumber.js';
+import 'viem/_types/actions/wallet/signTransaction';
 import 'viem/_types/actions/public/verifyTypedData';
 import 'viem/_types/actions/public/verifyMessage';
 import 'viem/_types/actions/wallet/sendRawTransaction';
