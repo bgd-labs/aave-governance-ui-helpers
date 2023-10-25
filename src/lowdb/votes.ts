@@ -70,14 +70,14 @@ export class Votes {
     const voters: VotersData[] = isCached.voters;
 
     if (endBlock) {
-      const newVoters = await getVoters(
+      const newVoters = await getVoters({
         contractAddress,
-        votingMachineClient,
+        client: votingMachineClient,
         endBlock,
         startBlock,
         blockLimit,
         chainId,
-      );
+      });
 
       const fiveTopVoters = await Promise.all(
         newVoters

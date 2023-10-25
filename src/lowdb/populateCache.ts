@@ -163,11 +163,12 @@ export async function populateCache() {
     );
 
     // configs and constants
-    const { contractsConstants, configs } = await getGovCoreConfigs(
-      appConfig.clients[appConfig.govCoreChainId],
-      appConfig.govCoreConfig.contractAddress,
-      appConfig.govCoreConfig.dataHelperContractAddress,
-    );
+    const { contractsConstants, configs } = await getGovCoreConfigs({
+      client: appConfig.clients[appConfig.govCoreChainId],
+      govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
+      govCoreDataHelperContractAddress:
+        appConfig.govCoreConfig.dataHelperContractAddress,
+    });
 
     // populate ipfs data
     const ipfsData: Record<string, ProposalMetadata> = {};

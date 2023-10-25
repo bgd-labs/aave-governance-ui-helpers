@@ -51,11 +51,15 @@ const getAverageBlockTime = (chainId: number) => {
   }
 };
 
-export async function getBlockNumberByTimestamp(
-  chainId: number,
-  targetTimestamp: number,
-  client: PublicClient,
-) {
+export async function getBlockNumberByTimestamp({
+  client,
+  chainId,
+  targetTimestamp,
+}: {
+  client: PublicClient;
+  chainId: number;
+  targetTimestamp: number;
+}) {
   const blocksDiff = 100;
   const MAX_ITERATIONS = 10;
 

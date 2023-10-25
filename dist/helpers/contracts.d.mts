@@ -1,14 +1,10 @@
 import * as viem__types_actions_wallet_signTransaction from 'viem/_types/actions/wallet/signTransaction';
 import * as viem__types_actions_wallet_sendRawTransaction from 'viem/_types/actions/wallet/sendRawTransaction';
 import * as viem from 'viem';
-import { Hex } from 'viem';
-import { PublicClient, WalletClient } from '@wagmi/core';
+import * as _wagmi_core_dist_index_e744bbc2 from '@wagmi/core/dist/index-e744bbc2';
+import { InitContract } from './types.mjs';
+import '@wagmi/core';
 
-type InitContract = {
-    contractAddress: Hex;
-    client: PublicClient;
-    walletClient?: WalletClient;
-};
 declare function govCoreContract({ contractAddress, client, walletClient, }: InitContract): viem.GetContractReturnType<readonly [{
     readonly anonymous: false;
     readonly inputs: readonly [{
@@ -810,7 +806,7 @@ declare function govCoreContract({ contractAddress, client, walletClient, }: Ini
     readonly outputs: readonly [];
     readonly stateMutability: "nonpayable";
     readonly type: "function";
-}], PublicClient, {
+}], _wagmi_core_dist_index_e744bbc2.P, {
     account: viem.Account;
     batch?: {
         multicall?: boolean | {
@@ -849,9 +845,9 @@ declare function govCoreContract({ contractAddress, client, walletClient, }: Ini
         [x: `address[${string}]`]: undefined;
         [x: `bool[${string}]`]: undefined;
         [x: `bytes[${string}]`]: undefined;
-        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes1[${string}]`]: undefined;
         [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes32[${string}]`]: undefined;
         [x: `bytes31[${string}]`]: undefined;
         [x: `bytes30[${string}]`]: undefined;
@@ -951,9 +947,9 @@ declare function govCoreContract({ contractAddress, client, walletClient, }: Ini
         address?: undefined;
         bool?: undefined;
         bytes?: undefined;
-        bytes10?: undefined;
         bytes1?: undefined;
         bytes5?: undefined;
+        bytes10?: undefined;
         bytes32?: undefined;
         bytes31?: undefined;
         bytes30?: undefined;
@@ -1341,7 +1337,7 @@ declare function govCoreDataHelperContract({ contractAddress, client, walletClie
             readonly components: readonly [];
         }];
     }];
-}], PublicClient, {
+}], _wagmi_core_dist_index_e744bbc2.P, {
     account: viem.Account;
     batch?: {
         multicall?: boolean | {
@@ -1380,9 +1376,9 @@ declare function govCoreDataHelperContract({ contractAddress, client, walletClie
         [x: `address[${string}]`]: undefined;
         [x: `bool[${string}]`]: undefined;
         [x: `bytes[${string}]`]: undefined;
-        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes1[${string}]`]: undefined;
         [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes32[${string}]`]: undefined;
         [x: `bytes31[${string}]`]: undefined;
         [x: `bytes30[${string}]`]: undefined;
@@ -1482,9 +1478,9 @@ declare function govCoreDataHelperContract({ contractAddress, client, walletClie
         address?: undefined;
         bool?: undefined;
         bytes?: undefined;
-        bytes10?: undefined;
         bytes1?: undefined;
         bytes5?: undefined;
+        bytes10?: undefined;
         bytes32?: undefined;
         bytes31?: undefined;
         bytes30?: undefined;
@@ -2128,7 +2124,7 @@ declare function votingMachineContract({ contractAddress, client, walletClient, 
     readonly outputs: readonly [];
     readonly stateMutability: "nonpayable";
     readonly type: "function";
-}], PublicClient, {
+}], _wagmi_core_dist_index_e744bbc2.P, {
     account: viem.Account;
     batch?: {
         multicall?: boolean | {
@@ -2167,9 +2163,9 @@ declare function votingMachineContract({ contractAddress, client, walletClient, 
         [x: `address[${string}]`]: undefined;
         [x: `bool[${string}]`]: undefined;
         [x: `bytes[${string}]`]: undefined;
-        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes1[${string}]`]: undefined;
         [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes32[${string}]`]: undefined;
         [x: `bytes31[${string}]`]: undefined;
         [x: `bytes30[${string}]`]: undefined;
@@ -2269,9 +2265,9 @@ declare function votingMachineContract({ contractAddress, client, walletClient, 
         address?: undefined;
         bool?: undefined;
         bytes?: undefined;
-        bytes10?: undefined;
         bytes1?: undefined;
         bytes5?: undefined;
+        bytes10?: undefined;
         bytes32?: undefined;
         bytes31?: undefined;
         bytes30?: undefined;
@@ -2527,7 +2523,7 @@ declare function votingMachineDataHelperContract({ contractAddress, client, wall
             readonly components: readonly [];
         }];
     }];
-}], PublicClient, {
+}], _wagmi_core_dist_index_e744bbc2.P, {
     account: viem.Account;
     batch?: {
         multicall?: boolean | {
@@ -2566,9 +2562,9 @@ declare function votingMachineDataHelperContract({ contractAddress, client, wall
         [x: `address[${string}]`]: undefined;
         [x: `bool[${string}]`]: undefined;
         [x: `bytes[${string}]`]: undefined;
-        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes1[${string}]`]: undefined;
         [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes32[${string}]`]: undefined;
         [x: `bytes31[${string}]`]: undefined;
         [x: `bytes30[${string}]`]: undefined;
@@ -2668,9 +2664,9 @@ declare function votingMachineDataHelperContract({ contractAddress, client, wall
         address?: undefined;
         bool?: undefined;
         bytes?: undefined;
-        bytes10?: undefined;
         bytes1?: undefined;
         bytes5?: undefined;
+        bytes10?: undefined;
         bytes32?: undefined;
         bytes31?: undefined;
         bytes30?: undefined;
@@ -3173,7 +3169,7 @@ declare function payloadsControllerContract({ contractAddress, client, walletCli
     readonly outputs: readonly [];
     readonly stateMutability: "nonpayable";
     readonly type: "function";
-}], PublicClient, {
+}], _wagmi_core_dist_index_e744bbc2.P, {
     account: viem.Account;
     batch?: {
         multicall?: boolean | {
@@ -3212,9 +3208,9 @@ declare function payloadsControllerContract({ contractAddress, client, walletCli
         [x: `address[${string}]`]: undefined;
         [x: `bool[${string}]`]: undefined;
         [x: `bytes[${string}]`]: undefined;
-        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes1[${string}]`]: undefined;
         [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes32[${string}]`]: undefined;
         [x: `bytes31[${string}]`]: undefined;
         [x: `bytes30[${string}]`]: undefined;
@@ -3314,9 +3310,9 @@ declare function payloadsControllerContract({ contractAddress, client, walletCli
         address?: undefined;
         bool?: undefined;
         bytes?: undefined;
-        bytes10?: undefined;
         bytes1?: undefined;
         bytes5?: undefined;
+        bytes10?: undefined;
         bytes32?: undefined;
         bytes31?: undefined;
         bytes30?: undefined;
@@ -3588,7 +3584,7 @@ declare function payloadsControllerDataHelperContract({ contractAddress, client,
             }];
         }];
     }];
-}], PublicClient, {
+}], _wagmi_core_dist_index_e744bbc2.P, {
     account: viem.Account;
     batch?: {
         multicall?: boolean | {
@@ -3627,9 +3623,9 @@ declare function payloadsControllerDataHelperContract({ contractAddress, client,
         [x: `address[${string}]`]: undefined;
         [x: `bool[${string}]`]: undefined;
         [x: `bytes[${string}]`]: undefined;
-        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes1[${string}]`]: undefined;
         [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
         [x: `bytes32[${string}]`]: undefined;
         [x: `bytes31[${string}]`]: undefined;
         [x: `bytes30[${string}]`]: undefined;
@@ -3729,9 +3725,9 @@ declare function payloadsControllerDataHelperContract({ contractAddress, client,
         address?: undefined;
         bool?: undefined;
         bytes?: undefined;
-        bytes10?: undefined;
         bytes1?: undefined;
         bytes5?: undefined;
+        bytes10?: undefined;
         bytes32?: undefined;
         bytes31?: undefined;
         bytes30?: undefined;
@@ -3846,5 +3842,745 @@ declare function payloadsControllerDataHelperContract({ contractAddress, client,
         uid?: undefined;
     }>(fn: (client: viem.Client<viem.Transport, viem.Chain, viem.Account, viem.WalletRpcSchema, viem.WalletActions<viem.Chain, viem.Account>>) => client) => viem.Client<viem.Transport, viem.Chain, viem.Account, viem.WalletRpcSchema, { [K in keyof client]: client[K]; } & viem.WalletActions<viem.Chain, viem.Account>>;
 }, `0x${string}`, never, "getExecutorConfigs" | "getPayloadsData", never, true>;
+declare function metaDelegateHelperContract({ contractAddress, client, walletClient, }: InitContract): viem.GetContractReturnType<readonly [{
+    readonly inputs: readonly [{
+        readonly internalType: "struct IMetaDelegateHelper.MetaDelegateParams[]";
+        readonly name: "delegateParams";
+        readonly type: "tuple[]";
+        readonly components: readonly [{
+            readonly internalType: "contract IGovernancePowerDelegationToken";
+            readonly name: "underlyingAsset";
+            readonly type: "address";
+            readonly components: readonly [];
+        }, {
+            readonly internalType: "enum IMetaDelegateHelper.DelegationType";
+            readonly name: "delegationType";
+            readonly type: "uint8";
+            readonly components: readonly [];
+        }, {
+            readonly internalType: "address";
+            readonly name: "delegator";
+            readonly type: "address";
+            readonly components: readonly [];
+        }, {
+            readonly internalType: "address";
+            readonly name: "delegatee";
+            readonly type: "address";
+            readonly components: readonly [];
+        }, {
+            readonly internalType: "uint256";
+            readonly name: "deadline";
+            readonly type: "uint256";
+            readonly components: readonly [];
+        }, {
+            readonly internalType: "uint8";
+            readonly name: "v";
+            readonly type: "uint8";
+            readonly components: readonly [];
+        }, {
+            readonly internalType: "bytes32";
+            readonly name: "r";
+            readonly type: "bytes32";
+            readonly components: readonly [];
+        }, {
+            readonly internalType: "bytes32";
+            readonly name: "s";
+            readonly type: "bytes32";
+            readonly components: readonly [];
+        }];
+    }];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+    readonly name: "batchMetaDelegate";
+    readonly outputs: readonly [];
+}], _wagmi_core_dist_index_e744bbc2.P, {
+    account: viem.Account;
+    batch?: {
+        multicall?: boolean | {
+            batchSize?: number | undefined;
+            wait?: number | undefined;
+        } | undefined;
+    } | undefined;
+    cacheTime: number;
+    chain: viem.Chain;
+    key: string;
+    name: string;
+    pollingInterval: number;
+    request: viem.EIP1193RequestFn<viem.WalletRpcSchema>;
+    transport: viem.TransportConfig<string, viem.EIP1193RequestFn> & Record<string, any>;
+    type: string;
+    uid: string;
+    addChain: (args: viem.AddChainParameters) => Promise<void>;
+    deployContract: <const TAbi extends viem.Abi | readonly unknown[], TChainOverride extends viem.Chain | undefined>(args: viem.DeployContractParameters<TAbi, viem.Chain, viem.Account, TChainOverride>) => Promise<`0x${string}`>;
+    getAddresses: () => Promise<viem.GetAddressesReturnType>;
+    getChainId: () => Promise<number>;
+    getPermissions: () => Promise<viem.GetPermissionsReturnType>;
+    prepareTransactionRequest: <TChainOverride_1 extends viem.Chain | undefined>(args: viem.PrepareTransactionRequestParameters<viem.Chain, viem.Account, TChainOverride_1>) => Promise<viem.PrepareTransactionRequestReturnType>;
+    requestAddresses: () => Promise<viem.RequestAddressesReturnType>;
+    requestPermissions: (args: {
+        [x: string]: Record<string, any>;
+        eth_accounts: Record<string, any>;
+    }) => Promise<viem.RequestPermissionsReturnType>;
+    sendRawTransaction: (args: viem__types_actions_wallet_sendRawTransaction.SendRawTransactionParameters) => Promise<`0x${string}`>;
+    sendTransaction: <TChainOverride_2 extends viem.Chain | undefined>(args: viem.SendTransactionParameters<viem.Chain, viem.Account, TChainOverride_2>) => Promise<`0x${string}`>;
+    signMessage: (args: viem.SignMessageParameters<viem.Account>) => Promise<`0x${string}`>;
+    signTransaction: <TChainOverride_3 extends viem.Chain | undefined>(args: viem__types_actions_wallet_signTransaction.SignTransactionParameters<viem.Chain, viem.Account, TChainOverride_3>) => Promise<`0x${string}`>;
+    signTypedData: <const TTypedData extends {
+        [x: string]: readonly viem.TypedDataParameter[];
+        [x: `string[${string}]`]: undefined;
+        [x: `function[${string}]`]: undefined;
+        [x: `address[${string}]`]: undefined;
+        [x: `bool[${string}]`]: undefined;
+        [x: `bytes[${string}]`]: undefined;
+        [x: `bytes1[${string}]`]: undefined;
+        [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
+        [x: `bytes32[${string}]`]: undefined;
+        [x: `bytes31[${string}]`]: undefined;
+        [x: `bytes30[${string}]`]: undefined;
+        [x: `bytes29[${string}]`]: undefined;
+        [x: `bytes28[${string}]`]: undefined;
+        [x: `bytes27[${string}]`]: undefined;
+        [x: `bytes26[${string}]`]: undefined;
+        [x: `bytes25[${string}]`]: undefined;
+        [x: `bytes24[${string}]`]: undefined;
+        [x: `bytes23[${string}]`]: undefined;
+        [x: `bytes22[${string}]`]: undefined;
+        [x: `bytes21[${string}]`]: undefined;
+        [x: `bytes20[${string}]`]: undefined;
+        [x: `bytes19[${string}]`]: undefined;
+        [x: `bytes2[${string}]`]: undefined;
+        [x: `bytes18[${string}]`]: undefined;
+        [x: `bytes17[${string}]`]: undefined;
+        [x: `bytes16[${string}]`]: undefined;
+        [x: `bytes15[${string}]`]: undefined;
+        [x: `bytes14[${string}]`]: undefined;
+        [x: `bytes13[${string}]`]: undefined;
+        [x: `bytes12[${string}]`]: undefined;
+        [x: `bytes11[${string}]`]: undefined;
+        [x: `bytes9[${string}]`]: undefined;
+        [x: `bytes8[${string}]`]: undefined;
+        [x: `bytes7[${string}]`]: undefined;
+        [x: `bytes6[${string}]`]: undefined;
+        [x: `bytes4[${string}]`]: undefined;
+        [x: `bytes3[${string}]`]: undefined;
+        [x: `int[${string}]`]: undefined;
+        [x: `int32[${string}]`]: undefined;
+        [x: `int24[${string}]`]: undefined;
+        [x: `int16[${string}]`]: undefined;
+        [x: `int8[${string}]`]: undefined;
+        [x: `int40[${string}]`]: undefined;
+        [x: `int48[${string}]`]: undefined;
+        [x: `int56[${string}]`]: undefined;
+        [x: `int64[${string}]`]: undefined;
+        [x: `int72[${string}]`]: undefined;
+        [x: `int80[${string}]`]: undefined;
+        [x: `int88[${string}]`]: undefined;
+        [x: `int96[${string}]`]: undefined;
+        [x: `int104[${string}]`]: undefined;
+        [x: `int112[${string}]`]: undefined;
+        [x: `int120[${string}]`]: undefined;
+        [x: `int128[${string}]`]: undefined;
+        [x: `int136[${string}]`]: undefined;
+        [x: `int144[${string}]`]: undefined;
+        [x: `int152[${string}]`]: undefined;
+        [x: `int160[${string}]`]: undefined;
+        [x: `int168[${string}]`]: undefined;
+        [x: `int176[${string}]`]: undefined;
+        [x: `int184[${string}]`]: undefined;
+        [x: `int192[${string}]`]: undefined;
+        [x: `int200[${string}]`]: undefined;
+        [x: `int208[${string}]`]: undefined;
+        [x: `int216[${string}]`]: undefined;
+        [x: `int224[${string}]`]: undefined;
+        [x: `int232[${string}]`]: undefined;
+        [x: `int240[${string}]`]: undefined;
+        [x: `int248[${string}]`]: undefined;
+        [x: `int256[${string}]`]: undefined;
+        [x: `uint[${string}]`]: undefined;
+        [x: `uint32[${string}]`]: undefined;
+        [x: `uint24[${string}]`]: undefined;
+        [x: `uint16[${string}]`]: undefined;
+        [x: `uint8[${string}]`]: undefined;
+        [x: `uint40[${string}]`]: undefined;
+        [x: `uint48[${string}]`]: undefined;
+        [x: `uint56[${string}]`]: undefined;
+        [x: `uint64[${string}]`]: undefined;
+        [x: `uint72[${string}]`]: undefined;
+        [x: `uint80[${string}]`]: undefined;
+        [x: `uint88[${string}]`]: undefined;
+        [x: `uint96[${string}]`]: undefined;
+        [x: `uint104[${string}]`]: undefined;
+        [x: `uint112[${string}]`]: undefined;
+        [x: `uint120[${string}]`]: undefined;
+        [x: `uint128[${string}]`]: undefined;
+        [x: `uint136[${string}]`]: undefined;
+        [x: `uint144[${string}]`]: undefined;
+        [x: `uint152[${string}]`]: undefined;
+        [x: `uint160[${string}]`]: undefined;
+        [x: `uint168[${string}]`]: undefined;
+        [x: `uint176[${string}]`]: undefined;
+        [x: `uint184[${string}]`]: undefined;
+        [x: `uint192[${string}]`]: undefined;
+        [x: `uint200[${string}]`]: undefined;
+        [x: `uint208[${string}]`]: undefined;
+        [x: `uint216[${string}]`]: undefined;
+        [x: `uint224[${string}]`]: undefined;
+        [x: `uint232[${string}]`]: undefined;
+        [x: `uint240[${string}]`]: undefined;
+        [x: `uint248[${string}]`]: undefined;
+        [x: `uint256[${string}]`]: undefined;
+        string?: undefined;
+        address?: undefined;
+        bool?: undefined;
+        bytes?: undefined;
+        bytes1?: undefined;
+        bytes5?: undefined;
+        bytes10?: undefined;
+        bytes32?: undefined;
+        bytes31?: undefined;
+        bytes30?: undefined;
+        bytes29?: undefined;
+        bytes28?: undefined;
+        bytes27?: undefined;
+        bytes26?: undefined;
+        bytes25?: undefined;
+        bytes24?: undefined;
+        bytes23?: undefined;
+        bytes22?: undefined;
+        bytes21?: undefined;
+        bytes20?: undefined;
+        bytes19?: undefined;
+        bytes2?: undefined;
+        bytes18?: undefined;
+        bytes17?: undefined;
+        bytes16?: undefined;
+        bytes15?: undefined;
+        bytes14?: undefined;
+        bytes13?: undefined;
+        bytes12?: undefined;
+        bytes11?: undefined;
+        bytes9?: undefined;
+        bytes8?: undefined;
+        bytes7?: undefined;
+        bytes6?: undefined;
+        bytes4?: undefined;
+        bytes3?: undefined;
+        int32?: undefined;
+        int24?: undefined;
+        int16?: undefined;
+        int8?: undefined;
+        int40?: undefined;
+        int48?: undefined;
+        int56?: undefined;
+        int64?: undefined;
+        int72?: undefined;
+        int80?: undefined;
+        int88?: undefined;
+        int96?: undefined;
+        int104?: undefined;
+        int112?: undefined;
+        int120?: undefined;
+        int128?: undefined;
+        int136?: undefined;
+        int144?: undefined;
+        int152?: undefined;
+        int160?: undefined;
+        int168?: undefined;
+        int176?: undefined;
+        int184?: undefined;
+        int192?: undefined;
+        int200?: undefined;
+        int208?: undefined;
+        int216?: undefined;
+        int224?: undefined;
+        int232?: undefined;
+        int240?: undefined;
+        int248?: undefined;
+        int256?: undefined;
+        uint32?: undefined;
+        uint24?: undefined;
+        uint16?: undefined;
+        uint8?: undefined;
+        uint40?: undefined;
+        uint48?: undefined;
+        uint56?: undefined;
+        uint64?: undefined;
+        uint72?: undefined;
+        uint80?: undefined;
+        uint88?: undefined;
+        uint96?: undefined;
+        uint104?: undefined;
+        uint112?: undefined;
+        uint120?: undefined;
+        uint128?: undefined;
+        uint136?: undefined;
+        uint144?: undefined;
+        uint152?: undefined;
+        uint160?: undefined;
+        uint168?: undefined;
+        uint176?: undefined;
+        uint184?: undefined;
+        uint192?: undefined;
+        uint200?: undefined;
+        uint208?: undefined;
+        uint216?: undefined;
+        uint224?: undefined;
+        uint232?: undefined;
+        uint240?: undefined;
+        uint248?: undefined;
+        uint256?: undefined;
+    } | {
+        [key: string]: unknown;
+    }, TPrimaryType extends string>(args: viem.SignTypedDataParameters<TTypedData, TPrimaryType, viem.Account>) => Promise<`0x${string}`>;
+    switchChain: (args: viem.SwitchChainParameters) => Promise<void>;
+    watchAsset: (args: viem.WatchAssetParams) => Promise<boolean>;
+    writeContract: <const TAbi_1 extends viem.Abi | readonly unknown[], TFunctionName extends string, TChainOverride_4 extends viem.Chain | undefined>(args: viem.WriteContractParameters<TAbi_1, TFunctionName, viem.Chain, viem.Account, TChainOverride_4>) => Promise<`0x${string}`>;
+    extend: <const client extends {
+        [x: string]: unknown;
+        account?: undefined;
+        batch?: undefined;
+        cacheTime?: undefined;
+        chain?: undefined;
+        key?: undefined;
+        name?: undefined;
+        pollingInterval?: undefined;
+        request?: undefined;
+        transport?: undefined;
+        type?: undefined;
+        uid?: undefined;
+    }>(fn: (client: viem.Client<viem.Transport, viem.Chain, viem.Account, viem.WalletRpcSchema, viem.WalletActions<viem.Chain, viem.Account>>) => client) => viem.Client<viem.Transport, viem.Chain, viem.Account, viem.WalletRpcSchema, { [K in keyof client]: client[K]; } & viem.WalletActions<viem.Chain, viem.Account>>;
+}, `0x${string}`, never, never, "batchMetaDelegate", true>;
+declare function dataWarehouseContract({ contractAddress, client, walletClient, }: InitContract): viem.GetContractReturnType<readonly [{
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "caller";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "account";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "bytes32";
+        readonly name: "blockHash";
+        readonly type: "bytes32";
+    }];
+    readonly name: "StorageRootProcessed";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "caller";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "account";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "bytes32";
+        readonly name: "blockHash";
+        readonly type: "bytes32";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "bytes32";
+        readonly name: "slot";
+        readonly type: "bytes32";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "value";
+        readonly type: "uint256";
+    }];
+    readonly name: "StorageSlotProcessed";
+    readonly type: "event";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "bytes32";
+        readonly name: "blockHash";
+        readonly type: "bytes32";
+    }, {
+        readonly internalType: "address";
+        readonly name: "account";
+        readonly type: "address";
+    }, {
+        readonly internalType: "bytes32";
+        readonly name: "slot";
+        readonly type: "bytes32";
+    }];
+    readonly name: "getRegisteredSlot";
+    readonly outputs: readonly [{
+        readonly internalType: "uint256";
+        readonly name: "";
+        readonly type: "uint256";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "account";
+        readonly type: "address";
+    }, {
+        readonly internalType: "bytes32";
+        readonly name: "blockHash";
+        readonly type: "bytes32";
+    }, {
+        readonly internalType: "bytes32";
+        readonly name: "slot";
+        readonly type: "bytes32";
+    }, {
+        readonly internalType: "bytes";
+        readonly name: "storageProof";
+        readonly type: "bytes";
+    }];
+    readonly name: "getStorage";
+    readonly outputs: readonly [{
+        readonly components: readonly [{
+            readonly internalType: "bool";
+            readonly name: "exists";
+            readonly type: "bool";
+        }, {
+            readonly internalType: "uint256";
+            readonly name: "value";
+            readonly type: "uint256";
+        }];
+        readonly internalType: "struct IDataWarehouse.SlotValue";
+        readonly name: "";
+        readonly type: "tuple";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "account";
+        readonly type: "address";
+    }, {
+        readonly internalType: "bytes32";
+        readonly name: "blockHash";
+        readonly type: "bytes32";
+    }];
+    readonly name: "getStorageRoots";
+    readonly outputs: readonly [{
+        readonly internalType: "bytes32";
+        readonly name: "";
+        readonly type: "bytes32";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "account";
+        readonly type: "address";
+    }, {
+        readonly internalType: "bytes32";
+        readonly name: "blockHash";
+        readonly type: "bytes32";
+    }, {
+        readonly internalType: "bytes";
+        readonly name: "blockHeaderRLP";
+        readonly type: "bytes";
+    }, {
+        readonly internalType: "bytes";
+        readonly name: "accountStateProofRLP";
+        readonly type: "bytes";
+    }];
+    readonly name: "processStorageRoot";
+    readonly outputs: readonly [{
+        readonly internalType: "bytes32";
+        readonly name: "";
+        readonly type: "bytes32";
+    }];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "account";
+        readonly type: "address";
+    }, {
+        readonly internalType: "bytes32";
+        readonly name: "blockHash";
+        readonly type: "bytes32";
+    }, {
+        readonly internalType: "bytes32";
+        readonly name: "slot";
+        readonly type: "bytes32";
+    }, {
+        readonly internalType: "bytes";
+        readonly name: "storageProof";
+        readonly type: "bytes";
+    }];
+    readonly name: "processStorageSlot";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}], _wagmi_core_dist_index_e744bbc2.P, {
+    account: viem.Account;
+    batch?: {
+        multicall?: boolean | {
+            batchSize?: number | undefined;
+            wait?: number | undefined;
+        } | undefined;
+    } | undefined;
+    cacheTime: number;
+    chain: viem.Chain;
+    key: string;
+    name: string;
+    pollingInterval: number;
+    request: viem.EIP1193RequestFn<viem.WalletRpcSchema>;
+    transport: viem.TransportConfig<string, viem.EIP1193RequestFn> & Record<string, any>;
+    type: string;
+    uid: string;
+    addChain: (args: viem.AddChainParameters) => Promise<void>;
+    deployContract: <const TAbi extends viem.Abi | readonly unknown[], TChainOverride extends viem.Chain | undefined>(args: viem.DeployContractParameters<TAbi, viem.Chain, viem.Account, TChainOverride>) => Promise<`0x${string}`>;
+    getAddresses: () => Promise<viem.GetAddressesReturnType>;
+    getChainId: () => Promise<number>;
+    getPermissions: () => Promise<viem.GetPermissionsReturnType>;
+    prepareTransactionRequest: <TChainOverride_1 extends viem.Chain | undefined>(args: viem.PrepareTransactionRequestParameters<viem.Chain, viem.Account, TChainOverride_1>) => Promise<viem.PrepareTransactionRequestReturnType>;
+    requestAddresses: () => Promise<viem.RequestAddressesReturnType>;
+    requestPermissions: (args: {
+        [x: string]: Record<string, any>;
+        eth_accounts: Record<string, any>;
+    }) => Promise<viem.RequestPermissionsReturnType>;
+    sendRawTransaction: (args: viem__types_actions_wallet_sendRawTransaction.SendRawTransactionParameters) => Promise<`0x${string}`>;
+    sendTransaction: <TChainOverride_2 extends viem.Chain | undefined>(args: viem.SendTransactionParameters<viem.Chain, viem.Account, TChainOverride_2>) => Promise<`0x${string}`>;
+    signMessage: (args: viem.SignMessageParameters<viem.Account>) => Promise<`0x${string}`>;
+    signTransaction: <TChainOverride_3 extends viem.Chain | undefined>(args: viem__types_actions_wallet_signTransaction.SignTransactionParameters<viem.Chain, viem.Account, TChainOverride_3>) => Promise<`0x${string}`>;
+    signTypedData: <const TTypedData extends {
+        [x: string]: readonly viem.TypedDataParameter[];
+        [x: `string[${string}]`]: undefined;
+        [x: `function[${string}]`]: undefined;
+        [x: `address[${string}]`]: undefined;
+        [x: `bool[${string}]`]: undefined;
+        [x: `bytes[${string}]`]: undefined;
+        [x: `bytes1[${string}]`]: undefined;
+        [x: `bytes5[${string}]`]: undefined;
+        [x: `bytes10[${string}]`]: undefined;
+        [x: `bytes32[${string}]`]: undefined;
+        [x: `bytes31[${string}]`]: undefined;
+        [x: `bytes30[${string}]`]: undefined;
+        [x: `bytes29[${string}]`]: undefined;
+        [x: `bytes28[${string}]`]: undefined;
+        [x: `bytes27[${string}]`]: undefined;
+        [x: `bytes26[${string}]`]: undefined;
+        [x: `bytes25[${string}]`]: undefined;
+        [x: `bytes24[${string}]`]: undefined;
+        [x: `bytes23[${string}]`]: undefined;
+        [x: `bytes22[${string}]`]: undefined;
+        [x: `bytes21[${string}]`]: undefined;
+        [x: `bytes20[${string}]`]: undefined;
+        [x: `bytes19[${string}]`]: undefined;
+        [x: `bytes2[${string}]`]: undefined;
+        [x: `bytes18[${string}]`]: undefined;
+        [x: `bytes17[${string}]`]: undefined;
+        [x: `bytes16[${string}]`]: undefined;
+        [x: `bytes15[${string}]`]: undefined;
+        [x: `bytes14[${string}]`]: undefined;
+        [x: `bytes13[${string}]`]: undefined;
+        [x: `bytes12[${string}]`]: undefined;
+        [x: `bytes11[${string}]`]: undefined;
+        [x: `bytes9[${string}]`]: undefined;
+        [x: `bytes8[${string}]`]: undefined;
+        [x: `bytes7[${string}]`]: undefined;
+        [x: `bytes6[${string}]`]: undefined;
+        [x: `bytes4[${string}]`]: undefined;
+        [x: `bytes3[${string}]`]: undefined;
+        [x: `int[${string}]`]: undefined;
+        [x: `int32[${string}]`]: undefined;
+        [x: `int24[${string}]`]: undefined;
+        [x: `int16[${string}]`]: undefined;
+        [x: `int8[${string}]`]: undefined;
+        [x: `int40[${string}]`]: undefined;
+        [x: `int48[${string}]`]: undefined;
+        [x: `int56[${string}]`]: undefined;
+        [x: `int64[${string}]`]: undefined;
+        [x: `int72[${string}]`]: undefined;
+        [x: `int80[${string}]`]: undefined;
+        [x: `int88[${string}]`]: undefined;
+        [x: `int96[${string}]`]: undefined;
+        [x: `int104[${string}]`]: undefined;
+        [x: `int112[${string}]`]: undefined;
+        [x: `int120[${string}]`]: undefined;
+        [x: `int128[${string}]`]: undefined;
+        [x: `int136[${string}]`]: undefined;
+        [x: `int144[${string}]`]: undefined;
+        [x: `int152[${string}]`]: undefined;
+        [x: `int160[${string}]`]: undefined;
+        [x: `int168[${string}]`]: undefined;
+        [x: `int176[${string}]`]: undefined;
+        [x: `int184[${string}]`]: undefined;
+        [x: `int192[${string}]`]: undefined;
+        [x: `int200[${string}]`]: undefined;
+        [x: `int208[${string}]`]: undefined;
+        [x: `int216[${string}]`]: undefined;
+        [x: `int224[${string}]`]: undefined;
+        [x: `int232[${string}]`]: undefined;
+        [x: `int240[${string}]`]: undefined;
+        [x: `int248[${string}]`]: undefined;
+        [x: `int256[${string}]`]: undefined;
+        [x: `uint[${string}]`]: undefined;
+        [x: `uint32[${string}]`]: undefined;
+        [x: `uint24[${string}]`]: undefined;
+        [x: `uint16[${string}]`]: undefined;
+        [x: `uint8[${string}]`]: undefined;
+        [x: `uint40[${string}]`]: undefined;
+        [x: `uint48[${string}]`]: undefined;
+        [x: `uint56[${string}]`]: undefined;
+        [x: `uint64[${string}]`]: undefined;
+        [x: `uint72[${string}]`]: undefined;
+        [x: `uint80[${string}]`]: undefined;
+        [x: `uint88[${string}]`]: undefined;
+        [x: `uint96[${string}]`]: undefined;
+        [x: `uint104[${string}]`]: undefined;
+        [x: `uint112[${string}]`]: undefined;
+        [x: `uint120[${string}]`]: undefined;
+        [x: `uint128[${string}]`]: undefined;
+        [x: `uint136[${string}]`]: undefined;
+        [x: `uint144[${string}]`]: undefined;
+        [x: `uint152[${string}]`]: undefined;
+        [x: `uint160[${string}]`]: undefined;
+        [x: `uint168[${string}]`]: undefined;
+        [x: `uint176[${string}]`]: undefined;
+        [x: `uint184[${string}]`]: undefined;
+        [x: `uint192[${string}]`]: undefined;
+        [x: `uint200[${string}]`]: undefined;
+        [x: `uint208[${string}]`]: undefined;
+        [x: `uint216[${string}]`]: undefined;
+        [x: `uint224[${string}]`]: undefined;
+        [x: `uint232[${string}]`]: undefined;
+        [x: `uint240[${string}]`]: undefined;
+        [x: `uint248[${string}]`]: undefined;
+        [x: `uint256[${string}]`]: undefined;
+        string?: undefined;
+        address?: undefined;
+        bool?: undefined;
+        bytes?: undefined;
+        bytes1?: undefined;
+        bytes5?: undefined;
+        bytes10?: undefined;
+        bytes32?: undefined;
+        bytes31?: undefined;
+        bytes30?: undefined;
+        bytes29?: undefined;
+        bytes28?: undefined;
+        bytes27?: undefined;
+        bytes26?: undefined;
+        bytes25?: undefined;
+        bytes24?: undefined;
+        bytes23?: undefined;
+        bytes22?: undefined;
+        bytes21?: undefined;
+        bytes20?: undefined;
+        bytes19?: undefined;
+        bytes2?: undefined;
+        bytes18?: undefined;
+        bytes17?: undefined;
+        bytes16?: undefined;
+        bytes15?: undefined;
+        bytes14?: undefined;
+        bytes13?: undefined;
+        bytes12?: undefined;
+        bytes11?: undefined;
+        bytes9?: undefined;
+        bytes8?: undefined;
+        bytes7?: undefined;
+        bytes6?: undefined;
+        bytes4?: undefined;
+        bytes3?: undefined;
+        int32?: undefined;
+        int24?: undefined;
+        int16?: undefined;
+        int8?: undefined;
+        int40?: undefined;
+        int48?: undefined;
+        int56?: undefined;
+        int64?: undefined;
+        int72?: undefined;
+        int80?: undefined;
+        int88?: undefined;
+        int96?: undefined;
+        int104?: undefined;
+        int112?: undefined;
+        int120?: undefined;
+        int128?: undefined;
+        int136?: undefined;
+        int144?: undefined;
+        int152?: undefined;
+        int160?: undefined;
+        int168?: undefined;
+        int176?: undefined;
+        int184?: undefined;
+        int192?: undefined;
+        int200?: undefined;
+        int208?: undefined;
+        int216?: undefined;
+        int224?: undefined;
+        int232?: undefined;
+        int240?: undefined;
+        int248?: undefined;
+        int256?: undefined;
+        uint32?: undefined;
+        uint24?: undefined;
+        uint16?: undefined;
+        uint8?: undefined;
+        uint40?: undefined;
+        uint48?: undefined;
+        uint56?: undefined;
+        uint64?: undefined;
+        uint72?: undefined;
+        uint80?: undefined;
+        uint88?: undefined;
+        uint96?: undefined;
+        uint104?: undefined;
+        uint112?: undefined;
+        uint120?: undefined;
+        uint128?: undefined;
+        uint136?: undefined;
+        uint144?: undefined;
+        uint152?: undefined;
+        uint160?: undefined;
+        uint168?: undefined;
+        uint176?: undefined;
+        uint184?: undefined;
+        uint192?: undefined;
+        uint200?: undefined;
+        uint208?: undefined;
+        uint216?: undefined;
+        uint224?: undefined;
+        uint232?: undefined;
+        uint240?: undefined;
+        uint248?: undefined;
+        uint256?: undefined;
+    } | {
+        [key: string]: unknown;
+    }, TPrimaryType extends string>(args: viem.SignTypedDataParameters<TTypedData, TPrimaryType, viem.Account>) => Promise<`0x${string}`>;
+    switchChain: (args: viem.SwitchChainParameters) => Promise<void>;
+    watchAsset: (args: viem.WatchAssetParams) => Promise<boolean>;
+    writeContract: <const TAbi_1 extends viem.Abi | readonly unknown[], TFunctionName extends string, TChainOverride_4 extends viem.Chain | undefined>(args: viem.WriteContractParameters<TAbi_1, TFunctionName, viem.Chain, viem.Account, TChainOverride_4>) => Promise<`0x${string}`>;
+    extend: <const client extends {
+        [x: string]: unknown;
+        account?: undefined;
+        batch?: undefined;
+        cacheTime?: undefined;
+        chain?: undefined;
+        key?: undefined;
+        name?: undefined;
+        pollingInterval?: undefined;
+        request?: undefined;
+        transport?: undefined;
+        type?: undefined;
+        uid?: undefined;
+    }>(fn: (client: viem.Client<viem.Transport, viem.Chain, viem.Account, viem.WalletRpcSchema, viem.WalletActions<viem.Chain, viem.Account>>) => client) => viem.Client<viem.Transport, viem.Chain, viem.Account, viem.WalletRpcSchema, { [K in keyof client]: client[K]; } & viem.WalletActions<viem.Chain, viem.Account>>;
+}, `0x${string}`, "StorageRootProcessed" | "StorageSlotProcessed", "getRegisteredSlot" | "getStorage" | "getStorageRoots", "processStorageRoot" | "processStorageSlot", true>;
 
-export { InitContract, govCoreContract, govCoreDataHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract };
+export { dataWarehouseContract, govCoreContract, govCoreDataHelperContract, metaDelegateHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract };

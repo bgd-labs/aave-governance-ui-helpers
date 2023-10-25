@@ -4,11 +4,15 @@ import { Hex } from 'viem';
 import { govCoreDataHelperContract } from './contracts';
 import { VotingConfig } from './types';
 
-export async function getGovCoreConfigs(
-  client: PublicClient,
-  govCoreContractAddress: Hex,
-  govCoreDataHelperContractAddress: Hex,
-) {
+export async function getGovCoreConfigs({
+  client,
+  govCoreContractAddress,
+  govCoreDataHelperContractAddress,
+}: {
+  client: PublicClient;
+  govCoreContractAddress: Hex;
+  govCoreDataHelperContractAddress: Hex;
+}) {
   const govCoreDataHelper = govCoreDataHelperContract({
     contractAddress: govCoreDataHelperContractAddress,
     client,

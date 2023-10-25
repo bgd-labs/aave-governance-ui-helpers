@@ -1,4 +1,5 @@
 import { ProposalMetadata } from './types.js';
+import '@wagmi/core';
 import 'viem';
 
 declare const ipfsGateway = "https://ipfs.io/ipfs";

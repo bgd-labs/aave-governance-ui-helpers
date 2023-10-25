@@ -46,8 +46,14 @@ module.exports = __toCommonJS(getProposalEvents_exports);
 var import_bignumber = require("./bignumber.js");
 var import_contracts = require("./contracts.js");
 var import_eventsHelpres = require("./eventsHelpres.js");
-function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getVoteEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const votingMachine = (0, import_contracts.votingMachineContract)({
       contractAddress,
       client
@@ -72,16 +78,23 @@ function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
     }));
   });
 }
-function getVoters(contractAddress, client, endBlock, startBlock, blockLimit, chainId) {
-  return __async(this, null, function* () {
+function getVoters(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    endBlock,
+    startBlock,
+    blockLimit,
+    chainId
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getVoteEvents(
+      return yield getVoteEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber,
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber,
         chainId
-      );
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, blockLimit, callbackFunc);
   });

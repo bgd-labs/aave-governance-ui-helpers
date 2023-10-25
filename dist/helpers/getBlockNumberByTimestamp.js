@@ -78,8 +78,12 @@ var getAverageBlockTime = (chainId) => {
       return 13;
   }
 };
-function getBlockNumberByTimestamp(chainId, targetTimestamp, client) {
-  return __async(this, null, function* () {
+function getBlockNumberByTimestamp(_0) {
+  return __async(this, arguments, function* ({
+    client,
+    chainId,
+    targetTimestamp
+  }) {
     const blocksDiff = 100;
     const MAX_ITERATIONS = 10;
     let iterationCount = 0;

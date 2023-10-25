@@ -1,5 +1,6 @@
 import { ProposalState, Proposal, ProposalEstimatedState, ProposalWaitForState, Balance, ProposalData } from './types.js';
 import { BigNumber } from 'bignumber.js';
+import '@wagmi/core';
 import 'viem';
 
 declare function normalizeVotes(forVotes: string, againstVotes: string): {

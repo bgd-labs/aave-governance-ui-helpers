@@ -52,8 +52,14 @@ __export(getHistoryEvents_exports, {
 module.exports = __toCommonJS(getHistoryEvents_exports);
 var import_contracts = require("./contracts.js");
 var import_eventsHelpres = require("./eventsHelpres.js");
-function getPayloadsCreatedEvents(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getPayloadsCreatedEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const payloadsController = (0, import_contracts.payloadsControllerContract)({
       contractAddress,
       client
@@ -73,22 +79,33 @@ function getPayloadsCreatedEvents(contractAddress, client, startBlock, endBlock,
     }));
   });
 }
-function getPayloadsCreated(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getPayloadsCreated(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getPayloadsCreatedEvents(
+      return yield getPayloadsCreatedEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber,
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber,
         chainId
-      );
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });
 }
-function getProposalCreatedEvents(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalCreatedEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const govCore = (0, import_contracts.govCoreContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: govCore.abi,
@@ -103,21 +120,31 @@ function getProposalCreatedEvents(contractAddress, client, startBlock, endBlock)
     }));
   });
 }
-function getProposalCreated(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalCreated(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getProposalCreatedEvents(
+      return yield getProposalCreatedEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber
-      );
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });
 }
-function getProposalActivatedEvents(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalActivatedEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const govCore = (0, import_contracts.govCoreContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: govCore.abi,
@@ -132,21 +159,31 @@ function getProposalActivatedEvents(contractAddress, client, startBlock, endBloc
     }));
   });
 }
-function getProposalActivated(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalActivated(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getProposalActivatedEvents(
+      return yield getProposalActivatedEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber
-      );
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });
 }
-function getProposalActivatedOnVMEvents(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalActivatedOnVMEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const votingMachine = (0, import_contracts.votingMachineContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: votingMachine.abi,
@@ -161,21 +198,31 @@ function getProposalActivatedOnVMEvents(contractAddress, client, startBlock, end
     }));
   });
 }
-function getProposalActivatedOnVM(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalActivatedOnVM(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getProposalActivatedOnVMEvents(
+      return yield getProposalActivatedOnVMEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber
-      );
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });
 }
-function getProposalVotingClosedEvents(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalVotingClosedEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const votingMachine = (0, import_contracts.votingMachineContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: votingMachine.abi,
@@ -190,21 +237,31 @@ function getProposalVotingClosedEvents(contractAddress, client, startBlock, endB
     }));
   });
 }
-function getProposalVotingClosed(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalVotingClosed(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getProposalVotingClosedEvents(
+      return yield getProposalVotingClosedEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber
-      );
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });
 }
-function getProposalQueuedEvents(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalQueuedEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const govCore = (0, import_contracts.govCoreContract)({ contractAddress, client });
     const events = yield client.getContractEvents({
       abi: govCore.abi,
@@ -219,21 +276,32 @@ function getProposalQueuedEvents(contractAddress, client, startBlock, endBlock) 
     }));
   });
 }
-function getProposalQueued(contractAddress, client, startBlock, endBlock) {
-  return __async(this, null, function* () {
+function getProposalQueued(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getProposalQueuedEvents(
+      return yield getProposalQueuedEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber
-      );
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });
 }
-function getPayloadsQueuedEvents(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getPayloadsQueuedEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const payloadsController = (0, import_contracts.payloadsControllerContract)({
       contractAddress,
       client
@@ -253,22 +321,34 @@ function getPayloadsQueuedEvents(contractAddress, client, startBlock, endBlock, 
     }));
   });
 }
-function getPayloadsQueued(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getPayloadsQueued(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getPayloadsQueuedEvents(
+      return yield getPayloadsQueuedEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber,
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber,
         chainId
-      );
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });
 }
-function getPayloadsExecutedEvents(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getPayloadsExecutedEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const payloadsController = (0, import_contracts.payloadsControllerContract)({
       contractAddress,
       client
@@ -288,16 +368,22 @@ function getPayloadsExecutedEvents(contractAddress, client, startBlock, endBlock
     }));
   });
 }
-function getPayloadsExecuted(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getPayloadsExecuted(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getPayloadsExecutedEvents(
+      return yield getPayloadsExecutedEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber,
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber,
         chainId
-      );
+      });
     });
     return (0, import_eventsHelpres.getEventsBySteps)(startBlock, endBlock, import_eventsHelpres.blockLimit, callbackFunc);
   });

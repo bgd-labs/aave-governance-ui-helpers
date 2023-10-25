@@ -1,4 +1,26 @@
+import { PublicClient, WalletClient } from '@wagmi/core';
 import { Hex } from 'viem';
+
+// generic
+export type ClientsRecord = Record<number, PublicClient>;
+
+export type InitContract = {
+  contractAddress: Hex;
+  client: PublicClient;
+  walletClient?: WalletClient;
+};
+
+export type InitEvent = {
+  contractAddress: Hex;
+  client: PublicClient;
+  startBlock: number;
+  endBlock: number;
+};
+
+export type InitEventWithChainId = InitEvent & {
+  chainId: number;
+};
+// end
 
 // from contracts
 type PayloadStructOutput = {
@@ -58,7 +80,6 @@ export type VMProposalStructOutput = {
   }>;
   state: number;
 };
-
 // end
 
 export interface PayloadForCreation {

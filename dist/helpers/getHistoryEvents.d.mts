@@ -1,46 +1,47 @@
-import { PublicClient } from '@wagmi/core';
-import { Hex } from 'viem';
+import { InitEventWithChainId, InitEvent } from './types.mjs';
+import '@wagmi/core';
+import 'viem';
 
-declare function getPayloadsCreated(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number, chainId: number): Promise<{
+declare function getPayloadsCreated({ contractAddress, client, startBlock, endBlock, chainId, }: InitEventWithChainId): Promise<{
     payloadId: number | undefined;
     chainId: number;
     transactionHash: `0x${string}`;
     blockNumber: number;
     payloadsController: `0x${string}`;
 }[]>;
-declare function getProposalCreated(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number): Promise<{
+declare function getProposalCreated({ contractAddress, client, startBlock, endBlock, }: InitEvent): Promise<{
     proposalId: number;
     transactionHash: `0x${string}`;
     blockNumber: number;
 }[]>;
-declare function getProposalActivated(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number): Promise<{
+declare function getProposalActivated({ contractAddress, client, startBlock, endBlock, }: InitEvent): Promise<{
     proposalId: number;
     transactionHash: `0x${string}`;
     blockNumber: number;
 }[]>;
-declare function getProposalActivatedOnVM(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number): Promise<{
+declare function getProposalActivatedOnVM({ contractAddress, client, startBlock, endBlock, }: InitEvent): Promise<{
     proposalId: number;
     transactionHash: `0x${string}`;
     blockNumber: number;
 }[]>;
-declare function getProposalVotingClosed(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number): Promise<{
+declare function getProposalVotingClosed({ contractAddress, client, startBlock, endBlock, }: InitEvent): Promise<{
     proposalId: number;
     transactionHash: `0x${string}`;
     blockNumber: number;
 }[]>;
-declare function getProposalQueued(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number): Promise<{
+declare function getProposalQueued({ contractAddress, client, startBlock, endBlock, }: InitEvent): Promise<{
     proposalId: number;
     transactionHash: `0x${string}`;
     blockNumber: number;
 }[]>;
-declare function getPayloadsQueued(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number, chainId: number): Promise<{
+declare function getPayloadsQueued({ contractAddress, client, startBlock, endBlock, chainId, }: InitEventWithChainId): Promise<{
     payloadId: number | undefined;
     chainId: number;
     transactionHash: `0x${string}`;
     blockNumber: number;
     payloadsController: `0x${string}`;
 }[]>;
-declare function getPayloadsExecuted(contractAddress: Hex, client: PublicClient, startBlock: number, endBlock: number, chainId: number): Promise<{
+declare function getPayloadsExecuted({ contractAddress, client, startBlock, endBlock, chainId, }: InitEventWithChainId): Promise<{
     payloadId: number | undefined;
     chainId: number;
     transactionHash: `0x${string}`;

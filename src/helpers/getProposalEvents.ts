@@ -1,17 +1,17 @@
-import { PublicClient } from '@wagmi/core';
 import { Hex } from 'viem';
 
 import { normalizeBN } from './bignumber';
 import { votingMachineContract } from './contracts';
 import { getEventsBySteps } from './eventsHelpres';
+import { InitEventWithChainId } from './types';
 
-async function getVoteEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
+async function getVoteEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const votingMachine = votingMachineContract({
     contractAddress,
     client,
@@ -40,25 +40,25 @@ async function getVoteEvents(
     }));
 }
 
-export async function getVoters(
-  contractAddress: Hex,
-  client: PublicClient,
-  endBlock: number,
-  startBlock: number,
-  blockLimit: number,
-  chainId: number,
-) {
+export async function getVoters({
+  contractAddress,
+  client,
+  endBlock,
+  startBlock,
+  blockLimit,
+  chainId,
+}: InitEventWithChainId & { blockLimit: number }) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getVoteEvents(
+    return await getVoteEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);

@@ -1,7 +1,7 @@
 export { CoreNetworkName, appConfigInit, govCoreConfig, payloadsControllerChainIds, payloadsControllerConfig, votingMachineChainIds } from './helpers/appConfig.mjs';
 export { BigNumberValue, normalize, normalizeBN, valueToBigNumber } from './helpers/bignumber.mjs';
 export { HashZero, checkHash } from './helpers/checkHash.mjs';
-export { InitContract, govCoreContract, govCoreDataHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract } from './helpers/contracts.mjs';
+export { dataWarehouseContract, govCoreContract, govCoreDataHelperContract, metaDelegateHelperContract, payloadsControllerContract, payloadsControllerDataHelperContract, votingMachineContract, votingMachineDataHelperContract } from './helpers/contracts.mjs';
 export { blockLimit, getBlocksForEvents, getEventsBySteps } from './helpers/eventsHelpres.mjs';
 export { formatDiff, formatProposal, formatQuorum, getEstimatedState, getProposalState, getProposalStepsAndAmounts, getWaitForState, normalizeVotes } from './helpers/formatProposal.mjs';
 export { getBlockNumberByTimestamp } from './helpers/getBlockNumberByTimestamp.mjs';
@@ -10,9 +10,10 @@ export { getPayloadsCreated, getPayloadsExecuted, getPayloadsQueued, getProposal
 export { formatVotingMachineData, getDetailedProposalsData, getVotingMachineProposalState, updateVotingMachineData } from './helpers/getProposalData.mjs';
 export { getVoters } from './helpers/getProposalEvents.mjs';
 export { getLink, getProposalMetadata, ipfsGateway } from './helpers/getProposalMetadata.mjs';
-export { Balance, BasicProposal, BasicProposalState, CachedDetails, CachedProposalDataItem, CachedProposalDataItemWithId, ContractsConstants, FinishedProposalForList, InitialPayload, InitialProposal, Payload, PayloadAction, PayloadForCreation, PayloadState, Proposal, ProposalData, ProposalEstimatedState, ProposalMetadata, ProposalState, ProposalStateWithName, ProposalStructOutput, ProposalWaitForState, ProposalWithId, ProposalWithLoadings, ProposalWithoutState, VMProposalStructOutput, VotersData, VotingBalance, VotingConfig, VotingMachineData, VotingMachineProposalState } from './helpers/types.mjs';
+export { Balance, BasicProposal, BasicProposalState, CachedDetails, CachedProposalDataItem, CachedProposalDataItemWithId, ClientsRecord, ContractsConstants, FinishedProposalForList, InitContract, InitEvent, InitEventWithChainId, InitialPayload, InitialProposal, Payload, PayloadAction, PayloadForCreation, PayloadState, Proposal, ProposalData, ProposalEstimatedState, ProposalMetadata, ProposalState, ProposalStateWithName, ProposalStructOutput, ProposalWaitForState, ProposalWithId, ProposalWithLoadings, ProposalWithoutState, VMProposalStructOutput, VotersData, VotingBalance, VotingConfig, VotingMachineData, VotingMachineProposalState } from './helpers/types.mjs';
 import 'viem';
 import 'bignumber.js';
 import 'viem/_types/actions/wallet/signTransaction';
 import 'viem/_types/actions/wallet/sendRawTransaction';
+import '@wagmi/core/dist/index-e744bbc2';
 import '@wagmi/core';

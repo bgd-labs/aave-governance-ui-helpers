@@ -1,9 +1,8 @@
-import { PublicClient } from '@wagmi/core';
-
 import { appConfigInit, CoreNetworkName } from './appConfig';
+import { ClientsRecord } from './types';
 
 export const appConfigWithClients = (
-  clients: Record<number, PublicClient>,
+  clients: ClientsRecord,
   coreNetwork: CoreNetworkName,
 ) => {
   return {

@@ -1,8 +1,9 @@
-import { PublicClient } from '@wagmi/core';
 import { CoreNetworkName } from './appConfig.mjs';
+import { ClientsRecord } from './types.mjs';
 import 'viem';
+import '@wagmi/core';
 
-declare const appConfigWithClients: (clients: Record<number, PublicClient>, coreNetwork: CoreNetworkName) => {
+declare const appConfigWithClients: (clients: ClientsRecord, coreNetwork: CoreNetworkName) => {
     govCoreChainId: number;
     govCoreConfig: {
         contractAddress: `0x${string}`;
@@ -27,7 +28,7 @@ declare const appConfigWithClients: (clients: Record<number, PublicClient>, core
     payloadsControllerChainIds: number[];
     additional: Record<string, `0x${string}`>;
     gelatoApiKeys: Record<string, string>;
-    clients: Record<number, PublicClient>;
+    clients: ClientsRecord;
 };
 
 export { appConfigWithClients };

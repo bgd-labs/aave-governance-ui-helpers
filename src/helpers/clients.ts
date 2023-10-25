@@ -1,3 +1,5 @@
+// only for internal usage
+
 import { PublicClient } from '@wagmi/core';
 import { Chain, createPublicClient, http } from 'viem';
 import {
@@ -14,6 +16,8 @@ import {
   sepolia,
 } from 'viem/chains';
 
+import { ClientsRecord } from './types';
+
 function initPublicClient(chain: Chain) {
   return createPublicClient({
     batch: {
@@ -24,7 +28,7 @@ function initPublicClient(chain: Chain) {
   }) as PublicClient;
 }
 
-export const clients: Record<number, PublicClient> = {
+export const clients: ClientsRecord = {
   [mainnet.id]: initPublicClient(mainnet),
   [polygon.id]: initPublicClient(polygon),
   [avalanche.id]: initPublicClient(avalanche),

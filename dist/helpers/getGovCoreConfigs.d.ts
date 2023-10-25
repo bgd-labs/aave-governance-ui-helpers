@@ -2,7 +2,11 @@ import { PublicClient } from '@wagmi/core';
 import { Hex } from 'viem';
 import { VotingConfig } from './types.js';
 
-declare function getGovCoreConfigs(client: PublicClient, govCoreContractAddress: Hex, govCoreDataHelperContractAddress: Hex): Promise<{
+declare function getGovCoreConfigs({ client, govCoreContractAddress, govCoreDataHelperContractAddress, }: {
+    client: PublicClient;
+    govCoreContractAddress: Hex;
+    govCoreDataHelperContractAddress: Hex;
+}): Promise<{
     contractsConstants: {
         precisionDivider: string;
         cooldownPeriod: number;

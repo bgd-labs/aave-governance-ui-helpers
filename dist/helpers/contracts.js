@@ -20,8 +20,10 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/helpers/contracts.ts
 var contracts_exports = {};
 __export(contracts_exports, {
+  dataWarehouseContract: () => dataWarehouseContract,
   govCoreContract: () => govCoreContract,
   govCoreDataHelperContract: () => govCoreDataHelperContract,
+  metaDelegateHelperContract: () => metaDelegateHelperContract,
   payloadsControllerContract: () => payloadsControllerContract,
   payloadsControllerDataHelperContract: () => payloadsControllerDataHelperContract,
   votingMachineContract: () => votingMachineContract,
@@ -102,10 +104,36 @@ function payloadsControllerDataHelperContract({
     walletClient
   });
 }
+function metaDelegateHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
+  return (0, import_viem.getContract)({
+    address: contractAddress,
+    abi: import_aave_address_book.IMetaDelegateHelper_ABI,
+    publicClient: client,
+    walletClient
+  });
+}
+function dataWarehouseContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
+  return (0, import_viem.getContract)({
+    address: contractAddress,
+    abi: import_aave_address_book.IDataWarehouse_ABI,
+    publicClient: client,
+    walletClient
+  });
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  dataWarehouseContract,
   govCoreContract,
   govCoreDataHelperContract,
+  metaDelegateHelperContract,
   payloadsControllerContract,
   payloadsControllerDataHelperContract,
   votingMachineContract,

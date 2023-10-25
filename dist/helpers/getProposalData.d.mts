@@ -1,4 +1,5 @@
 import { BasicProposal, VotingMachineProposalState, VMProposalStructOutput, ProposalData, ProposalStructOutput } from './types.mjs';
+import '@wagmi/core';
 import 'viem';
 
 declare function getVotingMachineProposalState(proposal: BasicProposal): VotingMachineProposalState;

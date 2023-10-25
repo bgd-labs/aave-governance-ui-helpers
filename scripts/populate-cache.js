@@ -22998,7 +22998,11 @@ function getProposalState({ ...data }) {
 }
 
 // src/helpers/getGovCoreConfigs.ts
-async function getGovCoreConfigs(client, govCoreContractAddress, govCoreDataHelperContractAddress) {
+async function getGovCoreConfigs({
+  client,
+  govCoreContractAddress,
+  govCoreDataHelperContractAddress
+}) {
   const govCoreDataHelper = govCoreDataHelperContract({
     contractAddress: govCoreDataHelperContractAddress,
     client
@@ -23485,7 +23489,13 @@ var import_lodash5 = __toESM(require_lodash());
 var import_path5 = require("path");
 
 // src/helpers/getProposalEvents.ts
-async function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
+async function getVoteEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId
+}) {
   const votingMachine = votingMachineContract({
     contractAddress,
     client
@@ -23509,15 +23519,22 @@ async function getVoteEvents(contractAddress, client, startBlock, endBlock, chai
     chainId
   }));
 }
-async function getVoters(contractAddress, client, endBlock, startBlock, blockLimit2, chainId) {
+async function getVoters({
+  contractAddress,
+  client,
+  endBlock,
+  startBlock,
+  blockLimit: blockLimit2,
+  chainId
+}) {
   const callbackFunc = async (startBlockNumber, endBlockNumber) => {
-    return await getVoteEvents(
+    return await getVoteEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId
-    );
+    });
   };
   return getEventsBySteps(startBlock, endBlock, blockLimit2, callbackFunc);
 }
@@ -23565,14 +23582,14 @@ var Votes = class {
     );
     const voters = isCached.voters;
     if (endBlock) {
-      const newVoters = await getVoters(
+      const newVoters = await getVoters({
         contractAddress,
-        votingMachineClient,
+        client: votingMachineClient,
         endBlock,
         startBlock,
         blockLimit,
         chainId
-      );
+      });
       const fiveTopVoters = await Promise.all(
         newVoters.sort((a, b) => b.votingPower - a.votingPower).slice(0, 5).map(async (vote) => {
           const name = await mainnetClient.getEnsName({
@@ -23709,11 +23726,11 @@ async function populateCache() {
       proposalsIds,
       true
     );
-    const { contractsConstants, configs } = await getGovCoreConfigs(
-      appConfig.clients[appConfig.govCoreChainId],
-      appConfig.govCoreConfig.contractAddress,
-      appConfig.govCoreConfig.dataHelperContractAddress
-    );
+    const { contractsConstants, configs } = await getGovCoreConfigs({
+      client: appConfig.clients[appConfig.govCoreChainId],
+      govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
+      govCoreDataHelperContractAddress: appConfig.govCoreConfig.dataHelperContractAddress
+    });
     const ipfsData = {};
     const newIpfsHashes = [];
     proposalsIds.forEach((id2) => {

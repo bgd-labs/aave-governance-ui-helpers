@@ -1,7 +1,9 @@
 // src/helpers/contracts.ts
 import {
+  IDataWarehouse_ABI,
   IGovernanceCore_ABI,
   IGovernanceDataHelper_ABI,
+  IMetaDelegateHelper_ABI,
   IPayloadsControllerCore_ABI,
   IPayloadsControllerDataHelper_ABI,
   IVotingMachineDataHelper_ABI,
@@ -80,9 +82,35 @@ function payloadsControllerDataHelperContract({
     walletClient
   });
 }
+function metaDelegateHelperContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
+  return getContract({
+    address: contractAddress,
+    abi: IMetaDelegateHelper_ABI,
+    publicClient: client,
+    walletClient
+  });
+}
+function dataWarehouseContract({
+  contractAddress,
+  client,
+  walletClient
+}) {
+  return getContract({
+    address: contractAddress,
+    abi: IDataWarehouse_ABI,
+    publicClient: client,
+    walletClient
+  });
+}
 export {
+  dataWarehouseContract,
   govCoreContract,
   govCoreDataHelperContract,
+  metaDelegateHelperContract,
   payloadsControllerContract,
   payloadsControllerDataHelperContract,
   votingMachineContract,

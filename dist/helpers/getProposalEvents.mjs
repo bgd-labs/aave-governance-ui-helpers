@@ -23,8 +23,14 @@ var __async = (__this, __arguments, generator) => {
 import { normalizeBN } from "./bignumber.mjs";
 import { votingMachineContract } from "./contracts.mjs";
 import { getEventsBySteps } from "./eventsHelpres.mjs";
-function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
-  return __async(this, null, function* () {
+function getVoteEvents(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    startBlock,
+    endBlock,
+    chainId
+  }) {
     const votingMachine = votingMachineContract({
       contractAddress,
       client
@@ -49,16 +55,23 @@ function getVoteEvents(contractAddress, client, startBlock, endBlock, chainId) {
     }));
   });
 }
-function getVoters(contractAddress, client, endBlock, startBlock, blockLimit, chainId) {
-  return __async(this, null, function* () {
+function getVoters(_0) {
+  return __async(this, arguments, function* ({
+    contractAddress,
+    client,
+    endBlock,
+    startBlock,
+    blockLimit,
+    chainId
+  }) {
     const callbackFunc = (startBlockNumber, endBlockNumber) => __async(this, null, function* () {
-      return yield getVoteEvents(
+      return yield getVoteEvents({
         contractAddress,
         client,
-        startBlockNumber,
-        endBlockNumber,
+        startBlock: startBlockNumber,
+        endBlock: endBlockNumber,
         chainId
-      );
+      });
     });
     return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
   });

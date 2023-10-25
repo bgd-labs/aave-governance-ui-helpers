@@ -1,21 +1,19 @@
-import { PublicClient } from '@wagmi/core';
-import { Hex } from 'viem';
-
 import {
   govCoreContract,
   payloadsControllerContract,
   votingMachineContract,
 } from './contracts';
 import { blockLimit, getEventsBySteps } from './eventsHelpres';
+import { InitEvent, InitEventWithChainId } from './types';
 
 // payloads created
-async function getPayloadsCreatedEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
+async function getPayloadsCreatedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const payloadsController = payloadsControllerContract({
     contractAddress,
     client,
@@ -39,36 +37,36 @@ async function getPayloadsCreatedEvents(
     }));
 }
 
-export async function getPayloadsCreated(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
+export async function getPayloadsCreated({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getPayloadsCreatedEvents(
+    return await getPayloadsCreatedEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // proposal created
-async function getProposalCreatedEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+async function getProposalCreatedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
@@ -87,34 +85,34 @@ async function getProposalCreatedEvents(
     }));
 }
 
-export async function getProposalCreated(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+export async function getProposalCreated({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalCreatedEvents(
+    return await getProposalCreatedEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
-    );
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // proposal activate for voting
-async function getProposalActivatedEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+async function getProposalActivatedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
@@ -133,34 +131,34 @@ async function getProposalActivatedEvents(
     }));
 }
 
-export async function getProposalActivated(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+export async function getProposalActivated({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalActivatedEvents(
+    return await getProposalActivatedEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
-    );
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // voting activate on VM
-async function getProposalActivatedOnVMEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+async function getProposalActivatedOnVMEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const votingMachine = votingMachineContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
@@ -179,34 +177,34 @@ async function getProposalActivatedOnVMEvents(
     }));
 }
 
-export async function getProposalActivatedOnVM(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+export async function getProposalActivatedOnVM({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalActivatedOnVMEvents(
+    return await getProposalActivatedOnVMEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
-    );
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // voting closed on VM and voting results sent
-async function getProposalVotingClosedEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+async function getProposalVotingClosedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const votingMachine = votingMachineContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
@@ -225,34 +223,34 @@ async function getProposalVotingClosedEvents(
     }));
 }
 
-export async function getProposalVotingClosed(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+export async function getProposalVotingClosed({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalVotingClosedEvents(
+    return await getProposalVotingClosedEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
-    );
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // proposal queued
-async function getProposalQueuedEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+async function getProposalQueuedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
@@ -271,35 +269,35 @@ async function getProposalQueuedEvents(
     }));
 }
 
-export async function getProposalQueued(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-) {
+export async function getProposalQueued({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalQueuedEvents(
+    return await getProposalQueuedEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
-    );
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // payloads queued
-async function getPayloadsQueuedEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
+async function getPayloadsQueuedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const payloadsController = payloadsControllerContract({
     contractAddress,
     client,
@@ -323,37 +321,37 @@ async function getPayloadsQueuedEvents(
     }));
 }
 
-export async function getPayloadsQueued(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
+export async function getPayloadsQueued({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getPayloadsQueuedEvents(
+    return await getPayloadsQueuedEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // payloads executed
-async function getPayloadsExecutedEvents(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
+async function getPayloadsExecutedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const payloadsController = payloadsControllerContract({
     contractAddress,
     client,
@@ -377,24 +375,24 @@ async function getPayloadsExecutedEvents(
     }));
 }
 
-export async function getPayloadsExecuted(
-  contractAddress: Hex,
-  client: PublicClient,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
+export async function getPayloadsExecuted({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getPayloadsExecutedEvents(
+    return await getPayloadsExecutedEvents({
       contractAddress,
       client,
-      startBlockNumber,
-      endBlockNumber,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);

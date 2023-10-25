@@ -1,20 +1,18 @@
 import {
+  IDataWarehouse_ABI,
   IGovernanceCore_ABI,
   IGovernanceDataHelper_ABI,
+  IMetaDelegateHelper_ABI,
   IPayloadsControllerCore_ABI,
   IPayloadsControllerDataHelper_ABI,
   IVotingMachineDataHelper_ABI,
   IVotingMachineWithProofs_ABI,
 } from '@bgd-labs/aave-address-book';
-import { PublicClient, WalletClient } from '@wagmi/core';
-import { getContract, Hex } from 'viem';
+import { getContract } from 'viem';
 
-export type InitContract = {
-  contractAddress: Hex;
-  client: PublicClient;
-  walletClient?: WalletClient;
-};
+import { InitContract } from './types';
 
+// main contracts
 export function govCoreContract({
   contractAddress,
   client,
@@ -88,6 +86,34 @@ export function payloadsControllerDataHelperContract({
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerDataHelper_ABI,
+    publicClient: client,
+    walletClient,
+  });
+}
+// end
+
+// additional contracts
+export function metaDelegateHelperContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
+  return getContract({
+    address: contractAddress,
+    abi: IMetaDelegateHelper_ABI,
+    publicClient: client,
+    walletClient,
+  });
+}
+
+export function dataWarehouseContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
+  return getContract({
+    address: contractAddress,
+    abi: IDataWarehouse_ABI,
     publicClient: client,
     walletClient,
   });

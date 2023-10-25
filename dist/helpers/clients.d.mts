@@ -1,5 +1,7 @@
-import { PublicClient } from '@wagmi/core';
+import { ClientsRecord } from './types.mjs';
+import '@wagmi/core';
+import 'viem';
 
-declare const clients: Record<number, PublicClient>;
+declare const clients: ClientsRecord;
 
 export { clients };

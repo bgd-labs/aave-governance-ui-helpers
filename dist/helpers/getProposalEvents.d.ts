@@ -1,7 +1,10 @@
-import { PublicClient } from '@wagmi/core';
-import { Hex } from 'viem';
+import { InitEventWithChainId } from './types.js';
+import '@wagmi/core';
+import 'viem';
 
-declare function getVoters(contractAddress: Hex, client: PublicClient, endBlock: number, startBlock: number, blockLimit: number, chainId: number): Promise<{
+declare function getVoters({ contractAddress, client, endBlock, startBlock, blockLimit, chainId, }: InitEventWithChainId & {
+    blockLimit: number;
+}): Promise<{
     proposalId: number;
     address: `0x${string}`;
     support: boolean;

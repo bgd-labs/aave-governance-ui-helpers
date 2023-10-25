@@ -21,8 +21,12 @@ var __async = (__this, __arguments, generator) => {
 
 // src/helpers/getGovCoreConfigs.ts
 import { govCoreDataHelperContract } from "./contracts.mjs";
-function getGovCoreConfigs(client, govCoreContractAddress, govCoreDataHelperContractAddress) {
-  return __async(this, null, function* () {
+function getGovCoreConfigs(_0) {
+  return __async(this, arguments, function* ({
+    client,
+    govCoreContractAddress,
+    govCoreDataHelperContractAddress
+  }) {
     const govCoreDataHelper = govCoreDataHelperContract({
       contractAddress: govCoreDataHelperContractAddress,
       client

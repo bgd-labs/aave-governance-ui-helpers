@@ -1,5 +1,21 @@
+import { PublicClient, WalletClient } from '@wagmi/core';
 import { Hex } from 'viem';
 
+type ClientsRecord = Record<number, PublicClient>;
+type InitContract = {
+    contractAddress: Hex;
+    client: PublicClient;
+    walletClient?: WalletClient;
+};
+type InitEvent = {
+    contractAddress: Hex;
+    client: PublicClient;
+    startBlock: number;
+    endBlock: number;
+};
+type InitEventWithChainId = InitEvent & {
+    chainId: number;
+};
 type PayloadStructOutput = {
     chain: bigint;
     accessLevel: number;
@@ -286,4 +302,4 @@ interface CachedDetails {
     proposal: BasicProposal;
 }
 
-export { Balance, BasicProposal, BasicProposalState, CachedDetails, CachedProposalDataItem, CachedProposalDataItemWithId, ContractsConstants, FinishedProposalForList, InitialPayload, InitialProposal, Payload, PayloadAction, PayloadForCreation, PayloadState, Proposal, ProposalData, ProposalEstimatedState, ProposalMetadata, ProposalState, ProposalStateWithName, ProposalStructOutput, ProposalWaitForState, ProposalWithId, ProposalWithLoadings, ProposalWithoutState, VMProposalStructOutput, VotersData, VotingBalance, VotingConfig, VotingMachineData, VotingMachineProposalState };
+export { Balance, BasicProposal, BasicProposalState, CachedDetails, CachedProposalDataItem, CachedProposalDataItemWithId, ClientsRecord, ContractsConstants, FinishedProposalForList, InitContract, InitEvent, InitEventWithChainId, InitialPayload, InitialProposal, Payload, PayloadAction, PayloadForCreation, PayloadState, Proposal, ProposalData, ProposalEstimatedState, ProposalMetadata, ProposalState, ProposalStateWithName, ProposalStructOutput, ProposalWaitForState, ProposalWithId, ProposalWithLoadings, ProposalWithoutState, VMProposalStructOutput, VotersData, VotingBalance, VotingConfig, VotingMachineData, VotingMachineProposalState };
