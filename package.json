@@ -29,7 +29,8 @@
     "lint": "npx eslint --fix",
     "build:populate-cache": "npx esbuild src/lowdb/populateCache.ts --tsconfig=./tsconfig.json --bundle --outfile=scripts/populate-cache.js --platform=node --target=ESNEXT",
     "cache:update": "CACHE_PATH=../src/generated-cache node scripts/populate-cache.js",
-    "cache:parse": "node scripts/parseProposalDetails.js"
+    "cache:parse": "node scripts/parseProposalDetails.js",
+    "ci:publish": "npm run build && npm publish --access=public"
   },
   "files": [
     "dist"
