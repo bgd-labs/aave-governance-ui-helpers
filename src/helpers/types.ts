@@ -238,9 +238,9 @@ export interface ProposalData
 
 type BlockHash = string;
 export type Balance = {
-  blockHash: string;
+  blockHash: Hex;
   tokenName: string;
-  underlyingAsset: string;
+  underlyingAsset: Hex;
   value: string;
   basicValue: string;
   userBalance: string;
