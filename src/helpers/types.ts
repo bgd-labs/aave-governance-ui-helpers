@@ -85,7 +85,7 @@ export type VMProposalStructOutput = {
 export interface PayloadForCreation {
   chain: bigint;
   accessLevel: number;
-  payloadsController: string;
+  payloadsController: Hex;
   payloadId: number;
 }
 
