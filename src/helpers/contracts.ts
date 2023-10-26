@@ -1,5 +1,6 @@
 import {
   IDataWarehouse_ABI,
+  IERC20_ABI,
   IGovernanceCore_ABI,
   IGovernanceDataHelper_ABI,
   IMetaDelegateHelper_ABI,
@@ -10,6 +11,9 @@ import {
 } from '@bgd-labs/aave-address-book';
 import { getContract } from 'viem';
 
+import { IAaveTokenV3_ABI } from '../abis/IAaveTokenV3';
+import { IATokenWithDelegation_ABI } from '../abis/IATokenWithDelegation';
+import { IBaseVotingStrategy_ABI } from '../abis/IBaseVotingStrategy';
 import { InitContract } from './types';
 
 // main contracts
@@ -114,6 +118,58 @@ export function dataWarehouseContract({
   return getContract({
     address: contractAddress,
     abi: IDataWarehouse_ABI,
+    publicClient: client,
+    walletClient,
+  });
+}
+
+export function erc20Contract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
+  return getContract({
+    address: contractAddress,
+    abi: IERC20_ABI,
+    publicClient: client,
+    walletClient,
+  });
+}
+
+export function aaveTokenV3Contract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
+  return getContract({
+    address: contractAddress,
+    abi: IAaveTokenV3_ABI,
+    publicClient: client,
+    walletClient,
+  });
+}
+
+export function aTokenWithDelegationContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
+  return getContract({
+    address: contractAddress,
+    abi: IATokenWithDelegation_ABI,
+    publicClient: client,
+    walletClient,
+  });
+}
+
+export function baseVotingStrategyContract({
+  contractAddress,
+  client,
+  walletClient,
+}: InitContract) {
+  return getContract({
+    address: contractAddress,
+    abi: IBaseVotingStrategy_ABI,
     publicClient: client,
     walletClient,
   });
