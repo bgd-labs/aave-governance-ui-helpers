@@ -95,32 +95,11 @@ export async function getBlockNumberByTimestamp({
       // step forward
       estimatedBlockNumber =
         previousBlockNumber +
-        Math.max(
-          0,
+        Math.abs(
           Math.floor(
             (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
           ),
         );
-
-      console.log(
-        'initial abs estimatedBlockNumber',
-        previousBlockNumber +
-          Math.abs(
-            Math.floor(
-              (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-            ),
-          ),
-      );
-      console.log(
-        'initial estimatedBlockNumber',
-        previousBlockNumber +
-          Math.max(
-            0,
-            Math.floor(
-              (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-            ),
-          ),
-      );
     }
 
     if (estimatedBlockNumber < 0) {
