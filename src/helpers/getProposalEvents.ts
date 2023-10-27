@@ -18,6 +18,7 @@ async function getVoteEvents({
   });
 
   const events = await client.getContractEvents({
+    address: votingMachine.address,
     abi: votingMachine.abi,
     eventName: 'VoteEmitted',
     fromBlock: BigInt(startBlock),
