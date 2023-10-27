@@ -20,6 +20,7 @@ async function getPayloadsCreatedEvents({
   });
 
   const events = await client.getContractEvents({
+    address: payloadsController.address,
     abi: payloadsController.abi,
     eventName: 'PayloadCreated',
     fromBlock: BigInt(startBlock),
@@ -70,6 +71,7 @@ async function getProposalCreatedEvents({
   const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
+    address: govCore.address,
     abi: govCore.abi,
     eventName: 'ProposalCreated',
     fromBlock: BigInt(startBlock),
@@ -116,6 +118,7 @@ async function getProposalActivatedEvents({
   const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
+    address: govCore.address,
     abi: govCore.abi,
     eventName: 'VotingActivated',
     fromBlock: BigInt(startBlock),
@@ -162,6 +165,7 @@ async function getProposalActivatedOnVMEvents({
   const votingMachine = votingMachineContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
+    address: votingMachine.address,
     abi: votingMachine.abi,
     eventName: 'ProposalVoteStarted',
     fromBlock: BigInt(startBlock),
@@ -208,6 +212,7 @@ async function getProposalVotingClosedEvents({
   const votingMachine = votingMachineContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
+    address: votingMachine.address,
     abi: votingMachine.abi,
     eventName: 'ProposalResultsSent',
     fromBlock: BigInt(startBlock),
@@ -254,6 +259,7 @@ async function getProposalQueuedEvents({
   const govCore = govCoreContract({ contractAddress, client });
 
   const events = await client.getContractEvents({
+    address: govCore.address,
     abi: govCore.abi,
     eventName: 'ProposalQueued',
     fromBlock: BigInt(startBlock),
@@ -304,6 +310,7 @@ async function getPayloadsQueuedEvents({
   });
 
   const events = await client.getContractEvents({
+    address: payloadsController.address,
     abi: payloadsController.abi,
     eventName: 'PayloadQueued',
     fromBlock: BigInt(startBlock),
@@ -358,6 +365,7 @@ async function getPayloadsExecutedEvents({
   });
 
   const events = await client.getContractEvents({
+    address: payloadsController.address,
     abi: payloadsController.abi,
     eventName: 'PayloadExecuted',
     fromBlock: BigInt(startBlock),

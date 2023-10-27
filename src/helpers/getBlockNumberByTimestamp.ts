@@ -68,7 +68,12 @@ export async function getBlockNumberByTimestamp({
 
   const currentBlock = await client.getBlock({ blockTag: 'latest' });
 
-  if (targetTimestamp > currentBlock.timestamp) {
+  console.log('currentBlock timestamp', Number(currentBlock.timestamp));
+  console.log('currentBlock number', Number(currentBlock.number));
+
+  console.log('targetTimestamp', targetTimestamp);
+
+  if (targetTimestamp > Number(currentBlock.timestamp)) {
     throw new Error('Target timestamp is in the future.');
   }
 
@@ -105,6 +110,9 @@ export async function getBlockNumberByTimestamp({
       blockNumber: BigInt(estimatedBlockNumber),
     });
 
+    console.log('estimatedBlock timestamp', Number(estimatedBlock.timestamp));
+    console.log('estimatedBlock number', Number(estimatedBlock.number));
+
     // Calculate a new average block time based on the difference of the timestamps
     averageBlockTime = Math.ceil(
       (Number(estimatedBlock.timestamp) - previousBlockTimestamp) /
@@ -130,7 +138,7 @@ export async function getBlockNumberByTimestamp({
   let maxBlockNumber = Number(estimatedBlock.number) + blocksDiff * 2;
 
   // if estimated block timestamp > target
-  if (estimatedBlock.timestamp > targetTimestamp) {
+  if (Number(estimatedBlock.timestamp) > targetTimestamp) {
     minBlockNumber = Number(estimatedBlock.number) - blocksDiff * 2;
     maxBlockNumber = Number(estimatedBlock.number);
   }
