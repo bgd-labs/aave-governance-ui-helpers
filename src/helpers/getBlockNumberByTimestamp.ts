@@ -65,6 +65,7 @@ export async function getBlockNumberByTimestamp({
 
   let iterationCount = 0;
   let averageBlockTime = getAverageBlockTime(chainId);
+  console.log('initial averageBlockTime', averageBlockTime);
 
   const currentBlock = await client.getBlock({ blockTag: 'latest' });
 
@@ -85,14 +86,26 @@ export async function getBlockNumberByTimestamp({
   do {
     // Make a guess
 
+    console.log('initial previousBlockTimestamp', previousBlockTimestamp);
+
     if (previousBlockTimestamp >= targetTimestamp) {
+      console.log('step back');
       // step back
       estimatedBlockNumber =
         previousBlockNumber -
         Math.floor(
           (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
         );
+    } else if (previousBlockTimestamp < targetTimestamp) {
+      console.log('step forward');
+      // step forward
+      estimatedBlockNumber =
+        previousBlockNumber +
+        Math.floor(
+          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+        );
     } else {
+      console.log('step forward');
       // step forward
       estimatedBlockNumber =
         previousBlockNumber +
@@ -118,6 +131,8 @@ export async function getBlockNumberByTimestamp({
       (Number(estimatedBlock.timestamp) - previousBlockTimestamp) /
         (estimatedBlockNumber - previousBlockNumber),
     );
+
+    console.log('final averageBlockTime', averageBlockTime);
 
     previousBlockTimestamp = Number(estimatedBlock.timestamp);
     previousBlockNumber = Number(estimatedBlock.number);
