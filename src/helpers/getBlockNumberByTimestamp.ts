@@ -122,6 +122,12 @@ export async function getBlockNumberByTimestamp({
     previousBlockTimestamp = Number(estimatedBlock.timestamp);
     previousBlockNumber = Number(estimatedBlock.number);
 
+    console.log(
+      'previousBlockTimestamp >= targetTimestamp',
+      previousBlockTimestamp >= targetTimestamp,
+    );
+    console.log('previousBlockTimestamp', previousBlockTimestamp);
+
     iterationCount++;
   } while (
     Math.abs(Number(estimatedBlock.timestamp) - targetTimestamp) >
