@@ -79,9 +79,6 @@ export async function getBlockNumberByTimestamp({
 
   do {
     // Make a guess
-
-    console.log('initial previousBlockTimestamp', previousBlockTimestamp);
-
     if (previousBlockTimestamp >= targetTimestamp) {
       console.log('step back');
       // step back
@@ -106,14 +103,7 @@ export async function getBlockNumberByTimestamp({
         );
 
       console.log(
-        'initial estimatedBlockNumber',
-        previousBlockNumber +
-          Math.floor(
-            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-          ),
-      );
-      console.log(
-        'initial estimatedBlockNumber',
+        'initial abs estimatedBlockNumber',
         previousBlockNumber +
           Math.abs(
             Math.floor(
@@ -168,13 +158,13 @@ export async function getBlockNumberByTimestamp({
   }
 
   // if estimated block timestamp <= target
-  let minBlockNumber = Number(estimatedBlock.number) - 1;
+  let minBlockNumber = Number(estimatedBlock.number) - blocksDiff * 2;
   let maxBlockNumber = Number(estimatedBlock.number) + blocksDiff * 2;
 
   // if estimated block timestamp > target
   if (Number(estimatedBlock.timestamp) > targetTimestamp) {
     minBlockNumber = Number(estimatedBlock.number) - blocksDiff * 2;
-    maxBlockNumber = Number(estimatedBlock.number);
+    maxBlockNumber = Number(estimatedBlock.number) + blocksDiff * 2;
   }
 
   return {
