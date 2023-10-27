@@ -65,14 +65,8 @@ export async function getBlockNumberByTimestamp({
 
   let iterationCount = 0;
   let averageBlockTime = getAverageBlockTime(chainId);
-  console.log('initial averageBlockTime', averageBlockTime);
 
   const currentBlock = await client.getBlock({ blockTag: 'latest' });
-
-  console.log('currentBlock timestamp', Number(currentBlock.timestamp));
-  console.log('currentBlock number', Number(currentBlock.number));
-
-  console.log('targetTimestamp', targetTimestamp);
 
   if (targetTimestamp > Number(currentBlock.timestamp)) {
     throw new Error('Target timestamp is in the future.');
@@ -93,25 +87,50 @@ export async function getBlockNumberByTimestamp({
       // step back
       estimatedBlockNumber =
         previousBlockNumber -
-        Math.floor(
-          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
-        );
-    } else if (previousBlockTimestamp < targetTimestamp) {
-      console.log('step forward');
-      // step forward
-      estimatedBlockNumber =
-        previousBlockNumber +
-        Math.floor(
-          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+        Math.max(
+          0,
+          Math.floor(
+            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+          ),
         );
     } else {
       console.log('step forward');
       // step forward
       estimatedBlockNumber =
         previousBlockNumber +
-        Math.floor(
-          (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+        Math.max(
+          0,
+          Math.floor(
+            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+          ),
         );
+
+      console.log(
+        'initial estimatedBlockNumber',
+        previousBlockNumber +
+          Math.floor(
+            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+          ),
+      );
+      console.log(
+        'initial estimatedBlockNumber',
+        previousBlockNumber +
+          Math.abs(
+            Math.floor(
+              (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+            ),
+          ),
+      );
+      console.log(
+        'initial estimatedBlockNumber',
+        previousBlockNumber +
+          Math.max(
+            0,
+            Math.floor(
+              (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+            ),
+          ),
+      );
     }
 
     if (estimatedBlockNumber < 0) {
@@ -132,15 +151,9 @@ export async function getBlockNumberByTimestamp({
         (estimatedBlockNumber - previousBlockNumber),
     );
 
-    console.log('final averageBlockTime', averageBlockTime);
-
     previousBlockTimestamp = Number(estimatedBlock.timestamp);
     previousBlockNumber = Number(estimatedBlock.number);
 
-    console.log(
-      'previousBlockTimestamp >= targetTimestamp',
-      previousBlockTimestamp >= targetTimestamp,
-    );
     console.log('previousBlockTimestamp', previousBlockTimestamp);
 
     iterationCount++;
