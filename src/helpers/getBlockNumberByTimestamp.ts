@@ -80,7 +80,6 @@ export async function getBlockNumberByTimestamp({
   do {
     // Make a guess
     if (previousBlockTimestamp >= targetTimestamp) {
-      console.log('step back');
       // step back
       estimatedBlockNumber =
         previousBlockNumber -
@@ -91,7 +90,6 @@ export async function getBlockNumberByTimestamp({
           ),
         );
     } else {
-      console.log('step forward');
       // step forward
       estimatedBlockNumber =
         previousBlockNumber +
@@ -111,9 +109,6 @@ export async function getBlockNumberByTimestamp({
       blockNumber: BigInt(estimatedBlockNumber),
     });
 
-    console.log('estimatedBlock timestamp', Number(estimatedBlock.timestamp));
-    console.log('estimatedBlock number', Number(estimatedBlock.number));
-
     // Calculate a new average block time based on the difference of the timestamps
     averageBlockTime = Math.ceil(
       (Number(estimatedBlock.timestamp) - previousBlockTimestamp) /
@@ -122,8 +117,6 @@ export async function getBlockNumberByTimestamp({
 
     previousBlockTimestamp = Number(estimatedBlock.timestamp);
     previousBlockNumber = Number(estimatedBlock.number);
-
-    console.log('previousBlockTimestamp', previousBlockTimestamp);
 
     iterationCount++;
   } while (
