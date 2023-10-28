@@ -93,9 +93,10 @@ export async function getBlockNumberByTimestamp({
       // step forward
       estimatedBlockNumber =
         previousBlockNumber +
-        Math.abs(
+        Math.max(
+          0,
           Math.floor(
-            (previousBlockTimestamp - targetTimestamp) / averageBlockTime,
+            (targetTimestamp - previousBlockTimestamp) / averageBlockTime,
           ),
         );
     }
