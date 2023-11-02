@@ -61,7 +61,7 @@ export async function getGovCoreConfigs({
       precisionDivider: '0',
       cooldownPeriod: 0,
       expirationTime: 0,
-      cancellationFee: 0,
+      cancellationFee: '0',
     };
     const configs = [
       {
