@@ -23003,38 +23003,62 @@ async function getGovCoreConfigs({
   govCoreContractAddress,
   govCoreDataHelperContractAddress
 }) {
-  const govCoreDataHelper = govCoreDataHelperContract({
-    contractAddress: govCoreDataHelperContractAddress,
-    client
-  });
-  const accessLevels = [1, 2];
-  const constants = await govCoreDataHelper.read.getConstants([
-    govCoreContractAddress,
-    accessLevels
-  ]);
-  const contractsConstants = {
-    precisionDivider: constants.precisionDivider.toString(),
-    cooldownPeriod: Number(constants.cooldownPeriod),
-    expirationTime: Number(constants.expirationTime),
-    cancellationFee: constants.cancellationFee.toString()
-  };
-  const configs = [];
-  for (let i = 0; i < accessLevels.length; i++) {
-    const votingConfig = constants.votingConfigs[i];
-    const config = {
-      accessLevel: votingConfig.accessLevel,
-      votingDuration: votingConfig.config.votingDuration,
-      quorum: Number(votingConfig.config.yesThreshold) || 200,
-      differential: Number(votingConfig.config.yesNoDifferential) || 50,
-      coolDownBeforeVotingStart: votingConfig.config.coolDownBeforeVotingStart,
-      minPropositionPower: Number(votingConfig.config.minPropositionPower)
+  try {
+    const govCoreDataHelper = govCoreDataHelperContract({
+      contractAddress: govCoreDataHelperContractAddress,
+      client
+    });
+    const accessLevels = [1, 2];
+    const constants = await govCoreDataHelper.read.getConstants([
+      govCoreContractAddress,
+      accessLevels
+    ]);
+    const contractsConstants = {
+      precisionDivider: constants.precisionDivider.toString(),
+      cooldownPeriod: Number(constants.cooldownPeriod),
+      expirationTime: Number(constants.expirationTime),
+      cancellationFee: constants.cancellationFee.toString()
     };
-    configs.push(config);
+    const configs = [];
+    for (let i = 0; i < accessLevels.length; i++) {
+      const votingConfig = constants.votingConfigs[i];
+      const config = {
+        accessLevel: votingConfig.accessLevel,
+        votingDuration: votingConfig.config.votingDuration,
+        quorum: Number(votingConfig.config.yesThreshold) || 200,
+        differential: Number(votingConfig.config.yesNoDifferential) || 50,
+        coolDownBeforeVotingStart: votingConfig.config.coolDownBeforeVotingStart,
+        minPropositionPower: Number(votingConfig.config.minPropositionPower)
+      };
+      configs.push(config);
+    }
+    return {
+      contractsConstants,
+      configs
+    };
+  } catch {
+    console.error("Cannot get gov core configs and constants. Set zero.");
+    const contractsConstants = {
+      precisionDivider: "0",
+      cooldownPeriod: 0,
+      expirationTime: 0,
+      cancellationFee: 0
+    };
+    const configs = [
+      {
+        accessLevel: 1,
+        votingDuration: 100,
+        quorum: 200,
+        differential: 50,
+        coolDownBeforeVotingStart: 100,
+        minPropositionPower: 100
+      }
+    ];
+    return {
+      contractsConstants,
+      configs
+    };
   }
-  return {
-    contractsConstants,
-    configs
-  };
 }
 
 // src/helpers/getProposalData.ts
@@ -23501,6 +23525,7 @@ async function getVoteEvents({
     client
   });
   const events = await client.getContractEvents({
+    address: votingMachine.address,
     abi: votingMachine.abi,
     eventName: "VoteEmitted",
     fromBlock: BigInt(startBlock),
