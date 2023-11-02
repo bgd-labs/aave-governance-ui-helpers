@@ -2338,5 +2338,50 @@
       "hasRequiredRoots": true
     },
     "prerender": true
+  },
+  {
+    "id": 51,
+    "votingDuration": 600,
+    "creationTime": 1698751476,
+    "accessLevel": 1,
+    "basicState": 4,
+    "queuingTime": 1698752904,
+    "ipfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1",
+    "initialPayloads": [
+      {
+        "id": 53,
+        "chainId": 5,
+        "payloadsController": "0x064361B3761CcDd17300146bf58a79d1E570382E"
+      }
+    ],
+    "snapshotBlockHash": "0xe8c96a0797794486becfb89b30c9e946e877f8909454b05e2ff42b185a7f1a47",
+    "creator": "0xAd9A211D227d2D9c1B5573f73CDa0284b758Ac0C",
+    "canceledAt": 0,
+    "votingActivationTime": 1698752136,
+    "votingChainId": 5,
+    "votingMachineData": {
+      "id": 51,
+      "forVotes": "3000000000000000000000",
+      "againstVotes": "0",
+      "startTime": 1698752256,
+      "endTime": 1698752856,
+      "votingClosedAndSentBlockNumber": 9962486,
+      "votingClosedAndSentTimestamp": 1698752904,
+      "l1BlockHash": "0xe8c96a0797794486becfb89b30c9e946e877f8909454b05e2ff42b185a7f1a47",
+      "strategy": "0x2e5a80Be4EA93225f0D9bFE1f8aC6470f54acDb9",
+      "sentToGovernance": true,
+      "createdBlock": 9962441,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0xb6D88BfC5b145a558b279cf7692e6F02064889d0",
+        "0x1406A9Ea2B0ec8FD4bCa4F876DAae2a70a9856Ec",
+        "0xD1ff82609FB63A0eee6FE7D2896d80d29491cCCd"
+      ],
+      "hasRequiredRoots": true
+    },
+    "prerender": true
   }
 ]
