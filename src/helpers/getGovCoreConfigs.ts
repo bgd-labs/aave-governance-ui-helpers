@@ -44,8 +44,30 @@ export async function getGovCoreConfigs({
       coolDownBeforeVotingStart: votingConfig.config.coolDownBeforeVotingStart,
       minPropositionPower: Number(votingConfig.config.minPropositionPower),
     };
+  } catch {
+    console.error('Cannot get gov core configs and constants. Set zero.');
 
-    configs.push(config);
+    const contractsConstants = {
+      precisionDivider: '0',
+      cooldownPeriod: 0,
+      expirationTime: 0,
+      cancellationFee: 0,
+    };
+    const configs = [
+      {
+        accessLevel: 1,
+        votingDuration: 100,
+        quorum: 200,
+        differential: 50,
+        coolDownBeforeVotingStart: 100,
+        minPropositionPower: 100,
+      },
+    ];
+
+    return {
+      contractsConstants,
+      configs,
+    };
   }
 
   return {
