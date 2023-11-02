@@ -59,8 +59,8 @@ export async function getGovCoreConfigs({
 
     const contractsConstants = {
       precisionDivider: '0',
-      cooldownPeriod: 0,
-      expirationTime: 0,
+      cooldownPeriod: 100,
+      expirationTime: 1000,
       cancellationFee: '0',
     };
     const configs = [
