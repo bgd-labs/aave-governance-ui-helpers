@@ -33,8 +33,101 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
+// node_modules/viem/node_modules/abitype/dist/esm/regex.js
+function execTyped(regex, string) {
+  const match = regex.exec(string);
+  return match?.groups;
+}
+var init_regex = __esm({
+  "node_modules/viem/node_modules/abitype/dist/esm/regex.js"() {
+    "use strict";
+  }
+});
+
+// node_modules/viem/node_modules/abitype/dist/esm/human-readable/formatAbiParameter.js
+function formatAbiParameter(abiParameter) {
+  let type = abiParameter.type;
+  if (tupleRegex.test(abiParameter.type) && "components" in abiParameter) {
+    type = "(";
+    const length = abiParameter.components.length;
+    for (let i = 0; i < length; i++) {
+      const component = abiParameter.components[i];
+      type += formatAbiParameter(component);
+      if (i < length - 1)
+        type += ", ";
+    }
+    const result = execTyped(tupleRegex, abiParameter.type);
+    type += `)${result?.array ?? ""}`;
+    return formatAbiParameter({
+      ...abiParameter,
+      type
+    });
+  }
+  if ("indexed" in abiParameter && abiParameter.indexed)
+    type = `${type} indexed`;
+  if (abiParameter.name)
+    return `${type} ${abiParameter.name}`;
+  return type;
+}
+var tupleRegex;
+var init_formatAbiParameter = __esm({
+  "node_modules/viem/node_modules/abitype/dist/esm/human-readable/formatAbiParameter.js"() {
+    "use strict";
+    init_regex();
+    tupleRegex = /^tuple(?<array>(\[(\d*)\])*)$/;
+  }
+});
+
+// node_modules/viem/node_modules/abitype/dist/esm/human-readable/formatAbiParameters.js
+function formatAbiParameters(abiParameters) {
+  let params = "";
+  const length = abiParameters.length;
+  for (let i = 0; i < length; i++) {
+    const abiParameter = abiParameters[i];
+    params += formatAbiParameter(abiParameter);
+    if (i !== length - 1)
+      params += ", ";
+  }
+  return params;
+}
+var init_formatAbiParameters = __esm({
+  "node_modules/viem/node_modules/abitype/dist/esm/human-readable/formatAbiParameters.js"() {
+    "use strict";
+    init_formatAbiParameter();
+  }
+});
+
+// node_modules/viem/node_modules/abitype/dist/esm/human-readable/formatAbiItem.js
+function formatAbiItem(abiItem) {
+  if (abiItem.type === "function")
+    return `function ${abiItem.name}(${formatAbiParameters(abiItem.inputs)})${abiItem.stateMutability && abiItem.stateMutability !== "nonpayable" ? ` ${abiItem.stateMutability}` : ""}${abiItem.outputs.length ? ` returns (${formatAbiParameters(abiItem.outputs)})` : ""}`;
+  else if (abiItem.type === "event")
+    return `event ${abiItem.name}(${formatAbiParameters(abiItem.inputs)})`;
+  else if (abiItem.type === "error")
+    return `error ${abiItem.name}(${formatAbiParameters(abiItem.inputs)})`;
+  else if (abiItem.type === "constructor")
+    return `constructor(${formatAbiParameters(abiItem.inputs)})${abiItem.stateMutability === "payable" ? " payable" : ""}`;
+  else if (abiItem.type === "fallback")
+    return "fallback()";
+  return "receive() external payable";
+}
+var init_formatAbiItem = __esm({
+  "node_modules/viem/node_modules/abitype/dist/esm/human-readable/formatAbiItem.js"() {
+    "use strict";
+    init_formatAbiParameters();
+  }
+});
+
+// node_modules/viem/node_modules/abitype/dist/esm/index.js
+var init_esm = __esm({
+  "node_modules/viem/node_modules/abitype/dist/esm/index.js"() {
+    "use strict";
+    init_formatAbiItem();
+  }
+});
+
 // node_modules/viem/_esm/utils/abi/formatAbiItem.js
-function formatAbiItem(abiItem, { includeName = false } = {}) {
+function formatAbiItem2(abiItem, { includeName = false } = {}) {
   if (abiItem.type !== "function" && abiItem.type !== "event" && abiItem.type !== "error")
     throw new InvalidDefinitionTypeError(abiItem.type);
   return `${abiItem.name}(${formatAbiParams(abiItem.inputs, { includeName })})`;
@@ -50,7 +143,7 @@ function formatAbiParam(param, { includeName }) {
   }
   return param.type + (includeName && param.name ? ` ${param.name}` : "");
 }
-var init_formatAbiItem = __esm({
+var init_formatAbiItem2 = __esm({
   "node_modules/viem/_esm/utils/abi/formatAbiItem.js"() {
     "use strict";
     init_abi();
@@ -89,7 +182,7 @@ var version;
 var init_version = __esm({
   "node_modules/viem/_esm/errors/version.js"() {
     "use strict";
-    version = "1.16.5";
+    version = "1.18.7";
   }
 });
 
@@ -188,7 +281,7 @@ var AbiConstructorNotFoundError, AbiConstructorParamsNotFoundError, AbiDecodingD
 var init_abi = __esm({
   "node_modules/viem/_esm/errors/abi.js"() {
     "use strict";
-    init_formatAbiItem();
+    init_formatAbiItem2();
     init_size();
     init_base();
     AbiConstructorNotFoundError = class extends BaseError {
@@ -475,7 +568,7 @@ var init_abi = __esm({
     DecodeLogTopicsMismatch = class extends BaseError {
       constructor({ abiItem, param }) {
         super([
-          `Expected a topic for indexed event parameter${param.name ? ` "${param.name}"` : ""} on event "${formatAbiItem(abiItem, { includeName: true })}".`
+          `Expected a topic for indexed event parameter${param.name ? ` "${param.name}"` : ""} on event "${formatAbiItem2(abiItem, { includeName: true })}".`
         ].join("\n"));
         Object.defineProperty(this, "name", {
           enumerable: true,
@@ -897,31 +990,53 @@ var init_toBytes = __esm({
   }
 });
 
-// node_modules/viem/_esm/utils/contract/extractFunctionParts.js
-function extractFunctionParts(def) {
-  const parts = def.match(paramsRegex);
-  const type = parts?.[2] || void 0;
-  const name = parts?.[3];
-  const params = parts?.[5] || void 0;
-  return { type, name, params };
+// node_modules/viem/_esm/utils/hash/normalizeSignature.js
+function normalizeSignature(signature) {
+  let active = true;
+  let current = "";
+  let level = 0;
+  let result = "";
+  let valid = false;
+  for (let i = 0; i < signature.length; i++) {
+    const char = signature[i];
+    if (["(", ")", ","].includes(char))
+      active = true;
+    if (char === "(")
+      level++;
+    if (char === ")")
+      level--;
+    if (!active)
+      continue;
+    if (level === 0) {
+      if (char === " " && ["event", "function", ""].includes(result))
+        result = "";
+      else {
+        result += char;
+        if (char === ")") {
+          valid = true;
+          break;
+        }
+      }
+      continue;
+    }
+    if (char === " ") {
+      if (signature[i - 1] !== "," && current !== "," && current !== ",(") {
+        current = "";
+        active = false;
+      }
+      continue;
+    }
+    result += char;
+    current += char;
+  }
+  if (!valid)
+    throw new BaseError("Unable to normalize signature.");
+  return result;
 }
-function extractFunctionName(def) {
-  return extractFunctionParts(def).name;
-}
-function extractFunctionParams(def) {
-  const params = extractFunctionParts(def).params;
-  const splitParams = params?.split(",").map((x) => x.trim().split(" "));
-  return splitParams?.map((param) => ({
-    type: param[0],
-    name: param[1] === "indexed" ? param[2] : param[1],
-    ...param[1] === "indexed" ? { indexed: true } : {}
-  }));
-}
-var paramsRegex;
-var init_extractFunctionParts = __esm({
-  "node_modules/viem/_esm/utils/contract/extractFunctionParts.js"() {
+var init_normalizeSignature = __esm({
+  "node_modules/viem/_esm/utils/hash/normalizeSignature.js"() {
     "use strict";
-    paramsRegex = /((function|event)\s)?(.*)(\((.*)\))/;
+    init_base();
   }
 });
 
@@ -930,15 +1045,15 @@ var getFunctionSignature;
 var init_getFunctionSignature = __esm({
   "node_modules/viem/_esm/utils/hash/getFunctionSignature.js"() {
     "use strict";
-    init_formatAbiItem();
-    init_extractFunctionParts();
-    getFunctionSignature = (fn) => {
-      if (typeof fn === "string") {
-        const name = extractFunctionName(fn);
-        const params = extractFunctionParams(fn) || [];
-        return `${name}(${params.map(({ type }) => type).join(",")})`;
-      }
-      return formatAbiItem(fn);
+    init_esm();
+    init_normalizeSignature();
+    getFunctionSignature = (fn_) => {
+      const fn = (() => {
+        if (typeof fn_ === "string")
+          return fn_;
+        return formatAbiItem(fn_);
+      })();
+      return normalizeSignature(fn);
     };
   }
 });
@@ -1728,7 +1843,7 @@ function encodeFunctionData({ abi, args, functionName }) {
     throw new AbiFunctionNotFoundError(void 0, {
       docsPath: "/docs/contract/encodeFunctionData"
     });
-  const definition = formatAbiItem(abiItem);
+  const definition = formatAbiItem2(abiItem);
   const signature = getFunctionSelector(definition);
   const data = "inputs" in abiItem && abiItem.inputs ? encodeAbiParameters(abiItem.inputs, args ?? []) : void 0;
   return concatHex([signature, data ?? "0x"]);
@@ -1740,7 +1855,7 @@ var init_encodeFunctionData = __esm({
     init_concat();
     init_getFunctionSelector();
     init_encodeAbiParameters();
-    init_formatAbiItem();
+    init_formatAbiItem2();
     init_getAbiItem();
   }
 });
@@ -2022,7 +2137,7 @@ function decodeErrorResult({ abi, data }) {
   if (signature === "0x")
     throw new AbiDecodingZeroDataError();
   const abi_ = [...abi || [], solidityError, solidityPanic];
-  const abiItem = abi_.find((x) => x.type === "error" && signature === getFunctionSelector(formatAbiItem(x)));
+  const abiItem = abi_.find((x) => x.type === "error" && signature === getFunctionSelector(formatAbiItem2(x)));
   if (!abiItem)
     throw new AbiErrorSignatureNotFoundError(signature, {
       docsPath: "/docs/contract/decodeErrorResult"
@@ -2041,7 +2156,7 @@ var init_decodeErrorResult = __esm({
     init_slice();
     init_getFunctionSelector();
     init_decodeAbiParameters();
-    init_formatAbiItem();
+    init_formatAbiItem2();
   }
 });
 
@@ -2195,7 +2310,7 @@ var init_transaction = __esm({
           chain: chain && `${chain?.name} (id: ${chain?.id})`,
           from: account?.address,
           to,
-          value: typeof value !== "undefined" && `${formatEther(value)} ${chain?.nativeCurrency.symbol || "ETH"}`,
+          value: typeof value !== "undefined" && `${formatEther(value)} ${chain?.nativeCurrency?.symbol || "ETH"}`,
           data,
           gas,
           gasPrice: typeof gasPrice !== "undefined" && `${formatGwei(gasPrice)} gwei`,
@@ -2280,7 +2395,7 @@ var init_contract = __esm({
     init_parseAccount();
     init_solidity();
     init_decodeErrorResult();
-    init_formatAbiItem();
+    init_formatAbiItem2();
     init_formatAbiItemWithArgs();
     init_getAbiItem();
     init_formatEther();
@@ -2295,7 +2410,7 @@ var init_contract = __esm({
         const prettyArgs = prettyPrint({
           from: account?.address,
           to,
-          value: typeof value !== "undefined" && `${formatEther(value)} ${chain?.nativeCurrency.symbol || "ETH"}`,
+          value: typeof value !== "undefined" && `${formatEther(value)} ${chain?.nativeCurrency?.symbol || "ETH"}`,
           data,
           gas,
           gasPrice: typeof gasPrice !== "undefined" && `${formatGwei(gasPrice)} gwei`,
@@ -2336,7 +2451,7 @@ var init_contract = __esm({
           includeFunctionName: false,
           includeName: false
         }) : void 0;
-        const functionWithParams = abiItem ? formatAbiItem(abiItem, { includeName: true }) : void 0;
+        const functionWithParams = abiItem ? formatAbiItem2(abiItem, { includeName: true }) : void 0;
         const prettyArgs = prettyPrint({
           address: contractAddress && getContractAddress(contractAddress),
           function: functionWithParams,
@@ -2424,7 +2539,7 @@ var init_contract = __esm({
               const [firstArg] = errorArgs;
               reason = panicReasons[firstArg];
             } else {
-              const errorWithParams = abiItem ? formatAbiItem(abiItem, { includeName: true }) : void 0;
+              const errorWithParams = abiItem ? formatAbiItem2(abiItem, { includeName: true }) : void 0;
               const formattedArgs = abiItem && errorArgs ? formatAbiItemWithArgs({
                 abiItem,
                 args: errorArgs,
@@ -3376,16 +3491,22 @@ var init_getNodeError = __esm({
 });
 
 // node_modules/viem/_esm/utils/formatters/extract.js
-function extract(value, { format }) {
+function extract(value_, { format }) {
   if (!format)
     return {};
-  const keys = Object.keys(format({}));
-  return keys.reduce((data, key) => {
-    if (value?.hasOwnProperty(key)) {
-      data[key] = value[key];
+  const value = {};
+  function extract_(formatted2) {
+    const keys = Object.keys(formatted2);
+    for (const key of keys) {
+      if (key in value_)
+        value[key] = value_[key];
+      if (formatted2[key] && typeof formatted2[key] === "object" && !Array.isArray(formatted2[key]))
+        extract_(formatted2[key]);
     }
-    return data;
-  }, {});
+  }
+  const formatted = format(value_ || {});
+  extract_(formatted);
+  return value;
 }
 var init_extract = __esm({
   "node_modules/viem/_esm/utils/formatters/extract.js"() {
@@ -3733,22 +3854,7 @@ var init_chain = __esm({
   }
 });
 
-// node_modules/viem/_esm/utils/chain.js
-function assertCurrentChain({ chain, currentChainId }) {
-  if (!chain)
-    throw new ChainNotFoundError();
-  if (currentChainId !== chain.id)
-    throw new ChainMismatchError({ chain, currentChainId });
-}
-function defineChain(chain, config = {}) {
-  const { fees = chain.fees, formatters = chain.formatters, serializers = chain.serializers } = config;
-  return {
-    ...chain,
-    fees,
-    formatters,
-    serializers
-  };
-}
+// node_modules/viem/_esm/utils/chain/getChainContractAddress.js
 function getChainContractAddress({ blockNumber, chain, contract: name }) {
   const contract = chain?.contracts?.[name];
   if (!contract)
@@ -3767,8 +3873,8 @@ function getChainContractAddress({ blockNumber, chain, contract: name }) {
     });
   return contract.address;
 }
-var init_chain2 = __esm({
-  "node_modules/viem/_esm/utils/chain.js"() {
+var init_getChainContractAddress = __esm({
+  "node_modules/viem/_esm/utils/chain/getChainContractAddress.js"() {
     "use strict";
     init_chain();
   }
@@ -3797,7 +3903,7 @@ var init_getCallError = __esm({
 });
 
 // node_modules/viem/_esm/utils/promise/createBatchScheduler.js
-function createBatchScheduler({ fn, id: id2, shouldSplitBatch, wait: wait2 = 0 }) {
+function createBatchScheduler({ fn, id: id2, shouldSplitBatch, wait: wait2 = 0, sort }) {
   const exec = async () => {
     const scheduler = getScheduler();
     flush();
@@ -3805,6 +3911,8 @@ function createBatchScheduler({ fn, id: id2, shouldSplitBatch, wait: wait2 = 0 }
     if (args.length === 0)
       return;
     fn(args).then((data) => {
+      if (sort && Array.isArray(data))
+        data.sort(sort);
       scheduler.forEach(({ pendingPromise }, i) => pendingPromise.resolve?.([data[i], data]));
     }).catch((err) => {
       scheduler.forEach(({ pendingPromise }) => pendingPromise.reject?.(err));
@@ -4064,10 +4172,11 @@ async function call(client, args) {
     assertRequest(args);
     const blockNumberHex = blockNumber ? numberToHex(blockNumber) : void 0;
     const block = blockNumberHex || blockTag;
-    const format = client.chain?.formatters?.transactionRequest?.format || formatTransactionRequest;
+    const chainFormat = client.chain?.formatters?.transactionRequest?.format;
+    const format = chainFormat || formatTransactionRequest;
     const request = format({
       // Pick out extra data that might exist on the chain's transaction request type.
-      ...extract(rest, { format }),
+      ...extract(rest, { format: chainFormat }),
       from: account?.address,
       accessList,
       data,
@@ -4198,7 +4307,7 @@ var init_call = __esm({
     init_contract();
     init_decodeFunctionResult();
     init_encodeFunctionData();
-    init_chain2();
+    init_getChainContractAddress();
     init_toHex();
     init_getCallError();
     init_extract();
@@ -4224,6 +4333,300 @@ var init_utils3 = __esm({
     _0n2 = BigInt(0);
     _1n2 = BigInt(1);
     _2n2 = BigInt(2);
+  }
+});
+
+// node_modules/dotenv/package.json
+var require_package = __commonJS({
+  "node_modules/dotenv/package.json"(exports2, module2) {
+    module2.exports = {
+      name: "dotenv",
+      version: "16.3.1",
+      description: "Loads environment variables from .env file",
+      main: "lib/main.js",
+      types: "lib/main.d.ts",
+      exports: {
+        ".": {
+          types: "./lib/main.d.ts",
+          require: "./lib/main.js",
+          default: "./lib/main.js"
+        },
+        "./config": "./config.js",
+        "./config.js": "./config.js",
+        "./lib/env-options": "./lib/env-options.js",
+        "./lib/env-options.js": "./lib/env-options.js",
+        "./lib/cli-options": "./lib/cli-options.js",
+        "./lib/cli-options.js": "./lib/cli-options.js",
+        "./package.json": "./package.json"
+      },
+      scripts: {
+        "dts-check": "tsc --project tests/types/tsconfig.json",
+        lint: "standard",
+        "lint-readme": "standard-markdown",
+        pretest: "npm run lint && npm run dts-check",
+        test: "tap tests/*.js --100 -Rspec",
+        prerelease: "npm test",
+        release: "standard-version"
+      },
+      repository: {
+        type: "git",
+        url: "git://github.com/motdotla/dotenv.git"
+      },
+      funding: "https://github.com/motdotla/dotenv?sponsor=1",
+      keywords: [
+        "dotenv",
+        "env",
+        ".env",
+        "environment",
+        "variables",
+        "config",
+        "settings"
+      ],
+      readmeFilename: "README.md",
+      license: "BSD-2-Clause",
+      devDependencies: {
+        "@definitelytyped/dtslint": "^0.0.133",
+        "@types/node": "^18.11.3",
+        decache: "^4.6.1",
+        sinon: "^14.0.1",
+        standard: "^17.0.0",
+        "standard-markdown": "^7.1.0",
+        "standard-version": "^9.5.0",
+        tap: "^16.3.0",
+        tar: "^6.1.11",
+        typescript: "^4.8.4"
+      },
+      engines: {
+        node: ">=12"
+      },
+      browser: {
+        fs: false
+      }
+    };
+  }
+});
+
+// node_modules/dotenv/lib/main.js
+var require_main = __commonJS({
+  "node_modules/dotenv/lib/main.js"(exports2, module2) {
+    "use strict";
+    var fs = require("fs");
+    var path = require("path");
+    var os = require("os");
+    var crypto2 = require("crypto");
+    var packageJson = require_package();
+    var version2 = packageJson.version;
+    var LINE = /(?:^|^)\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^#\r\n]+)?\s*(?:#.*)?(?:$|$)/mg;
+    function parse2(src) {
+      const obj = {};
+      let lines = src.toString();
+      lines = lines.replace(/\r\n?/mg, "\n");
+      let match;
+      while ((match = LINE.exec(lines)) != null) {
+        const key = match[1];
+        let value = match[2] || "";
+        value = value.trim();
+        const maybeQuote = value[0];
+        value = value.replace(/^(['"`])([\s\S]*)\1$/mg, "$2");
+        if (maybeQuote === '"') {
+          value = value.replace(/\\n/g, "\n");
+          value = value.replace(/\\r/g, "\r");
+        }
+        obj[key] = value;
+      }
+      return obj;
+    }
+    function _parseVault(options2) {
+      const vaultPath = _vaultPath(options2);
+      const result = DotenvModule.configDotenv({ path: vaultPath });
+      if (!result.parsed) {
+        throw new Error(`MISSING_DATA: Cannot parse ${vaultPath} for an unknown reason`);
+      }
+      const keys = _dotenvKey(options2).split(",");
+      const length = keys.length;
+      let decrypted;
+      for (let i = 0; i < length; i++) {
+        try {
+          const key = keys[i].trim();
+          const attrs = _instructions(result, key);
+          decrypted = DotenvModule.decrypt(attrs.ciphertext, attrs.key);
+          break;
+        } catch (error) {
+          if (i + 1 >= length) {
+            throw error;
+          }
+        }
+      }
+      return DotenvModule.parse(decrypted);
+    }
+    function _log(message) {
+      console.log(`[dotenv@${version2}][INFO] ${message}`);
+    }
+    function _warn(message) {
+      console.log(`[dotenv@${version2}][WARN] ${message}`);
+    }
+    function _debug(message) {
+      console.log(`[dotenv@${version2}][DEBUG] ${message}`);
+    }
+    function _dotenvKey(options2) {
+      if (options2 && options2.DOTENV_KEY && options2.DOTENV_KEY.length > 0) {
+        return options2.DOTENV_KEY;
+      }
+      if (process.env.DOTENV_KEY && process.env.DOTENV_KEY.length > 0) {
+        return process.env.DOTENV_KEY;
+      }
+      return "";
+    }
+    function _instructions(result, dotenvKey) {
+      let uri;
+      try {
+        uri = new URL(dotenvKey);
+      } catch (error) {
+        if (error.code === "ERR_INVALID_URL") {
+          throw new Error("INVALID_DOTENV_KEY: Wrong format. Must be in valid uri format like dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=development");
+        }
+        throw error;
+      }
+      const key = uri.password;
+      if (!key) {
+        throw new Error("INVALID_DOTENV_KEY: Missing key part");
+      }
+      const environment = uri.searchParams.get("environment");
+      if (!environment) {
+        throw new Error("INVALID_DOTENV_KEY: Missing environment part");
+      }
+      const environmentKey = `DOTENV_VAULT_${environment.toUpperCase()}`;
+      const ciphertext = result.parsed[environmentKey];
+      if (!ciphertext) {
+        throw new Error(`NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate environment ${environmentKey} in your .env.vault file.`);
+      }
+      return { ciphertext, key };
+    }
+    function _vaultPath(options2) {
+      let dotenvPath = path.resolve(process.cwd(), ".env");
+      if (options2 && options2.path && options2.path.length > 0) {
+        dotenvPath = options2.path;
+      }
+      return dotenvPath.endsWith(".vault") ? dotenvPath : `${dotenvPath}.vault`;
+    }
+    function _resolveHome(envPath) {
+      return envPath[0] === "~" ? path.join(os.homedir(), envPath.slice(1)) : envPath;
+    }
+    function _configVault(options2) {
+      _log("Loading env from encrypted .env.vault");
+      const parsed = DotenvModule._parseVault(options2);
+      let processEnv = process.env;
+      if (options2 && options2.processEnv != null) {
+        processEnv = options2.processEnv;
+      }
+      DotenvModule.populate(processEnv, parsed, options2);
+      return { parsed };
+    }
+    function configDotenv(options2) {
+      let dotenvPath = path.resolve(process.cwd(), ".env");
+      let encoding = "utf8";
+      const debug = Boolean(options2 && options2.debug);
+      if (options2) {
+        if (options2.path != null) {
+          dotenvPath = _resolveHome(options2.path);
+        }
+        if (options2.encoding != null) {
+          encoding = options2.encoding;
+        }
+      }
+      try {
+        const parsed = DotenvModule.parse(fs.readFileSync(dotenvPath, { encoding }));
+        let processEnv = process.env;
+        if (options2 && options2.processEnv != null) {
+          processEnv = options2.processEnv;
+        }
+        DotenvModule.populate(processEnv, parsed, options2);
+        return { parsed };
+      } catch (e) {
+        if (debug) {
+          _debug(`Failed to load ${dotenvPath} ${e.message}`);
+        }
+        return { error: e };
+      }
+    }
+    function config(options2) {
+      const vaultPath = _vaultPath(options2);
+      if (_dotenvKey(options2).length === 0) {
+        return DotenvModule.configDotenv(options2);
+      }
+      if (!fs.existsSync(vaultPath)) {
+        _warn(`You set DOTENV_KEY but you are missing a .env.vault file at ${vaultPath}. Did you forget to build it?`);
+        return DotenvModule.configDotenv(options2);
+      }
+      return DotenvModule._configVault(options2);
+    }
+    function decrypt(encrypted, keyStr) {
+      const key = Buffer.from(keyStr.slice(-64), "hex");
+      let ciphertext = Buffer.from(encrypted, "base64");
+      const nonce = ciphertext.slice(0, 12);
+      const authTag = ciphertext.slice(-16);
+      ciphertext = ciphertext.slice(12, -16);
+      try {
+        const aesgcm = crypto2.createDecipheriv("aes-256-gcm", key, nonce);
+        aesgcm.setAuthTag(authTag);
+        return `${aesgcm.update(ciphertext)}${aesgcm.final()}`;
+      } catch (error) {
+        const isRange = error instanceof RangeError;
+        const invalidKeyLength = error.message === "Invalid key length";
+        const decryptionFailed = error.message === "Unsupported state or unable to authenticate data";
+        if (isRange || invalidKeyLength) {
+          const msg = "INVALID_DOTENV_KEY: It must be 64 characters long (or more)";
+          throw new Error(msg);
+        } else if (decryptionFailed) {
+          const msg = "DECRYPTION_FAILED: Please check your DOTENV_KEY";
+          throw new Error(msg);
+        } else {
+          console.error("Error: ", error.code);
+          console.error("Error: ", error.message);
+          throw error;
+        }
+      }
+    }
+    function populate(processEnv, parsed, options2 = {}) {
+      const debug = Boolean(options2 && options2.debug);
+      const override = Boolean(options2 && options2.override);
+      if (typeof parsed !== "object") {
+        throw new Error("OBJECT_REQUIRED: Please check the processEnv argument being passed to populate");
+      }
+      for (const key of Object.keys(parsed)) {
+        if (Object.prototype.hasOwnProperty.call(processEnv, key)) {
+          if (override === true) {
+            processEnv[key] = parsed[key];
+          }
+          if (debug) {
+            if (override === true) {
+              _debug(`"${key}" is already defined and WAS overwritten`);
+            } else {
+              _debug(`"${key}" is already defined and was NOT overwritten`);
+            }
+          }
+        } else {
+          processEnv[key] = parsed[key];
+        }
+      }
+    }
+    var DotenvModule = {
+      configDotenv,
+      _configVault,
+      _parseVault,
+      config,
+      decrypt,
+      parse: parse2,
+      populate
+    };
+    module2.exports.configDotenv = DotenvModule.configDotenv;
+    module2.exports._configVault = DotenvModule._configVault;
+    module2.exports._parseVault = DotenvModule._parseVault;
+    module2.exports.config = DotenvModule.config;
+    module2.exports.decrypt = DotenvModule.decrypt;
+    module2.exports.parse = DotenvModule.parse;
+    module2.exports.populate = DotenvModule.populate;
+    module2.exports = DotenvModule;
   }
 });
 
@@ -8220,300 +8623,6 @@ var require_gray_matter = __commonJS({
       matter2.cache = {};
     };
     module2.exports = matter2;
-  }
-});
-
-// node_modules/dotenv/package.json
-var require_package = __commonJS({
-  "node_modules/dotenv/package.json"(exports2, module2) {
-    module2.exports = {
-      name: "dotenv",
-      version: "16.3.1",
-      description: "Loads environment variables from .env file",
-      main: "lib/main.js",
-      types: "lib/main.d.ts",
-      exports: {
-        ".": {
-          types: "./lib/main.d.ts",
-          require: "./lib/main.js",
-          default: "./lib/main.js"
-        },
-        "./config": "./config.js",
-        "./config.js": "./config.js",
-        "./lib/env-options": "./lib/env-options.js",
-        "./lib/env-options.js": "./lib/env-options.js",
-        "./lib/cli-options": "./lib/cli-options.js",
-        "./lib/cli-options.js": "./lib/cli-options.js",
-        "./package.json": "./package.json"
-      },
-      scripts: {
-        "dts-check": "tsc --project tests/types/tsconfig.json",
-        lint: "standard",
-        "lint-readme": "standard-markdown",
-        pretest: "npm run lint && npm run dts-check",
-        test: "tap tests/*.js --100 -Rspec",
-        prerelease: "npm test",
-        release: "standard-version"
-      },
-      repository: {
-        type: "git",
-        url: "git://github.com/motdotla/dotenv.git"
-      },
-      funding: "https://github.com/motdotla/dotenv?sponsor=1",
-      keywords: [
-        "dotenv",
-        "env",
-        ".env",
-        "environment",
-        "variables",
-        "config",
-        "settings"
-      ],
-      readmeFilename: "README.md",
-      license: "BSD-2-Clause",
-      devDependencies: {
-        "@definitelytyped/dtslint": "^0.0.133",
-        "@types/node": "^18.11.3",
-        decache: "^4.6.1",
-        sinon: "^14.0.1",
-        standard: "^17.0.0",
-        "standard-markdown": "^7.1.0",
-        "standard-version": "^9.5.0",
-        tap: "^16.3.0",
-        tar: "^6.1.11",
-        typescript: "^4.8.4"
-      },
-      engines: {
-        node: ">=12"
-      },
-      browser: {
-        fs: false
-      }
-    };
-  }
-});
-
-// node_modules/dotenv/lib/main.js
-var require_main = __commonJS({
-  "node_modules/dotenv/lib/main.js"(exports2, module2) {
-    "use strict";
-    var fs = require("fs");
-    var path = require("path");
-    var os = require("os");
-    var crypto2 = require("crypto");
-    var packageJson = require_package();
-    var version2 = packageJson.version;
-    var LINE = /(?:^|^)\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^#\r\n]+)?\s*(?:#.*)?(?:$|$)/mg;
-    function parse2(src) {
-      const obj = {};
-      let lines = src.toString();
-      lines = lines.replace(/\r\n?/mg, "\n");
-      let match;
-      while ((match = LINE.exec(lines)) != null) {
-        const key = match[1];
-        let value = match[2] || "";
-        value = value.trim();
-        const maybeQuote = value[0];
-        value = value.replace(/^(['"`])([\s\S]*)\1$/mg, "$2");
-        if (maybeQuote === '"') {
-          value = value.replace(/\\n/g, "\n");
-          value = value.replace(/\\r/g, "\r");
-        }
-        obj[key] = value;
-      }
-      return obj;
-    }
-    function _parseVault(options2) {
-      const vaultPath = _vaultPath(options2);
-      const result = DotenvModule.configDotenv({ path: vaultPath });
-      if (!result.parsed) {
-        throw new Error(`MISSING_DATA: Cannot parse ${vaultPath} for an unknown reason`);
-      }
-      const keys = _dotenvKey(options2).split(",");
-      const length = keys.length;
-      let decrypted;
-      for (let i = 0; i < length; i++) {
-        try {
-          const key = keys[i].trim();
-          const attrs = _instructions(result, key);
-          decrypted = DotenvModule.decrypt(attrs.ciphertext, attrs.key);
-          break;
-        } catch (error) {
-          if (i + 1 >= length) {
-            throw error;
-          }
-        }
-      }
-      return DotenvModule.parse(decrypted);
-    }
-    function _log(message) {
-      console.log(`[dotenv@${version2}][INFO] ${message}`);
-    }
-    function _warn(message) {
-      console.log(`[dotenv@${version2}][WARN] ${message}`);
-    }
-    function _debug(message) {
-      console.log(`[dotenv@${version2}][DEBUG] ${message}`);
-    }
-    function _dotenvKey(options2) {
-      if (options2 && options2.DOTENV_KEY && options2.DOTENV_KEY.length > 0) {
-        return options2.DOTENV_KEY;
-      }
-      if (process.env.DOTENV_KEY && process.env.DOTENV_KEY.length > 0) {
-        return process.env.DOTENV_KEY;
-      }
-      return "";
-    }
-    function _instructions(result, dotenvKey) {
-      let uri;
-      try {
-        uri = new URL(dotenvKey);
-      } catch (error) {
-        if (error.code === "ERR_INVALID_URL") {
-          throw new Error("INVALID_DOTENV_KEY: Wrong format. Must be in valid uri format like dotenv://:key_1234@dotenv.org/vault/.env.vault?environment=development");
-        }
-        throw error;
-      }
-      const key = uri.password;
-      if (!key) {
-        throw new Error("INVALID_DOTENV_KEY: Missing key part");
-      }
-      const environment = uri.searchParams.get("environment");
-      if (!environment) {
-        throw new Error("INVALID_DOTENV_KEY: Missing environment part");
-      }
-      const environmentKey = `DOTENV_VAULT_${environment.toUpperCase()}`;
-      const ciphertext = result.parsed[environmentKey];
-      if (!ciphertext) {
-        throw new Error(`NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate environment ${environmentKey} in your .env.vault file.`);
-      }
-      return { ciphertext, key };
-    }
-    function _vaultPath(options2) {
-      let dotenvPath = path.resolve(process.cwd(), ".env");
-      if (options2 && options2.path && options2.path.length > 0) {
-        dotenvPath = options2.path;
-      }
-      return dotenvPath.endsWith(".vault") ? dotenvPath : `${dotenvPath}.vault`;
-    }
-    function _resolveHome(envPath) {
-      return envPath[0] === "~" ? path.join(os.homedir(), envPath.slice(1)) : envPath;
-    }
-    function _configVault(options2) {
-      _log("Loading env from encrypted .env.vault");
-      const parsed = DotenvModule._parseVault(options2);
-      let processEnv = process.env;
-      if (options2 && options2.processEnv != null) {
-        processEnv = options2.processEnv;
-      }
-      DotenvModule.populate(processEnv, parsed, options2);
-      return { parsed };
-    }
-    function configDotenv(options2) {
-      let dotenvPath = path.resolve(process.cwd(), ".env");
-      let encoding = "utf8";
-      const debug = Boolean(options2 && options2.debug);
-      if (options2) {
-        if (options2.path != null) {
-          dotenvPath = _resolveHome(options2.path);
-        }
-        if (options2.encoding != null) {
-          encoding = options2.encoding;
-        }
-      }
-      try {
-        const parsed = DotenvModule.parse(fs.readFileSync(dotenvPath, { encoding }));
-        let processEnv = process.env;
-        if (options2 && options2.processEnv != null) {
-          processEnv = options2.processEnv;
-        }
-        DotenvModule.populate(processEnv, parsed, options2);
-        return { parsed };
-      } catch (e) {
-        if (debug) {
-          _debug(`Failed to load ${dotenvPath} ${e.message}`);
-        }
-        return { error: e };
-      }
-    }
-    function config(options2) {
-      const vaultPath = _vaultPath(options2);
-      if (_dotenvKey(options2).length === 0) {
-        return DotenvModule.configDotenv(options2);
-      }
-      if (!fs.existsSync(vaultPath)) {
-        _warn(`You set DOTENV_KEY but you are missing a .env.vault file at ${vaultPath}. Did you forget to build it?`);
-        return DotenvModule.configDotenv(options2);
-      }
-      return DotenvModule._configVault(options2);
-    }
-    function decrypt(encrypted, keyStr) {
-      const key = Buffer.from(keyStr.slice(-64), "hex");
-      let ciphertext = Buffer.from(encrypted, "base64");
-      const nonce = ciphertext.slice(0, 12);
-      const authTag = ciphertext.slice(-16);
-      ciphertext = ciphertext.slice(12, -16);
-      try {
-        const aesgcm = crypto2.createDecipheriv("aes-256-gcm", key, nonce);
-        aesgcm.setAuthTag(authTag);
-        return `${aesgcm.update(ciphertext)}${aesgcm.final()}`;
-      } catch (error) {
-        const isRange = error instanceof RangeError;
-        const invalidKeyLength = error.message === "Invalid key length";
-        const decryptionFailed = error.message === "Unsupported state or unable to authenticate data";
-        if (isRange || invalidKeyLength) {
-          const msg = "INVALID_DOTENV_KEY: It must be 64 characters long (or more)";
-          throw new Error(msg);
-        } else if (decryptionFailed) {
-          const msg = "DECRYPTION_FAILED: Please check your DOTENV_KEY";
-          throw new Error(msg);
-        } else {
-          console.error("Error: ", error.code);
-          console.error("Error: ", error.message);
-          throw error;
-        }
-      }
-    }
-    function populate(processEnv, parsed, options2 = {}) {
-      const debug = Boolean(options2 && options2.debug);
-      const override = Boolean(options2 && options2.override);
-      if (typeof parsed !== "object") {
-        throw new Error("OBJECT_REQUIRED: Please check the processEnv argument being passed to populate");
-      }
-      for (const key of Object.keys(parsed)) {
-        if (Object.prototype.hasOwnProperty.call(processEnv, key)) {
-          if (override === true) {
-            processEnv[key] = parsed[key];
-          }
-          if (debug) {
-            if (override === true) {
-              _debug(`"${key}" is already defined and WAS overwritten`);
-            } else {
-              _debug(`"${key}" is already defined and was NOT overwritten`);
-            }
-          }
-        } else {
-          processEnv[key] = parsed[key];
-        }
-      }
-    }
-    var DotenvModule = {
-      configDotenv,
-      _configVault,
-      _parseVault,
-      config,
-      decrypt,
-      parse: parse2,
-      populate
-    };
-    module2.exports.configDotenv = DotenvModule.configDotenv;
-    module2.exports._configVault = DotenvModule._configVault;
-    module2.exports._parseVault = DotenvModule._parseVault;
-    module2.exports.config = DotenvModule.config;
-    module2.exports.decrypt = DotenvModule.decrypt;
-    module2.exports.parse = DotenvModule.parse;
-    module2.exports.populate = DotenvModule.populate;
-    module2.exports = DotenvModule;
   }
 });
 
@@ -15478,6 +15587,11 @@ function toFixedPoint(str2, e, z) {
 }
 var BigNumber = clone();
 
+// node_modules/viem/_esm/utils/getAction.js
+function getAction(client, action) {
+  return (params) => client[action.name]?.(params) ?? action(client, params);
+}
+
 // node_modules/viem/_esm/utils/abi/encodeEventTopics.js
 init_abi();
 
@@ -15500,7 +15614,7 @@ init_toBytes();
 init_getEventSelector();
 init_keccak256();
 init_encodeAbiParameters();
-init_formatAbiItem();
+init_formatAbiItem2();
 init_getAbiItem();
 function encodeEventTopics({ abi, eventName, args }) {
   let abiItem = abi[0];
@@ -15519,7 +15633,7 @@ function encodeEventTopics({ abi, eventName, args }) {
     throw new AbiEventNotFoundError(void 0, {
       docsPath: "/docs/contract/encodeEventTopics"
     });
-  const definition = formatAbiItem(abiItem);
+  const definition = formatAbiItem2(abiItem);
   const signature = getEventSelector(definition);
   let topics = [];
   if (args && "inputs" in abiItem) {
@@ -15656,7 +15770,7 @@ var EstimateGasExecutionError = class extends BaseError {
     const prettyArgs = prettyPrint({
       from: account?.address,
       to,
-      value: typeof value !== "undefined" && `${formatEther(value)} ${chain?.nativeCurrency.symbol || "ETH"}`,
+      value: typeof value !== "undefined" && `${formatEther(value)} ${chain?.nativeCurrency?.symbol || "ETH"}`,
       data,
       gas,
       gasPrice: typeof gasPrice !== "undefined" && `${formatGwei(gasPrice)} gwei`,
@@ -15880,7 +15994,7 @@ async function estimateMaxPriorityFeePerGas(client, args) {
 async function internal_estimateMaxPriorityFeePerGas(client, args) {
   const { block: block_, chain = client.chain, request } = args || {};
   if (typeof chain?.fees?.defaultPriorityFee === "function") {
-    const block = block_ || await getBlock(client);
+    const block = block_ || await getAction(client, getBlock)({});
     return chain.fees.defaultPriorityFee({
       block,
       client,
@@ -15895,8 +16009,8 @@ async function internal_estimateMaxPriorityFeePerGas(client, args) {
     return hexToBigInt(maxPriorityFeePerGasHex);
   } catch {
     const [block, gasPrice] = await Promise.all([
-      block_ ? Promise.resolve(block_) : getBlock(client),
-      getGasPrice(client)
+      block_ ? Promise.resolve(block_) : getAction(client, getBlock)({}),
+      getAction(client, getGasPrice)({})
     ]);
     if (typeof block.baseFeePerGas !== "bigint")
       throw new Eip1559FeesNotSupportedError();
@@ -15927,7 +16041,7 @@ async function internal_estimateFeesPerGas(client, args) {
   const decimals = baseFeeMultiplier.toString().split(".")[1]?.length ?? 0;
   const denominator = 10 ** decimals;
   const multiply = (base2) => base2 * BigInt(Math.ceil(baseFeeMultiplier * denominator)) / BigInt(denominator);
-  const block = block_ ? block_ : await getBlock(client);
+  const block = block_ ? block_ : await getAction(client, getBlock)({});
   if (typeof chain?.fees?.estimateFeesPerGas === "function")
     return chain.fees.estimateFeesPerGas({
       block: block_,
@@ -15951,7 +16065,7 @@ async function internal_estimateFeesPerGas(client, args) {
       maxPriorityFeePerGas
     };
   }
-  const gasPrice = request?.gasPrice ?? multiply(await getGasPrice(client));
+  const gasPrice = request?.gasPrice ?? multiply(await getAction(client, getGasPrice)({}));
   return {
     gasPrice
   };
@@ -15992,10 +16106,10 @@ async function prepareTransactionRequest(client, args) {
   if (!account_)
     throw new AccountNotFoundError();
   const account = parseAccount(account_);
-  const block = await getBlock(client, { blockTag: "latest" });
+  const block = await getAction(client, getBlock)({ blockTag: "latest" });
   const request = { ...args, from: account.address };
   if (typeof nonce === "undefined")
-    request.nonce = await getTransactionCount(client, {
+    request.nonce = await getAction(client, getTransactionCount)({
       address: account.address,
       blockTag: "pending"
     });
@@ -16030,7 +16144,7 @@ async function prepareTransactionRequest(client, args) {
     request.gasPrice = gasPrice_;
   }
   if (typeof gas === "undefined")
-    request.gas = await estimateGas(client, {
+    request.gas = await getAction(client, estimateGas)({
       ...request,
       account: { address: account.address, type: "json-rpc" }
     });
@@ -16051,10 +16165,11 @@ async function estimateGas(client, args) {
     const blockNumberHex = blockNumber ? numberToHex(blockNumber) : void 0;
     const block = blockNumberHex || blockTag;
     assertRequest(args);
-    const format = client.chain?.formatters?.transactionRequest?.format || formatTransactionRequest;
+    const chainFormat = client.chain?.formatters?.transactionRequest?.format;
+    const format = chainFormat || formatTransactionRequest;
     const request = format({
       // Pick out extra data that might exist on the chain's transaction request type.
-      ...extract(rest, { format }),
+      ...extract(rest, { format: chainFormat }),
       from: account.address,
       accessList,
       data,
@@ -16088,7 +16203,7 @@ async function estimateContractGas(client, { abi, address, args, functionName, .
     functionName
   });
   try {
-    const gas = await estimateGas(client, {
+    const gas = await getAction(client, estimateGas)({
       data,
       to: address,
       ...request
@@ -16117,7 +16232,7 @@ init_abi();
 init_abi();
 init_getEventSelector();
 init_decodeAbiParameters();
-init_formatAbiItem();
+init_formatAbiItem2();
 var docsPath = "/docs/contract/decodeEventLog";
 function decodeEventLog({ abi, data, strict: strict_, topics }) {
   const strict = strict_ ?? true;
@@ -16126,7 +16241,7 @@ function decodeEventLog({ abi, data, strict: strict_, topics }) {
     throw new AbiEventSignatureEmptyTopicsError({
       docsPath
     });
-  const abiItem = abi.find((x) => x.type === "event" && signature === getEventSelector(formatAbiItem(x)));
+  const abiItem = abi.find((x) => x.type === "event" && signature === getEventSelector(formatAbiItem2(x)));
   if (!(abiItem && "name" in abiItem) || abiItem.type !== "event")
     throw new AbiEventSignatureNotFoundError(signature, {
       docsPath
@@ -16270,7 +16385,7 @@ async function getLogs(client, { address, blockHash, fromBlock, toBlock, event, 
 async function getContractEvents(client, { abi, address, args, blockHash, eventName, fromBlock, toBlock, strict }) {
   const event = eventName ? getAbiItem({ abi, name: eventName }) : void 0;
   const events = !event ? abi.filter((x) => x.type === "event") : void 0;
-  return getLogs(client, {
+  return getAction(client, getLogs)({
     address,
     args,
     blockHash,
@@ -16293,7 +16408,7 @@ async function readContract(client, { abi, address, args, functionName, ...callR
     functionName
   });
   try {
-    const { data } = await call(client, {
+    const { data } = await getAction(client, call)({
       data: calldata,
       to: address,
       ...callRequest
@@ -16328,7 +16443,7 @@ async function simulateContract(client, { abi, address, args, dataSuffix, functi
     functionName
   });
   try {
-    const { data } = await call(client, {
+    const { data } = await getAction(client, call)({
       batch: false,
       data: `${calldata}${dataSuffix ? dataSuffix.replace("0x", "") : ""}`,
       to: address,
@@ -16548,7 +16663,7 @@ function watchContractEvent(client, { abi, address, args, batch = true, eventNam
       const unwatch = poll(async () => {
         if (!initialized) {
           try {
-            filter = await createContractEventFilter(client, {
+            filter = await getAction(client, createContractEventFilter)({
               abi,
               address,
               args,
@@ -16563,14 +16678,15 @@ function watchContractEvent(client, { abi, address, args, batch = true, eventNam
         try {
           let logs;
           if (filter) {
-            logs = await getFilterChanges(client, { filter });
+            logs = await getAction(client, getFilterChanges)({ filter });
           } else {
-            const blockNumber = await getBlockNumber(client);
+            const blockNumber = await getAction(client, getBlockNumber)({});
             if (previousBlockNumber && previousBlockNumber !== blockNumber) {
-              logs = await getContractEvents(client, {
+              logs = await getAction(client, getContractEvents)({
                 abi,
                 address,
                 args,
+                eventName,
                 fromBlock: previousBlockNumber + 1n,
                 toBlock: blockNumber,
                 strict
@@ -16597,7 +16713,7 @@ function watchContractEvent(client, { abi, address, args, batch = true, eventNam
       });
       return async () => {
         if (filter)
-          await uninstallFilter(client, { filter });
+          await getAction(client, uninstallFilter)({ filter });
         unwatch();
       };
     });
@@ -16667,7 +16783,15 @@ init_encodeFunctionData();
 
 // node_modules/viem/_esm/actions/wallet/sendTransaction.js
 init_parseAccount();
-init_chain2();
+
+// node_modules/viem/_esm/utils/chain/assertCurrentChain.js
+init_chain();
+function assertCurrentChain({ chain, currentChainId }) {
+  if (!chain)
+    throw new ChainNotFoundError();
+  if (currentChainId !== chain.id)
+    throw new ChainMismatchError({ chain, currentChainId });
+}
 
 // node_modules/viem/_esm/utils/errors/getTransactionError.js
 init_node();
@@ -16720,14 +16844,14 @@ async function sendTransaction(client, args) {
     assertRequest(args);
     let chainId;
     if (chain !== null) {
-      chainId = await getChainId(client);
+      chainId = await getAction(client, getChainId)({});
       assertCurrentChain({
         currentChainId: chainId,
         chain
       });
     }
     if (account.type === "local") {
-      const request2 = await prepareTransactionRequest(client, {
+      const request2 = await getAction(client, prepareTransactionRequest)({
         account,
         accessList,
         chain,
@@ -16742,20 +16866,21 @@ async function sendTransaction(client, args) {
         ...rest
       });
       if (!chainId)
-        chainId = await getChainId(client);
+        chainId = await getAction(client, getChainId)({});
       const serializer = chain?.serializers?.transaction;
       const serializedTransaction = await account.signTransaction({
         ...request2,
         chainId
       }, { serializer });
-      return await sendRawTransaction(client, {
+      return await getAction(client, sendRawTransaction)({
         serializedTransaction
       });
     }
-    const format = chain?.formatters?.transactionRequest?.format || formatTransactionRequest;
+    const chainFormat = client.chain?.formatters?.transactionRequest?.format;
+    const format = chainFormat || formatTransactionRequest;
     const request = format({
       // Pick out extra data that might exist on the chain's transaction request type.
-      ...extract(rest, { format }),
+      ...extract(rest, { format: chainFormat }),
       accessList,
       data,
       from: account.address,
@@ -16787,7 +16912,7 @@ async function writeContract(client, { abi, address, args, dataSuffix, functionN
     args,
     functionName
   });
-  const hash3 = await sendTransaction(client, {
+  const hash3 = await getAction(client, sendTransaction)({
     data: `${data}${dataSuffix ? dataSuffix.replace("0x", "") : ""}`,
     to: address,
     ...request
@@ -16820,7 +16945,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
         get(_, functionName) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
-            return readContract(publicClient, {
+            return getAction(publicClient, readContract)({
               abi,
               address,
               functionName,
@@ -16835,7 +16960,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
         get(_, functionName) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
-            return simulateContract(publicClient, {
+            return getAction(publicClient, simulateContract)({
               abi,
               address,
               functionName,
@@ -16851,7 +16976,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const abiEvent = abi.find((x) => x.type === "event" && x.name === eventName);
             const { args, options: options2 } = getEventParameters(parameters, abiEvent);
-            return createContractEventFilter(publicClient, {
+            return getAction(publicClient, createContractEventFilter)({
               abi,
               address,
               eventName,
@@ -16866,7 +16991,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const abiEvent = abi.find((x) => x.type === "event" && x.name === eventName);
             const { args, options: options2 } = getEventParameters(parameters, abiEvent);
-            return getContractEvents(publicClient, {
+            return getAction(publicClient, getContractEvents)({
               abi,
               address,
               eventName,
@@ -16881,7 +17006,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const abiEvent = abi.find((x) => x.type === "event" && x.name === eventName);
             const { args, options: options2 } = getEventParameters(parameters, abiEvent);
-            return watchContractEvent(publicClient, {
+            return getAction(publicClient, watchContractEvent)({
               abi,
               address,
               eventName,
@@ -16899,7 +17024,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
         get(_, functionName) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
-            return writeContract(walletClient, {
+            return getAction(walletClient, writeContract)({
               abi,
               address,
               functionName,
@@ -16917,7 +17042,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
             const client = publicClient ?? walletClient;
-            return estimateContractGas(client, {
+            return getAction(client, estimateContractGas)({
               abi,
               address,
               functionName,
@@ -17116,6 +17241,115 @@ function createTransport({ key, name, request, retryCount = 3, retryDelay = 150,
   };
 }
 
+// node_modules/viem/_esm/clients/transports/fallback.js
+function fallback(transports_, config = {}) {
+  const { key = "fallback", name = "Fallback", rank = false, retryCount, retryDelay } = config;
+  return ({ chain, pollingInterval = 4e3, timeout }) => {
+    let transports = transports_;
+    let onResponse = () => {
+    };
+    const transport = createTransport({
+      key,
+      name,
+      async request({ method, params }) {
+        const fetch2 = async (i = 0) => {
+          const transport2 = transports[i]({ chain, retryCount: 0, timeout });
+          try {
+            const response = await transport2.request({
+              method,
+              params
+            });
+            onResponse({
+              method,
+              params,
+              response,
+              transport: transport2,
+              status: "success"
+            });
+            return response;
+          } catch (err) {
+            onResponse({
+              error: err,
+              method,
+              params,
+              transport: transport2,
+              status: "error"
+            });
+            if (isDeterministicError(err))
+              throw err;
+            if (i === transports.length - 1)
+              throw err;
+            return fetch2(i + 1);
+          }
+        };
+        return fetch2();
+      },
+      retryCount,
+      retryDelay,
+      type: "fallback"
+    }, {
+      onResponse: (fn) => onResponse = fn,
+      transports: transports.map((fn) => fn({ chain, retryCount: 0 }))
+    });
+    if (rank) {
+      const rankOptions = typeof rank === "object" ? rank : {};
+      rankTransports({
+        chain,
+        interval: rankOptions.interval ?? pollingInterval,
+        onTransports: (transports_2) => transports = transports_2,
+        sampleCount: rankOptions.sampleCount,
+        timeout: rankOptions.timeout,
+        transports,
+        weights: rankOptions.weights
+      });
+    }
+    return transport;
+  };
+}
+function rankTransports({ chain, interval = 4e3, onTransports, sampleCount = 10, timeout = 1e3, transports, weights = {} }) {
+  const { stability: stabilityWeight = 0.7, latency: latencyWeight = 0.3 } = weights;
+  const samples = [];
+  const rankTransports_ = async () => {
+    const sample = await Promise.all(transports.map(async (transport) => {
+      const transport_ = transport({ chain, retryCount: 0, timeout });
+      const start = Date.now();
+      let end;
+      let success;
+      try {
+        await transport_.request({ method: "net_listening" });
+        success = 1;
+      } catch {
+        success = 0;
+      } finally {
+        end = Date.now();
+      }
+      const latency = end - start;
+      return { latency, success };
+    }));
+    samples.push(sample);
+    if (samples.length > sampleCount)
+      samples.shift();
+    const maxLatency = Math.max(...samples.map((sample2) => Math.max(...sample2.map(({ latency }) => latency))));
+    const scores = transports.map((_, i) => {
+      const latencies = samples.map((sample2) => sample2[i].latency);
+      const meanLatency = latencies.reduce((acc, latency) => acc + latency, 0) / latencies.length;
+      const latencyScore = 1 - meanLatency / maxLatency;
+      const successes = samples.map((sample2) => sample2[i].success);
+      const stabilityScore = successes.reduce((acc, success) => acc + success, 0) / successes.length;
+      if (stabilityScore === 0)
+        return [0, i];
+      return [
+        latencyWeight * latencyScore + stabilityWeight * stabilityScore,
+        i
+      ];
+    }).sort((a, b) => b[0] - a[0]);
+    onTransports(scores.map(([, i]) => transports[i]));
+    await wait(interval);
+    rankTransports_();
+  };
+  rankTransports_();
+}
+
 // node_modules/viem/_esm/clients/transports/http.js
 init_request();
 
@@ -17283,7 +17517,8 @@ function http2(url, config = {}) {
             body: body2,
             fetchOptions,
             timeout
-          })
+          }),
+          sort: (a, b) => a.id - b.id
         });
         const fn = async (body2) => batch ? schedule(body2) : [await rpc.http(url_, { body: body2, fetchOptions, timeout })];
         const [{ error, result }] = await fn(body);
@@ -17310,7 +17545,7 @@ function http2(url, config = {}) {
 init_abis();
 init_decodeFunctionResult();
 init_encodeFunctionData();
-init_chain2();
+init_getChainContractAddress();
 init_trim();
 init_toHex();
 
@@ -17428,7 +17663,7 @@ async function getEnsAddress(client, { blockNumber, blockTag, coinType, name, un
       functionName: "addr",
       ...coinType != null ? { args: [namehash(name), BigInt(coinType)] } : { args: [namehash(name)] }
     });
-    const res = await readContract(client, {
+    const res = await getAction(client, readContract)({
       address: universalResolverAddress,
       abi: universalResolverResolveAbi,
       functionName: "resolve",
@@ -17713,7 +17948,7 @@ async function parseNftAvatarUri(client, { gatewayUrls, record }) {
 init_abis();
 init_decodeFunctionResult();
 init_encodeFunctionData();
-init_chain2();
+init_getChainContractAddress();
 init_toHex();
 async function getEnsText(client, { blockNumber, blockTag, name, key, universalResolverAddress: universalResolverAddress_ }) {
   let universalResolverAddress = universalResolverAddress_;
@@ -17727,7 +17962,7 @@ async function getEnsText(client, { blockNumber, blockTag, name, key, universalR
     });
   }
   try {
-    const res = await readContract(client, {
+    const res = await getAction(client, readContract)({
       address: universalResolverAddress,
       abi: universalResolverResolveAbi,
       functionName: "resolve",
@@ -17759,7 +17994,7 @@ async function getEnsText(client, { blockNumber, blockTag, name, key, universalR
 
 // node_modules/viem/_esm/actions/ens/getEnsAvatar.js
 async function getEnsAvatar(client, { blockNumber, blockTag, gatewayUrls, name, universalResolverAddress }) {
-  const record = await getEnsText(client, {
+  const record = await getAction(client, getEnsText)({
     blockNumber,
     blockTag,
     key: "avatar",
@@ -17777,7 +18012,7 @@ async function getEnsAvatar(client, { blockNumber, blockTag, gatewayUrls, name, 
 
 // node_modules/viem/_esm/actions/ens/getEnsName.js
 init_abis();
-init_chain2();
+init_getChainContractAddress();
 init_toHex();
 async function getEnsName(client, { address, blockNumber, blockTag, universalResolverAddress: universalResolverAddress_ }) {
   let universalResolverAddress = universalResolverAddress_;
@@ -17792,7 +18027,7 @@ async function getEnsName(client, { address, blockNumber, blockTag, universalRes
   }
   const reverseNode = `${address.toLowerCase().substring(2)}.addr.reverse`;
   try {
-    const res = await readContract(client, {
+    const res = await getAction(client, readContract)({
       address: universalResolverAddress,
       abi: universalResolverReverseAbi,
       functionName: "reverse",
@@ -17809,7 +18044,7 @@ async function getEnsName(client, { address, blockNumber, blockTag, universalRes
 }
 
 // node_modules/viem/_esm/actions/ens/getEnsResolver.js
-init_chain2();
+init_getChainContractAddress();
 init_toHex();
 async function getEnsResolver(client, { blockNumber, blockTag, name, universalResolverAddress: universalResolverAddress_ }) {
   let universalResolverAddress = universalResolverAddress_;
@@ -17822,7 +18057,7 @@ async function getEnsResolver(client, { blockNumber, blockTag, name, universalRe
       contract: "ensUniversalResolver"
     });
   }
-  const [resolverAddress] = await readContract(client, {
+  const [resolverAddress] = await getAction(client, readContract)({
     address: universalResolverAddress,
     abi: [
       {
@@ -18013,6 +18248,17 @@ async function getFilterLogs(_client, { filter }) {
 
 // node_modules/viem/_esm/actions/public/getProof.js
 init_toHex();
+
+// node_modules/viem/_esm/utils/chain/defineChain.js
+function defineChain(chain, config = {}) {
+  const { fees = chain.fees, formatters = chain.formatters, serializers = chain.serializers } = config;
+  return {
+    ...chain,
+    fees,
+    formatters,
+    serializers
+  };
+}
 
 // node_modules/viem/_esm/utils/regex.js
 var bytesRegex = /^bytes([1-9]|1[0-9]|2[0-9]|3[0-2])?$/;
@@ -18341,8 +18587,8 @@ async function getTransaction(client, { blockHash, blockNumber, blockTag: blockT
 // node_modules/viem/_esm/actions/public/getTransactionConfirmations.js
 async function getTransactionConfirmations(client, { hash: hash3, transactionReceipt }) {
   const [blockNumber, transaction] = await Promise.all([
-    getBlockNumber(client),
-    hash3 ? getTransaction(client, { hash: hash3 }) : void 0
+    getAction(client, getBlockNumber)({}),
+    hash3 ? getAction(client, getTransaction)({ hash: hash3 }) : void 0
   ]);
   const transactionBlockNumber = transactionReceipt?.blockNumber || transaction?.blockNumber;
   if (!transactionBlockNumber)
@@ -18370,7 +18616,7 @@ init_base();
 init_contract();
 init_decodeFunctionResult();
 init_encodeFunctionData();
-init_chain2();
+init_getChainContractAddress();
 async function multicall(client, args) {
   const { allowFailure = true, batchSize: batchSize_, blockNumber, blockTag, contracts, multicallAddress: multicallAddress_ } = args;
   const batchSize = batchSize_ ?? (typeof client.batch?.multicall === "object" && client.batch.multicall.batchSize || 1024);
@@ -18434,7 +18680,7 @@ async function multicall(client, args) {
       ];
     }
   }
-  const aggregate3Results = await Promise.allSettled(chunkedCalls.map((calls) => readContract(client, {
+  const aggregate3Results = await Promise.allSettled(chunkedCalls.map((calls) => getAction(client, readContract)({
     abi: multicall3Abi,
     address: multicallAddress,
     args: [calls],
@@ -18517,7 +18763,7 @@ init_call();
 async function verifyHash(client, { address, hash: hash3, signature, ...callRequest }) {
   const signatureHex = isHex(signature) ? signature : toHex(signature);
   try {
-    const { data } = await call(client, {
+    const { data } = await getAction(client, call)({
       data: encodeDeployData({
         abi: universalSignatureValidatorAbi,
         args: [address, hash3, signatureHex],
@@ -18576,7 +18822,7 @@ function watchBlockNumber(client, { emitOnBegin = false, emitMissed = false, onB
     ]);
     return observe(observerId, { onBlockNumber, onError }, (emit) => poll(async () => {
       try {
-        const blockNumber = await getBlockNumber(client, { cacheTime: 0 });
+        const blockNumber = await getAction(client, getBlockNumber)({ cacheTime: 0 });
         if (prevBlockNumber) {
           if (blockNumber === prevBlockNumber)
             return;
@@ -18640,7 +18886,7 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
     if (timeout)
       setTimeout(() => reject(new WaitForTransactionReceiptTimeoutError({ hash: hash3 })), timeout);
     const _unobserve = observe(observerId, { onReplaced, resolve, reject }, (emit) => {
-      const _unwatch = watchBlockNumber(client, {
+      const _unwatch = getAction(client, watchBlockNumber)({
         emitMissed: true,
         emitOnBegin: true,
         poll: true,
@@ -18664,7 +18910,7 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
             if (!transaction) {
               retrying = true;
               await withRetry(async () => {
-                transaction = await getTransaction(client, { hash: hash3 });
+                transaction = await getAction(client, getTransaction)({ hash: hash3 });
                 if (transaction.blockNumber)
                   blockNumber = transaction.blockNumber;
               }, {
@@ -18674,7 +18920,7 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
               });
               retrying = false;
             }
-            receipt = await getTransactionReceipt(client, { hash: hash3 });
+            receipt = await getAction(client, getTransactionReceipt)({ hash: hash3 });
             if (confirmations > 1 && (!receipt.blockNumber || blockNumber - receipt.blockNumber + 1n < confirmations))
               return;
             done(() => emit.resolve(receipt));
@@ -18682,14 +18928,14 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
             if (transaction && (err instanceof TransactionNotFoundError || err instanceof TransactionReceiptNotFoundError)) {
               try {
                 replacedTransaction = transaction;
-                const block = await getBlock(client, {
+                const block = await getAction(client, getBlock)({
                   blockNumber,
                   includeTransactions: true
                 });
                 const replacementTransaction = block.transactions.find(({ from, nonce }) => from === replacedTransaction.from && nonce === replacedTransaction.nonce);
                 if (!replacementTransaction)
                   return;
-                receipt = await getTransactionReceipt(client, {
+                receipt = await getAction(client, getTransactionReceipt)({
                   hash: replacementTransaction.hash
                 });
                 if (confirmations > 1 && (!receipt.blockNumber || blockNumber - receipt.blockNumber + 1n < confirmations))
@@ -18739,7 +18985,7 @@ function watchBlocks(client, { blockTag = "latest", emitMissed = false, emitOnBe
     ]);
     return observe(observerId, { onBlock, onError }, (emit) => poll(async () => {
       try {
-        const block = await getBlock(client, {
+        const block = await getAction(client, getBlock)({
           blockTag,
           includeTransactions
         });
@@ -18748,7 +18994,7 @@ function watchBlocks(client, { blockTag = "latest", emitMissed = false, emitOnBe
             return;
           if (block.number - prevBlock.number > 1 && emitMissed) {
             for (let i = prevBlock?.number + 1n; i < block.number; i++) {
-              const block2 = await getBlock(client, {
+              const block2 = await getAction(client, getBlock)({
                 blockNumber: i,
                 includeTransactions
               });
@@ -18830,7 +19076,7 @@ function watchEvent(client, { address, args, batch = true, event, events, onErro
       const unwatch = poll(async () => {
         if (!initialized) {
           try {
-            filter = await createEventFilter(client, {
+            filter = await getAction(client, createEventFilter)({
               address,
               args,
               event,
@@ -18845,11 +19091,11 @@ function watchEvent(client, { address, args, batch = true, event, events, onErro
         try {
           let logs;
           if (filter) {
-            logs = await getFilterChanges(client, { filter });
+            logs = await getAction(client, getFilterChanges)({ filter });
           } else {
-            const blockNumber = await getBlockNumber(client);
+            const blockNumber = await getAction(client, getBlockNumber)({});
             if (previousBlockNumber && previousBlockNumber !== blockNumber) {
-              logs = await getLogs(client, {
+              logs = await getAction(client, getLogs)({
                 address,
                 args,
                 event,
@@ -18879,7 +19125,7 @@ function watchEvent(client, { address, args, batch = true, event, events, onErro
       });
       return async () => {
         if (filter)
-          await uninstallFilter(client, { filter });
+          await getAction(client, uninstallFilter)({ filter });
         unwatch();
       };
     });
@@ -18969,14 +19215,14 @@ function watchPendingTransactions(client, { batch = true, onError, onTransaction
         try {
           if (!filter) {
             try {
-              filter = await createPendingTransactionFilter(client);
+              filter = await getAction(client, createPendingTransactionFilter)({});
               return;
             } catch (err) {
               unwatch();
               throw err;
             }
           }
-          const hashes = await getFilterChanges(client, { filter });
+          const hashes = await getAction(client, getFilterChanges)({ filter });
           if (hashes.length === 0)
             return;
           if (batch)
@@ -18992,7 +19238,7 @@ function watchPendingTransactions(client, { batch = true, onError, onTransaction
       });
       return async () => {
         if (filter)
-          await uninstallFilter(client, { filter });
+          await getAction(client, uninstallFilter)({ filter });
         unwatch();
       };
     });
@@ -19092,6 +19338,545 @@ function createPublicClient(parameters) {
 
 // node_modules/viem/_esm/constants/address.js
 var zeroAddress = "0x0000000000000000000000000000000000000000";
+
+// src/helpers/checkHash.ts
+var HashZero = "0x0000000000000000000000000000000000000000000000000000000000000000";
+function checkHash(hash3) {
+  return {
+    notZero: hash3 !== HashZero,
+    zero: hash3 === HashZero
+  };
+}
+
+// node_modules/viem/_esm/chains/definitions/arbitrum.js
+var arbitrum = /* @__PURE__ */ defineChain({
+  id: 42161,
+  name: "Arbitrum One",
+  network: "arbitrum",
+  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://arb-mainnet.g.alchemy.com/v2"],
+      webSocket: ["wss://arb-mainnet.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://arbitrum-mainnet.infura.io/v3"],
+      webSocket: ["wss://arbitrum-mainnet.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://arb1.arbitrum.io/rpc"]
+    },
+    public: {
+      http: ["https://arb1.arbitrum.io/rpc"]
+    }
+  },
+  blockExplorers: {
+    etherscan: { name: "Arbiscan", url: "https://arbiscan.io" },
+    default: { name: "Arbiscan", url: "https://arbiscan.io" }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 7654707
+    }
+  }
+});
+
+// node_modules/viem/_esm/chains/definitions/avalanche.js
+var avalanche = /* @__PURE__ */ defineChain({
+  id: 43114,
+  name: "Avalanche",
+  network: "avalanche",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Avalanche",
+    symbol: "AVAX"
+  },
+  rpcUrls: {
+    default: { http: ["https://api.avax.network/ext/bc/C/rpc"] },
+    public: { http: ["https://api.avax.network/ext/bc/C/rpc"] }
+  },
+  blockExplorers: {
+    etherscan: { name: "SnowTrace", url: "https://snowtrace.io" },
+    default: { name: "SnowTrace", url: "https://snowtrace.io" }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 11907934
+    }
+  }
+});
+
+// node_modules/viem/_esm/chains/definitions/avalancheFuji.js
+var avalancheFuji = /* @__PURE__ */ defineChain({
+  id: 43113,
+  name: "Avalanche Fuji",
+  network: "avalanche-fuji",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Avalanche Fuji",
+    symbol: "AVAX"
+  },
+  rpcUrls: {
+    default: { http: ["https://api.avax-test.network/ext/bc/C/rpc"] },
+    public: { http: ["https://api.avax-test.network/ext/bc/C/rpc"] }
+  },
+  blockExplorers: {
+    etherscan: { name: "SnowTrace", url: "https://testnet.snowtrace.io" },
+    default: { name: "SnowTrace", url: "https://testnet.snowtrace.io" }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 7096959
+    }
+  },
+  testnet: true
+});
+
+// node_modules/viem/_esm/chains/optimism/formatters.js
+init_fromHex();
+var formattersOptimism = {
+  block: /* @__PURE__ */ defineBlock({
+    format(args) {
+      const transactions = args.transactions?.map((transaction) => {
+        if (typeof transaction === "string")
+          return transaction;
+        const formatted = formatTransaction(transaction);
+        if (formatted.typeHex === "0x7e") {
+          formatted.isSystemTx = transaction.isSystemTx;
+          formatted.mint = transaction.mint ? hexToBigInt(transaction.mint) : void 0;
+          formatted.sourceHash = transaction.sourceHash;
+          formatted.type = "deposit";
+        }
+        return formatted;
+      });
+      return {
+        transactions,
+        stateRoot: args.stateRoot
+      };
+    }
+  }),
+  transaction: /* @__PURE__ */ defineTransaction({
+    format(args) {
+      const transaction = {};
+      if (args.type === "0x7e") {
+        transaction.isSystemTx = args.isSystemTx;
+        transaction.mint = args.mint ? hexToBigInt(args.mint) : void 0;
+        transaction.sourceHash = args.sourceHash;
+        transaction.type = "deposit";
+      }
+      return transaction;
+    }
+  }),
+  transactionReceipt: /* @__PURE__ */ defineTransactionReceipt({
+    format(args) {
+      return {
+        l1GasPrice: args.l1GasPrice ? hexToBigInt(args.l1GasPrice) : null,
+        l1GasUsed: args.l1GasUsed ? hexToBigInt(args.l1GasUsed) : null,
+        l1Fee: args.l1Fee ? hexToBigInt(args.l1Fee) : null,
+        l1FeeScalar: args.l1FeeScalar ? Number(args.l1FeeScalar) : null
+      };
+    }
+  })
+};
+
+// node_modules/viem/_esm/chains/definitions/base.js
+var base = /* @__PURE__ */ defineChain({
+  id: 8453,
+  network: "base",
+  name: "Base",
+  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://base-mainnet.g.alchemy.com/v2"],
+      webSocket: ["wss://base-mainnet.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://base-mainnet.infura.io/v3"],
+      webSocket: ["wss://base-mainnet.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://mainnet.base.org"]
+    },
+    public: {
+      http: ["https://mainnet.base.org"]
+    }
+  },
+  blockExplorers: {
+    blockscout: {
+      name: "Basescout",
+      url: "https://base.blockscout.com"
+    },
+    default: {
+      name: "Basescan",
+      url: "https://basescan.org"
+    },
+    etherscan: {
+      name: "Basescan",
+      url: "https://basescan.org"
+    }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 5022
+    }
+  }
+}, {
+  formatters: formattersOptimism
+});
+
+// node_modules/viem/_esm/chains/definitions/bsc.js
+var bsc = /* @__PURE__ */ defineChain({
+  id: 56,
+  name: "BNB Smart Chain",
+  network: "bsc",
+  nativeCurrency: {
+    decimals: 18,
+    name: "BNB",
+    symbol: "BNB"
+  },
+  rpcUrls: {
+    default: { http: ["https://rpc.ankr.com/bsc"] },
+    public: { http: ["https://rpc.ankr.com/bsc"] }
+  },
+  blockExplorers: {
+    etherscan: { name: "BscScan", url: "https://bscscan.com" },
+    default: { name: "BscScan", url: "https://bscscan.com" }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 15921452
+    }
+  }
+});
+
+// node_modules/viem/_esm/chains/definitions/bscTestnet.js
+var bscTestnet = /* @__PURE__ */ defineChain({
+  id: 97,
+  name: "Binance Smart Chain Testnet",
+  network: "bsc-testnet",
+  nativeCurrency: {
+    decimals: 18,
+    name: "BNB",
+    symbol: "tBNB"
+  },
+  rpcUrls: {
+    default: { http: ["https://data-seed-prebsc-1-s1.binance.org:8545"] },
+    public: { http: ["https://data-seed-prebsc-1-s1.binance.org:8545"] }
+  },
+  blockExplorers: {
+    etherscan: { name: "BscScan", url: "https://testnet.bscscan.com" },
+    default: { name: "BscScan", url: "https://testnet.bscscan.com" }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 17422483
+    }
+  },
+  testnet: true
+});
+
+// node_modules/viem/_esm/chains/definitions/goerli.js
+var goerli = /* @__PURE__ */ defineChain({
+  id: 5,
+  network: "goerli",
+  name: "Goerli",
+  nativeCurrency: { name: "Goerli Ether", symbol: "ETH", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://eth-goerli.g.alchemy.com/v2"],
+      webSocket: ["wss://eth-goerli.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://goerli.infura.io/v3"],
+      webSocket: ["wss://goerli.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://rpc.ankr.com/eth_goerli"]
+    },
+    public: {
+      http: ["https://rpc.ankr.com/eth_goerli"]
+    }
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "Etherscan",
+      url: "https://goerli.etherscan.io"
+    },
+    default: {
+      name: "Etherscan",
+      url: "https://goerli.etherscan.io"
+    }
+  },
+  contracts: {
+    ensRegistry: {
+      address: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    ensUniversalResolver: {
+      address: "0x56522D00C410a43BFfDF00a9A569489297385790",
+      blockCreated: 8765204
+    },
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 6507670
+    }
+  },
+  testnet: true
+});
+
+// node_modules/viem/_esm/chains/definitions/mainnet.js
+var mainnet = /* @__PURE__ */ defineChain({
+  id: 1,
+  network: "homestead",
+  name: "Ethereum",
+  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://eth-mainnet.g.alchemy.com/v2"],
+      webSocket: ["wss://eth-mainnet.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://mainnet.infura.io/v3"],
+      webSocket: ["wss://mainnet.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://cloudflare-eth.com"]
+    },
+    public: {
+      http: ["https://cloudflare-eth.com"]
+    }
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "Etherscan",
+      url: "https://etherscan.io"
+    },
+    default: {
+      name: "Etherscan",
+      url: "https://etherscan.io"
+    }
+  },
+  contracts: {
+    ensRegistry: {
+      address: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
+    },
+    ensUniversalResolver: {
+      address: "0xc0497E381f536Be9ce14B0dD3817cBcAe57d2F62",
+      blockCreated: 16966585
+    },
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 14353601
+    }
+  }
+});
+
+// node_modules/viem/_esm/chains/definitions/metis.js
+var metis = /* @__PURE__ */ defineChain({
+  id: 1088,
+  name: "Metis",
+  network: "andromeda",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Metis",
+    symbol: "METIS"
+  },
+  rpcUrls: {
+    default: { http: ["https://andromeda.metis.io/?owner=1088"] },
+    public: { http: ["https://andromeda.metis.io/?owner=1088"] }
+  },
+  blockExplorers: {
+    default: {
+      name: "Andromeda Explorer",
+      url: "https://andromeda-explorer.metis.io"
+    }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 2338552
+    }
+  }
+});
+
+// node_modules/viem/_esm/chains/definitions/optimism.js
+var optimism = /* @__PURE__ */ defineChain({
+  id: 10,
+  name: "OP Mainnet",
+  network: "optimism",
+  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://opt-mainnet.g.alchemy.com/v2"],
+      webSocket: ["wss://opt-mainnet.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://optimism-mainnet.infura.io/v3"],
+      webSocket: ["wss://optimism-mainnet.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://mainnet.optimism.io"]
+    },
+    public: {
+      http: ["https://mainnet.optimism.io"]
+    }
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "Etherscan",
+      url: "https://optimistic.etherscan.io"
+    },
+    default: {
+      name: "Optimism Explorer",
+      url: "https://explorer.optimism.io"
+    }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 4286263
+    }
+  }
+}, {
+  formatters: formattersOptimism
+});
+
+// node_modules/viem/_esm/chains/definitions/polygon.js
+var polygon = /* @__PURE__ */ defineChain({
+  id: 137,
+  name: "Polygon",
+  network: "matic",
+  nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://polygon-mainnet.g.alchemy.com/v2"],
+      webSocket: ["wss://polygon-mainnet.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://polygon-mainnet.infura.io/v3"],
+      webSocket: ["wss://polygon-mainnet.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://polygon-rpc.com"]
+    },
+    public: {
+      http: ["https://polygon-rpc.com"]
+    }
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "PolygonScan",
+      url: "https://polygonscan.com"
+    },
+    default: {
+      name: "PolygonScan",
+      url: "https://polygonscan.com"
+    }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 25770160
+    }
+  }
+});
+
+// node_modules/viem/_esm/chains/definitions/polygonMumbai.js
+var polygonMumbai = /* @__PURE__ */ defineChain({
+  id: 80001,
+  name: "Polygon Mumbai",
+  network: "maticmum",
+  nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://polygon-mumbai.g.alchemy.com/v2"],
+      webSocket: ["wss://polygon-mumbai.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://polygon-mumbai.infura.io/v3"],
+      webSocket: ["wss://polygon-mumbai.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://rpc.ankr.com/polygon_mumbai"]
+    },
+    public: {
+      http: ["https://rpc.ankr.com/polygon_mumbai"]
+    }
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "PolygonScan",
+      url: "https://mumbai.polygonscan.com"
+    },
+    default: {
+      name: "PolygonScan",
+      url: "https://mumbai.polygonscan.com"
+    }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 25770160
+    }
+  },
+  testnet: true
+});
+
+// node_modules/viem/_esm/chains/definitions/sepolia.js
+var sepolia = /* @__PURE__ */ defineChain({
+  id: 11155111,
+  network: "sepolia",
+  name: "Sepolia",
+  nativeCurrency: { name: "Sepolia Ether", symbol: "SEP", decimals: 18 },
+  rpcUrls: {
+    alchemy: {
+      http: ["https://eth-sepolia.g.alchemy.com/v2"],
+      webSocket: ["wss://eth-sepolia.g.alchemy.com/v2"]
+    },
+    infura: {
+      http: ["https://sepolia.infura.io/v3"],
+      webSocket: ["wss://sepolia.infura.io/ws/v3"]
+    },
+    default: {
+      http: ["https://rpc.sepolia.org"]
+    },
+    public: {
+      http: ["https://rpc.sepolia.org"]
+    }
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "Etherscan",
+      url: "https://sepolia.etherscan.io"
+    },
+    default: {
+      name: "Etherscan",
+      url: "https://sepolia.etherscan.io"
+    }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 751532
+    },
+    ensRegistry: { address: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e" },
+    ensUniversalResolver: {
+      address: "0x21B000Fd62a880b2125A61e36a284BB757b76025",
+      blockCreated: 3914906
+    }
+  },
+  testnet: true
+});
+
+// src/lowdb/helpers.ts
+require_main().config();
+var coreName = process.env.CORE_NETWORK || "mainnet";
+var baseDirName = `src/generated-cache/${coreName}`;
 
 // node_modules/@bgd-labs/aave-address-book/dist/GovernanceV3Ethereum.mjs
 var GovernanceV3Ethereum_exports = {};
@@ -19261,6 +20046,7 @@ __export(AaveV3Ethereum_exports, {
   DELEGATION_AWARE_A_TOKEN_IMPL_REV_1: () => DELEGATION_AWARE_A_TOKEN_IMPL_REV_1,
   EMISSION_MANAGER: () => EMISSION_MANAGER,
   E_MODES: () => E_MODES,
+  FREEZING_STEWARD: () => FREEZING_STEWARD,
   GHO_TOKEN: () => GHO_TOKEN,
   ORACLE: () => ORACLE,
   POOL: () => POOL,
@@ -19286,7 +20072,7 @@ var ORACLE = "0x54586bE62E3c3580375aE3723C145253060Ca0C2";
 var PRICE_ORACLE_SENTINEL = "0x0000000000000000000000000000000000000000";
 var AAVE_PROTOCOL_DATA_PROVIDER = "0x7B4EB56E7CD4b454BA8ff71E4518426369a138a3";
 var ACL_MANAGER = "0xc2aaCf6553D20d1e9d78E365AAba8032af9c85b0";
-var ACL_ADMIN = "0xEE56e2B3D491590B5b31738cC34d5232F378a8D5";
+var ACL_ADMIN = "0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A";
 var COLLECTOR = "0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c";
 var DEFAULT_INCENTIVES_CONTROLLER = "0x8164Cc65827dcFe994AB23944CBC90e0aa80bFcb";
 var DEFAULT_A_TOKEN_IMPL_REV_1 = "0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d";
@@ -19294,6 +20080,7 @@ var DEFAULT_VARIABLE_DEBT_TOKEN_IMPL_REV_1 = "0xaC725CB59D16C81061BDeA61041a8A5e
 var DEFAULT_STABLE_DEBT_TOKEN_IMPL_REV_1 = "0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57";
 var EMISSION_MANAGER = "0x223d844fc4B006D67c0cDbd39371A9F73f69d974";
 var CAPS_PLUS_RISK_STEWARD = "0x82dcCF206Ae2Ab46E2099e663F70DeE77caE7778";
+var FREEZING_STEWARD = "0x2eE68ACb6A1319de1b49DC139894644E424fefD6";
 var DEBT_SWAP_ADAPTER = "0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68";
 var DELEGATION_AWARE_A_TOKEN_IMPL_REV_1 = "0x21714092D90c7265F52fdfDae068EC11a23C6248";
 var GHO_TOKEN = "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f";
@@ -22022,476 +22809,6 @@ var IVotingMachineDataHelper_ABI = [
   }
 ];
 
-// node_modules/viem/_esm/chains/definitions/arbitrum.js
-init_chain2();
-var arbitrum = /* @__PURE__ */ defineChain({
-  id: 42161,
-  name: "Arbitrum One",
-  network: "arbitrum",
-  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    alchemy: {
-      http: ["https://arb-mainnet.g.alchemy.com/v2"],
-      webSocket: ["wss://arb-mainnet.g.alchemy.com/v2"]
-    },
-    infura: {
-      http: ["https://arbitrum-mainnet.infura.io/v3"],
-      webSocket: ["wss://arbitrum-mainnet.infura.io/ws/v3"]
-    },
-    default: {
-      http: ["https://arb1.arbitrum.io/rpc"]
-    },
-    public: {
-      http: ["https://arb1.arbitrum.io/rpc"]
-    }
-  },
-  blockExplorers: {
-    etherscan: { name: "Arbiscan", url: "https://arbiscan.io" },
-    default: { name: "Arbiscan", url: "https://arbiscan.io" }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 7654707
-    }
-  }
-});
-
-// node_modules/viem/_esm/chains/definitions/avalanche.js
-init_chain2();
-var avalanche = /* @__PURE__ */ defineChain({
-  id: 43114,
-  name: "Avalanche",
-  network: "avalanche",
-  nativeCurrency: {
-    decimals: 18,
-    name: "Avalanche",
-    symbol: "AVAX"
-  },
-  rpcUrls: {
-    default: { http: ["https://api.avax.network/ext/bc/C/rpc"] },
-    public: { http: ["https://api.avax.network/ext/bc/C/rpc"] }
-  },
-  blockExplorers: {
-    etherscan: { name: "SnowTrace", url: "https://snowtrace.io" },
-    default: { name: "SnowTrace", url: "https://snowtrace.io" }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 11907934
-    }
-  }
-});
-
-// node_modules/viem/_esm/chains/definitions/avalancheFuji.js
-init_chain2();
-var avalancheFuji = /* @__PURE__ */ defineChain({
-  id: 43113,
-  name: "Avalanche Fuji",
-  network: "avalanche-fuji",
-  nativeCurrency: {
-    decimals: 18,
-    name: "Avalanche Fuji",
-    symbol: "AVAX"
-  },
-  rpcUrls: {
-    default: { http: ["https://api.avax-test.network/ext/bc/C/rpc"] },
-    public: { http: ["https://api.avax-test.network/ext/bc/C/rpc"] }
-  },
-  blockExplorers: {
-    etherscan: { name: "SnowTrace", url: "https://testnet.snowtrace.io" },
-    default: { name: "SnowTrace", url: "https://testnet.snowtrace.io" }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 7096959
-    }
-  },
-  testnet: true
-});
-
-// node_modules/viem/_esm/chains/definitions/base.js
-init_chain2();
-
-// node_modules/viem/_esm/chains/optimism/formatters.js
-init_fromHex();
-var formattersOptimism = {
-  block: /* @__PURE__ */ defineBlock({
-    format(args) {
-      const transactions = args.transactions?.map((transaction) => {
-        if (typeof transaction === "string")
-          return transaction;
-        const formatted = formatTransaction(transaction);
-        if (formatted.typeHex === "0x7e") {
-          formatted.isSystemTx = transaction.isSystemTx;
-          formatted.mint = transaction.mint ? hexToBigInt(transaction.mint) : void 0;
-          formatted.sourceHash = transaction.sourceHash;
-          formatted.type = "deposit";
-        }
-        return formatted;
-      });
-      return {
-        transactions,
-        stateRoot: args.stateRoot
-      };
-    }
-  }),
-  transaction: /* @__PURE__ */ defineTransaction({
-    format(args) {
-      const transaction = {};
-      if (args.type === "0x7e") {
-        transaction.isSystemTx = args.isSystemTx;
-        transaction.mint = args.mint ? hexToBigInt(args.mint) : void 0;
-        transaction.sourceHash = args.sourceHash;
-        transaction.type = "deposit";
-      }
-      return transaction;
-    }
-  }),
-  transactionReceipt: /* @__PURE__ */ defineTransactionReceipt({
-    format(args) {
-      return {
-        l1GasPrice: args.l1GasPrice ? hexToBigInt(args.l1GasPrice) : null,
-        l1GasUsed: args.l1GasUsed ? hexToBigInt(args.l1GasUsed) : null,
-        l1Fee: args.l1Fee ? hexToBigInt(args.l1Fee) : null,
-        l1FeeScalar: args.l1FeeScalar ? Number(args.l1FeeScalar) : null
-      };
-    }
-  })
-};
-
-// node_modules/viem/_esm/chains/definitions/base.js
-var base = /* @__PURE__ */ defineChain({
-  id: 8453,
-  network: "base",
-  name: "Base",
-  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    alchemy: {
-      http: ["https://base-mainnet.g.alchemy.com/v2"],
-      webSocket: ["wss://base-mainnet.g.alchemy.com/v2"]
-    },
-    infura: {
-      http: ["https://base-mainnet.infura.io/v3"],
-      webSocket: ["wss://base-mainnet.infura.io/ws/v3"]
-    },
-    default: {
-      http: ["https://mainnet.base.org"]
-    },
-    public: {
-      http: ["https://mainnet.base.org"]
-    }
-  },
-  blockExplorers: {
-    blockscout: {
-      name: "Basescout",
-      url: "https://base.blockscout.com"
-    },
-    default: {
-      name: "Basescan",
-      url: "https://basescan.org"
-    },
-    etherscan: {
-      name: "Basescan",
-      url: "https://basescan.org"
-    }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 5022
-    }
-  }
-}, {
-  formatters: formattersOptimism
-});
-
-// node_modules/viem/_esm/chains/definitions/bsc.js
-init_chain2();
-var bsc = /* @__PURE__ */ defineChain({
-  id: 56,
-  name: "BNB Smart Chain",
-  network: "bsc",
-  nativeCurrency: {
-    decimals: 18,
-    name: "BNB",
-    symbol: "BNB"
-  },
-  rpcUrls: {
-    default: { http: ["https://rpc.ankr.com/bsc"] },
-    public: { http: ["https://rpc.ankr.com/bsc"] }
-  },
-  blockExplorers: {
-    etherscan: { name: "BscScan", url: "https://bscscan.com" },
-    default: { name: "BscScan", url: "https://bscscan.com" }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 15921452
-    }
-  }
-});
-
-// node_modules/viem/_esm/chains/definitions/goerli.js
-init_chain2();
-var goerli = /* @__PURE__ */ defineChain({
-  id: 5,
-  network: "goerli",
-  name: "Goerli",
-  nativeCurrency: { name: "Goerli Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    alchemy: {
-      http: ["https://eth-goerli.g.alchemy.com/v2"],
-      webSocket: ["wss://eth-goerli.g.alchemy.com/v2"]
-    },
-    infura: {
-      http: ["https://goerli.infura.io/v3"],
-      webSocket: ["wss://goerli.infura.io/ws/v3"]
-    },
-    default: {
-      http: ["https://rpc.ankr.com/eth_goerli"]
-    },
-    public: {
-      http: ["https://rpc.ankr.com/eth_goerli"]
-    }
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "Etherscan",
-      url: "https://goerli.etherscan.io"
-    },
-    default: {
-      name: "Etherscan",
-      url: "https://goerli.etherscan.io"
-    }
-  },
-  contracts: {
-    ensRegistry: {
-      address: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
-    },
-    ensUniversalResolver: {
-      address: "0x56522D00C410a43BFfDF00a9A569489297385790",
-      blockCreated: 8765204
-    },
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 6507670
-    }
-  },
-  testnet: true
-});
-
-// node_modules/viem/_esm/chains/definitions/mainnet.js
-init_chain2();
-var mainnet = /* @__PURE__ */ defineChain({
-  id: 1,
-  network: "homestead",
-  name: "Ethereum",
-  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    alchemy: {
-      http: ["https://eth-mainnet.g.alchemy.com/v2"],
-      webSocket: ["wss://eth-mainnet.g.alchemy.com/v2"]
-    },
-    infura: {
-      http: ["https://mainnet.infura.io/v3"],
-      webSocket: ["wss://mainnet.infura.io/ws/v3"]
-    },
-    default: {
-      http: ["https://cloudflare-eth.com"]
-    },
-    public: {
-      http: ["https://cloudflare-eth.com"]
-    }
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "Etherscan",
-      url: "https://etherscan.io"
-    },
-    default: {
-      name: "Etherscan",
-      url: "https://etherscan.io"
-    }
-  },
-  contracts: {
-    ensRegistry: {
-      address: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"
-    },
-    ensUniversalResolver: {
-      address: "0xc0497E381f536Be9ce14B0dD3817cBcAe57d2F62",
-      blockCreated: 16966585
-    },
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 14353601
-    }
-  }
-});
-
-// node_modules/viem/_esm/chains/definitions/metis.js
-init_chain2();
-var metis = /* @__PURE__ */ defineChain({
-  id: 1088,
-  name: "Metis",
-  network: "andromeda",
-  nativeCurrency: {
-    decimals: 18,
-    name: "Metis",
-    symbol: "METIS"
-  },
-  rpcUrls: {
-    default: { http: ["https://andromeda.metis.io/?owner=1088"] },
-    public: { http: ["https://andromeda.metis.io/?owner=1088"] }
-  },
-  blockExplorers: {
-    default: {
-      name: "Andromeda Explorer",
-      url: "https://andromeda-explorer.metis.io"
-    }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 2338552
-    }
-  }
-});
-
-// node_modules/viem/_esm/chains/definitions/optimism.js
-init_chain2();
-var optimism = /* @__PURE__ */ defineChain({
-  id: 10,
-  name: "OP Mainnet",
-  network: "optimism",
-  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
-  rpcUrls: {
-    alchemy: {
-      http: ["https://opt-mainnet.g.alchemy.com/v2"],
-      webSocket: ["wss://opt-mainnet.g.alchemy.com/v2"]
-    },
-    infura: {
-      http: ["https://optimism-mainnet.infura.io/v3"],
-      webSocket: ["wss://optimism-mainnet.infura.io/ws/v3"]
-    },
-    default: {
-      http: ["https://mainnet.optimism.io"]
-    },
-    public: {
-      http: ["https://mainnet.optimism.io"]
-    }
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "Etherscan",
-      url: "https://optimistic.etherscan.io"
-    },
-    default: {
-      name: "Optimism Explorer",
-      url: "https://explorer.optimism.io"
-    }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 4286263
-    }
-  }
-}, {
-  formatters: formattersOptimism
-});
-
-// node_modules/viem/_esm/chains/definitions/polygon.js
-init_chain2();
-var polygon = /* @__PURE__ */ defineChain({
-  id: 137,
-  name: "Polygon",
-  network: "matic",
-  nativeCurrency: { name: "MATIC", symbol: "MATIC", decimals: 18 },
-  rpcUrls: {
-    alchemy: {
-      http: ["https://polygon-mainnet.g.alchemy.com/v2"],
-      webSocket: ["wss://polygon-mainnet.g.alchemy.com/v2"]
-    },
-    infura: {
-      http: ["https://polygon-mainnet.infura.io/v3"],
-      webSocket: ["wss://polygon-mainnet.infura.io/ws/v3"]
-    },
-    default: {
-      http: ["https://polygon-rpc.com"]
-    },
-    public: {
-      http: ["https://polygon-rpc.com"]
-    }
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "PolygonScan",
-      url: "https://polygonscan.com"
-    },
-    default: {
-      name: "PolygonScan",
-      url: "https://polygonscan.com"
-    }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 25770160
-    }
-  }
-});
-
-// node_modules/viem/_esm/chains/definitions/sepolia.js
-init_chain2();
-var sepolia = /* @__PURE__ */ defineChain({
-  id: 11155111,
-  network: "sepolia",
-  name: "Sepolia",
-  nativeCurrency: { name: "Sepolia Ether", symbol: "SEP", decimals: 18 },
-  rpcUrls: {
-    alchemy: {
-      http: ["https://eth-sepolia.g.alchemy.com/v2"],
-      webSocket: ["wss://eth-sepolia.g.alchemy.com/v2"]
-    },
-    infura: {
-      http: ["https://sepolia.infura.io/v3"],
-      webSocket: ["wss://sepolia.infura.io/ws/v3"]
-    },
-    default: {
-      http: ["https://rpc.sepolia.org"]
-    },
-    public: {
-      http: ["https://rpc.sepolia.org"]
-    }
-  },
-  blockExplorers: {
-    etherscan: {
-      name: "Etherscan",
-      url: "https://sepolia.etherscan.io"
-    },
-    default: {
-      name: "Etherscan",
-      url: "https://sepolia.etherscan.io"
-    }
-  },
-  contracts: {
-    multicall3: {
-      address: "0xca11bde05977b3631167028862be2a173976ca11",
-      blockCreated: 751532
-    },
-    ensRegistry: { address: "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e" },
-    ensUniversalResolver: {
-      address: "0x21B000Fd62a880b2125A61e36a284BB757b76025",
-      blockCreated: 3914906
-    }
-  },
-  testnet: true
-});
-
 // src/helpers/appConfig.ts
 var govCoreConfig = {
   mainnet: {
@@ -22677,47 +22994,112 @@ var appConfigInit = (coreNetwork) => {
   };
 };
 
-// src/helpers/appConfigWithClients.ts
-var appConfigWithClients = (clients2, coreNetwork) => {
-  return {
-    clients: clients2,
-    ...appConfigInit(coreNetwork)
-  };
+// src/helpers/clients.ts
+var initialRpcUrls = {
+  [mainnet.id]: [
+    "https://cloudflare-eth.com",
+    "https://eth.llamarpc.com",
+    "https://rpc.mevblocker.io"
+  ],
+  [polygon.id]: [
+    "https://polygon.llamarpc.com",
+    "https://polygon-bor.publicnode.com",
+    "https://endpoints.omniatech.io/v1/matic/mainnet/public"
+  ],
+  [avalanche.id]: [
+    "https://avalanche.drpc.org",
+    "https://avax.meowrpc.com",
+    "https://avalanche.blockpi.network/v1/rpc/public"
+  ],
+  [bsc.id]: ["https://binance.llamarpc.com", "https://bsc.meowrpc.com"],
+  [base.id]: [
+    "https://base.llamarpc.com",
+    "https://base-mainnet.public.blastapi.io",
+    "https://base.meowrpc.com"
+  ],
+  [arbitrum.id]: [
+    "https://arbitrum.llamarpc.com",
+    "https://arb-mainnet-public.unifra.io",
+    "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+  ],
+  [metis.id]: [
+    "https://metis-mainnet.public.blastapi.io",
+    "https://metis.api.onfinality.io/public"
+  ],
+  [optimism.id]: [
+    "https://optimism.llamarpc.com",
+    "https://optimism.blockpi.network/v1/rpc/public",
+    "https://optimism.publicnode.com"
+  ],
+  // testnets
+  [goerli.id]: [
+    "https://ethereum-goerli.publicnode.com",
+    "https://goerli.blockpi.network/v1/rpc/public",
+    "https://eth-goerli.public.blastapi.io"
+  ],
+  [sepolia.id]: [
+    "https://ethereum-sepolia.blockpi.network/v1/rpc/public",
+    "https://ethereum-sepolia.publicnode.com",
+    "https://endpoints.omniatech.io/v1/eth/sepolia/public"
+  ],
+  [polygonMumbai.id]: ["https://rpc.ankr.com/polygon_mumbai"],
+  [avalancheFuji.id]: [
+    "https://api.avax-test.network/ext/bc/C/rpc",
+    "https://avalanche-fuji-c-chain.publicnode.com",
+    "https://rpc.ankr.com/avalanche_fuji"
+  ],
+  [bscTestnet.id]: ["https://data-seed-prebsc-1-s1.bnbchain.org:8545"]
 };
-
-// src/helpers/checkHash.ts
-var HashZero = "0x0000000000000000000000000000000000000000000000000000000000000000";
-function checkHash(hash3) {
+var appConfig = appConfigInit(coreName);
+var appUsedNetworks = [
+  ...appConfig.votingMachineChainIds,
+  ...appConfig.payloadsControllerChainIds
+].filter((value, index2, self2) => self2.indexOf(value) === index2);
+function setChain(chain, url) {
   return {
-    notZero: hash3 !== HashZero,
-    zero: hash3 === HashZero
+    ...chain,
+    rpcUrls: {
+      ...chain.rpcUrls,
+      default: {
+        ...chain.rpcUrls.default,
+        http: [url || initialRpcUrls[chain.id][0]]
+      }
+    }
   };
 }
-
-// src/helpers/clients.ts
-function initPublicClient(chain) {
-  return createPublicClient({
+var CHAINS = {
+  [mainnet.id]: setChain(mainnet),
+  [polygon.id]: setChain(polygon),
+  [avalanche.id]: setChain(avalanche),
+  [bsc.id]: setChain(bsc),
+  [base.id]: setChain(base),
+  [arbitrum.id]: setChain(arbitrum),
+  [metis.id]: setChain(metis),
+  [optimism.id]: setChain(optimism),
+  // testnets
+  [goerli.id]: setChain(goerli),
+  [sepolia.id]: setChain(sepolia),
+  [polygonMumbai.id]: setChain(polygonMumbai),
+  [avalancheFuji.id]: setChain(avalancheFuji),
+  [bscTestnet.id]: setChain(bscTestnet)
+};
+var initialClients = {};
+appUsedNetworks.forEach((chain) => {
+  initialClients[chain] = createPublicClient({
     batch: {
       multicall: true
     },
-    chain,
-    transport: http2()
+    chain: CHAINS[chain],
+    transport: fallback(initialRpcUrls[chain].map((url) => http2(url)))
   });
-}
-var clients = {
-  [mainnet.id]: initPublicClient(mainnet),
-  [polygon.id]: initPublicClient(polygon),
-  [avalanche.id]: initPublicClient(avalanche),
-  [bsc.id]: initPublicClient(bsc),
-  [base.id]: initPublicClient(base),
-  [arbitrum.id]: initPublicClient(arbitrum),
-  [metis.id]: initPublicClient(metis),
-  [optimism.id]: initPublicClient(optimism),
-  // testnets
-  [avalancheFuji.id]: initPublicClient(avalancheFuji),
-  [goerli.id]: initPublicClient(goerli),
-  [sepolia.id]: initPublicClient(sepolia)
-};
+});
+initialClients[mainnet.id] = createPublicClient({
+  batch: {
+    multicall: true
+  },
+  chain: CHAINS[mainnet.id],
+  transport: fallback(initialRpcUrls[mainnet.id].map((url) => http2(url)))
+});
 
 // src/helpers/contracts.ts
 function govCoreContract({
@@ -23040,9 +23422,9 @@ async function getGovCoreConfigs({
     console.error("Cannot get gov core configs and constants. Set zero.");
     const contractsConstants = {
       precisionDivider: "0",
-      cooldownPeriod: 0,
-      expirationTime: 0,
-      cancellationFee: 0
+      cooldownPeriod: 100,
+      expirationTime: 1e3,
+      cancellationFee: "0"
     };
     const configs = [
       {
@@ -23199,11 +23581,6 @@ async function getProposalMetadata(hash3, gateway = ipfsGateway, setIpfsError, e
   return MEMORIZE[ipfsHash];
 }
 
-// src/lowdb/helpers.ts
-require_main().config();
-var coreName = process.env.CORE_NETWORK || "mainnet";
-var baseDirName = `src/generated-cache/${coreName}`;
-
 // src/lowdb/ipfs.ts
 var import_lodash = __toESM(require_lodash());
 
@@ -23239,8 +23616,9 @@ var fsPromises = __toESM(require("node:fs/promises"), 1);
 // node_modules/steno/lib/index.js
 var import_promises = require("node:fs/promises");
 var import_node_path = require("node:path");
+var import_node_url = require("node:url");
 function getTempFilename(file6) {
-  const f = file6.toString();
+  const f = file6 instanceof URL ? (0, import_node_url.fileURLToPath)(file6) : file6.toString();
   return (0, import_node_path.join)((0, import_node_path.dirname)(f), `.${(0, import_node_path.basename)(f)}.tmp`);
 }
 var Writer = class {
@@ -23594,8 +23972,8 @@ var Votes = class {
     return cache.voters.filter((voter) => voter.proposalId === id2);
   }
   async populate(contractAddress, startBlockNumber, endBlockNumber, chainId) {
-    const mainnetClient = clients[mainnet.id];
-    const votingMachineClient = clients[chainId];
+    const mainnetClient = initialClients[mainnet.id];
+    const votingMachineClient = initialClients[chainId];
     db5.data ||= { voters: [], lastVoteBlockNumber: {} };
     const isCached = db5.data ||= { voters: [], lastVoteBlockNumber: {} };
     const currentBlock = await votingMachineClient.getBlockNumber();
@@ -23617,13 +23995,20 @@ var Votes = class {
       });
       const fiveTopVoters = await Promise.all(
         newVoters.sort((a, b) => b.votingPower - a.votingPower).slice(0, 5).map(async (vote) => {
-          const name = await mainnetClient.getEnsName({
-            address: vote.address
-          });
-          return {
-            ...vote,
-            ensName: name ? name : void 0
-          };
+          try {
+            const name = await mainnetClient.getEnsName({
+              address: vote.address
+            });
+            return {
+              ...vote,
+              ensName: name ? name : void 0
+            };
+          } catch {
+            return {
+              ...vote,
+              ensName: void 0
+            };
+          }
         })
       );
       fiveTopVoters.forEach((vote) => {
@@ -23658,7 +24043,6 @@ var Votes = class {
 };
 
 // src/lowdb/populateCache.ts
-var appConfig = appConfigWithClients(clients, coreName);
 async function populateCache() {
   const proposalFetcher = new Proposal();
   const listViewProposalFetcher = new ListViewProposal();
@@ -23667,16 +24051,16 @@ async function populateCache() {
   const votesFetcher = new Votes();
   const govCore = govCoreContract({
     contractAddress: appConfig.govCoreConfig.contractAddress,
-    client: appConfig.clients[appConfig.govCoreChainId]
+    client: initialClients[appConfig.govCoreChainId]
   });
   const govCoreDataHelper = govCoreDataHelperContract({
     contractAddress: appConfig.govCoreConfig.dataHelperContractAddress,
-    client: appConfig.clients[appConfig.govCoreChainId]
+    client: initialClients[appConfig.govCoreChainId]
   });
   const votingMachineDataHelpers = {
     [appConfig.votingMachineChainIds[0]]: votingMachineDataHelperContract({
       contractAddress: appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]].dataHelperContractAddress,
-      client: appConfig.clients[appConfig.votingMachineChainIds[0]]
+      client: initialClients[appConfig.votingMachineChainIds[0]]
     })
   };
   if (appConfig.votingMachineChainIds.length > 1) {
@@ -23684,14 +24068,14 @@ async function populateCache() {
       const votingMachineConfig2 = appConfig.votingMachineConfig[chainId];
       votingMachineDataHelpers[chainId] = votingMachineDataHelperContract({
         contractAddress: votingMachineConfig2.dataHelperContractAddress,
-        client: appConfig.clients[chainId]
+        client: initialClients[chainId]
       });
     });
   }
   const payloadsControllerDataHelpers = {
     [appConfig.payloadsControllerChainIds[0]]: payloadsControllerDataHelperContract({
       contractAddress: appConfig.payloadsControllerConfig[appConfig.payloadsControllerChainIds[0]].dataHelperContractAddress,
-      client: appConfig.clients[appConfig.payloadsControllerChainIds[0]]
+      client: initialClients[appConfig.payloadsControllerChainIds[0]]
     })
   };
   if (appConfig.payloadsControllerChainIds.length > 1) {
@@ -23699,7 +24083,7 @@ async function populateCache() {
       const payloadsControllerConfig2 = appConfig.payloadsControllerConfig[chainId];
       payloadsControllerDataHelpers[chainId] = payloadsControllerDataHelperContract({
         contractAddress: payloadsControllerConfig2.dataHelperContractAddress,
-        client: appConfig.clients[chainId]
+        client: initialClients[chainId]
       });
     });
   }
@@ -23752,7 +24136,7 @@ async function populateCache() {
       true
     );
     const { contractsConstants, configs } = await getGovCoreConfigs({
-      client: appConfig.clients[appConfig.govCoreChainId],
+      client: initialClients[appConfig.govCoreChainId],
       govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
       govCoreDataHelperContractAddress: appConfig.govCoreConfig.dataHelperContractAddress
     });
@@ -23854,7 +24238,7 @@ async function populateCache() {
             }
           })
         );
-        const currentBlock = await appConfig.clients[proposalData.votingChainId].getBlockNumber();
+        const currentBlock = await initialClients[proposalData.votingChainId].getBlockNumber();
         const startBlockNumber = proposalData.votingMachineData.createdBlock;
         const endBlockNumber = proposalData.votingMachineData.votingClosedAndSentBlockNumber;
         const { startBlock, endBlock } = getBlocksForEvents(

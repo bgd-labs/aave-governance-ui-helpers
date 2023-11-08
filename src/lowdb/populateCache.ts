@@ -1,9 +1,8 @@
 import { BigNumber } from 'bignumber.js';
 import { Hex, zeroAddress } from 'viem';
 
-import { appConfigWithClients } from '../helpers/appConfigWithClients';
 import { checkHash } from '../helpers/checkHash';
-import { clients } from '../helpers/clients';
+import { appConfig, initialClients } from '../helpers/clients';
 import {
   govCoreContract,
   govCoreDataHelperContract,
@@ -29,14 +28,11 @@ import {
   ProposalState,
   VotingMachineProposalState,
 } from '../helpers/types';
-import { coreName } from './helpers';
 import { Ipfs as IpfsDB } from './ipfs';
 import { ListViewProposal as ListViewProposalDB } from './listViewProposals';
 import { Payload as PayloadDB } from './payload';
 import { Proposal as ProposalDB } from './proposal';
 import { Votes as VotesDB } from './votes';
-
-const appConfig = appConfigWithClients(clients, coreName);
 
 export async function populateCache() {
   const proposalFetcher = new ProposalDB();
@@ -47,11 +43,11 @@ export async function populateCache() {
 
   const govCore = govCoreContract({
     contractAddress: appConfig.govCoreConfig.contractAddress,
-    client: appConfig.clients[appConfig.govCoreChainId],
+    client: initialClients[appConfig.govCoreChainId],
   });
   const govCoreDataHelper = govCoreDataHelperContract({
     contractAddress: appConfig.govCoreConfig.dataHelperContractAddress,
-    client: appConfig.clients[appConfig.govCoreChainId],
+    client: initialClients[appConfig.govCoreChainId],
   });
 
   const votingMachineDataHelpers = {
@@ -59,7 +55,7 @@ export async function populateCache() {
       contractAddress:
         appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]]
           .dataHelperContractAddress,
-      client: appConfig.clients[appConfig.votingMachineChainIds[0]],
+      client: initialClients[appConfig.votingMachineChainIds[0]],
     }),
   };
   if (appConfig.votingMachineChainIds.length > 1) {
@@ -67,7 +63,7 @@ export async function populateCache() {
       const votingMachineConfig = appConfig.votingMachineConfig[chainId];
       votingMachineDataHelpers[chainId] = votingMachineDataHelperContract({
         contractAddress: votingMachineConfig.dataHelperContractAddress,
-        client: appConfig.clients[chainId],
+        client: initialClients[chainId],
       });
     });
   }
@@ -79,7 +75,7 @@ export async function populateCache() {
           appConfig.payloadsControllerConfig[
             appConfig.payloadsControllerChainIds[0]
           ].dataHelperContractAddress,
-        client: appConfig.clients[appConfig.payloadsControllerChainIds[0]],
+        client: initialClients[appConfig.payloadsControllerChainIds[0]],
       }),
   };
   if (appConfig.payloadsControllerChainIds.length > 1) {
@@ -89,7 +85,7 @@ export async function populateCache() {
       payloadsControllerDataHelpers[chainId] =
         payloadsControllerDataHelperContract({
           contractAddress: payloadsControllerConfig.dataHelperContractAddress,
-          client: appConfig.clients[chainId],
+          client: initialClients[chainId],
         });
     });
   }
@@ -164,7 +160,7 @@ export async function populateCache() {
 
     // configs and constants
     const { contractsConstants, configs } = await getGovCoreConfigs({
-      client: appConfig.clients[appConfig.govCoreChainId],
+      client: initialClients[appConfig.govCoreChainId],
       govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
       govCoreDataHelperContractAddress:
         appConfig.govCoreConfig.dataHelperContractAddress,
@@ -322,7 +318,7 @@ export async function populateCache() {
         );
 
         const currentBlock =
-          await appConfig.clients[proposalData.votingChainId].getBlockNumber();
+          await initialClients[proposalData.votingChainId].getBlockNumber();
         const startBlockNumber = proposalData.votingMachineData.createdBlock;
         const endBlockNumber =
           proposalData.votingMachineData.votingClosedAndSentBlockNumber;

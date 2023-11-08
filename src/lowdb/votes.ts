@@ -5,7 +5,7 @@ import { join } from 'path';
 import { Hex } from 'viem';
 import { mainnet } from 'viem/chains';
 
-import { clients } from '../helpers/clients';
+import { initialClients } from '../helpers/clients';
 import { blockLimit, getBlocksForEvents } from '../helpers/eventsHelpres';
 import { getVoters } from '../helpers/getProposalEvents';
 import { VotersData } from '../helpers/types';
@@ -50,8 +50,8 @@ export class Votes {
     endBlockNumber: number,
     chainId: number,
   ) {
-    const mainnetClient = clients[mainnet.id];
-    const votingMachineClient = clients[chainId];
+    const mainnetClient = initialClients[mainnet.id];
+    const votingMachineClient = initialClients[chainId];
 
     // fallback to empty array
     db.data ||= { voters: [], lastVoteBlockNumber: {} };
@@ -84,14 +84,21 @@ export class Votes {
           .sort((a, b) => b.votingPower - a.votingPower)
           .slice(0, 5)
           .map(async (vote) => {
-            const name = await mainnetClient.getEnsName({
-              address: vote.address,
-            });
+            try {
+              const name = await mainnetClient.getEnsName({
+                address: vote.address,
+              });
 
-            return {
-              ...vote,
-              ensName: name ? name : undefined,
-            };
+              return {
+                ...vote,
+                ensName: name ? name : undefined,
+              };
+            } catch {
+              return {
+                ...vote,
+                ensName: undefined,
+              };
+            }
           }),
       );
 
