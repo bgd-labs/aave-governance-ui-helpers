@@ -1,7 +1,7 @@
 {
   "name": "@bgd-labs/aave-governance-ui-helpers",
   "description": "This repository saves and updates the cache for finished proposals, also includes helper functions connected to Aave governance UI version 3.",
-  "version": "0.2.95",
+  "version": "0.3.0",
   "author": "BGD labs",
   "license": "MIT",
   "private": false,
@@ -49,7 +49,7 @@
     "node": ">=18"
   },
   "peerDependencies": {
-    "@bgd-labs/aave-address-book": ">=2.7.0 < 3",
+    "@bgd-labs/aave-address-book": "^2.10.0",
     "wagmi": "^1.4.5",
     "viem": "^1.18.9"
   },
