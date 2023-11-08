@@ -2,9 +2,17 @@
 
 This repository saves and updates the cache for finished proposals, also includes helper functions connected to Aave governance UI version 3.
 
-## How to use
+### Installation like a package
 
-First you need to create an env file with network name, here is an example [env](./.env.example)
+#### npm
+<code>npm i @bgd-labs/aave-governance-ui-helpers</code>
+
+#### yarn
+<code>yarn add @bgd-labs/aave-governance-ui-helpers</code>
+
+## How to update cache
+
+You need upload project locally than create an env file with network name, here is an example [env](./.env.example)
 
 Currently [available networks](https://github.com/bgd-labs/aave-governance-ui-helpers/blob/main/src/helpers/appConfig.ts#L16)
 
