@@ -217,7 +217,7 @@ export const votingMachineChainIds: Record<CoreNetworkName, number[]> = {
 };
 
 const gelatoApiKeys: Record<string, string> = {
-  testnet: 'qGvvlJMoyDKyuMxqJjDwFslpgiBKZCXNXpnSjIxsICY_',
+  testnet: 'MgZBKc6a7GHzxlrkdHCWIsazai_Niqbps42wvPlE7xE_',
   mainnet: 'XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_',
 };
 
