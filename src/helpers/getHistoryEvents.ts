@@ -30,6 +30,7 @@ async function getPayloadsCreatedEvents({
   return events
     .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
+      creator: event.args.creator,
       payloadId: event.args.payloadId,
       chainId,
       transactionHash: event.transactionHash,
