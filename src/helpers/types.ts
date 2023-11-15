@@ -164,6 +164,7 @@ export type VotingMachineData = {
 };
 
 export type Payload = {
+  creator: Hex;
   id: number;
   chainId: number;
   maximumAccessLevelRequired: number;

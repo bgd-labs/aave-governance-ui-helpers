@@ -182,7 +182,7 @@ var version;
 var init_version = __esm({
   "node_modules/viem/_esm/errors/version.js"() {
     "use strict";
-    version = "1.18.7";
+    version = "1.19.1";
   }
 });
 
@@ -15918,10 +15918,24 @@ function formatTransaction(transaction) {
     value: transaction.value ? BigInt(transaction.value) : void 0,
     v: transaction.v ? BigInt(transaction.v) : void 0
   };
+  transaction_.yParity = (() => {
+    if (transaction.yParity)
+      return Number(transaction.yParity);
+    if (typeof transaction_.v === "bigint") {
+      if (transaction_.v === 0n || transaction_.v === 27n)
+        return 0;
+      if (transaction_.v === 1n || transaction_.v === 28n)
+        return 1;
+      if (transaction_.v >= 35n)
+        return transaction_.v % 2n === 0n ? 1 : 0;
+    }
+    return void 0;
+  })();
   if (transaction_.type === "legacy") {
     delete transaction_.accessList;
     delete transaction_.maxFeePerGas;
     delete transaction_.maxPriorityFeePerGas;
+    delete transaction_.yParity;
   }
   if (transaction_.type === "eip2930") {
     delete transaction_.maxFeePerGas;
@@ -18494,6 +18508,9 @@ var defineTransactionReceipt = /* @__PURE__ */ defineFormatter("transactionRecei
 init_toHex();
 init_fromHex();
 
+// node_modules/viem/_esm/constants/strings.js
+var presignMessagePrefix = "Ethereum Signed Message:\n";
+
 // node_modules/viem/_esm/utils/signature/hashMessage.js
 init_concat();
 init_toBytes();
@@ -18506,8 +18523,7 @@ function hashMessage(message, to_) {
       return message.raw;
     return toBytes(message.raw);
   })();
-  const prefixBytes = stringToBytes(`Ethereum Signed Message:
-${messageBytes.length}`);
+  const prefixBytes = stringToBytes(`${presignMessagePrefix}${messageBytes.length}`);
   return keccak256(concat([prefixBytes, messageBytes]), to_);
 }
 
@@ -20358,10 +20374,14 @@ var E_MODES = {
 var AaveSafetyModule_exports = {};
 __export(AaveSafetyModule_exports, {
   STK_AAVE: () => STK_AAVE,
-  STK_ABPT: () => STK_ABPT
+  STK_ABPT: () => STK_ABPT,
+  STK_ABPT_ORACLE: () => STK_ABPT_ORACLE,
+  STK_ABPT_V2_ORACLE: () => STK_ABPT_V2_ORACLE
 });
 var STK_AAVE = "0x4da27a545c0c5B758a6BA100e3a049001de870f5";
 var STK_ABPT = "0xa1116930326D21fB917d5A27F1E9943A9595fb47";
+var STK_ABPT_ORACLE = "0x209Ad99bd808221293d03827B86cC544bcA0023b";
+var STK_ABPT_V2_ORACLE = "0xADf86b537eF08591c2777E144322E8b0Ca7E82a7";
 
 // node_modules/@bgd-labs/aave-address-book/dist/abis/IVotingMachineWithProofs.mjs
 var IVotingMachineWithProofs_ABI = [
@@ -22978,7 +22998,7 @@ var votingMachineChainIds = {
   sepolia: [sepolia.id, avalancheFuji.id]
 };
 var gelatoApiKeys = {
-  testnet: "qGvvlJMoyDKyuMxqJjDwFslpgiBKZCXNXpnSjIxsICY_",
+  testnet: "MgZBKc6a7GHzxlrkdHCWIsazai_Niqbps42wvPlE7xE_",
   mainnet: "XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_"
 };
 var appConfigInit = (coreNetwork) => {
@@ -24193,6 +24213,7 @@ async function populateCache() {
                   ]) || [];
                   return payloadsData2.map((payload) => {
                     return {
+                      creator: payload.data.creator,
                       id: Number(payload.id),
                       chainId: id2,
                       maximumAccessLevelRequired: payload.data.maximumAccessLevelRequired,

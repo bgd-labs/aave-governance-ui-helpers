@@ -262,6 +262,7 @@ export async function populateCache() {
 
                   return payloadsData.map((payload) => {
                     return {
+                      creator: payload.data.creator,
                       id: Number(payload.id),
                       chainId: id,
                       maximumAccessLevelRequired:
