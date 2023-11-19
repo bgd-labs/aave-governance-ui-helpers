@@ -65,8 +65,8 @@ export const initialRpcUrls: Record<number, string[]> = {
     'https://eth-goerli.public.blastapi.io',
   ],
   [sepolia.id]: [
-    'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
     'https://ethereum-sepolia.publicnode.com',
+    'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
     'https://endpoints.omniatech.io/v1/eth/sepolia/public',
   ],
   [polygonMumbai.id]: ['https://rpc.ankr.com/polygon_mumbai'],
@@ -121,7 +121,7 @@ appUsedNetworks.forEach((chain) => {
     },
     chain: CHAINS[chain],
     transport: fallback(initialRpcUrls[chain].map((url) => http(url))),
-  }) as PublicClient;
+  });
 });
 
 initialClients[mainnet.id] = createPublicClient({
@@ -130,4 +130,4 @@ initialClients[mainnet.id] = createPublicClient({
   },
   chain: CHAINS[mainnet.id],
   transport: fallback(initialRpcUrls[mainnet.id].map((url) => http(url))),
-}) as PublicClient;
+});

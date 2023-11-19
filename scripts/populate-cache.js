@@ -23058,8 +23058,8 @@ var initialRpcUrls = {
     "https://eth-goerli.public.blastapi.io"
   ],
   [sepolia.id]: [
-    "https://ethereum-sepolia.blockpi.network/v1/rpc/public",
     "https://ethereum-sepolia.publicnode.com",
+    "https://ethereum-sepolia.blockpi.network/v1/rpc/public",
     "https://endpoints.omniatech.io/v1/eth/sepolia/public"
   ],
   [polygonMumbai.id]: ["https://rpc.ankr.com/polygon_mumbai"],
