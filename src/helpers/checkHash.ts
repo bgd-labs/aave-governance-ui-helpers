@@ -1,11 +1,8 @@
-import { Hex } from 'viem';
-
-export const HashZero: Hex =
-  '0x0000000000000000000000000000000000000000000000000000000000000000';
+import { zeroHash } from 'viem';
 
 export function checkHash(hash: string) {
   return {
-    notZero: hash !== HashZero,
-    zero: hash === HashZero,
+    notZero: hash !== zeroHash,
+    zero: hash === zeroHash,
   };
 }

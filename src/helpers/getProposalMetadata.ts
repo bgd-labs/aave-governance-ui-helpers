@@ -1,7 +1,7 @@
 import base58 from 'bs58';
 import matter from 'gray-matter';
+import { zeroHash } from 'viem';
 
-import { HashZero } from './checkHash';
 import { ProposalMetadata } from './types';
 
 export const ipfsGateway = 'https://ipfs.io/ipfs';
@@ -15,7 +15,7 @@ const MEMORIZE: MemorizeMetadata = {};
 
 const incorectedHashses = [
   '0x0000000000000000000000000000000000000000000000000000000000000020',
-  HashZero,
+  zeroHash,
 ];
 
 export async function getProposalMetadata(
