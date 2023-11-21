@@ -182,7 +182,7 @@ var version;
 var init_version = __esm({
   "node_modules/viem/_esm/errors/version.js"() {
     "use strict";
-    version = "1.19.1";
+    version = "1.19.2";
   }
 });
 
@@ -3913,9 +3913,15 @@ function createBatchScheduler({ fn, id: id2, shouldSplitBatch, wait: wait2 = 0, 
     fn(args).then((data) => {
       if (sort && Array.isArray(data))
         data.sort(sort);
-      scheduler.forEach(({ pendingPromise }, i) => pendingPromise.resolve?.([data[i], data]));
+      for (let i = 0; i < scheduler.length; i++) {
+        const { pendingPromise } = scheduler[i];
+        pendingPromise.resolve?.([data[i], data]);
+      }
     }).catch((err) => {
-      scheduler.forEach(({ pendingPromise }) => pendingPromise.reject?.(err));
+      for (let i = 0; i < scheduler.length; i++) {
+        const { pendingPromise } = scheduler[i];
+        pendingPromise.reject?.(err);
+      }
     });
   };
   const flush = () => schedulerCache.delete(id2);
@@ -15588,8 +15594,8 @@ function toFixedPoint(str2, e, z) {
 var BigNumber = clone();
 
 // node_modules/viem/_esm/utils/getAction.js
-function getAction(client, action) {
-  return (params) => client[action.name]?.(params) ?? action(client, params);
+function getAction(client, action, name) {
+  return (params) => client[action.name || name]?.(params) ?? action(client, params);
 }
 
 // node_modules/viem/_esm/utils/abi/encodeEventTopics.js
@@ -16008,7 +16014,7 @@ async function estimateMaxPriorityFeePerGas(client, args) {
 async function internal_estimateMaxPriorityFeePerGas(client, args) {
   const { block: block_, chain = client.chain, request } = args || {};
   if (typeof chain?.fees?.defaultPriorityFee === "function") {
-    const block = block_ || await getAction(client, getBlock)({});
+    const block = block_ || await getAction(client, getBlock, "getBlock")({});
     return chain.fees.defaultPriorityFee({
       block,
       client,
@@ -16023,8 +16029,8 @@ async function internal_estimateMaxPriorityFeePerGas(client, args) {
     return hexToBigInt(maxPriorityFeePerGasHex);
   } catch {
     const [block, gasPrice] = await Promise.all([
-      block_ ? Promise.resolve(block_) : getAction(client, getBlock)({}),
-      getAction(client, getGasPrice)({})
+      block_ ? Promise.resolve(block_) : getAction(client, getBlock, "getBlock")({}),
+      getAction(client, getGasPrice, "getGasPrice")({})
     ]);
     if (typeof block.baseFeePerGas !== "bigint")
       throw new Eip1559FeesNotSupportedError();
@@ -16055,7 +16061,7 @@ async function internal_estimateFeesPerGas(client, args) {
   const decimals = baseFeeMultiplier.toString().split(".")[1]?.length ?? 0;
   const denominator = 10 ** decimals;
   const multiply = (base2) => base2 * BigInt(Math.ceil(baseFeeMultiplier * denominator)) / BigInt(denominator);
-  const block = block_ ? block_ : await getAction(client, getBlock)({});
+  const block = block_ ? block_ : await getAction(client, getBlock, "getBlock")({});
   if (typeof chain?.fees?.estimateFeesPerGas === "function")
     return chain.fees.estimateFeesPerGas({
       block: block_,
@@ -16079,7 +16085,7 @@ async function internal_estimateFeesPerGas(client, args) {
       maxPriorityFeePerGas
     };
   }
-  const gasPrice = request?.gasPrice ?? multiply(await getAction(client, getGasPrice)({}));
+  const gasPrice = request?.gasPrice ?? multiply(await getAction(client, getGasPrice, "getGasPrice")({}));
   return {
     gasPrice
   };
@@ -16120,10 +16126,10 @@ async function prepareTransactionRequest(client, args) {
   if (!account_)
     throw new AccountNotFoundError();
   const account = parseAccount(account_);
-  const block = await getAction(client, getBlock)({ blockTag: "latest" });
+  const block = await getAction(client, getBlock, "getBlock")({ blockTag: "latest" });
   const request = { ...args, from: account.address };
   if (typeof nonce === "undefined")
-    request.nonce = await getAction(client, getTransactionCount)({
+    request.nonce = await getAction(client, getTransactionCount, "getTransactionCount")({
       address: account.address,
       blockTag: "pending"
     });
@@ -16158,7 +16164,7 @@ async function prepareTransactionRequest(client, args) {
     request.gasPrice = gasPrice_;
   }
   if (typeof gas === "undefined")
-    request.gas = await getAction(client, estimateGas)({
+    request.gas = await getAction(client, estimateGas, "estimateGas")({
       ...request,
       account: { address: account.address, type: "json-rpc" }
     });
@@ -16217,7 +16223,7 @@ async function estimateContractGas(client, { abi, address, args, functionName, .
     functionName
   });
   try {
-    const gas = await getAction(client, estimateGas)({
+    const gas = await getAction(client, estimateGas, "estimateGas")({
       data,
       to: address,
       ...request
@@ -16399,7 +16405,7 @@ async function getLogs(client, { address, blockHash, fromBlock, toBlock, event, 
 async function getContractEvents(client, { abi, address, args, blockHash, eventName, fromBlock, toBlock, strict }) {
   const event = eventName ? getAbiItem({ abi, name: eventName }) : void 0;
   const events = !event ? abi.filter((x) => x.type === "event") : void 0;
-  return getAction(client, getLogs)({
+  return getAction(client, getLogs, "getLogs")({
     address,
     args,
     blockHash,
@@ -16422,7 +16428,7 @@ async function readContract(client, { abi, address, args, functionName, ...callR
     functionName
   });
   try {
-    const { data } = await getAction(client, call)({
+    const { data } = await getAction(client, call, "call")({
       data: calldata,
       to: address,
       ...callRequest
@@ -16457,7 +16463,7 @@ async function simulateContract(client, { abi, address, args, dataSuffix, functi
     functionName
   });
   try {
-    const { data } = await getAction(client, call)({
+    const { data } = await getAction(client, call, "call")({
       batch: false,
       data: `${calldata}${dataSuffix ? dataSuffix.replace("0x", "") : ""}`,
       to: address,
@@ -16522,7 +16528,8 @@ function observe(observerId, callbacks, fn) {
       const listeners2 = getListeners();
       if (listeners2.length === 0)
         return;
-      listeners2.forEach((listener) => listener.fns[key]?.(...args));
+      for (const listener of listeners2)
+        listener.fns[key]?.(...args);
     };
   }
   const cleanup = fn(emit);
@@ -16677,7 +16684,7 @@ function watchContractEvent(client, { abi, address, args, batch = true, eventNam
       const unwatch = poll(async () => {
         if (!initialized) {
           try {
-            filter = await getAction(client, createContractEventFilter)({
+            filter = await getAction(client, createContractEventFilter, "createContractEventFilter")({
               abi,
               address,
               args,
@@ -16692,11 +16699,11 @@ function watchContractEvent(client, { abi, address, args, batch = true, eventNam
         try {
           let logs;
           if (filter) {
-            logs = await getAction(client, getFilterChanges)({ filter });
+            logs = await getAction(client, getFilterChanges, "getFilterChanges")({ filter });
           } else {
-            const blockNumber = await getAction(client, getBlockNumber)({});
+            const blockNumber = await getAction(client, getBlockNumber, "getBlockNumber")({});
             if (previousBlockNumber && previousBlockNumber !== blockNumber) {
-              logs = await getAction(client, getContractEvents)({
+              logs = await getAction(client, getContractEvents, "getContractEvents")({
                 abi,
                 address,
                 args,
@@ -16715,7 +16722,8 @@ function watchContractEvent(client, { abi, address, args, batch = true, eventNam
           if (batch)
             emit.onLogs(logs);
           else
-            logs.forEach((log) => emit.onLogs([log]));
+            for (const log of logs)
+              emit.onLogs([log]);
         } catch (err) {
           if (filter && err instanceof InvalidInputRpcError)
             initialized = false;
@@ -16727,7 +16735,7 @@ function watchContractEvent(client, { abi, address, args, batch = true, eventNam
       });
       return async () => {
         if (filter)
-          await getAction(client, uninstallFilter)({ filter });
+          await getAction(client, uninstallFilter, "uninstallFilter")({ filter });
         unwatch();
       };
     });
@@ -16858,14 +16866,14 @@ async function sendTransaction(client, args) {
     assertRequest(args);
     let chainId;
     if (chain !== null) {
-      chainId = await getAction(client, getChainId)({});
+      chainId = await getAction(client, getChainId, "getChainId")({});
       assertCurrentChain({
         currentChainId: chainId,
         chain
       });
     }
     if (account.type === "local") {
-      const request2 = await getAction(client, prepareTransactionRequest)({
+      const request2 = await getAction(client, prepareTransactionRequest, "prepareTransactionRequest")({
         account,
         accessList,
         chain,
@@ -16880,13 +16888,13 @@ async function sendTransaction(client, args) {
         ...rest
       });
       if (!chainId)
-        chainId = await getAction(client, getChainId)({});
+        chainId = await getAction(client, getChainId, "getChainId")({});
       const serializer = chain?.serializers?.transaction;
       const serializedTransaction = await account.signTransaction({
         ...request2,
         chainId
       }, { serializer });
-      return await getAction(client, sendRawTransaction)({
+      return await getAction(client, sendRawTransaction, "sendRawTransaction")({
         serializedTransaction
       });
     }
@@ -16926,7 +16934,7 @@ async function writeContract(client, { abi, address, args, dataSuffix, functionN
     args,
     functionName
   });
-  const hash3 = await getAction(client, sendTransaction)({
+  const hash3 = await getAction(client, sendTransaction, "sendTransaction")({
     data: `${data}${dataSuffix ? dataSuffix.replace("0x", "") : ""}`,
     to: address,
     ...request
@@ -16959,7 +16967,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
         get(_, functionName) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
-            return getAction(publicClient, readContract)({
+            return getAction(publicClient, readContract, "readContract")({
               abi,
               address,
               functionName,
@@ -16974,7 +16982,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
         get(_, functionName) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
-            return getAction(publicClient, simulateContract)({
+            return getAction(publicClient, simulateContract, "simulateContract")({
               abi,
               address,
               functionName,
@@ -16990,7 +16998,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const abiEvent = abi.find((x) => x.type === "event" && x.name === eventName);
             const { args, options: options2 } = getEventParameters(parameters, abiEvent);
-            return getAction(publicClient, createContractEventFilter)({
+            return getAction(publicClient, createContractEventFilter, "createContractEventFilter")({
               abi,
               address,
               eventName,
@@ -17005,7 +17013,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const abiEvent = abi.find((x) => x.type === "event" && x.name === eventName);
             const { args, options: options2 } = getEventParameters(parameters, abiEvent);
-            return getAction(publicClient, getContractEvents)({
+            return getAction(publicClient, getContractEvents, "getContractEvents")({
               abi,
               address,
               eventName,
@@ -17020,7 +17028,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const abiEvent = abi.find((x) => x.type === "event" && x.name === eventName);
             const { args, options: options2 } = getEventParameters(parameters, abiEvent);
-            return getAction(publicClient, watchContractEvent)({
+            return getAction(publicClient, watchContractEvent, "watchContractEvent")({
               abi,
               address,
               eventName,
@@ -17038,7 +17046,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
         get(_, functionName) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
-            return getAction(walletClient, writeContract)({
+            return getAction(walletClient, writeContract, "writeContract")({
               abi,
               address,
               functionName,
@@ -17056,7 +17064,7 @@ function getContract({ abi, address, publicClient, walletClient }) {
           return (...parameters) => {
             const { args, options: options2 } = getFunctionParameters(parameters);
             const client = publicClient ?? walletClient;
-            return getAction(client, estimateContractGas)({
+            return getAction(client, estimateContractGas, "estimateContractGas")({
               abi,
               address,
               functionName,
@@ -17677,7 +17685,7 @@ async function getEnsAddress(client, { blockNumber, blockTag, coinType, name, un
       functionName: "addr",
       ...coinType != null ? { args: [namehash(name), BigInt(coinType)] } : { args: [namehash(name)] }
     });
-    const res = await getAction(client, readContract)({
+    const res = await getAction(client, readContract, "readContract")({
       address: universalResolverAddress,
       abi: universalResolverResolveAbi,
       functionName: "resolve",
@@ -17976,7 +17984,7 @@ async function getEnsText(client, { blockNumber, blockTag, name, key, universalR
     });
   }
   try {
-    const res = await getAction(client, readContract)({
+    const res = await getAction(client, readContract, "readContract")({
       address: universalResolverAddress,
       abi: universalResolverResolveAbi,
       functionName: "resolve",
@@ -18008,7 +18016,7 @@ async function getEnsText(client, { blockNumber, blockTag, name, key, universalR
 
 // node_modules/viem/_esm/actions/ens/getEnsAvatar.js
 async function getEnsAvatar(client, { blockNumber, blockTag, gatewayUrls, name, universalResolverAddress }) {
-  const record = await getAction(client, getEnsText)({
+  const record = await getAction(client, getEnsText, "getEnsText")({
     blockNumber,
     blockTag,
     key: "avatar",
@@ -18041,7 +18049,7 @@ async function getEnsName(client, { address, blockNumber, blockTag, universalRes
   }
   const reverseNode = `${address.toLowerCase().substring(2)}.addr.reverse`;
   try {
-    const res = await getAction(client, readContract)({
+    const res = await getAction(client, readContract, "readContract")({
       address: universalResolverAddress,
       abi: universalResolverReverseAbi,
       functionName: "reverse",
@@ -18071,7 +18079,7 @@ async function getEnsResolver(client, { blockNumber, blockTag, name, universalRe
       contract: "ensUniversalResolver"
     });
   }
-  const [resolverAddress] = await getAction(client, readContract)({
+  const [resolverAddress] = await getAction(client, readContract, "readContract")({
     address: universalResolverAddress,
     abi: [
       {
@@ -18603,8 +18611,8 @@ async function getTransaction(client, { blockHash, blockNumber, blockTag: blockT
 // node_modules/viem/_esm/actions/public/getTransactionConfirmations.js
 async function getTransactionConfirmations(client, { hash: hash3, transactionReceipt }) {
   const [blockNumber, transaction] = await Promise.all([
-    getAction(client, getBlockNumber)({}),
-    hash3 ? getAction(client, getTransaction)({ hash: hash3 }) : void 0
+    getAction(client, getBlockNumber, "getBlockNumber")({}),
+    hash3 ? getAction(client, getTransaction, "getBlockNumber")({ hash: hash3 }) : void 0
   ]);
   const transactionBlockNumber = transactionReceipt?.blockNumber || transaction?.blockNumber;
   if (!transactionBlockNumber)
@@ -18696,7 +18704,7 @@ async function multicall(client, args) {
       ];
     }
   }
-  const aggregate3Results = await Promise.allSettled(chunkedCalls.map((calls) => getAction(client, readContract)({
+  const aggregate3Results = await Promise.allSettled(chunkedCalls.map((calls) => getAction(client, readContract, "readContract")({
     abi: multicall3Abi,
     address: multicallAddress,
     args: [calls],
@@ -18779,7 +18787,7 @@ init_call();
 async function verifyHash(client, { address, hash: hash3, signature, ...callRequest }) {
   const signatureHex = isHex(signature) ? signature : toHex(signature);
   try {
-    const { data } = await getAction(client, call)({
+    const { data } = await getAction(client, call, "call")({
       data: encodeDeployData({
         abi: universalSignatureValidatorAbi,
         args: [address, hash3, signatureHex],
@@ -18838,7 +18846,7 @@ function watchBlockNumber(client, { emitOnBegin = false, emitMissed = false, onB
     ]);
     return observe(observerId, { onBlockNumber, onError }, (emit) => poll(async () => {
       try {
-        const blockNumber = await getAction(client, getBlockNumber)({ cacheTime: 0 });
+        const blockNumber = await getAction(client, getBlockNumber, "getBlockNumber")({ cacheTime: 0 });
         if (prevBlockNumber) {
           if (blockNumber === prevBlockNumber)
             return;
@@ -18902,7 +18910,7 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
     if (timeout)
       setTimeout(() => reject(new WaitForTransactionReceiptTimeoutError({ hash: hash3 })), timeout);
     const _unobserve = observe(observerId, { onReplaced, resolve, reject }, (emit) => {
-      const _unwatch = getAction(client, watchBlockNumber)({
+      const _unwatch = getAction(client, watchBlockNumber, "watchBlockNumber")({
         emitMissed: true,
         emitOnBegin: true,
         poll: true,
@@ -18926,7 +18934,7 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
             if (!transaction) {
               retrying = true;
               await withRetry(async () => {
-                transaction = await getAction(client, getTransaction)({ hash: hash3 });
+                transaction = await getAction(client, getTransaction, "getTransaction")({ hash: hash3 });
                 if (transaction.blockNumber)
                   blockNumber = transaction.blockNumber;
               }, {
@@ -18936,7 +18944,7 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
               });
               retrying = false;
             }
-            receipt = await getAction(client, getTransactionReceipt)({ hash: hash3 });
+            receipt = await getAction(client, getTransactionReceipt, "getTransactionReceipt")({ hash: hash3 });
             if (confirmations > 1 && (!receipt.blockNumber || blockNumber - receipt.blockNumber + 1n < confirmations))
               return;
             done(() => emit.resolve(receipt));
@@ -18944,14 +18952,14 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
             if (transaction && (err instanceof TransactionNotFoundError || err instanceof TransactionReceiptNotFoundError)) {
               try {
                 replacedTransaction = transaction;
-                const block = await getAction(client, getBlock)({
+                const block = await getAction(client, getBlock, "getBlock")({
                   blockNumber,
                   includeTransactions: true
                 });
                 const replacementTransaction = block.transactions.find(({ from, nonce }) => from === replacedTransaction.from && nonce === replacedTransaction.nonce);
                 if (!replacementTransaction)
                   return;
-                receipt = await getAction(client, getTransactionReceipt)({
+                receipt = await getAction(client, getTransactionReceipt, "getTransactionReceipt")({
                   hash: replacementTransaction.hash
                 });
                 if (confirmations > 1 && (!receipt.blockNumber || blockNumber - receipt.blockNumber + 1n < confirmations))
@@ -19001,7 +19009,7 @@ function watchBlocks(client, { blockTag = "latest", emitMissed = false, emitOnBe
     ]);
     return observe(observerId, { onBlock, onError }, (emit) => poll(async () => {
       try {
-        const block = await getAction(client, getBlock)({
+        const block = await getAction(client, getBlock, "getBlock")({
           blockTag,
           includeTransactions
         });
@@ -19010,7 +19018,7 @@ function watchBlocks(client, { blockTag = "latest", emitMissed = false, emitOnBe
             return;
           if (block.number - prevBlock.number > 1 && emitMissed) {
             for (let i = prevBlock?.number + 1n; i < block.number; i++) {
-              const block2 = await getAction(client, getBlock)({
+              const block2 = await getAction(client, getBlock, "getBlock")({
                 blockNumber: i,
                 includeTransactions
               });
@@ -19092,7 +19100,7 @@ function watchEvent(client, { address, args, batch = true, event, events, onErro
       const unwatch = poll(async () => {
         if (!initialized) {
           try {
-            filter = await getAction(client, createEventFilter)({
+            filter = await getAction(client, createEventFilter, "createEventFilter")({
               address,
               args,
               event,
@@ -19107,11 +19115,11 @@ function watchEvent(client, { address, args, batch = true, event, events, onErro
         try {
           let logs;
           if (filter) {
-            logs = await getAction(client, getFilterChanges)({ filter });
+            logs = await getAction(client, getFilterChanges, "getFilterChanges")({ filter });
           } else {
-            const blockNumber = await getAction(client, getBlockNumber)({});
+            const blockNumber = await getAction(client, getBlockNumber, "getBlockNumber")({});
             if (previousBlockNumber && previousBlockNumber !== blockNumber) {
-              logs = await getAction(client, getLogs)({
+              logs = await getAction(client, getLogs, "getLogs")({
                 address,
                 args,
                 event,
@@ -19129,7 +19137,8 @@ function watchEvent(client, { address, args, batch = true, event, events, onErro
           if (batch)
             emit.onLogs(logs);
           else
-            logs.forEach((log) => emit.onLogs([log]));
+            for (const log of logs)
+              emit.onLogs([log]);
         } catch (err) {
           if (filter && err instanceof InvalidInputRpcError)
             initialized = false;
@@ -19141,7 +19150,7 @@ function watchEvent(client, { address, args, batch = true, event, events, onErro
       });
       return async () => {
         if (filter)
-          await getAction(client, uninstallFilter)({ filter });
+          await getAction(client, uninstallFilter, "uninstallFilter")({ filter });
         unwatch();
       };
     });
@@ -19231,20 +19240,21 @@ function watchPendingTransactions(client, { batch = true, onError, onTransaction
         try {
           if (!filter) {
             try {
-              filter = await getAction(client, createPendingTransactionFilter)({});
+              filter = await getAction(client, createPendingTransactionFilter, "createPendingTransactionFilter")({});
               return;
             } catch (err) {
               unwatch();
               throw err;
             }
           }
-          const hashes = await getAction(client, getFilterChanges)({ filter });
+          const hashes = await getAction(client, getFilterChanges, "getFilterChanges")({ filter });
           if (hashes.length === 0)
             return;
           if (batch)
             emit.onTransactions(hashes);
           else
-            hashes.forEach((hash3) => emit.onTransactions([hash3]));
+            for (const hash3 of hashes)
+              emit.onTransactions([hash3]);
         } catch (err) {
           emit.onError?.(err);
         }
@@ -19254,7 +19264,7 @@ function watchPendingTransactions(client, { batch = true, onError, onTransaction
       });
       return async () => {
         if (filter)
-          await getAction(client, uninstallFilter)({ filter });
+          await getAction(client, uninstallFilter, "uninstallFilter")({ filter });
         unwatch();
       };
     });
@@ -19355,12 +19365,14 @@ function createPublicClient(parameters) {
 // node_modules/viem/_esm/constants/address.js
 var zeroAddress = "0x0000000000000000000000000000000000000000";
 
+// node_modules/viem/_esm/constants/bytes.js
+var zeroHash = "0x0000000000000000000000000000000000000000000000000000000000000000";
+
 // src/helpers/checkHash.ts
-var HashZero = "0x0000000000000000000000000000000000000000000000000000000000000000";
 function checkHash(hash3) {
   return {
-    notZero: hash3 !== HashZero,
-    zero: hash3 === HashZero
+    notZero: hash3 !== zeroHash,
+    zero: hash3 === zeroHash
   };
 }
 
@@ -19581,8 +19593,8 @@ var bscTestnet = /* @__PURE__ */ defineChain({
     symbol: "tBNB"
   },
   rpcUrls: {
-    default: { http: ["https://data-seed-prebsc-1-s1.binance.org:8545"] },
-    public: { http: ["https://data-seed-prebsc-1-s1.binance.org:8545"] }
+    default: { http: ["https://data-seed-prebsc-1-s1.bnbchain.org:8545"] },
+    public: { http: ["https://data-seed-prebsc-1-s1.bnbchain.org:8545"] }
   },
   blockExplorers: {
     etherscan: { name: "BscScan", url: "https://testnet.bscscan.com" },
@@ -23488,7 +23500,7 @@ function formatVotingMachineData(id2, votingMachineData) {
       votingMachineData.proposalData.votingClosedAndSentBlockNumber
     ),
     votingClosedAndSentTimestamp: votingMachineData.proposalData.votingClosedAndSentTimestamp,
-    l1BlockHash: votingMachineData?.voteConfig.l1ProposalBlockHash || HashZero,
+    l1BlockHash: votingMachineData?.voteConfig.l1ProposalBlockHash || zeroHash,
     strategy: votingMachineData.strategy,
     sentToGovernance: votingMachineData.proposalData.sentToGovernance,
     createdBlock: Number(votingMachineData.proposalData.creationBlockNumber),
@@ -23548,7 +23560,7 @@ function getLink(hash3, gateway) {
 var MEMORIZE = {};
 var incorectedHashses = [
   "0x0000000000000000000000000000000000000000000000000000000000000020",
-  HashZero
+  zeroHash
 ];
 async function getProposalMetadata(hash3, gateway = ipfsGateway, setIpfsError, errorText) {
   const ipfsHash = hash3.startsWith("0x") ? import_bs58.default.encode(Buffer.from(`1220${hash3.slice(2)}`, "hex")) : hash3;
