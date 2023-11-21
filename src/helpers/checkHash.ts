@@ -1,8 +1,8 @@
-import { ethers } from 'ethers';
+import { zeroHash } from 'viem';
 
 export function checkHash(hash: string) {
   return {
-    notZero: hash !== ethers.constants.HashZero,
-    zero: hash === ethers.constants.HashZero,
+    notZero: hash !== zeroHash,
+    zero: hash === zeroHash,
   };
 }

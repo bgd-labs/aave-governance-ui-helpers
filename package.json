@@ -1,81 +1,91 @@
 {
   "name": "@bgd-labs/aave-governance-ui-helpers",
+  "description": "This repository saves and updates the cache for finished proposals, also includes helper functions connected to Aave governance UI version 3.",
+  "version": "0.1.0",
   "author": "BGD labs",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "contributors": [
     {
       "name": "Oleksandr Tkach",
       "url": "https://github.com/Argeare5"
     }
   ],
-  "version": "0.1.3",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgd-labs/aave-governance-ui-helpers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bgd-labs/aave-governance-ui-helpers/issues"
+  },
+  "homepage": "https://github.com/bgd-labs/aave-governance-ui-helpers#readme",
+  "scripts": {
+    "start": "tsup src/index.ts --watch",
+    "build": "tsup",
+    "size": "size-limit",
+    "lint": "npx eslint --fix",
+    "build:populate-cache": "npx esbuild src/lowdb/populateCache.ts --tsconfig=./tsconfig.json --bundle --outfile=scripts/populate-cache.js --platform=node --target=ESNEXT",
+    "cache:update": "CACHE_PATH=../src/generated-cache node scripts/populate-cache.js",
+    "cache:parse": "node scripts/parseProposalDetails.js",
+    "ci:publish": "npm run build && npm publish --access=public"
+  },
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
+  "module": "dist/index.mjs",
+  "sideEffects": false,
+  "size-limit": [
+    {
+      "path": "dist/index.mjs",
+      "limit": "50 KB"
+    }
   ],
   "engines": {
     "node": ">=18"
   },
-  "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
-    "build:populate-cache": "npx esbuild src/lowdb/populateCache.ts --tsconfig=./tsconfig.json --bundle --outfile=scripts/populate-cache.js --platform=node --target=es6",
-    "cache:update": "CACHE_PATH=../src/generated-cache node scripts/populate-cache.js",
-    "cache:parse": "node scripts/parseProposalDetails.js"
-  },
   "peerDependencies": {
-    "@bgd-labs/aave-address-book": ">=2.6.0 < 3",
-    "ethers": "5.x"
+    "@bgd-labs/aave-address-book": "^2.11.0",
+    "wagmi": "^1.4.7",
+    "viem": "^1.19.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "module": "dist/bgd-aave-governance-ui-helpers.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/bgd-aave-governance-ui-helpers.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/bgd-aave-governance-ui-helpers.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^9.0.0",
-    "@types/lodash": "^4.14.199",
+    "@size-limit/preset-small-lib": "^11.0.0",
+    "@types/lodash": "^4.14.201",
+    "@types/node": "^20.9.0",
     "bignumber.js": "^9.1.2",
     "dotenv": "^16.3.1",
-    "eslint": "^8.50.0",
+    "esbuild-plugin-file-path-extensions": "^1.0.0",
+    "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "ethers": "^5.7.2",
     "husky": "^8.0.3",
     "lodash": "^4.17.21",
-    "lowdb": "^6.0.1",
-    "prettier": "^3.0.3",
-    "size-limit": "^9.0.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.6.2",
+    "lowdb": "^6.1.1",
+    "prettier": "^3.1.0",
+    "size-limit": "^11.0.0",
+    "tsup": "^8.0.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@bgd-labs/aave-address-book": "^2.6.0",
-    "@web3-react/core": "^8.2.2",
+    "@bgd-labs/aave-address-book": "^2.11.0",
+    "bs58": "^5.0.0",
     "dayjs": "^1.11.10",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "viem": "^1.19.4",
+    "wagmi": "^1.4.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   }
 }

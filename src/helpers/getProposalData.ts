@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
-import { ethers } from 'ethers';
+import { zeroHash } from 'viem';
 
-import { IGovernanceDataHelper } from '../contracts/IGovernanceDataHelper';
-import { IVotingMachineDataHelper } from '../contracts/IVotingMachineDataHelper';
 import {
   BasicProposal,
   ProposalData,
+  ProposalStructOutput,
+  VMProposalStructOutput,
   VotingMachineProposalState,
-} from '../types';
+} from './types';
 
 export function getVotingMachineProposalState(proposal: BasicProposal) {
   const now = dayjs().unix();
@@ -24,7 +24,7 @@ export function getVotingMachineProposalState(proposal: BasicProposal) {
 
 export function formatVotingMachineData(
   id: number,
-  votingMachineData: IVotingMachineDataHelper.ProposalStructOutput,
+  votingMachineData: Readonly<VMProposalStructOutput>,
 ) {
   return {
     id: id,
@@ -32,16 +32,15 @@ export function formatVotingMachineData(
     againstVotes: votingMachineData.proposalData.againstVotes.toString(),
     startTime: votingMachineData.proposalData.startTime,
     endTime: votingMachineData.proposalData.endTime,
-    votingClosedAndSentBlockNumber:
-      votingMachineData.proposalData.votingClosedAndSentBlockNumber.toNumber(),
+    votingClosedAndSentBlockNumber: Number(
+      votingMachineData.proposalData.votingClosedAndSentBlockNumber,
+    ),
     votingClosedAndSentTimestamp:
       votingMachineData.proposalData.votingClosedAndSentTimestamp,
-    l1BlockHash:
-      votingMachineData?.voteConfig.l1ProposalBlockHash ||
-      ethers.constants.HashZero,
+    l1BlockHash: votingMachineData?.voteConfig.l1ProposalBlockHash || zeroHash,
     strategy: votingMachineData.strategy,
     sentToGovernance: votingMachineData.proposalData.sentToGovernance,
-    createdBlock: votingMachineData.proposalData.creationBlockNumber.toNumber(),
+    createdBlock: Number(votingMachineData.proposalData.creationBlockNumber),
     votedInfo: {
       support: votingMachineData.votedInfo.support,
       votingPower: votingMachineData.votedInfo.votingPower.toString(),
@@ -53,7 +52,7 @@ export function formatVotingMachineData(
 
 export function updateVotingMachineData(
   proposals: ProposalData[],
-  votingMachineDataHelperData: IVotingMachineDataHelper.ProposalStructOutput[],
+  votingMachineDataHelperData: Readonly<VMProposalStructOutput[]>,
   ids: number[],
 ) {
   const proposalsData: BasicProposal[] = [];
@@ -63,7 +62,7 @@ export function updateVotingMachineData(
     if (govData) {
       const votingMachineData =
         votingMachineDataHelperData.find(
-          (proposal) => proposal.proposalData.id.toNumber() === govData.id,
+          (proposal) => Number(proposal.proposalData.id) === govData.id,
         ) || votingMachineDataHelperData[0];
 
       const proposalData = {
@@ -97,8 +96,8 @@ export function updateVotingMachineData(
 }
 
 export function getDetailedProposalsData(
-  govCoreDataHelperData: IGovernanceDataHelper.ProposalStructOutput[],
-  votingMachineDataHelperData: IVotingMachineDataHelper.ProposalStructOutput[],
+  govCoreDataHelperData: Readonly<ProposalStructOutput[]>,
+  votingMachineDataHelperData: Readonly<VMProposalStructOutput[]>,
   ids: number[],
   prerender?: boolean,
 ): BasicProposal[] {
@@ -109,12 +108,11 @@ export function getDetailedProposalsData(
 
     const votingMachineData =
       votingMachineDataHelperData.find(
-        (proposal) =>
-          proposal.proposalData.id.toNumber() === govData.id.toNumber(),
+        (proposal) => Number(proposal.proposalData.id) === Number(govData.id),
       ) || votingMachineDataHelperData[i];
 
     const proposalData = {
-      id: govData.id.toNumber(),
+      id: Number(govData.id),
       votingDuration:
         +votingMachineData?.voteConfig.votingDuration ||
         +govData.proposalData.votingDuration,
@@ -126,7 +124,7 @@ export function getDetailedProposalsData(
       initialPayloads: govData.proposalData.payloads.map((payload) => {
         return {
           id: payload.payloadId,
-          chainId: payload.chain.toNumber(),
+          chainId: Number(payload.chain),
           payloadsController: payload.payloadsController,
         };
       }),
@@ -134,9 +132,9 @@ export function getDetailedProposalsData(
       creator: govData.proposalData.creator,
       canceledAt: govData.proposalData.cancelTimestamp,
       votingActivationTime: govData.proposalData.votingActivationTime,
-      votingChainId: govData.votingChainId.toNumber(),
+      votingChainId: Number(govData.votingChainId),
       votingMachineData: formatVotingMachineData(
-        govData.id.toNumber(),
+        Number(govData.id),
         votingMachineData,
       ),
       prerender: !!prerender,

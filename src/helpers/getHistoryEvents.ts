@@ -1,347 +1,407 @@
-// payloads created
-import { IGovernanceCore } from '../contracts/IGovernanceCore';
-import { IPayloadsControllerCore } from '../contracts/IPayloadsControllerCore';
-import { IVotingMachineWithProofs } from '../contracts/IVotingMachineWithProofs';
+import {
+  govCoreContract,
+  payloadsControllerContract,
+  votingMachineContract,
+} from './contracts';
 import { blockLimit, getEventsBySteps } from './eventsHelpres';
+import { InitEvent, InitEventWithChainId } from './types';
 
-async function getPayloadsCreatedEvents(
-  startBlock: number,
-  endBlock: number,
-  payloadsController: IPayloadsControllerCore,
-  payloadsControllerAddress: string,
-  chainId: number,
-) {
-  const events = await payloadsController.queryFilter(
-    payloadsController.filters.PayloadCreated(),
-    startBlock,
-    endBlock,
-  );
+// payloads created
+async function getPayloadsCreatedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
+  const payloadsController = payloadsControllerContract({
+    contractAddress,
+    client,
+  });
+
+  const events = await client.getContractEvents({
+    address: payloadsController.address,
+    abi: payloadsController.abi,
+    eventName: 'PayloadCreated',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
+      creator: event.args.creator,
       payloadId: event.args.payloadId,
       chainId,
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
-      payloadsController: payloadsControllerAddress,
+      blockNumber: Number(event.blockNumber),
+      payloadsController: contractAddress,
     }));
 }
 
-export async function getPayloadsCreated(
-  startBlock: number,
-  endBlock: number,
-  payloadsController: IPayloadsControllerCore,
-  payloadsControllerAddress: string,
-  chainId: number,
-) {
+export async function getPayloadsCreated({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getPayloadsCreatedEvents(
-      startBlockNumber,
-      endBlockNumber,
-      payloadsController,
-      payloadsControllerAddress,
+    return await getPayloadsCreatedEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // proposal created
-async function getProposalCreatedEvents(
-  startBlock: number,
-  endBlock: number,
-  govCore: IGovernanceCore,
-) {
-  const events = await govCore.queryFilter(
-    govCore.filters.ProposalCreated(),
-    startBlock,
-    endBlock,
-  );
+async function getProposalCreatedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
+  const govCore = govCoreContract({ contractAddress, client });
+
+  const events = await client.getContractEvents({
+    address: govCore.address,
+    abi: govCore.abi,
+    eventName: 'ProposalCreated',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
-      proposalId: event.args.proposalId.toNumber(),
+      proposalId: Number(event.args.proposalId),
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
+      blockNumber: Number(event.blockNumber),
     }));
 }
 
-export async function getProposalCreated(
-  startBlock: number,
-  endBlock: number,
-  govCore: IGovernanceCore,
-) {
+export async function getProposalCreated({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalCreatedEvents(
-      startBlockNumber,
-      endBlockNumber,
-      govCore,
-    );
+    return await getProposalCreatedEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // proposal activate for voting
-async function getProposalActivatedEvents(
-  startBlock: number,
-  endBlock: number,
-  govCore: IGovernanceCore,
-) {
-  const events = await govCore.queryFilter(
-    govCore.filters.VotingActivated(),
-    startBlock,
-    endBlock,
-  );
+async function getProposalActivatedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
+  const govCore = govCoreContract({ contractAddress, client });
+
+  const events = await client.getContractEvents({
+    address: govCore.address,
+    abi: govCore.abi,
+    eventName: 'VotingActivated',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
-      proposalId: event.args.proposalId.toNumber(),
+      proposalId: Number(event.args.proposalId),
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
+      blockNumber: Number(event.blockNumber),
     }));
 }
 
-export async function getProposalActivated(
-  startBlock: number,
-  endBlock: number,
-  govCore: IGovernanceCore,
-) {
+export async function getProposalActivated({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalActivatedEvents(
-      startBlockNumber,
-      endBlockNumber,
-      govCore,
-    );
+    return await getProposalActivatedEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // voting activate on VM
-async function getProposalActivatedOnVMEvents(
-  startBlock: number,
-  endBlock: number,
-  votingMachine: IVotingMachineWithProofs,
-) {
-  const events = await votingMachine.queryFilter(
-    votingMachine.filters.ProposalVoteStarted(),
-    startBlock,
-    endBlock,
-  );
+async function getProposalActivatedOnVMEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
+  const votingMachine = votingMachineContract({ contractAddress, client });
+
+  const events = await client.getContractEvents({
+    address: votingMachine.address,
+    abi: votingMachine.abi,
+    eventName: 'ProposalVoteStarted',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
-      proposalId: event.args.proposalId.toNumber(),
+      proposalId: Number(event.args.proposalId),
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
+      blockNumber: Number(event.blockNumber),
     }));
 }
 
-export async function getProposalActivatedOnVM(
-  startBlock: number,
-  endBlock: number,
-  votingMachine: IVotingMachineWithProofs,
-) {
+export async function getProposalActivatedOnVM({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalActivatedOnVMEvents(
-      startBlockNumber,
-      endBlockNumber,
-      votingMachine,
-    );
+    return await getProposalActivatedOnVMEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // voting closed on VM and voting results sent
-async function getProposalVotingClosedEvents(
-  startBlock: number,
-  endBlock: number,
-  votingMachine: IVotingMachineWithProofs,
-) {
-  const events = await votingMachine.queryFilter(
-    votingMachine.filters.ProposalResultsSent(),
-    startBlock,
-    endBlock,
-  );
+async function getProposalVotingClosedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
+  const votingMachine = votingMachineContract({ contractAddress, client });
+
+  const events = await client.getContractEvents({
+    address: votingMachine.address,
+    abi: votingMachine.abi,
+    eventName: 'ProposalResultsSent',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
-      proposalId: event.args.proposalId.toNumber(),
+      proposalId: Number(event.args.proposalId),
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
+      blockNumber: Number(event.blockNumber),
     }));
 }
 
-export async function getProposalVotingClosed(
-  startBlock: number,
-  endBlock: number,
-  votingMachine: IVotingMachineWithProofs,
-) {
+export async function getProposalVotingClosed({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalVotingClosedEvents(
-      startBlockNumber,
-      endBlockNumber,
-      votingMachine,
-    );
+    return await getProposalVotingClosedEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // proposal queued
-async function getProposalQueuedEvents(
-  startBlock: number,
-  endBlock: number,
-  govCore: IGovernanceCore,
-) {
-  const events = await govCore.queryFilter(
-    govCore.filters.ProposalQueued(),
-    startBlock,
-    endBlock,
-  );
+async function getProposalQueuedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
+  const govCore = govCoreContract({ contractAddress, client });
+
+  const events = await client.getContractEvents({
+    address: govCore.address,
+    abi: govCore.abi,
+    eventName: 'ProposalQueued',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
-      proposalId: event.args.proposalId.toNumber(),
+      proposalId: Number(event.args.proposalId),
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
+      blockNumber: Number(event.blockNumber),
     }));
 }
 
-export async function getProposalQueued(
-  startBlock: number,
-  endBlock: number,
-  govCore: IGovernanceCore,
-) {
+export async function getProposalQueued({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+}: InitEvent) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getProposalQueuedEvents(
-      startBlockNumber,
-      endBlockNumber,
-      govCore,
-    );
+    return await getProposalQueuedEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // payloads queued
-async function getPayloadsQueuedEvents(
-  startBlock: number,
-  endBlock: number,
-  payloadsController: IPayloadsControllerCore,
-  payloadsControllerAddress: string,
-  chainId: number,
-) {
-  const events = await payloadsController.queryFilter(
-    payloadsController.filters.PayloadQueued(),
-    startBlock,
-    endBlock,
-  );
+async function getPayloadsQueuedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
+  const payloadsController = payloadsControllerContract({
+    contractAddress,
+    client,
+  });
+
+  const events = await client.getContractEvents({
+    address: payloadsController.address,
+    abi: payloadsController.abi,
+    eventName: 'PayloadQueued',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
       payloadId: event.args.payloadId,
       chainId,
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
-      payloadsController: payloadsControllerAddress,
+      blockNumber: Number(event.blockNumber),
+      payloadsController: contractAddress,
     }));
 }
 
-export async function getPayloadsQueued(
-  startBlock: number,
-  endBlock: number,
-  payloadsController: IPayloadsControllerCore,
-  payloadsControllerAddress: string,
-  chainId: number,
-) {
+export async function getPayloadsQueued({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getPayloadsQueuedEvents(
-      startBlockNumber,
-      endBlockNumber,
-      payloadsController,
-      payloadsControllerAddress,
+    return await getPayloadsQueuedEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
 }
 
 // payloads executed
-async function getPayloadsExecutedEvents(
-  startBlock: number,
-  endBlock: number,
-  payloadsController: IPayloadsControllerCore,
-  payloadsControllerAddress: string,
-  chainId: number,
-) {
-  const events = await payloadsController.queryFilter(
-    payloadsController.filters.PayloadExecuted(),
-    startBlock,
-    endBlock,
-  );
+async function getPayloadsExecutedEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
+  const payloadsController = payloadsControllerContract({
+    contractAddress,
+    client,
+  });
+
+  const events = await client.getContractEvents({
+    address: payloadsController.address,
+    abi: payloadsController.abi,
+    eventName: 'PayloadExecuted',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
       payloadId: event.args.payloadId,
       chainId,
       transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
-      payloadsController: payloadsControllerAddress,
+      blockNumber: Number(event.blockNumber),
+      payloadsController: contractAddress,
     }));
 }
 
-export async function getPayloadsExecuted(
-  startBlock: number,
-  endBlock: number,
-  payloadsController: IPayloadsControllerCore,
-  payloadsControllerAddress: string,
-  chainId: number,
-) {
+export async function getPayloadsExecuted({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getPayloadsExecutedEvents(
-      startBlockNumber,
-      endBlockNumber,
-      payloadsController,
-      payloadsControllerAddress,
+    return await getPayloadsExecutedEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);

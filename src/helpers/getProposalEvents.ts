@@ -1,52 +1,65 @@
-import { IVotingMachineWithProofs } from '../contracts/IVotingMachineWithProofs';
-import { normalizeBN } from './bignumber';
-import { getEventsBySteps } from './eventsHelpres';
+import { Hex } from 'viem';
 
-async function getVoteEvents(
-  votingMachine: IVotingMachineWithProofs,
-  startBlock: number,
-  endBlock: number,
-  chainId: number,
-) {
-  const events = await votingMachine.queryFilter(
-    votingMachine.filters.VoteEmitted(),
-    startBlock,
-    endBlock,
-  );
+import { normalizeBN } from './bignumber';
+import { votingMachineContract } from './contracts';
+import { getEventsBySteps } from './eventsHelpres';
+import { InitEventWithChainId } from './types';
+
+async function getVoteEvents({
+  contractAddress,
+  client,
+  startBlock,
+  endBlock,
+  chainId,
+}: InitEventWithChainId) {
+  const votingMachine = votingMachineContract({
+    contractAddress,
+    client,
+  });
+
+  const events = await client.getContractEvents({
+    address: votingMachine.address,
+    abi: votingMachine.abi,
+    eventName: 'VoteEmitted',
+    fromBlock: BigInt(startBlock),
+    toBlock: BigInt(endBlock),
+  });
 
   return events
-    .sort((a, b) => b.blockNumber - a.blockNumber)
+    .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
     .map((event) => ({
-      proposalId: event.args.proposalId.toNumber(),
-      address: event.args.voter.toString(),
-      support: event.args.support,
+      proposalId: Number(event.args.proposalId),
+      address: (event.args.voter || '').toString() as Hex,
+      support: event.args.support || false,
       votingPower: normalizeBN(
-        event.args.votingPower.toString(),
+        (event.args.votingPower || '').toString(),
         18,
       ).toNumber(),
-      transactionHash: event.transactionHash,
-      blockNumber: event.blockNumber,
+      transactionHash: event.transactionHash as Hex,
+      blockNumber: Number(event.blockNumber),
       chainId,
     }));
 }
 
-export async function getVoters(
-  endBlock: number,
-  startBlock: number,
-  blockLimit: number,
-  votingMachine: IVotingMachineWithProofs,
-  chainId: number,
-) {
+export async function getVoters({
+  contractAddress,
+  client,
+  endBlock,
+  startBlock,
+  blockLimit,
+  chainId,
+}: InitEventWithChainId & { blockLimit: number }) {
   const callbackFunc = async (
     startBlockNumber: number,
     endBlockNumber: number,
   ) => {
-    return await getVoteEvents(
-      votingMachine,
-      startBlockNumber,
-      endBlockNumber,
+    return await getVoteEvents({
+      contractAddress,
+      client,
+      startBlock: startBlockNumber,
+      endBlock: endBlockNumber,
       chainId,
-    );
+    });
   };
 
   return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
