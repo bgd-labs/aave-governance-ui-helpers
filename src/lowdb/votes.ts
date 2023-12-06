@@ -105,7 +105,8 @@ export class Votes {
       fiveTopVoters.forEach((vote: VotersData) => {
         const cache = isCached.voters.find(
           (cacheVote: VotersData) =>
-            vote.transactionHash === cacheVote.transactionHash,
+            vote.transactionHash === cacheVote.transactionHash &&
+            vote.ensName === cacheVote.ensName,
         );
 
         if (!cache) {

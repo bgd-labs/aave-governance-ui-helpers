@@ -182,7 +182,7 @@ var version;
 var init_version = __esm({
   "node_modules/viem/_esm/errors/version.js"() {
     "use strict";
-    version = "1.19.2";
+    version = "1.19.10";
   }
 });
 
@@ -930,9 +930,9 @@ function boolToBytes(value, opts = {}) {
 function charCodeToBase16(char) {
   if (char >= charCodeMap.zero && char <= charCodeMap.nine)
     return char - charCodeMap.zero;
-  else if (char >= charCodeMap.A && char <= charCodeMap.F)
+  if (char >= charCodeMap.A && char <= charCodeMap.F)
     return char - (charCodeMap.A - 10);
-  else if (char >= charCodeMap.a && char <= charCodeMap.f)
+  if (char >= charCodeMap.a && char <= charCodeMap.f)
     return char - (charCodeMap.a - 10);
   return void 0;
 }
@@ -3443,36 +3443,37 @@ function getNodeError(err, args) {
       cause: err,
       message: executionRevertedError.details
     });
-  } else if (ExecutionRevertedError.nodeMessage.test(message))
+  }
+  if (ExecutionRevertedError.nodeMessage.test(message))
     return new ExecutionRevertedError({
       cause: err,
       message: err.details
     });
-  else if (FeeCapTooHighError.nodeMessage.test(message))
+  if (FeeCapTooHighError.nodeMessage.test(message))
     return new FeeCapTooHighError({
       cause: err,
       maxFeePerGas: args?.maxFeePerGas
     });
-  else if (FeeCapTooLowError.nodeMessage.test(message))
+  if (FeeCapTooLowError.nodeMessage.test(message))
     return new FeeCapTooLowError({
       cause: err,
       maxFeePerGas: args?.maxFeePerGas
     });
-  else if (NonceTooHighError.nodeMessage.test(message))
+  if (NonceTooHighError.nodeMessage.test(message))
     return new NonceTooHighError({ cause: err, nonce: args?.nonce });
-  else if (NonceTooLowError.nodeMessage.test(message))
+  if (NonceTooLowError.nodeMessage.test(message))
     return new NonceTooLowError({ cause: err, nonce: args?.nonce });
-  else if (NonceMaxValueError.nodeMessage.test(message))
+  if (NonceMaxValueError.nodeMessage.test(message))
     return new NonceMaxValueError({ cause: err, nonce: args?.nonce });
-  else if (InsufficientFundsError.nodeMessage.test(message))
+  if (InsufficientFundsError.nodeMessage.test(message))
     return new InsufficientFundsError({ cause: err });
-  else if (IntrinsicGasTooHighError.nodeMessage.test(message))
+  if (IntrinsicGasTooHighError.nodeMessage.test(message))
     return new IntrinsicGasTooHighError({ cause: err, gas: args?.gas });
-  else if (IntrinsicGasTooLowError.nodeMessage.test(message))
+  if (IntrinsicGasTooLowError.nodeMessage.test(message))
     return new IntrinsicGasTooLowError({ cause: err, gas: args?.gas });
-  else if (TransactionTypeNotSupportedError.nodeMessage.test(message))
+  if (TransactionTypeNotSupportedError.nodeMessage.test(message))
     return new TransactionTypeNotSupportedError({ cause: err });
-  else if (TipAboveFeeCapError.nodeMessage.test(message))
+  if (TipAboveFeeCapError.nodeMessage.test(message))
     return new TipAboveFeeCapError({
       cause: err,
       maxFeePerGas: args?.maxFeePerGas,
@@ -4086,7 +4087,7 @@ async function ccipFetch({ data, sender, urls }) {
   let error = new Error("An unknown error occurred.");
   for (let i = 0; i < urls.length; i++) {
     const url = urls[i];
-    const method = url.includes("{sender}") || url.includes("{data}") ? "GET" : "POST";
+    const method = url.includes("{data}") ? "GET" : "POST";
     const body = method === "POST" ? { data, sender } : void 0;
     try {
       const response = await fetch(url.replace("{sender}", sender).replace("{data}", data), {
@@ -4102,7 +4103,7 @@ async function ccipFetch({ data, sender, urls }) {
       if (!response.ok) {
         error = new HttpRequestError({
           body,
-          details: stringify(result.error) || response.statusText,
+          details: result?.error ? stringify(result.error) : response.statusText,
           headers: response.headers,
           status: response.status,
           url
@@ -16020,7 +16021,8 @@ async function internal_estimateMaxPriorityFeePerGas(client, args) {
       client,
       request
     });
-  } else if (typeof chain?.fees?.defaultPriorityFee !== "undefined")
+  }
+  if (typeof chain?.fees?.defaultPriorityFee !== "undefined")
     return chain?.fees?.defaultPriorityFee;
   try {
     const maxPriorityFeePerGasHex = await client.request({
@@ -17826,7 +17828,8 @@ function resolveAvatarUri({ uri, gatewayUrls }) {
       isOnChain: false,
       isEncoded: false
     };
-  } else if (protocol === "ar:/" && target) {
+  }
+  if (protocol === "ar:/" && target) {
     return {
       uri: `${arweaveGateway}/${target}${subtarget || ""}`,
       isOnChain: false,
@@ -18952,10 +18955,17 @@ async function waitForTransactionReceipt(client, { confirmations = 1, hash: hash
             if (transaction && (err instanceof TransactionNotFoundError || err instanceof TransactionReceiptNotFoundError)) {
               try {
                 replacedTransaction = transaction;
-                const block = await getAction(client, getBlock, "getBlock")({
+                retrying = true;
+                const block = await withRetry(() => getAction(client, getBlock, "getBlock")({
                   blockNumber,
                   includeTransactions: true
+                }), {
+                  // exponential backoff
+                  delay: ({ count }) => ~~(1 << count) * 200,
+                  retryCount: 6,
+                  shouldRetry: ({ error }) => error instanceof BlockNotFoundError
                 });
+                retrying = false;
                 const replacementTransaction = block.transactions.find(({ from, nonce }) => from === replacedTransaction.from && nonce === replacedTransaction.nonce);
                 if (!replacementTransaction)
                   return;
@@ -20116,7 +20126,7 @@ var CONFIG_ENGINE = "0xA3e44d830440dF5098520F62Ebec285B1198c51E";
 var POOL_ADDRESSES_PROVIDER_REGISTRY = "0xbaA999AC55EAce41CcAE355c77809e68Bb345170";
 var RATES_FACTORY = "0xcC47c4Fe1F7f29ff31A8b62197023aC8553C7896";
 var REPAY_WITH_COLLATERAL_ADAPTER = "0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3";
-var STATIC_A_TOKEN_FACTORY = "0x17D0D723a6741C8E154594a8850D29D58Bcc9218";
+var STATIC_A_TOKEN_FACTORY = "0x411D79b8cC43384FDE66CaBf9b6a17180c842511";
 var SWAP_COLLATERAL_ADAPTER = "0xADC0A53095A0af87F3aa29FE0715B5c28016364e";
 var UI_GHO_DATA_PROVIDER = "0x379c1EDD1A41218bdbFf960a9d5AD2818Bf61aE8";
 var UI_INCENTIVE_DATA_PROVIDER = "0x162A7AC02f547ad796CA549f757e2b8d1D9b10a6";
@@ -20132,9 +20142,9 @@ var ASSETS = {
     A_TOKEN: "0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8",
     S_TOKEN: "0x102633152313C81cD80419b6EcF66d14Ad68949A",
     V_TOKEN: "0xeA51d7853EEFb32b6ee06b1C12E6dcCA88Be0fFE",
-    INTEREST_RATE_STRATEGY: "0xb02381b1d27aA9845e5012083CA288c1818884f0",
+    INTEREST_RATE_STRATEGY: "0xA901Bf68Bebde17ba382e499C3e9EbAe649DF276",
     ORACLE: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
-    STATA_TOKEN: "0x03928473f25bb2da6Bc880b07eCBaDC636822264"
+    STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   },
   wstETH: {
     decimals: 18,
@@ -20162,9 +20172,9 @@ var ASSETS = {
     A_TOKEN: "0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c",
     S_TOKEN: "0xB0fe3D292f4bd50De902Ba5bDF120Ad66E9d7a39",
     V_TOKEN: "0x72E95b8931767C79bA4EeE721354d6E99a61D004",
-    INTEREST_RATE_STRATEGY: "0x8F183Ee74C790CB558232a141099b316D6C8Ba6E",
+    INTEREST_RATE_STRATEGY: "0x53b13a6D43F647D788411Abfd28D229C274AfBF9",
     ORACLE: "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6",
-    STATA_TOKEN: "0x02c2d189b45CE213a40097b62D311cf0dD16eC92"
+    STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   },
   DAI: {
     decimals: 18,
@@ -20174,7 +20184,7 @@ var ASSETS = {
     V_TOKEN: "0xcF8d0c70c850859266f5C338b38F9D663181C314",
     INTEREST_RATE_STRATEGY: "0x9a158802cD924747EF336cA3F9DE3bdb60Cf43D3",
     ORACLE: "0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9",
-    STATA_TOKEN: "0xEb708639E8e518B86a916db3685f90216b1C1c67"
+    STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   },
   LINK: {
     decimals: 18,
@@ -20212,9 +20222,9 @@ var ASSETS = {
     A_TOKEN: "0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a",
     S_TOKEN: "0x822Fa72Df1F229C3900f5AD6C3Fa2C424D691622",
     V_TOKEN: "0x6df1C1E379bC5a00a7b4C6e67A203333772f45A8",
-    INTEREST_RATE_STRATEGY: "0xC82dF96432346cFb632473eB619Db3B8AC280234",
+    INTEREST_RATE_STRATEGY: "0x588b62C84533232E3A881e096E5D639Fa754F093",
     ORACLE: "0x3E7d1eAB13ad0104d2750B8863b489D65364e32D",
-    STATA_TOKEN: "0x65799b9fD4206CdaA4A1DB79254FCbc2Fd2fFEe6"
+    STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   },
   rETH: {
     decimals: 18,
@@ -20232,7 +20242,7 @@ var ASSETS = {
     A_TOKEN: "0x3Fe6a295459FAe07DF8A0ceCC36F37160FE86AA9",
     S_TOKEN: "0x37A6B708FDB1483C231961b9a7F145261E815fc3",
     V_TOKEN: "0x33652e48e4B74D18520f11BfE58Edd2ED2cEc5A2",
-    INTEREST_RATE_STRATEGY: "0x349684Da30f8c9Affeaf21AfAB3a1Ad51f5d95A3",
+    INTEREST_RATE_STRATEGY: "0xaDbdb3d6B51151e4CDF32e4050B6F03D2bfB6477",
     ORACLE: "0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0",
     STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   },
@@ -20322,7 +20332,7 @@ var ASSETS = {
     A_TOKEN: "0xd4e245848d6E1220DBE62e155d89fa327E43CB06",
     S_TOKEN: "0x219640546c0DFDDCb9ab3bcdA89B324e0a376367",
     V_TOKEN: "0x88B8358F5BC87c2D7E116cCA5b65A9eEb2c5EA3F",
-    INTEREST_RATE_STRATEGY: "0x694d4cFdaeE639239df949b6E24Ff8576A00d1f2",
+    INTEREST_RATE_STRATEGY: "0x9a158802cD924747EF336cA3F9DE3bdb60Cf43D3",
     ORACLE: "0xB9E1E3A9feFf48998E45Fa90847ed4D467E8BcfD",
     STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   },
@@ -20332,7 +20342,7 @@ var ASSETS = {
     A_TOKEN: "0x00907f9921424583e7ffBfEdf84F92B7B2Be4977",
     S_TOKEN: "0x3f3DF7266dA30102344A813F1a3D07f5F041B5AC",
     V_TOKEN: "0x786dBff3f1292ae8F92ea68Cf93c30b34B1ed04B",
-    INTEREST_RATE_STRATEGY: "0x1255fC8DC8E76761995aCF544eea54f1B7fB0459",
+    INTEREST_RATE_STRATEGY: "0xE6e780D77b883E9a5eC84f7baA6BF4DB43177Fa7",
     ORACLE: "0xD110cac5d8682A3b045D5524a9903E031d70FCCd",
     STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   },
@@ -20375,6 +20385,26 @@ var ASSETS = {
     INTEREST_RATE_STRATEGY: "0xf6733B9842883BFE0e0a940eA2F572676af31bde",
     ORACLE: "0xf8fF43E991A81e6eC886a3D281A2C6cC19aE70Fc",
     STATA_TOKEN: "0x0000000000000000000000000000000000000000"
+  },
+  FXS: {
+    decimals: 18,
+    UNDERLYING: "0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0",
+    A_TOKEN: "0x82F9c5ad306BBa1AD0De49bB5FA6F01bf61085ef",
+    S_TOKEN: "0x61dFd349140C239d3B61fEe203Efc811b518a317",
+    V_TOKEN: "0x68e9f0aD4e6f8F5DB70F6923d4d6d5b225B83b16",
+    INTEREST_RATE_STRATEGY: "0xf6733B9842883BFE0e0a940eA2F572676af31bde",
+    ORACLE: "0x6Ebc52C8C1089be9eB3945C4350B68B8E4C2233f",
+    STATA_TOKEN: "0x0000000000000000000000000000000000000000"
+  },
+  crvUSD: {
+    decimals: 18,
+    UNDERLYING: "0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E",
+    A_TOKEN: "0xb82fa9f31612989525992FCfBB09AB22Eff5c85A",
+    S_TOKEN: "0xb55C604075D79486b8A329c396Fc711Be54B5330",
+    V_TOKEN: "0x028f7886F3e937f8479efaD64f31B3fE1119857a",
+    INTEREST_RATE_STRATEGY: "0x44CaDF6E49895640D9De85ac01d97D44429Ad0A4",
+    ORACLE: "0xEEf0C605546958c1f899b6fB336C20671f9cD49F",
+    STATA_TOKEN: "0x0000000000000000000000000000000000000000"
   }
 };
 var E_MODES = {
@@ -20398,1720 +20428,1720 @@ var STK_ABPT_V2_ORACLE = "0xADf86b537eF08591c2777E144322E8b0Ca7E82a7";
 // node_modules/@bgd-labs/aave-address-book/dist/abis/IVotingMachineWithProofs.mjs
 var IVotingMachineWithProofs_ABI = [
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "forVotes",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "againstVotes",
-        type: "uint256"
-      }
-    ],
-    name: "ProposalResultsSent",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "blockHash",
-        type: "bytes32"
-      },
-      {
-        indexed: false,
-        internalType: "uint24",
-        name: "votingDuration",
-        type: "uint24"
-      },
-      {
-        indexed: true,
-        internalType: "bool",
-        name: "voteCreated",
-        type: "bool"
-      }
-    ],
-    name: "ProposalVoteConfigurationBridged",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "l1BlockHash",
-        type: "bytes32"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "startTime",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "endTime",
-        type: "uint256"
-      }
-    ],
-    name: "ProposalVoteStarted",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "voter",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "bool",
-        name: "support",
-        type: "bool"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "votingPower",
-        type: "uint256"
-      }
-    ],
-    name: "VoteEmitted",
-    type: "event"
-  },
-  {
-    inputs: [],
+    type: "function",
     name: "DATA_WAREHOUSE",
+    inputs: [],
     outputs: [
       {
-        internalType: "contract IDataWarehouse",
         name: "",
-        type: "address"
+        type: "address",
+        internalType: "contract IDataWarehouse"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "DOMAIN_SEPARATOR",
+    inputs: [],
     outputs: [
       {
-        internalType: "bytes32",
         name: "",
-        type: "bytes32"
+        type: "bytes32",
+        internalType: "bytes32"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "GOVERNANCE",
+    inputs: [],
     outputs: [
       {
-        internalType: "address",
         name: "",
-        type: "address"
+        type: "address",
+        internalType: "address"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "NAME",
+    inputs: [],
     outputs: [
       {
-        internalType: "string",
         name: "",
-        type: "string"
+        type: "string",
+        internalType: "string"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "REPRESENTATIVES_SLOT",
+    inputs: [],
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "VOTE_SUBMITTED_BY_REPRESENTATIVE_TYPEHASH",
+    inputs: [],
     outputs: [
       {
-        internalType: "bytes32",
         name: "",
-        type: "bytes32"
+        type: "bytes32",
+        internalType: "bytes32"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "VOTE_SUBMITTED_TYPEHASH",
+    inputs: [],
     outputs: [
       {
-        internalType: "bytes32",
         name: "",
-        type: "bytes32"
+        type: "bytes32",
+        internalType: "bytes32"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "VOTING_ASSET_WITH_SLOT_RAW",
+    inputs: [],
     outputs: [
       {
-        internalType: "string",
         name: "",
-        type: "string"
+        type: "string",
+        internalType: "string"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "VOTING_ASSET_WITH_SLOT_TYPEHASH",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
     inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "bytes32",
+        internalType: "bytes32"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
     name: "VOTING_STRATEGY",
+    inputs: [],
     outputs: [
       {
-        internalType: "contract IVotingStrategy",
         name: "",
-        type: "address"
+        type: "address",
+        internalType: "contract IVotingStrategy"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
+    type: "function",
     name: "closeAndSendVote",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "uint256",
         name: "proposalId",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
     name: "getProposalById",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
     outputs: [
       {
-        components: [
-          {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256"
-          },
-          {
-            internalType: "bool",
-            name: "sentToGovernance",
-            type: "bool"
-          },
-          {
-            internalType: "uint40",
-            name: "startTime",
-            type: "uint40"
-          },
-          {
-            internalType: "uint40",
-            name: "endTime",
-            type: "uint40"
-          },
-          {
-            internalType: "uint40",
-            name: "votingClosedAndSentTimestamp",
-            type: "uint40"
-          },
-          {
-            internalType: "uint128",
-            name: "forVotes",
-            type: "uint128"
-          },
-          {
-            internalType: "uint128",
-            name: "againstVotes",
-            type: "uint128"
-          },
-          {
-            internalType: "uint256",
-            name: "creationBlockNumber",
-            type: "uint256"
-          },
-          {
-            internalType: "uint256",
-            name: "votingClosedAndSentBlockNumber",
-            type: "uint256"
-          }
-        ],
+        name: "",
+        type: "tuple",
         internalType: "struct IVotingMachineWithProofs.ProposalWithoutVotes",
-        name: "",
-        type: "tuple"
+        components: [
+          {
+            name: "id",
+            type: "uint256",
+            internalType: "uint256"
+          },
+          {
+            name: "sentToGovernance",
+            type: "bool",
+            internalType: "bool"
+          },
+          {
+            name: "startTime",
+            type: "uint40",
+            internalType: "uint40"
+          },
+          {
+            name: "endTime",
+            type: "uint40",
+            internalType: "uint40"
+          },
+          {
+            name: "votingClosedAndSentTimestamp",
+            type: "uint40",
+            internalType: "uint40"
+          },
+          {
+            name: "forVotes",
+            type: "uint128",
+            internalType: "uint128"
+          },
+          {
+            name: "againstVotes",
+            type: "uint128",
+            internalType: "uint128"
+          },
+          {
+            name: "creationBlockNumber",
+            type: "uint256",
+            internalType: "uint256"
+          },
+          {
+            name: "votingClosedAndSentBlockNumber",
+            type: "uint256",
+            internalType: "uint256"
+          }
+        ]
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
+    type: "function",
     name: "getProposalState",
-    outputs: [
-      {
-        internalType: "enum IVotingMachineWithProofs.ProposalState",
-        name: "",
-        type: "uint8"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "uint256",
         name: "proposalId",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
+    outputs: [
+      {
+        name: "",
+        type: "uint8",
+        internalType: "enum IVotingMachineWithProofs.ProposalState"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
     name: "getProposalVoteConfiguration",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
     outputs: [
       {
-        components: [
-          {
-            internalType: "uint24",
-            name: "votingDuration",
-            type: "uint24"
-          },
-          {
-            internalType: "bytes32",
-            name: "l1ProposalBlockHash",
-            type: "bytes32"
-          }
-        ],
+        name: "",
+        type: "tuple",
         internalType: "struct IVotingMachineWithProofs.ProposalVoteConfiguration",
-        name: "",
-        type: "tuple"
+        components: [
+          {
+            name: "votingDuration",
+            type: "uint24",
+            internalType: "uint24"
+          },
+          {
+            name: "l1ProposalBlockHash",
+            type: "bytes32",
+            internalType: "bytes32"
+          }
+        ]
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "skip",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "size",
-        type: "uint256"
-      }
-    ],
+    type: "function",
     name: "getProposalsVoteConfigurationIds",
-    outputs: [
-      {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "address",
-        name: "user",
-        type: "address"
+        name: "skip",
+        type: "uint256",
+        internalType: "uint256"
       },
       {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
+        name: "size",
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
+    outputs: [
+      {
+        name: "",
+        type: "uint256[]",
+        internalType: "uint256[]"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
     name: "getUserProposalVote",
+    inputs: [
+      {
+        name: "user",
+        type: "address",
+        internalType: "address"
+      },
+      {
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
     outputs: [
       {
-        components: [
-          {
-            internalType: "bool",
-            name: "support",
-            type: "bool"
-          },
-          {
-            internalType: "uint248",
-            name: "votingPower",
-            type: "uint248"
-          }
-        ],
+        name: "",
+        type: "tuple",
         internalType: "struct IVotingMachineWithProofs.Vote",
-        name: "",
-        type: "tuple"
+        components: [
+          {
+            name: "support",
+            type: "bool",
+            internalType: "bool"
+          },
+          {
+            name: "votingPower",
+            type: "uint248",
+            internalType: "uint248"
+          }
+        ]
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
+    type: "function",
+    name: "startProposalVote",
     inputs: [
       {
-        internalType: "uint256",
         name: "proposalId",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    name: "startProposalVote",
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        internalType: "bool",
-        name: "support",
-        type: "bool"
-      },
-      {
-        components: [
-          {
-            internalType: "address",
-            name: "underlyingAsset",
-            type: "address"
-          },
-          {
-            internalType: "uint128",
-            name: "slot",
-            type: "uint128"
-          },
-          {
-            internalType: "bytes",
-            name: "proof",
-            type: "bytes"
-          }
-        ],
-        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
-        name: "votingBalanceProofs",
-        type: "tuple[]"
-      }
-    ],
+    type: "function",
     name: "submitVote",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "uint256",
         name: "proposalId",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       },
       {
-        internalType: "bool",
         name: "support",
-        type: "bool"
+        type: "bool",
+        internalType: "bool"
       },
       {
-        internalType: "address",
-        name: "voter",
-        type: "address"
-      },
-      {
-        internalType: "bytes",
-        name: "proofOfRepresentation",
-        type: "bytes"
-      },
-      {
+        name: "votingBalanceProofs",
+        type: "tuple[]",
+        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
         components: [
           {
-            internalType: "address",
             name: "underlyingAsset",
-            type: "address"
+            type: "address",
+            internalType: "address"
           },
           {
-            internalType: "uint128",
             name: "slot",
-            type: "uint128"
+            type: "uint128",
+            internalType: "uint128"
           },
           {
-            internalType: "bytes",
             name: "proof",
-            type: "bytes"
+            type: "bytes",
+            internalType: "bytes"
           }
-        ],
-        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
-        name: "votingBalanceProofs",
-        type: "tuple[]"
+        ]
       }
     ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
     name: "submitVoteAsRepresentative",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "uint256",
         name: "proposalId",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       },
       {
-        internalType: "address",
-        name: "voter",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "representative",
-        type: "address"
-      },
-      {
-        internalType: "bool",
         name: "support",
-        type: "bool"
+        type: "bool",
+        internalType: "bool"
       },
       {
-        internalType: "bytes",
+        name: "voter",
+        type: "address",
+        internalType: "address"
+      },
+      {
         name: "proofOfRepresentation",
-        type: "bytes"
+        type: "bytes",
+        internalType: "bytes"
       },
       {
-        components: [
-          {
-            internalType: "address",
-            name: "underlyingAsset",
-            type: "address"
-          },
-          {
-            internalType: "uint128",
-            name: "slot",
-            type: "uint128"
-          },
-          {
-            internalType: "bytes",
-            name: "proof",
-            type: "bytes"
-          }
-        ],
-        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
         name: "votingBalanceProofs",
-        type: "tuple[]"
-      },
-      {
+        type: "tuple[]",
+        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
         components: [
           {
-            internalType: "uint8",
-            name: "v",
-            type: "uint8"
+            name: "underlyingAsset",
+            type: "address",
+            internalType: "address"
           },
           {
-            internalType: "bytes32",
-            name: "r",
-            type: "bytes32"
+            name: "slot",
+            type: "uint128",
+            internalType: "uint128"
           },
           {
-            internalType: "bytes32",
-            name: "s",
-            type: "bytes32"
+            name: "proof",
+            type: "bytes",
+            internalType: "bytes"
           }
-        ],
-        internalType: "struct IVotingMachineWithProofs.SignatureParams",
-        name: "signatureParams",
-        type: "tuple"
+        ]
       }
     ],
-    name: "submitVoteAsRepresentativeBySignature",
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
   },
   {
+    type: "function",
+    name: "submitVoteAsRepresentativeBySignature",
     inputs: [
       {
-        internalType: "uint256",
         name: "proposalId",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       },
       {
-        internalType: "address",
         name: "voter",
-        type: "address"
+        type: "address",
+        internalType: "address"
       },
       {
-        internalType: "bool",
+        name: "representative",
+        type: "address",
+        internalType: "address"
+      },
+      {
         name: "support",
-        type: "bool"
+        type: "bool",
+        internalType: "bool"
       },
       {
+        name: "proofOfRepresentation",
+        type: "bytes",
+        internalType: "bytes"
+      },
+      {
+        name: "votingBalanceProofs",
+        type: "tuple[]",
+        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
         components: [
           {
-            internalType: "address",
             name: "underlyingAsset",
-            type: "address"
+            type: "address",
+            internalType: "address"
           },
           {
-            internalType: "uint128",
             name: "slot",
-            type: "uint128"
+            type: "uint128",
+            internalType: "uint128"
           },
           {
-            internalType: "bytes",
             name: "proof",
-            type: "bytes"
+            type: "bytes",
+            internalType: "bytes"
           }
-        ],
-        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
-        name: "votingBalanceProofs",
-        type: "tuple[]"
+        ]
       },
       {
-        internalType: "uint8",
-        name: "v",
-        type: "uint8"
-      },
-      {
-        internalType: "bytes32",
-        name: "r",
-        type: "bytes32"
-      },
-      {
-        internalType: "bytes32",
-        name: "s",
-        type: "bytes32"
+        name: "signatureParams",
+        type: "tuple",
+        internalType: "struct IVotingMachineWithProofs.SignatureParams",
+        components: [
+          {
+            name: "v",
+            type: "uint8",
+            internalType: "uint8"
+          },
+          {
+            name: "r",
+            type: "bytes32",
+            internalType: "bytes32"
+          },
+          {
+            name: "s",
+            type: "bytes32",
+            internalType: "bytes32"
+          }
+        ]
       }
     ],
-    name: "submitVoteBySignature",
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "submitVoteBySignature",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
+      },
+      {
+        name: "voter",
+        type: "address",
+        internalType: "address"
+      },
+      {
+        name: "support",
+        type: "bool",
+        internalType: "bool"
+      },
+      {
+        name: "votingBalanceProofs",
+        type: "tuple[]",
+        internalType: "struct IVotingMachineWithProofs.VotingBalanceProof[]",
+        components: [
+          {
+            name: "underlyingAsset",
+            type: "address",
+            internalType: "address"
+          },
+          {
+            name: "slot",
+            type: "uint128",
+            internalType: "uint128"
+          },
+          {
+            name: "proof",
+            type: "bytes",
+            internalType: "bytes"
+          }
+        ]
+      },
+      {
+        name: "v",
+        type: "uint8",
+        internalType: "uint8"
+      },
+      {
+        name: "r",
+        type: "bytes32",
+        internalType: "bytes32"
+      },
+      {
+        name: "s",
+        type: "bytes32",
+        internalType: "bytes32"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "event",
+    name: "ProposalResultsSent",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "forVotes",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      },
+      {
+        name: "againstVotes",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProposalVoteConfigurationBridged",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "blockHash",
+        type: "bytes32",
+        indexed: true,
+        internalType: "bytes32"
+      },
+      {
+        name: "votingDuration",
+        type: "uint24",
+        indexed: false,
+        internalType: "uint24"
+      },
+      {
+        name: "voteCreated",
+        type: "bool",
+        indexed: true,
+        internalType: "bool"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProposalVoteStarted",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "l1BlockHash",
+        type: "bytes32",
+        indexed: true,
+        internalType: "bytes32"
+      },
+      {
+        name: "startTime",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      },
+      {
+        name: "endTime",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "VoteEmitted",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "voter",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "support",
+        type: "bool",
+        indexed: true,
+        internalType: "bool"
+      },
+      {
+        name: "votingPower",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
   }
 ];
 
 // node_modules/@bgd-labs/aave-address-book/dist/abis/IGovernanceCore.mjs
 var IGovernanceCore_ABI = [
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "cancellationFee",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "bool",
-        name: "success",
-        type: "bool"
-      }
-    ],
-    name: "CancellationFeeRedeemed",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "cancellationFee",
-        type: "uint256"
-      }
-    ],
-    name: "CancellationFeeUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint40",
-        name: "payloadId",
-        type: "uint40"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "payloadsController",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "chainId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "payloadNumberOnProposal",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "numberOfPayloadsOnProposal",
-        type: "uint256"
-      }
-    ],
-    name: "PayloadSent",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newPowerStrategy",
-        type: "address"
-      }
-    ],
-    name: "PowerStrategyUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
-    name: "ProposalCanceled",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "enum PayloadsControllerUtils.AccessControl",
-        name: "accessLevel",
-        type: "uint8"
-      },
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "ipfsHash",
-        type: "bytes32"
-      }
-    ],
-    name: "ProposalCreated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
-    name: "ProposalExecuted",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint128",
-        name: "votesFor",
-        type: "uint128"
-      },
-      {
-        indexed: false,
-        internalType: "uint128",
-        name: "votesAgainst",
-        type: "uint128"
-      }
-    ],
-    name: "ProposalFailed",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint128",
-        name: "votesFor",
-        type: "uint128"
-      },
-      {
-        indexed: false,
-        internalType: "uint128",
-        name: "votesAgainst",
-        type: "uint128"
-      }
-    ],
-    name: "ProposalQueued",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "voter",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "representative",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "chainId",
-        type: "uint256"
-      }
-    ],
-    name: "RepresentativeUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "voter",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "bool",
-        name: "support",
-        type: "bool"
-      },
-      {
-        components: [
-          {
-            internalType: "address",
-            name: "underlyingAsset",
-            type: "address"
-          },
-          {
-            internalType: "uint128",
-            name: "slot",
-            type: "uint128"
-          }
-        ],
-        indexed: false,
-        internalType: "struct IVotingMachineWithProofs.VotingAssetWithSlot[]",
-        name: "votingAssetsWithSlot",
-        type: "tuple[]"
-      }
-    ],
-    name: "VoteForwarded",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "snapshotBlockHash",
-        type: "bytes32"
-      },
-      {
-        indexed: false,
-        internalType: "uint24",
-        name: "votingDuration",
-        type: "uint24"
-      }
-    ],
-    name: "VotingActivated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "enum PayloadsControllerUtils.AccessControl",
-        name: "accessLevel",
-        type: "uint8"
-      },
-      {
-        indexed: false,
-        internalType: "uint24",
-        name: "votingDuration",
-        type: "uint24"
-      },
-      {
-        indexed: false,
-        internalType: "uint24",
-        name: "coolDownBeforeVotingStart",
-        type: "uint24"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "yesThreshold",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "yesNoDifferential",
-        type: "uint256"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "minPropositionPower",
-        type: "uint256"
-      }
-    ],
-    name: "VotingConfigUpdated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "votingPortal",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "bool",
-        name: "approved",
-        type: "bool"
-      }
-    ],
-    name: "VotingPortalUpdated",
-    type: "event"
-  },
-  {
-    inputs: [],
+    type: "function",
     name: "ACHIEVABLE_VOTING_PARTICIPATION",
+    inputs: [],
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "CANCELLATION_FEE_COLLECTOR",
+    inputs: [],
     outputs: [
       {
-        internalType: "address",
         name: "",
-        type: "address"
+        type: "address",
+        internalType: "address"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "COOLDOWN_PERIOD",
+    inputs: [],
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "MIN_VOTING_DURATION",
+    inputs: [],
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "NAME",
+    inputs: [],
     outputs: [
       {
-        internalType: "string",
         name: "",
-        type: "string"
+        type: "string",
+        internalType: "string"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "PRECISION_DIVIDER",
+    inputs: [],
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "PROPOSAL_EXPIRATION_TIME",
+    inputs: [],
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [],
+    type: "function",
     name: "VOTING_TOKENS_CAP",
+    inputs: [],
     outputs: [
       {
-        internalType: "uint256",
         name: "",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
+    type: "function",
     name: "activateVoting",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "address[]",
-        name: "votingPortals",
-        type: "address[]"
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
     name: "addVotingPortals",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
+        name: "votingPortals",
+        type: "address[]",
+        internalType: "address[]"
       }
     ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
     name: "cancelProposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        components: [
-          {
-            internalType: "uint256",
-            name: "chain",
-            type: "uint256"
-          },
-          {
-            internalType: "enum PayloadsControllerUtils.AccessControl",
-            name: "accessLevel",
-            type: "uint8"
-          },
-          {
-            internalType: "address",
-            name: "payloadsController",
-            type: "address"
-          },
-          {
-            internalType: "uint40",
-            name: "payloadId",
-            type: "uint40"
-          }
-        ],
-        internalType: "struct PayloadsControllerUtils.Payload[]",
-        name: "payloads",
-        type: "tuple[]"
-      },
-      {
-        internalType: "address",
-        name: "votingPortal",
-        type: "address"
-      },
-      {
-        internalType: "bytes32",
-        name: "ipfsHash",
-        type: "bytes32"
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
     name: "createProposal",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "payable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
-    name: "executeProposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "getCancellationFee",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "getPowerStrategy",
-    outputs: [
-      {
-        internalType: "contract IGovernancePowerStrategy",
-        name: "",
-        type: "address"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
-    name: "getProposal",
-    outputs: [
-      {
+        name: "payloads",
+        type: "tuple[]",
+        internalType: "struct PayloadsControllerUtils.Payload[]",
         components: [
           {
-            internalType: "enum IGovernanceCore.State",
-            name: "state",
-            type: "uint8"
+            name: "chain",
+            type: "uint256",
+            internalType: "uint256"
           },
           {
-            internalType: "enum PayloadsControllerUtils.AccessControl",
             name: "accessLevel",
-            type: "uint8"
+            type: "uint8",
+            internalType: "enum PayloadsControllerUtils.AccessControl"
           },
           {
-            internalType: "uint40",
+            name: "payloadsController",
+            type: "address",
+            internalType: "address"
+          },
+          {
+            name: "payloadId",
+            type: "uint40",
+            internalType: "uint40"
+          }
+        ]
+      },
+      {
+        name: "votingPortal",
+        type: "address",
+        internalType: "address"
+      },
+      {
+        name: "ipfsHash",
+        type: "bytes32",
+        internalType: "bytes32"
+      }
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    stateMutability: "payable"
+  },
+  {
+    type: "function",
+    name: "executeProposal",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "getCancellationFee",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getPowerStrategy",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "address",
+        internalType: "contract IGovernancePowerStrategy"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getProposal",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "tuple",
+        internalType: "struct IGovernanceCore.Proposal",
+        components: [
+          {
+            name: "state",
+            type: "uint8",
+            internalType: "enum IGovernanceCore.State"
+          },
+          {
+            name: "accessLevel",
+            type: "uint8",
+            internalType: "enum PayloadsControllerUtils.AccessControl"
+          },
+          {
             name: "creationTime",
-            type: "uint40"
+            type: "uint40",
+            internalType: "uint40"
           },
           {
-            internalType: "uint24",
             name: "votingDuration",
-            type: "uint24"
+            type: "uint24",
+            internalType: "uint24"
           },
           {
-            internalType: "uint40",
             name: "votingActivationTime",
-            type: "uint40"
+            type: "uint40",
+            internalType: "uint40"
           },
           {
-            internalType: "uint40",
             name: "queuingTime",
-            type: "uint40"
+            type: "uint40",
+            internalType: "uint40"
           },
           {
-            internalType: "uint40",
             name: "cancelTimestamp",
-            type: "uint40"
+            type: "uint40",
+            internalType: "uint40"
           },
           {
-            internalType: "address",
             name: "creator",
-            type: "address"
+            type: "address",
+            internalType: "address"
           },
           {
-            internalType: "address",
             name: "votingPortal",
-            type: "address"
+            type: "address",
+            internalType: "address"
           },
           {
-            internalType: "bytes32",
             name: "snapshotBlockHash",
-            type: "bytes32"
+            type: "bytes32",
+            internalType: "bytes32"
           },
           {
-            internalType: "bytes32",
             name: "ipfsHash",
-            type: "bytes32"
+            type: "bytes32",
+            internalType: "bytes32"
           },
           {
-            internalType: "uint128",
             name: "forVotes",
-            type: "uint128"
+            type: "uint128",
+            internalType: "uint128"
           },
           {
-            internalType: "uint128",
             name: "againstVotes",
-            type: "uint128"
+            type: "uint128",
+            internalType: "uint128"
           },
           {
-            internalType: "uint256",
             name: "cancellationFee",
-            type: "uint256"
+            type: "uint256",
+            internalType: "uint256"
           },
           {
+            name: "payloads",
+            type: "tuple[]",
+            internalType: "struct PayloadsControllerUtils.Payload[]",
             components: [
               {
-                internalType: "uint256",
                 name: "chain",
-                type: "uint256"
+                type: "uint256",
+                internalType: "uint256"
               },
               {
-                internalType: "enum PayloadsControllerUtils.AccessControl",
                 name: "accessLevel",
-                type: "uint8"
+                type: "uint8",
+                internalType: "enum PayloadsControllerUtils.AccessControl"
               },
               {
-                internalType: "address",
                 name: "payloadsController",
-                type: "address"
+                type: "address",
+                internalType: "address"
               },
               {
-                internalType: "uint40",
                 name: "payloadId",
-                type: "uint40"
+                type: "uint40",
+                internalType: "uint40"
               }
-            ],
-            internalType: "struct PayloadsControllerUtils.Payload[]",
-            name: "payloads",
-            type: "tuple[]"
+            ]
           }
-        ],
-        internalType: "struct IGovernanceCore.Proposal",
-        name: "",
-        type: "tuple"
+        ]
       }
     ],
-    stateMutability: "view",
-    type: "function"
+    stateMutability: "view"
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "proposalId",
-        type: "uint256"
-      }
-    ],
+    type: "function",
     name: "getProposalState",
-    outputs: [
-      {
-        internalType: "enum IGovernanceCore.State",
-        name: "",
-        type: "uint8"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "getProposalsCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "address",
-        name: "voter",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "chainId",
-        type: "uint256"
-      }
-    ],
-    name: "getRepresentativeByChain",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "representative",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "chainId",
-        type: "uint256"
-      }
-    ],
-    name: "getRepresentedVotersByChain",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "enum PayloadsControllerUtils.AccessControl",
-        name: "accessLevel",
-        type: "uint8"
-      }
-    ],
-    name: "getVotingConfig",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "uint24",
-            name: "coolDownBeforeVotingStart",
-            type: "uint24"
-          },
-          {
-            internalType: "uint24",
-            name: "votingDuration",
-            type: "uint24"
-          },
-          {
-            internalType: "uint56",
-            name: "yesThreshold",
-            type: "uint56"
-          },
-          {
-            internalType: "uint56",
-            name: "yesNoDifferential",
-            type: "uint56"
-          },
-          {
-            internalType: "uint56",
-            name: "minPropositionPower",
-            type: "uint56"
-          }
-        ],
-        internalType: "struct IGovernanceCore.VotingConfig",
-        name: "",
-        type: "tuple"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "getVotingPortalsCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "votingPortal",
-        type: "address"
-      }
-    ],
-    name: "isVotingPortalApproved",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
         name: "proposalId",
-        type: "uint256"
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "uint8",
+        internalType: "enum IGovernanceCore.State"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getProposalsCount",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getRepresentativeByChain",
+    inputs: [
+      {
+        name: "voter",
+        type: "address",
+        internalType: "address"
       },
       {
-        internalType: "uint128",
-        name: "forVotes",
-        type: "uint128"
+        name: "chainId",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "address",
+        internalType: "address"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getRepresentedVotersByChain",
+    inputs: [
+      {
+        name: "representative",
+        type: "address",
+        internalType: "address"
       },
       {
-        internalType: "uint128",
-        name: "againstVotes",
-        type: "uint128"
+        name: "chainId",
+        type: "uint256",
+        internalType: "uint256"
       }
     ],
-    name: "queueProposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
+    outputs: [
       {
-        internalType: "uint256[]",
-        name: "proposalIds",
-        type: "uint256[]"
+        name: "",
+        type: "address[]",
+        internalType: "address[]"
       }
     ],
-    name: "redeemCancellationFee",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "view"
   },
   {
+    type: "function",
+    name: "getVotingConfig",
     inputs: [
       {
-        internalType: "address[]",
-        name: "votingPortals",
-        type: "address[]"
+        name: "accessLevel",
+        type: "uint8",
+        internalType: "enum PayloadsControllerUtils.AccessControl"
       }
     ],
-    name: "removeVotingPortals",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
+    outputs: [
       {
-        internalType: "address",
-        name: "votingPortal",
-        type: "address"
-      }
-    ],
-    name: "rescueVotingPortal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "contract IGovernancePowerStrategy",
-        name: "newPowerStrategy",
-        type: "address"
-      }
-    ],
-    name: "setPowerStrategy",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
+        name: "",
+        type: "tuple",
+        internalType: "struct IGovernanceCore.VotingConfig",
         components: [
           {
-            internalType: "enum PayloadsControllerUtils.AccessControl",
-            name: "accessLevel",
-            type: "uint8"
-          },
-          {
-            internalType: "uint24",
             name: "coolDownBeforeVotingStart",
-            type: "uint24"
+            type: "uint24",
+            internalType: "uint24"
           },
           {
-            internalType: "uint24",
             name: "votingDuration",
-            type: "uint24"
+            type: "uint24",
+            internalType: "uint24"
           },
           {
-            internalType: "uint256",
             name: "yesThreshold",
-            type: "uint256"
+            type: "uint56",
+            internalType: "uint56"
           },
           {
-            internalType: "uint256",
             name: "yesNoDifferential",
-            type: "uint256"
+            type: "uint56",
+            internalType: "uint56"
           },
           {
-            internalType: "uint256",
             name: "minPropositionPower",
-            type: "uint256"
+            type: "uint56",
+            internalType: "uint56"
           }
-        ],
-        internalType: "struct IGovernanceCore.SetVotingConfigInput[]",
-        name: "votingConfigs",
-        type: "tuple[]"
+        ]
       }
     ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "getVotingPortalsCount",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "isVotingPortalApproved",
+    inputs: [
+      {
+        name: "votingPortal",
+        type: "address",
+        internalType: "address"
+      }
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "bool",
+        internalType: "bool"
+      }
+    ],
+    stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "queueProposal",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        internalType: "uint256"
+      },
+      {
+        name: "forVotes",
+        type: "uint128",
+        internalType: "uint128"
+      },
+      {
+        name: "againstVotes",
+        type: "uint128",
+        internalType: "uint128"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "redeemCancellationFee",
+    inputs: [
+      {
+        name: "proposalIds",
+        type: "uint256[]",
+        internalType: "uint256[]"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "removeVotingPortals",
+    inputs: [
+      {
+        name: "votingPortals",
+        type: "address[]",
+        internalType: "address[]"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "rescueVotingPortal",
+    inputs: [
+      {
+        name: "votingPortal",
+        type: "address",
+        internalType: "address"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "setPowerStrategy",
+    inputs: [
+      {
+        name: "newPowerStrategy",
+        type: "address",
+        internalType: "contract IGovernancePowerStrategy"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
     name: "setVotingConfigs",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
     inputs: [
       {
-        internalType: "uint256",
-        name: "cancellationFee",
-        type: "uint256"
-      }
-    ],
-    name: "updateCancellationFee",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
+        name: "votingConfigs",
+        type: "tuple[]",
+        internalType: "struct IGovernanceCore.SetVotingConfigInput[]",
         components: [
           {
-            internalType: "address",
-            name: "representative",
-            type: "address"
+            name: "accessLevel",
+            type: "uint8",
+            internalType: "enum PayloadsControllerUtils.AccessControl"
           },
           {
-            internalType: "uint256",
-            name: "chainId",
-            type: "uint256"
+            name: "coolDownBeforeVotingStart",
+            type: "uint24",
+            internalType: "uint24"
+          },
+          {
+            name: "votingDuration",
+            type: "uint24",
+            internalType: "uint24"
+          },
+          {
+            name: "yesThreshold",
+            type: "uint256",
+            internalType: "uint256"
+          },
+          {
+            name: "yesNoDifferential",
+            type: "uint256",
+            internalType: "uint256"
+          },
+          {
+            name: "minPropositionPower",
+            type: "uint256",
+            internalType: "uint256"
           }
-        ],
-        internalType: "struct IGovernanceCore.RepresentativeInput[]",
-        name: "representatives",
-        type: "tuple[]"
+        ]
       }
     ],
-    name: "updateRepresentativesForChain",
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function"
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "updateCancellationFee",
+    inputs: [
+      {
+        name: "cancellationFee",
+        type: "uint256",
+        internalType: "uint256"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "updateRepresentativesForChain",
+    inputs: [
+      {
+        name: "representatives",
+        type: "tuple[]",
+        internalType: "struct IGovernanceCore.RepresentativeInput[]",
+        components: [
+          {
+            name: "representative",
+            type: "address",
+            internalType: "address"
+          },
+          {
+            name: "chainId",
+            type: "uint256",
+            internalType: "uint256"
+          }
+        ]
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "event",
+    name: "CancellationFeeRedeemed",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "to",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "cancellationFee",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      },
+      {
+        name: "success",
+        type: "bool",
+        indexed: true,
+        internalType: "bool"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "CancellationFeeUpdated",
+    inputs: [
+      {
+        name: "cancellationFee",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "PayloadSent",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "payloadId",
+        type: "uint40",
+        indexed: false,
+        internalType: "uint40"
+      },
+      {
+        name: "payloadsController",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "chainId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "payloadNumberOnProposal",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      },
+      {
+        name: "numberOfPayloadsOnProposal",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "PowerStrategyUpdated",
+    inputs: [
+      {
+        name: "newPowerStrategy",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProposalCanceled",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProposalCreated",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "creator",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "accessLevel",
+        type: "uint8",
+        indexed: true,
+        internalType: "enum PayloadsControllerUtils.AccessControl"
+      },
+      {
+        name: "ipfsHash",
+        type: "bytes32",
+        indexed: false,
+        internalType: "bytes32"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProposalExecuted",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProposalFailed",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "votesFor",
+        type: "uint128",
+        indexed: false,
+        internalType: "uint128"
+      },
+      {
+        name: "votesAgainst",
+        type: "uint128",
+        indexed: false,
+        internalType: "uint128"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "ProposalQueued",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "votesFor",
+        type: "uint128",
+        indexed: false,
+        internalType: "uint128"
+      },
+      {
+        name: "votesAgainst",
+        type: "uint128",
+        indexed: false,
+        internalType: "uint128"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "RepresentativeUpdated",
+    inputs: [
+      {
+        name: "voter",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "representative",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "chainId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "VoteForwarded",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "voter",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "support",
+        type: "bool",
+        indexed: true,
+        internalType: "bool"
+      },
+      {
+        name: "votingAssetsWithSlot",
+        type: "tuple[]",
+        indexed: false,
+        internalType: "struct IVotingMachineWithProofs.VotingAssetWithSlot[]",
+        components: [
+          {
+            name: "underlyingAsset",
+            type: "address",
+            internalType: "address"
+          },
+          {
+            name: "slot",
+            type: "uint128",
+            internalType: "uint128"
+          }
+        ]
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "VotingActivated",
+    inputs: [
+      {
+        name: "proposalId",
+        type: "uint256",
+        indexed: true,
+        internalType: "uint256"
+      },
+      {
+        name: "snapshotBlockHash",
+        type: "bytes32",
+        indexed: true,
+        internalType: "bytes32"
+      },
+      {
+        name: "votingDuration",
+        type: "uint24",
+        indexed: false,
+        internalType: "uint24"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "VotingConfigUpdated",
+    inputs: [
+      {
+        name: "accessLevel",
+        type: "uint8",
+        indexed: true,
+        internalType: "enum PayloadsControllerUtils.AccessControl"
+      },
+      {
+        name: "votingDuration",
+        type: "uint24",
+        indexed: false,
+        internalType: "uint24"
+      },
+      {
+        name: "coolDownBeforeVotingStart",
+        type: "uint24",
+        indexed: false,
+        internalType: "uint24"
+      },
+      {
+        name: "yesThreshold",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      },
+      {
+        name: "yesNoDifferential",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      },
+      {
+        name: "minPropositionPower",
+        type: "uint256",
+        indexed: false,
+        internalType: "uint256"
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "VotingPortalUpdated",
+    inputs: [
+      {
+        name: "votingPortal",
+        type: "address",
+        indexed: true,
+        internalType: "address"
+      },
+      {
+        name: "approved",
+        type: "bool",
+        indexed: true,
+        internalType: "bool"
+      }
+    ],
+    anonymous: false
   }
 ];
 
@@ -24045,7 +24075,7 @@ var Votes = class {
       );
       fiveTopVoters.forEach((vote) => {
         const cache = isCached.voters.find(
-          (cacheVote) => vote.transactionHash === cacheVote.transactionHash
+          (cacheVote) => vote.transactionHash === cacheVote.transactionHash && vote.ensName === cacheVote.ensName
         );
         if (!cache) {
           voters.push(vote);
@@ -24122,14 +24152,48 @@ async function populateCache() {
   const proposalsCountInit = await govCore.read.getProposalsCount();
   const proposalsCount = Number(proposalsCountInit);
   if (proposalsCount > 0) {
-    const govCoreDataHelperData = await govCoreDataHelper.read.getProposalsData(
-      [
-        appConfig.govCoreConfig.contractAddress,
-        BigInt(0),
-        BigInt(0),
-        BigInt(proposalsCount)
-      ]
+    const cachedIds = proposalFetcher.getIds();
+    const proposalIds = Array.from(Array(proposalsCount).keys());
+    const idsForRequest = [];
+    for (let i = 0; i < proposalIds.length; i++) {
+      let found = false;
+      for (let j = 0; j < cachedIds.length; j++) {
+        if (proposalIds[i] === cachedIds[j]) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        idsForRequest.push(proposalIds[i]);
+      }
+    }
+    const fr = Math.max(
+      Math.max.apply(
+        null,
+        idsForRequest.map((id2) => id2)
+      ),
+      0
     );
+    const to = Math.max(
+      Math.min.apply(
+        null,
+        idsForRequest.map((id2) => id2)
+      ),
+      0
+    );
+    const govCoreDataHelperData = fr > 0 ? await govCoreDataHelper.read.getProposalsData([
+      appConfig.govCoreConfig.contractAddress,
+      BigInt(fr),
+      BigInt(to > 0 ? to - 1 : 0),
+      BigInt(fr - to + 1)
+    ]) : [];
+    const initialProposals = govCoreDataHelperData.map((proposal) => {
+      return {
+        id: proposal.id,
+        votingChainId: Number(proposal.votingChainId),
+        snapshotBlockHash: proposal.proposalData.snapshotBlockHash
+      };
+    });
     const getVotingData = async (initialProposals2, userAddress) => {
       const votingMachineChainIds2 = initialProposals2.map((data2) => data2.votingChainId).filter((value, index2, self2) => self2.indexOf(value) === index2);
       const data = await Promise.all(
@@ -24150,21 +24214,11 @@ async function populateCache() {
       );
       return data.flat();
     };
-    const initialProposals = govCoreDataHelperData.map((proposal) => {
-      return {
-        id: proposal.id,
-        votingChainId: Number(proposal.votingChainId),
-        snapshotBlockHash: proposal.proposalData.snapshotBlockHash
-      };
-    });
     const votingMachineDataHelperData = await getVotingData(initialProposals);
-    const proposalsIds = govCoreDataHelperData.map(
-      (proposal) => Number(proposal.id)
-    );
     const proposalsData = getDetailedProposalsData(
       govCoreDataHelperData,
       votingMachineDataHelperData,
-      proposalsIds,
+      idsForRequest,
       true
     );
     const { contractsConstants, configs } = await getGovCoreConfigs({
@@ -24172,15 +24226,19 @@ async function populateCache() {
       govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
       govCoreDataHelperContractAddress: appConfig.govCoreConfig.dataHelperContractAddress
     });
+    const dataFromCache = ipfsFetcher.getIpfsData();
     const ipfsData = {};
+    dataFromCache.forEach((ipfs) => {
+      ipfsData[ipfs.originalIpfsHash] = ipfs;
+    });
     const newIpfsHashes = [];
-    proposalsIds.forEach((id2) => {
+    idsForRequest.forEach((id2) => {
       const proposalData = proposalsData.find((proposal) => proposal.id === id2);
       if (proposalData && typeof ipfsData[proposalData.ipfsHash] === "undefined") {
         newIpfsHashes.push(proposalData.ipfsHash);
       }
     });
-    const allIpfsData = await Promise.all(
+    const newIpfsData = await Promise.all(
       newIpfsHashes.filter((value, index2, self2) => self2.indexOf(value) === index2).map(async (hash3) => {
         const ipfsData2 = await getProposalMetadata(hash3);
         return {
@@ -24189,13 +24247,16 @@ async function populateCache() {
         };
       })
     );
+    newIpfsData.forEach((ipfs) => {
+      ipfsData[ipfs.originalIpfsHash] = ipfs;
+    });
     await Promise.all(
-      allIpfsData.map(async (ipfs) => {
+      newIpfsData.map(async (ipfs) => {
         await ipfsFetcher.populate(ipfs.originalIpfsHash, ipfs);
       })
     );
     const now = Date.now() / 1e3;
-    for (let i = 0; i < proposalsIds.length; i++) {
+    for (let i = 0; i < idsForRequest.length; i++) {
       const proposalData = proposalsData.find((proposal) => proposal.id === i);
       if (proposalData) {
         const isVotingEndedN = proposalData.votingMachineData.endTime > 0 && now > proposalData.votingMachineData.endTime;
@@ -24308,7 +24369,7 @@ async function populateCache() {
           // @ts-ignore
           proposalPayloadsData.map((payload) => payload?.delay || 0)
         );
-        const proposalTitle = allIpfsData.find(
+        const proposalTitle = Object.values(ipfsData).find(
           (ipfs) => ipfs.originalIpfsHash === proposalData.ipfsHash
         )?.title || "";
         const formattedProposalData = {

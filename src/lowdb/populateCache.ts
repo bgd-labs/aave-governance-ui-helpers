@@ -94,14 +94,57 @@ export async function populateCache() {
   const proposalsCount = Number(proposalsCountInit);
 
   if (proposalsCount > 0) {
-    const govCoreDataHelperData = await govCoreDataHelper.read.getProposalsData(
-      [
-        appConfig.govCoreConfig.contractAddress,
-        BigInt(0),
-        BigInt(0),
-        BigInt(proposalsCount),
-      ],
+    const cachedIds = proposalFetcher.getIds();
+    const proposalIds = Array.from(Array(proposalsCount).keys());
+
+    const idsForRequest: number[] = [];
+    for (let i = 0; i < proposalIds.length; i++) {
+      let found = false;
+      for (let j = 0; j < cachedIds.length; j++) {
+        if (proposalIds[i] === cachedIds[j]) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        idsForRequest.push(proposalIds[i]);
+      }
+    }
+
+    const fr = Math.max(
+      Math.max.apply(
+        null,
+        idsForRequest.map((id) => id),
+      ),
+      0,
     );
+
+    const to = Math.max(
+      Math.min.apply(
+        null,
+        idsForRequest.map((id) => id),
+      ),
+      0,
+    );
+
+    const govCoreDataHelperData =
+      fr > 0
+        ? await govCoreDataHelper.read.getProposalsData([
+            appConfig.govCoreConfig.contractAddress,
+            BigInt(fr),
+            BigInt(to > 0 ? to - 1 : 0),
+            BigInt(fr - to + 1),
+          ])
+        : [];
+
+    const initialProposals = govCoreDataHelperData.map((proposal) => {
+      return {
+        id: proposal.id,
+        votingChainId: Number(proposal.votingChainId),
+        snapshotBlockHash: proposal.proposalData.snapshotBlockHash,
+      };
+    });
 
     const getVotingData = async (
       initialProposals: InitialProposal[],
@@ -137,24 +180,12 @@ export async function populateCache() {
       return data.flat();
     };
 
-    const initialProposals = govCoreDataHelperData.map((proposal) => {
-      return {
-        id: proposal.id,
-        votingChainId: Number(proposal.votingChainId),
-        snapshotBlockHash: proposal.proposalData.snapshotBlockHash,
-      };
-    });
-
     const votingMachineDataHelperData = await getVotingData(initialProposals);
-
-    const proposalsIds = govCoreDataHelperData.map((proposal) =>
-      Number(proposal.id),
-    );
 
     const proposalsData: BasicProposal[] = getDetailedProposalsData(
       govCoreDataHelperData,
       votingMachineDataHelperData,
-      proposalsIds,
+      idsForRequest,
       true,
     );
 
@@ -167,9 +198,13 @@ export async function populateCache() {
     });
 
     // populate ipfs data
+    const dataFromCache = ipfsFetcher.getIpfsData();
     const ipfsData: Record<string, ProposalMetadata> = {};
+    dataFromCache.forEach((ipfs) => {
+      ipfsData[ipfs.originalIpfsHash] = ipfs;
+    });
     const newIpfsHashes: string[] = [];
-    proposalsIds.forEach((id) => {
+    idsForRequest.forEach((id) => {
       const proposalData = proposalsData.find((proposal) => proposal.id === id);
       if (
         proposalData &&
@@ -179,7 +214,7 @@ export async function populateCache() {
       }
     });
 
-    const allIpfsData = await Promise.all(
+    const newIpfsData = await Promise.all(
       newIpfsHashes
         .filter((value, index, self) => self.indexOf(value) === index)
         .map(async (hash) => {
@@ -190,8 +225,12 @@ export async function populateCache() {
           };
         }),
     );
+    newIpfsData.forEach((ipfs) => {
+      ipfsData[ipfs.originalIpfsHash] = ipfs;
+    });
+
     await Promise.all(
-      allIpfsData.map(async (ipfs) => {
+      newIpfsData.map(async (ipfs) => {
         await ipfsFetcher.populate(ipfs.originalIpfsHash, ipfs);
       }),
     );
@@ -199,7 +238,7 @@ export async function populateCache() {
     const now = Date.now() / 1000;
 
     // populate payloads and proposals
-    for (let i = 0; i < proposalsIds.length; i++) {
+    for (let i = 0; i < idsForRequest.length; i++) {
       const proposalData = proposalsData.find((proposal) => proposal.id === i);
 
       if (proposalData) {
@@ -371,7 +410,7 @@ export async function populateCache() {
         );
 
         const proposalTitle =
-          allIpfsData.find(
+          Object.values(ipfsData).find(
             (ipfs) => ipfs.originalIpfsHash === proposalData.ipfsHash,
           )?.title || '';
 
