@@ -40,6 +40,7 @@ export class Proposal {
     db.data ||= [];
 
     const value = db.chain.find({ id }).value();
+
     if (
       !isProposalPayloadsFinished &&
       !isVotingFailed &&

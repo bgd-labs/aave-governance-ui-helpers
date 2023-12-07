@@ -1,4 +1,4 @@
-import { BigNumber } from 'bignumber.js';
+import dayjs from 'dayjs';
 import { Hex, zeroAddress } from 'viem';
 
 import { checkHash } from '../helpers/checkHash';
@@ -11,8 +11,11 @@ import {
 } from '../helpers/contracts';
 import { getBlocksForEvents } from '../helpers/eventsHelpres';
 import {
+  formatDiff,
+  formatQuorum,
   getProposalState,
   getProposalStepsAndAmounts,
+  normalizeVotes,
 } from '../helpers/formatProposal';
 import { getGovCoreConfigs } from '../helpers/getGovCoreConfigs';
 import {
@@ -235,303 +238,323 @@ export async function populateCache() {
       }),
     );
 
-    const now = Date.now() / 1000;
+    const now = dayjs().unix();
 
     // populate payloads and proposals
-    for (let i = 0; i < idsForRequest.length; i++) {
-      const proposalData = proposalsData.find((proposal) => proposal.id === i);
+    await Promise.all(
+      idsForRequest.map(async (id) => {
+        const proposalData = proposalsData.find(
+          (proposal) => proposal.id === id,
+        );
 
-      if (proposalData) {
-        const isVotingEndedN =
-          proposalData.votingMachineData.endTime > 0 &&
-          now > proposalData.votingMachineData.endTime;
+        if (proposalData) {
+          const isVotingEndedN =
+            proposalData.votingMachineData.endTime > 0 &&
+            now > proposalData.votingMachineData.endTime;
 
-        const forVotes = new BigNumber(proposalData.votingMachineData.forVotes)
-          .shiftedBy(18 * -1)
-          .toNumber();
-        const againstVotes = new BigNumber(
-          proposalData.votingMachineData.againstVotes,
-        )
-          .shiftedBy(18 * -1)
-          .toNumber();
+          const { forVotes, againstVotes } = normalizeVotes(
+            proposalData.votingMachineData.forVotes,
+            proposalData.votingMachineData.againstVotes,
+          );
 
-        const isVotingFailed =
-          isVotingEndedN &&
-          (againstVotes >= forVotes || (againstVotes === 0 && forVotes === 0));
+          const { quorumReached } = formatQuorum(
+            proposalData.votingMachineData.forVotes,
+            configs[proposalData.accessLevel].quorum,
+            contractsConstants.precisionDivider,
+          );
 
-        const isProposalCanceled =
-          proposalData.basicState === BasicProposalState.Cancelled;
-        const isProposalExpired =
-          proposalData.basicState === BasicProposalState.Expired ||
-          now > proposalData.creationTime + contractsConstants.expirationTime;
+          const { normalizeRequiredDiff } = formatDiff(
+            proposalData.votingMachineData.forVotes,
+            proposalData.votingMachineData.againstVotes,
+            configs[proposalData.accessLevel].differential,
+            contractsConstants.precisionDivider,
+          );
 
-        const payloadsChainIds = proposalData.initialPayloads
-          .map((payload) => payload.chainId)
-          .filter((value, index, self) => self.indexOf(value) === index);
+          const isVotingFailed =
+            isVotingEndedN &&
+            (againstVotes >= forVotes ||
+              (againstVotes === 0 && forVotes === 0) ||
+              !quorumReached ||
+              forVotes < againstVotes + normalizeRequiredDiff);
 
-        const payloadsControllers = proposalData.initialPayloads
-          .map((payload) => payload.payloadsController)
-          .filter((value, index, self) => self.indexOf(value) === index);
+          const isProposalCanceled =
+            proposalData.basicState === BasicProposalState.Cancelled;
+          const isProposalExpired =
+            proposalData.basicState === BasicProposalState.Expired ||
+            now > proposalData.creationTime + contractsConstants.expirationTime;
 
-        const payloadsData = await Promise.all(
-          payloadsChainIds.map(async (id) => {
-            return await Promise.all(
-              payloadsControllers.map(async (controller) => {
-                const proposalPayloadsIds = proposalData.initialPayloads
-                  .filter(
-                    (payload) =>
-                      payload.payloadsController === controller &&
-                      payload.chainId === id,
-                  )
-                  .map((payload) => payload.id);
+          const payloadsChainIds = proposalData.initialPayloads
+            .map((payload) => payload.chainId)
+            .filter((value, index, self) => self.indexOf(value) === index);
 
-                const payloadController =
-                  appConfig.payloadsControllerConfig[id].contractAddresses.some(
-                    (address) => address === controller,
-                  ) && controller;
+          const payloadsControllers = proposalData.initialPayloads
+            .map((payload) => payload.payloadsController)
+            .filter((value, index, self) => self.indexOf(value) === index);
 
-                if (payloadController) {
-                  const payloadsData =
-                    (await payloadsControllerDataHelpers[
-                      id
-                    ].read.getPayloadsData([
-                      controller,
-                      proposalPayloadsIds,
-                    ])) || [];
+          const payloadsData = await Promise.all(
+            payloadsChainIds.map(async (id) => {
+              return await Promise.all(
+                payloadsControllers.map(async (controller) => {
+                  const proposalPayloadsIds = proposalData.initialPayloads
+                    .filter(
+                      (payload) =>
+                        payload.payloadsController === controller &&
+                        payload.chainId === id,
+                    )
+                    .map((payload) => payload.id);
 
-                  return payloadsData.map((payload) => {
-                    return {
-                      creator: payload.data.creator,
-                      id: Number(payload.id),
-                      chainId: id,
-                      maximumAccessLevelRequired:
-                        payload.data.maximumAccessLevelRequired,
-                      state: payload.data.state,
-                      createdAt: payload.data.createdAt,
-                      queuedAt: payload.data.queuedAt,
-                      executedAt: payload.data.executedAt,
-                      cancelledAt: payload.data.cancelledAt,
-                      expirationTime: payload.data.expirationTime,
-                      delay: payload.data.delay,
-                      gracePeriod: payload.data.gracePeriod,
-                      payloadsController: controller,
-                      actionAddresses: payload.data.actions.map(
-                        (action) => action.target,
-                      ),
-                    };
-                  });
-                } else {
-                  return proposalData.initialPayloads;
-                }
-              }),
+                  const payloadController = appConfig.payloadsControllerConfig[
+                    id
+                  ].contractAddresses.find(
+                    (address) =>
+                      address.toLowerCase() === controller.toLowerCase(),
+                  );
+
+                  if (payloadController) {
+                    const payloadsData =
+                      (await payloadsControllerDataHelpers[
+                        id
+                      ].read.getPayloadsData([
+                        controller,
+                        proposalPayloadsIds,
+                      ])) || [];
+
+                    return payloadsData.map((payload) => {
+                      return {
+                        creator: payload.data.creator,
+                        id: Number(payload.id),
+                        chainId: id,
+                        maximumAccessLevelRequired:
+                          payload.data.maximumAccessLevelRequired,
+                        state: payload.data.state,
+                        createdAt: payload.data.createdAt,
+                        queuedAt: payload.data.queuedAt,
+                        executedAt: payload.data.executedAt,
+                        cancelledAt: payload.data.cancelledAt,
+                        expirationTime: payload.data.expirationTime,
+                        delay: payload.data.delay,
+                        gracePeriod: payload.data.gracePeriod,
+                        payloadsController: controller,
+                        actionAddresses: payload.data.actions.map(
+                          (action) => action.target,
+                        ),
+                      };
+                    });
+                  }
+                }),
+              );
+            }),
+          );
+
+          const proposalPayloadsData = await Promise.all(
+            proposalData.initialPayloads.map(async (payload) => {
+              const payloadData = payloadsData
+                .flat()
+                .flat()
+                .find(
+                  (payloadS) =>
+                    payloadS &&
+                    payloadS.id === payload.id &&
+                    payloadS.payloadsController ===
+                      payload.payloadsController &&
+                    payloadS.chainId === payload.chainId,
+                );
+              if (payloadData) {
+                await payloadFetcher.populate(
+                  payload.id,
+                  payloadData,
+                  isVotingFailed,
+                  isProposalCanceled,
+                  isProposalExpired,
+                  payload.chainId,
+                  payload.payloadsController,
+                );
+
+                return payloadData;
+              } else {
+                return payloadsData.flat().flat()[0];
+              }
+            }),
+          );
+
+          const currentBlock =
+            await initialClients[proposalData.votingChainId].getBlockNumber();
+          const startBlockNumber = proposalData.votingMachineData.createdBlock;
+          const endBlockNumber =
+            proposalData.votingMachineData.votingClosedAndSentBlockNumber;
+
+          const { startBlock, endBlock } = getBlocksForEvents(
+            Number(currentBlock),
+            startBlockNumber,
+            endBlockNumber,
+            undefined,
+          );
+
+          if (
+            isFinite(startBlock) &&
+            startBlock > 0 &&
+            isFinite(endBlock) &&
+            endBlock > 0
+          ) {
+            await votesFetcher.populate(
+              appConfig.votingMachineConfig[proposalData.votingChainId]
+                .contractAddress,
+              startBlock,
+              endBlock,
+              proposalData.votingChainId,
             );
-          }),
-        );
+          }
 
-        const proposalPayloadsData = await Promise.all(
-          proposalData.initialPayloads.map(async (payload) => {
-            const payloadData = payloadsData
-              .flat()
-              .flat()
-              .find(
-                (payloadS) =>
-                  payloadS.id === payload.id &&
-                  payloadS.payloadsController === payload.payloadsController &&
-                  payloadS.chainId === payload.chainId,
-              );
-            if (payloadData) {
-              await payloadFetcher.populate(
-                payload.id,
-                payloadData,
-                isVotingFailed,
-                isProposalCanceled,
-                isProposalExpired,
-                payload.chainId,
-                payload.payloadsController,
-              );
+          const isProposalPayloadsFinished = proposalPayloadsData.every(
+            // @ts-ignore
+            (payload) => payload && payload?.state > 2,
+          );
 
-              return payloadData;
-            } else {
-              return payloadsData.flat().flat()[0];
-            }
-          }),
-        );
+          await proposalFetcher.populate(
+            id,
+            proposalData,
+            isVotingFailed,
+            isProposalPayloadsFinished,
+            isProposalCanceled,
+            isProposalExpired,
+          );
 
-        const currentBlock =
-          await initialClients[proposalData.votingChainId].getBlockNumber();
-        const startBlockNumber = proposalData.votingMachineData.createdBlock;
-        const endBlockNumber =
-          proposalData.votingMachineData.votingClosedAndSentBlockNumber;
+          // cache for list view
+          const proposalConfig = configs.filter(
+            (config) => config.accessLevel === proposalData.accessLevel,
+          )[0];
 
-        const { startBlock, endBlock } = getBlocksForEvents(
-          Number(currentBlock),
-          startBlockNumber,
-          endBlockNumber,
-          undefined,
-        );
+          const executionPayloadTime = Math.max.apply(
+            null,
+            // @ts-ignore
+            proposalPayloadsData.map((payload) => payload?.delay || 0),
+          );
 
-        if (
-          isFinite(startBlock) &&
-          startBlock > 0 &&
-          isFinite(endBlock) &&
-          endBlock > 0
-        ) {
-          await votesFetcher.populate(
-            appConfig.votingMachineConfig[proposalData.votingChainId]
-              .contractAddress,
-            startBlock,
-            endBlock,
-            proposalData.votingChainId,
+          const proposalTitle =
+            Object.values(ipfsData).find(
+              (ipfs) => ipfs.originalIpfsHash === proposalData.ipfsHash,
+            )?.title || '';
+
+          const formattedProposalData = {
+            ...proposalData,
+            payloads: proposalPayloadsData,
+            title: proposalTitle,
+            votingMachineState: getVotingMachineProposalState(proposalData),
+          };
+
+          const proposalState = getProposalState({
+            // @ts-ignore
+            proposalData: formattedProposalData,
+            quorum: proposalConfig.quorum,
+            differential: proposalConfig.differential,
+            precisionDivider: contractsConstants.precisionDivider,
+            cooldownPeriod: contractsConstants.cooldownPeriod,
+            executionPayloadTime,
+          });
+
+          let finishedTimestamp = formattedProposalData.creationTime;
+
+          const {
+            isVotingEnded,
+            isVotingStarted,
+            isExpired,
+            lastPayloadExecutedAt,
+            lastPayloadCanceledAt,
+            lastPayloadExpiredAt,
+            allPayloadsExpired,
+            isCanceled,
+          } = getProposalStepsAndAmounts({
+            // @ts-ignore
+            proposalData: formattedProposalData,
+            quorum: proposalConfig.quorum,
+            differential: proposalConfig.differential,
+            precisionDivider: contractsConstants.precisionDivider,
+            cooldownPeriod: contractsConstants.cooldownPeriod,
+            executionPayloadTime: executionPayloadTime,
+          });
+
+          if (
+            proposalState === ProposalState.Created &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp = formattedProposalData.creationTime;
+          } else if (
+            formattedProposalData.votingMachineState ===
+              VotingMachineProposalState.NotCreated &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp =
+              formattedProposalData.creationTime +
+              proposalConfig.coolDownBeforeVotingStart;
+          } else if (
+            checkHash(formattedProposalData.snapshotBlockHash).notZero &&
+            !isVotingStarted &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp = formattedProposalData.votingActivationTime;
+          } else if (
+            !isVotingEnded &&
+            isVotingStarted &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp =
+              formattedProposalData.votingMachineData.startTime;
+          } else if (
+            isVotingStarted &&
+            isVotingEnded &&
+            proposalState !== ProposalState.Executed &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp =
+              formattedProposalData.votingMachineData.endTime > 0
+                ? formattedProposalData.votingMachineData.endTime
+                : formattedProposalData.creationTime +
+                  proposalConfig.coolDownBeforeVotingStart;
+          } else if (proposalState === ProposalState.Defeated) {
+            finishedTimestamp = formattedProposalData.votingMachineData.endTime;
+          } else if (proposalState === ProposalState.Executed) {
+            finishedTimestamp = lastPayloadExecutedAt;
+          } else if (proposalState === ProposalState.Canceled) {
+            finishedTimestamp =
+              lastPayloadCanceledAt > formattedProposalData.canceledAt
+                ? lastPayloadCanceledAt
+                : formattedProposalData.canceledAt;
+          } else if (
+            formattedProposalData.basicState === BasicProposalState.Executed &&
+            allPayloadsExpired
+          ) {
+            finishedTimestamp = lastPayloadExpiredAt;
+          } else {
+            finishedTimestamp =
+              formattedProposalData.creationTime +
+              contractsConstants.expirationTime;
+          }
+
+          const listViewProposalData = {
+            id: formattedProposalData.id,
+            title: formattedProposalData.title,
+            state: proposalState,
+            finishedTimestamp,
+            ipfsHash: formattedProposalData.ipfsHash,
+          };
+
+          await listViewProposalFetcher.populate(
+            id,
+            listViewProposalData,
+            isVotingFailed,
+            isProposalPayloadsFinished,
+            isProposalCanceled,
+            isProposalExpired,
+            proposalsCount,
           );
         }
-
-        const isProposalPayloadsFinished = proposalPayloadsData.every(
-          // @ts-ignore
-          (payload) => payload && payload?.state > 2,
-        );
-        await proposalFetcher.populate(
-          i,
-          proposalData,
-          isVotingFailed,
-          isProposalPayloadsFinished,
-          isProposalCanceled,
-          isProposalExpired,
-        );
-
-        // cache for list view
-        const proposalConfig = configs.filter(
-          (config) => config.accessLevel === proposalData.accessLevel,
-        )[0];
-
-        const executionPayloadTime = Math.max.apply(
-          null,
-          // @ts-ignore
-          proposalPayloadsData.map((payload) => payload?.delay || 0),
-        );
-
-        const proposalTitle =
-          Object.values(ipfsData).find(
-            (ipfs) => ipfs.originalIpfsHash === proposalData.ipfsHash,
-          )?.title || '';
-
-        const formattedProposalData = {
-          ...proposalData,
-          payloads: proposalPayloadsData,
-          title: proposalTitle,
-          votingMachineState: getVotingMachineProposalState(proposalData),
-        };
-
-        const proposalState = getProposalState({
-          // @ts-ignore
-          proposalData: formattedProposalData,
-          quorum: proposalConfig.quorum,
-          differential: proposalConfig.differential,
-          precisionDivider: contractsConstants.precisionDivider,
-          cooldownPeriod: contractsConstants.cooldownPeriod,
-          executionPayloadTime,
-        });
-
-        let finishedTimestamp = formattedProposalData.creationTime;
-
-        const {
-          isVotingEnded,
-          isVotingStarted,
-          isExpired,
-          lastPayloadExecutedAt,
-          lastPayloadCanceledAt,
-          lastPayloadExpiredAt,
-          allPayloadsExpired,
-          isCanceled,
-        } = getProposalStepsAndAmounts({
-          // @ts-ignore
-          proposalData: formattedProposalData,
-          quorum: proposalConfig.quorum,
-          differential: proposalConfig.differential,
-          precisionDivider: contractsConstants.precisionDivider,
-          cooldownPeriod: contractsConstants.cooldownPeriod,
-          executionPayloadTime: executionPayloadTime,
-        });
-
-        if (
-          proposalState === ProposalState.Created &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp = formattedProposalData.creationTime;
-        } else if (
-          formattedProposalData.votingMachineState ===
-            VotingMachineProposalState.NotCreated &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp =
-            formattedProposalData.creationTime +
-            proposalConfig.coolDownBeforeVotingStart;
-        } else if (
-          checkHash(formattedProposalData.snapshotBlockHash).notZero &&
-          !isVotingStarted &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp = formattedProposalData.votingActivationTime;
-        } else if (
-          !isVotingEnded &&
-          isVotingStarted &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp = formattedProposalData.votingMachineData.startTime;
-        } else if (
-          isVotingStarted &&
-          isVotingEnded &&
-          proposalState !== ProposalState.Executed &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp =
-            formattedProposalData.votingMachineData.endTime > 0
-              ? formattedProposalData.votingMachineData.endTime
-              : formattedProposalData.creationTime +
-                proposalConfig.coolDownBeforeVotingStart;
-        } else if (proposalState === ProposalState.Defeated) {
-          finishedTimestamp = formattedProposalData.votingMachineData.endTime;
-        } else if (proposalState === ProposalState.Executed) {
-          finishedTimestamp = lastPayloadExecutedAt;
-        } else if (proposalState === ProposalState.Canceled) {
-          finishedTimestamp =
-            lastPayloadCanceledAt > formattedProposalData.canceledAt
-              ? lastPayloadCanceledAt
-              : formattedProposalData.canceledAt;
-        } else if (
-          formattedProposalData.basicState === BasicProposalState.Executed &&
-          allPayloadsExpired
-        ) {
-          finishedTimestamp = lastPayloadExpiredAt;
-        } else {
-          finishedTimestamp =
-            formattedProposalData.creationTime +
-            contractsConstants.expirationTime;
-        }
-
-        const listViewProposalData = {
-          id: formattedProposalData.id,
-          title: formattedProposalData.title,
-          state: proposalState,
-          finishedTimestamp,
-          ipfsHash: formattedProposalData.ipfsHash,
-        };
-
-        await listViewProposalFetcher.populate(
-          i,
-          listViewProposalData,
-          isVotingFailed,
-          isProposalPayloadsFinished,
-          isProposalCanceled,
-          isProposalExpired,
-          proposalsCount,
-        );
-      }
-    }
+      }),
+    );
   }
 }
 

@@ -164,7 +164,10 @@ export function getProposalStepsAndAmounts({
 
   const isVotingFailed =
     isVotingEnded &&
-    (againstVotes >= forVotes || (againstVotes === 0 && forVotes === 0));
+    (againstVotes >= forVotes ||
+      (againstVotes === 0 && forVotes === 0) ||
+      !quorumReached ||
+      forVotes < againstVotes + normalizeRequiredDiff);
 
   const isProposalQueued =
     isVotingStarted &&
@@ -409,8 +412,8 @@ export function getEstimatedState(
     proposal.data.queuingTime > 0 && lastPayloadQueuedAt === 0
       ? proposal.data.queuingTime + proposal.timings.cooldownPeriod
       : proposal.data.queuingTime > 0 && lastPayloadQueuedAt > 0
-      ? lastPayloadQueuedAt + proposal.timings.executionPayloadTime
-      : 0;
+        ? lastPayloadQueuedAt + proposal.timings.executionPayloadTime
+        : 0;
 
   if (
     now <=

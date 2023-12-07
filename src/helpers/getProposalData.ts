@@ -103,45 +103,54 @@ export function getDetailedProposalsData(
 ): BasicProposal[] {
   const proposalsData: BasicProposal[] = [];
 
-  for (let i = 0; i < ids.length; i++) {
-    const govData = govCoreDataHelperData[i];
+  ids.forEach((id) => {
+    const govData = govCoreDataHelperData.find(
+      (data) => Number(data.id) === id,
+    );
 
-    const votingMachineData =
-      votingMachineDataHelperData.find(
-        (proposal) => Number(proposal.proposalData.id) === Number(govData.id),
-      ) || votingMachineDataHelperData[i];
+    if (govData) {
+      const votingMachineData =
+        votingMachineDataHelperData.find(
+          (proposal) => Number(proposal.proposalData.id) === Number(govData.id),
+        ) ||
+        votingMachineDataHelperData.find(
+          (data) => Number(data.proposalData.id) === id,
+        );
 
-    const proposalData = {
-      id: Number(govData.id),
-      votingDuration:
-        +votingMachineData?.voteConfig.votingDuration ||
-        +govData.proposalData.votingDuration,
-      creationTime: +govData.proposalData.creationTime,
-      accessLevel: +govData.proposalData.accessLevel,
-      basicState: +govData.proposalData.state,
-      queuingTime: +govData.proposalData.queuingTime,
-      ipfsHash: govData.proposalData.ipfsHash,
-      initialPayloads: govData.proposalData.payloads.map((payload) => {
-        return {
-          id: payload.payloadId,
-          chainId: Number(payload.chain),
-          payloadsController: payload.payloadsController,
+      if (votingMachineData) {
+        const proposalData = {
+          id: Number(govData.id),
+          votingDuration:
+            +votingMachineData?.voteConfig.votingDuration ||
+            +govData.proposalData.votingDuration,
+          creationTime: +govData.proposalData.creationTime,
+          accessLevel: +govData.proposalData.accessLevel,
+          basicState: +govData.proposalData.state,
+          queuingTime: +govData.proposalData.queuingTime,
+          ipfsHash: govData.proposalData.ipfsHash,
+          initialPayloads: govData.proposalData.payloads.map((payload) => {
+            return {
+              id: payload.payloadId,
+              chainId: Number(payload.chain),
+              payloadsController: payload.payloadsController,
+            };
+          }),
+          snapshotBlockHash: govData.proposalData.snapshotBlockHash,
+          creator: govData.proposalData.creator,
+          canceledAt: govData.proposalData.cancelTimestamp,
+          votingActivationTime: govData.proposalData.votingActivationTime,
+          votingChainId: Number(govData.votingChainId),
+          votingMachineData: formatVotingMachineData(
+            Number(govData.id),
+            votingMachineData,
+          ),
+          prerender: !!prerender,
         };
-      }),
-      snapshotBlockHash: govData.proposalData.snapshotBlockHash,
-      creator: govData.proposalData.creator,
-      canceledAt: govData.proposalData.cancelTimestamp,
-      votingActivationTime: govData.proposalData.votingActivationTime,
-      votingChainId: Number(govData.votingChainId),
-      votingMachineData: formatVotingMachineData(
-        Number(govData.id),
-        votingMachineData,
-      ),
-      prerender: !!prerender,
-    };
 
-    proposalsData.push(proposalData);
-  }
+        proposalsData.push(proposalData);
+      }
+    }
+  });
 
   return proposalsData;
 }
