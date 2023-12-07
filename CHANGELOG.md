@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.2...v1.0.3) (2023-12-07)
+
+
+### Bug Fixes
+
+* update packages ([81893a1](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/81893a16bffda5b14a7f679bf9a07255052ed643))
+
 ## [1.0.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.1...v1.0.2) (2023-12-07)
 
 
