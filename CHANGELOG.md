@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.1...v1.0.2) (2023-12-07)
+
+
+### Bug Fixes
+
+* cache logic and update helpers functions ([66a0777](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/66a0777a9d7af534a960260b1abcc9f758af5e60))
+
 ## [1.0.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v1.0.1) (2023-12-06)
 
 
