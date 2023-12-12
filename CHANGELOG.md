@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.3...v1.0.4) (2023-12-12)
+
+
+### Bug Fixes
+
+* get proposal metadata logic ([baebea1](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/baebea1648ce68d03ab5e112d47ce401aeec3687))
+
 ## [1.0.3](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.2...v1.0.3) (2023-12-07)
 
 
