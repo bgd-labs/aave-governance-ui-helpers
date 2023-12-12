@@ -3,6 +3,7 @@ export * from './helpers/bignumber';
 export * from './helpers/checkHash';
 export * from './helpers/contracts';
 export * from './helpers/eventsHelpres';
+export * from './helpers/fetchWithTimeout';
 export * from './helpers/formatProposal';
 export * from './helpers/getBlockNumberByTimestamp';
 export * from './helpers/getGovCoreConfigs';

@@ -2,6 +2,7 @@ import base58 from 'bs58';
 import matter from 'gray-matter';
 import { zeroHash } from 'viem';
 
+import { fetchWithTimeout } from './fetchWithTimeout';
 import { ProposalMetadata } from './types';
 
 export const ipfsGateway = 'https://ipfs.io/ipfs';
@@ -34,48 +35,59 @@ export async function getProposalMetadata(
     if (!!setIpfsError) {
       setIpfsError(hash, errorText);
     } else {
-      throw Error('Fetch metadata form ipfs not working');
+      console.error('Fetch metadata from ipfs error:', 'incorrect ipfs hash');
+      throw Error('Fetch metadata from ipfs error');
     }
   } else {
-    const ipfsResponse: Response = await fetch(getLink(ipfsHash, gateway));
+    try {
+      const ipfsResponse: Response = await fetchWithTimeout(
+        getLink(ipfsHash, gateway),
+      );
 
-    if (!ipfsResponse.ok) {
+      if (!ipfsResponse.ok) {
+        if (!!setIpfsError) {
+          setIpfsError(hash);
+        }
+        return MEMORIZE[ipfsHash];
+      }
+
+      const clone = ipfsResponse.clone();
+      try {
+        const response: ProposalMetadata = await ipfsResponse.json();
+
+        const { content } = matter(response.description);
+
+        MEMORIZE[ipfsHash] = {
+          title: response.title,
+          aip: response.aip,
+          originalIpfsHash: hash,
+          author: response.author,
+          discussions: response.discussions,
+          shortDescription: response.shortDescription,
+          ipfsHash,
+          description: content,
+        };
+      } catch (e) {
+        const text = await clone.text();
+        const { content, data } = matter(text);
+        MEMORIZE[ipfsHash] = {
+          title: data.title,
+          aip: data.aip,
+          originalIpfsHash: hash,
+          author: data.author,
+          discussions: data.discussions,
+          shortDescription: data.shortDescription,
+          ipfsHash,
+          description: content,
+        };
+      }
+    } catch (e) {
       if (!!setIpfsError) {
         setIpfsError(hash);
       } else {
-        throw Error('Fetch metadata form ipfs not working');
+        console.error('Fetch metadata from ipfs error:', e);
+        throw Error('Fetch metadata from ipfs error');
       }
-    }
-
-    const clone = ipfsResponse.clone();
-    try {
-      const response: ProposalMetadata = await ipfsResponse.json();
-
-      const { content } = matter(response.description);
-
-      MEMORIZE[ipfsHash] = {
-        title: response.title,
-        aip: response.aip,
-        originalIpfsHash: hash,
-        author: response.author,
-        discussions: response.discussions,
-        shortDescription: response.shortDescription,
-        ipfsHash,
-        description: content,
-      };
-    } catch (e) {
-      const text = await clone.text();
-      const { content, data } = matter(text);
-      MEMORIZE[ipfsHash] = {
-        title: data.title,
-        aip: data.aip,
-        originalIpfsHash: hash,
-        author: data.author,
-        discussions: data.discussions,
-        shortDescription: data.shortDescription,
-        ipfsHash,
-        description: content,
-      };
     }
   }
 
