@@ -477,7 +477,7 @@ var version;
 var init_version = __esm({
   "node_modules/viem/_esm/errors/version.js"() {
     "use strict";
-    version = "1.19.10";
+    version = "1.19.12";
   }
 });
 
@@ -572,7 +572,7 @@ var init_base = __esm({
 });
 
 // node_modules/viem/_esm/errors/abi.js
-var AbiConstructorNotFoundError, AbiConstructorParamsNotFoundError, AbiDecodingDataSizeTooSmallError, AbiDecodingZeroDataError, AbiEncodingArrayLengthMismatchError, AbiEncodingBytesSizeMismatchError, AbiEncodingLengthMismatchError, AbiErrorSignatureNotFoundError, AbiEventSignatureEmptyTopicsError, AbiEventSignatureNotFoundError, AbiEventNotFoundError, AbiFunctionNotFoundError, AbiFunctionOutputsNotFoundError, BytesSizeMismatchError, DecodeLogDataMismatch, DecodeLogTopicsMismatch, InvalidAbiEncodingTypeError, InvalidAbiDecodingTypeError, InvalidArrayError, InvalidDefinitionTypeError;
+var AbiConstructorNotFoundError, AbiConstructorParamsNotFoundError, AbiDecodingDataSizeTooSmallError, AbiDecodingZeroDataError, AbiEncodingArrayLengthMismatchError, AbiEncodingBytesSizeMismatchError, AbiEncodingLengthMismatchError, AbiErrorSignatureNotFoundError, AbiEventSignatureEmptyTopicsError, AbiEventSignatureNotFoundError, AbiEventNotFoundError, AbiFunctionNotFoundError, AbiFunctionOutputsNotFoundError, AbiItemAmbiguityError, BytesSizeMismatchError, DecodeLogDataMismatch, DecodeLogTopicsMismatch, InvalidAbiEncodingTypeError, InvalidAbiDecodingTypeError, InvalidArrayError, InvalidDefinitionTypeError;
 var init_abi = __esm({
   "node_modules/viem/_esm/errors/abi.js"() {
     "use strict";
@@ -800,6 +800,25 @@ var init_abi = __esm({
           configurable: true,
           writable: true,
           value: "AbiFunctionOutputsNotFoundError"
+        });
+      }
+    };
+    AbiItemAmbiguityError = class extends BaseError {
+      constructor(x, y) {
+        super("Found ambiguous types in overloaded ABI items.", {
+          metaMessages: [
+            `\`${x.type}\` in \`${formatAbiItem2(x.abiItem)}\`, and`,
+            `\`${y.type}\` in \`${formatAbiItem2(y.abiItem)}\``,
+            "",
+            "These types encode differently and cannot be distinguished at runtime.",
+            "Remove one of the ambiguous items in the ABI."
+          ]
+        });
+        Object.defineProperty(this, "name", {
+          enumerable: true,
+          configurable: true,
+          writable: true,
+          value: "AbiItemAmbiguityError"
         });
       }
     };
@@ -2041,6 +2060,7 @@ function getAbiItem({ abi, args = [], name }) {
     return void 0;
   if (abiItems.length === 1)
     return abiItems[0];
+  let matchedAbiItem = void 0;
   for (const abiItem of abiItems) {
     if (!("inputs" in abiItem))
       continue;
@@ -2061,9 +2081,23 @@ function getAbiItem({ abi, args = [], name }) {
         return false;
       return isArgOfType(arg, abiParameter);
     });
-    if (matched)
-      return abiItem;
+    if (matched) {
+      if (matchedAbiItem && "inputs" in matchedAbiItem && matchedAbiItem.inputs) {
+        const ambiguousTypes = getAmbiguousTypes(abiItem.inputs, matchedAbiItem.inputs, args);
+        if (ambiguousTypes)
+          throw new AbiItemAmbiguityError({
+            abiItem,
+            type: ambiguousTypes[0]
+          }, {
+            abiItem: matchedAbiItem,
+            type: ambiguousTypes[1]
+          });
+      }
+      matchedAbiItem = abiItem;
+    }
   }
+  if (matchedAbiItem)
+    return matchedAbiItem;
   return abiItems[0];
 }
 function isArgOfType(arg, abiParameter) {
@@ -2098,9 +2132,31 @@ function isArgOfType(arg, abiParameter) {
     }
   }
 }
+function getAmbiguousTypes(sourceParameters, targetParameters, args) {
+  for (const parameterIndex in sourceParameters) {
+    const sourceParameter = sourceParameters[parameterIndex];
+    const targetParameter = targetParameters[parameterIndex];
+    if (sourceParameter.type === "tuple" && targetParameter.type === "tuple" && "components" in sourceParameter && "components" in targetParameter)
+      return getAmbiguousTypes(sourceParameter.components, targetParameter.components, args[parameterIndex]);
+    const types = [sourceParameter.type, targetParameter.type];
+    const ambiguous = (() => {
+      if (types.includes("address") && types.includes("bytes20"))
+        return true;
+      if (types.includes("address") && types.includes("string"))
+        return isAddress(args[parameterIndex]);
+      if (types.includes("address") && types.includes("bytes"))
+        return isAddress(args[parameterIndex]);
+      return false;
+    })();
+    if (ambiguous)
+      return types;
+  }
+  return;
+}
 var init_getAbiItem = __esm({
   "node_modules/viem/_esm/utils/abi/getAbiItem.js"() {
     "use strict";
+    init_abi();
     init_isHex();
     init_getEventSelector();
     init_getFunctionSelector();
@@ -16580,7 +16636,7 @@ async function getEnsName(client, { address, blockNumber, blockTag, universalRes
   }
   const reverseNode = `${address.toLowerCase().substring(2)}.addr.reverse`;
   try {
-    const res = await getAction(client, readContract, "readContract")({
+    const [name, resolvedAddress] = await getAction(client, readContract, "readContract")({
       address: universalResolverAddress,
       abi: universalResolverReverseAbi,
       functionName: "reverse",
@@ -16588,7 +16644,9 @@ async function getEnsName(client, { address, blockNumber, blockTag, universalRes
       blockNumber,
       blockTag
     });
-    return res[0];
+    if (address.toLowerCase() !== resolvedAddress.toLowerCase())
+      return null;
+    return name;
   } catch (err) {
     if (isNullUniversalResolverError(err, "reverse"))
       return null;
