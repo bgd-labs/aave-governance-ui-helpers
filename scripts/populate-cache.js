@@ -18253,6 +18253,44 @@ var goerli = /* @__PURE__ */ defineChain({
   testnet: true
 });
 
+// node_modules/viem/_esm/chains/definitions/gnosis.js
+var gnosis = /* @__PURE__ */ defineChain({
+  id: 100,
+  name: "Gnosis",
+  network: "gnosis",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Gnosis",
+    symbol: "xDAI"
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://rpc.gnosischain.com"],
+      webSocket: ["wss://rpc.gnosischain.com/wss"]
+    },
+    public: {
+      http: ["https://rpc.gnosischain.com"],
+      webSocket: ["wss://rpc.gnosischain.com/wss"]
+    }
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "Gnosisscan",
+      url: "https://gnosisscan.io"
+    },
+    default: {
+      name: "Gnosis Chain Explorer",
+      url: "https://blockscout.com/xdai/mainnet"
+    }
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 21022491
+    }
+  }
+});
+
 // node_modules/viem/_esm/chains/definitions/mainnet.js
 var mainnet = /* @__PURE__ */ defineChain({
   id: 1,
@@ -18650,6 +18688,40 @@ var PAYLOADS_CONTROLLER7 = "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01";
 var PC_DATA_HELPER7 = "0xE3B770Dc4ae3f8bECaB3Ed12dE692c741603e16A";
 var EXECUTOR_LVL_17 = "0x9390B1735def18560c509E2d0bc090E9d6BA257a";
 var EXECUTOR_LVL_27 = "0x0000000000000000000000000000000000000000";
+
+// node_modules/@bgd-labs/aave-address-book/dist/GovernanceV3BNB.mjs
+var GovernanceV3BNB_exports = {};
+__export(GovernanceV3BNB_exports, {
+  CL_EMERGENCY_ORACLE: () => CL_EMERGENCY_ORACLE3,
+  CROSS_CHAIN_CONTROLLER: () => CROSS_CHAIN_CONTROLLER8,
+  EXECUTOR_LVL_1: () => EXECUTOR_LVL_18,
+  EXECUTOR_LVL_2: () => EXECUTOR_LVL_28,
+  PAYLOADS_CONTROLLER: () => PAYLOADS_CONTROLLER8,
+  PC_DATA_HELPER: () => PC_DATA_HELPER8
+});
+var CROSS_CHAIN_CONTROLLER8 = "0x9d33ee6543C9b2C8c183b8fb58fB089266cffA19";
+var CL_EMERGENCY_ORACLE3 = "0xcabb46FfB38c93348Df16558DF156e9f68F9F7F1";
+var PAYLOADS_CONTROLLER8 = "0xE5EF2Dd06755A97e975f7E282f828224F2C3e627";
+var PC_DATA_HELPER8 = "0xE3B770Dc4ae3f8bECaB3Ed12dE692c741603e16A";
+var EXECUTOR_LVL_18 = "0x9390B1735def18560c509E2d0bc090E9d6BA257a";
+var EXECUTOR_LVL_28 = "0x0000000000000000000000000000000000000000";
+
+// node_modules/@bgd-labs/aave-address-book/dist/GovernanceV3Gnosis.mjs
+var GovernanceV3Gnosis_exports = {};
+__export(GovernanceV3Gnosis_exports, {
+  CL_EMERGENCY_ORACLE: () => CL_EMERGENCY_ORACLE4,
+  CROSS_CHAIN_CONTROLLER: () => CROSS_CHAIN_CONTROLLER9,
+  EXECUTOR_LVL_1: () => EXECUTOR_LVL_19,
+  EXECUTOR_LVL_2: () => EXECUTOR_LVL_29,
+  PAYLOADS_CONTROLLER: () => PAYLOADS_CONTROLLER9,
+  PC_DATA_HELPER: () => PC_DATA_HELPER9
+});
+var CROSS_CHAIN_CONTROLLER9 = "0x8Dc5310fc9D3D7D1Bb3D1F686899c8F082316c9F";
+var CL_EMERGENCY_ORACLE4 = "0xF937ffAeA1363e4Fa260760bDFA2aA8Fc911F84D";
+var PAYLOADS_CONTROLLER9 = "0x9A1F491B86D09fC1484b5fab10041B189B60756b";
+var PC_DATA_HELPER9 = "0xF1c11BE0b4466728DDb7991A0Ac5265646ec9672";
+var EXECUTOR_LVL_19 = "0x1dF462e2712496373A347f8ad10802a5E95f053D";
+var EXECUTOR_LVL_29 = "0x0000000000000000000000000000000000000000";
 
 // node_modules/@bgd-labs/aave-address-book/dist/AaveV3Ethereum.mjs
 var AaveV3Ethereum_exports = {};
@@ -21514,6 +21586,14 @@ var payloadsControllerConfig = {
     [optimism.id]: {
       dataHelperContractAddress: GovernanceV3Optimism_exports.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3Optimism_exports.PAYLOADS_CONTROLLER]
+    },
+    [gnosis.id]: {
+      dataHelperContractAddress: GovernanceV3Gnosis_exports.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Gnosis_exports.PAYLOADS_CONTROLLER]
+    },
+    [bsc.id]: {
+      dataHelperContractAddress: GovernanceV3BNB_exports.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3BNB_exports.PAYLOADS_CONTROLLER]
     }
   },
   // testnets
@@ -21615,7 +21695,9 @@ var payloadsControllerChainIds = {
     base.id,
     arbitrum.id,
     metis.id,
-    optimism.id
+    optimism.id,
+    bsc.id,
+    gnosis.id
   ],
   goerli: [goerli.id],
   sepolia: [sepolia.id, avalancheFuji.id]
@@ -21679,6 +21761,10 @@ var initialRpcUrls = {
     "https://optimism.blockpi.network/v1/rpc/public",
     "https://optimism.publicnode.com"
   ],
+  [gnosis.id]: [
+    "https://gnosis.blockpi.network/v1/rpc/public",
+    "https://gnosis-mainnet.public.blastapi.io"
+  ],
   // testnets
   [goerli.id]: [
     "https://ethereum-goerli.publicnode.com",
@@ -21724,6 +21810,7 @@ var CHAINS = {
   [arbitrum.id]: setChain(arbitrum),
   [metis.id]: setChain(metis),
   [optimism.id]: setChain(optimism),
+  [gnosis.id]: setChain(gnosis),
   // testnets
   [goerli.id]: setChain(goerli),
   [sepolia.id]: setChain(sepolia),
