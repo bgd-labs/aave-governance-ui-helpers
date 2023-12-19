@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.7...v1.0.8) (2023-12-19)
+
+
+### Bug Fixes
+
+* added gnosis chain ([357320f](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/357320f320f42d8d259a4b2fa746b244a43ae630))
+
 ## [1.0.7](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.6...v1.0.7) (2023-12-15)
 
 
