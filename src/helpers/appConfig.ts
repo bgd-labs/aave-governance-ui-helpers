@@ -4,7 +4,9 @@ import {
   GovernanceV3Arbitrum,
   GovernanceV3Avalanche,
   GovernanceV3Base,
+  GovernanceV3BNB,
   GovernanceV3Ethereum,
+  GovernanceV3Gnosis,
   GovernanceV3Metis,
   GovernanceV3Optimism,
   GovernanceV3Polygon,
@@ -15,6 +17,8 @@ import {
   avalanche,
   avalancheFuji,
   base,
+  bsc,
+  gnosis,
   goerli,
   mainnet,
   metis,
@@ -99,6 +103,14 @@ export const payloadsControllerConfig: Record<
     [optimism.id]: {
       dataHelperContractAddress: GovernanceV3Optimism.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3Optimism.PAYLOADS_CONTROLLER],
+    },
+    [gnosis.id]: {
+      dataHelperContractAddress: GovernanceV3Gnosis.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Gnosis.PAYLOADS_CONTROLLER],
+    },
+    [bsc.id]: {
+      dataHelperContractAddress: GovernanceV3BNB.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3BNB.PAYLOADS_CONTROLLER],
     },
   },
   // testnets
@@ -205,6 +217,8 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     arbitrum.id,
     metis.id,
     optimism.id,
+    bsc.id,
+    gnosis.id,
   ],
   goerli: [goerli.id],
   sepolia: [sepolia.id, avalancheFuji.id],

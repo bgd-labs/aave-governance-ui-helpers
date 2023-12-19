@@ -9,6 +9,7 @@ import {
   base,
   bsc,
   bscTestnet,
+  gnosis,
   goerli,
   mainnet,
   metis,
@@ -58,6 +59,10 @@ export const initialRpcUrls: Record<number, string[]> = {
     'https://optimism.blockpi.network/v1/rpc/public',
     'https://optimism.publicnode.com',
   ],
+  [gnosis.id]: [
+    'https://gnosis.blockpi.network/v1/rpc/public',
+    'https://gnosis-mainnet.public.blastapi.io',
+  ],
   // testnets
   [goerli.id]: [
     'https://ethereum-goerli.publicnode.com',
@@ -106,6 +111,7 @@ const CHAINS: Record<number, Chain> = {
   [arbitrum.id]: setChain(arbitrum),
   [metis.id]: setChain(metis),
   [optimism.id]: setChain(optimism),
+  [gnosis.id]: setChain(gnosis),
   // testnets
   [goerli.id]: setChain(goerli),
   [sepolia.id]: setChain(sepolia),
