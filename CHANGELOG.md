@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.8...v1.0.9) (2023-12-26)
+
+
+### Bug Fixes
+
+* turn on mainnet auto cache and update address book ([#22](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/22)) ([e1a9df2](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/e1a9df246b7485788a1dd23c56827e55cac779d9))
+
 ## [1.0.8](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.7...v1.0.8) (2023-12-19)
 
 
