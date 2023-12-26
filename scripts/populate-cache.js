@@ -24442,6 +24442,9 @@ async function populateCache() {
           (proposal) => proposal.id === id2
         );
         if (proposalData) {
+          const proposalConfig = configs.filter(
+            (config) => config.accessLevel === proposalData.accessLevel
+          )[0];
           const isVotingEndedN = proposalData.votingMachineData.endTime > 0 && now > proposalData.votingMachineData.endTime;
           const { forVotes, againstVotes } = normalizeVotes(
             proposalData.votingMachineData.forVotes,
@@ -24449,13 +24452,13 @@ async function populateCache() {
           );
           const { quorumReached } = formatQuorum(
             proposalData.votingMachineData.forVotes,
-            configs[proposalData.accessLevel].quorum,
+            proposalConfig.quorum,
             contractsConstants.precisionDivider
           );
           const { normalizeRequiredDiff } = formatDiff(
             proposalData.votingMachineData.forVotes,
             proposalData.votingMachineData.againstVotes,
-            configs[proposalData.accessLevel].differential,
+            proposalConfig.differential,
             contractsConstants.precisionDivider
           );
           const isVotingFailed = isVotingEndedN && (againstVotes >= forVotes || againstVotes === 0 && forVotes === 0 || !quorumReached || forVotes < againstVotes + normalizeRequiredDiff);
@@ -24553,9 +24556,6 @@ async function populateCache() {
             isProposalCanceled,
             isProposalExpired
           );
-          const proposalConfig = configs.filter(
-            (config) => config.accessLevel === proposalData.accessLevel
-          )[0];
           const executionPayloadTime = Math.max.apply(
             null,
             // @ts-ignore

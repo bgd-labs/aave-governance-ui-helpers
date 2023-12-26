@@ -248,6 +248,10 @@ export async function populateCache() {
         );
 
         if (proposalData) {
+          const proposalConfig = configs.filter(
+            (config) => config.accessLevel === proposalData.accessLevel,
+          )[0];
+
           const isVotingEndedN =
             proposalData.votingMachineData.endTime > 0 &&
             now > proposalData.votingMachineData.endTime;
@@ -259,14 +263,14 @@ export async function populateCache() {
 
           const { quorumReached } = formatQuorum(
             proposalData.votingMachineData.forVotes,
-            configs[proposalData.accessLevel].quorum,
+            proposalConfig.quorum,
             contractsConstants.precisionDivider,
           );
 
           const { normalizeRequiredDiff } = formatDiff(
             proposalData.votingMachineData.forVotes,
             proposalData.votingMachineData.againstVotes,
-            configs[proposalData.accessLevel].differential,
+            proposalConfig.differential,
             contractsConstants.precisionDivider,
           );
 
@@ -420,10 +424,6 @@ export async function populateCache() {
           );
 
           // cache for list view
-          const proposalConfig = configs.filter(
-            (config) => config.accessLevel === proposalData.accessLevel,
-          )[0];
-
           const executionPayloadTime = Math.max.apply(
             null,
             // @ts-ignore
