@@ -24105,7 +24105,7 @@ var db4 = new LowWithLodash4(adapter4, []);
 db4.read();
 var Proposal = class {
   getIds() {
-    return db4.data.map((proposal) => proposal.id) || [];
+    return db4.data.filter((proposal) => proposal.basicState > 3).map((proposal) => proposal.id) || [];
   }
   get(id2) {
     const value = db4.chain.find({ id: id2 }).value();

@@ -18,7 +18,11 @@ db.read();
 
 export class Proposal {
   getIds() {
-    return db.data.map((proposal) => proposal.id) || [];
+    return (
+      db.data
+        .filter((proposal) => proposal.basicState > 3)
+        .map((proposal) => proposal.id) || []
+    );
   }
 
   get(id: number) {
