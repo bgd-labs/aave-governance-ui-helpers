@@ -11,5 +11,5 @@ export default defineConfig({
   clean: true,
   splitting: false,
   dts: true,
-  esbuildPlugins: [esbuildPluginFilePathExtensions()],
+  esbuildPlugins: [esbuildPluginFilePathExtensions({ cjsExtension: 'js' })],
 });
