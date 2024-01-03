@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.10](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.9...v1.0.10) (2024-01-03)
+
+
+### Bug Fixes
+
+* app config ([fff4ddc](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/fff4ddc8bc014c050208597781b3bd2c84377e5a))
+* mainnet cache error ([3737568](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/3737568f5aed8975811b2a2ae069212a78ce0c97))
+* update cache ([7fd92e4](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/7fd92e4beadc243b781b6e3d1807f6dea4c49ffe))
+* update cache ([01c2358](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/01c2358de156b48a085697edbbebc370b04aedd2))
+
 ## [1.0.9](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.8...v1.0.9) (2023-12-26)
 
 
