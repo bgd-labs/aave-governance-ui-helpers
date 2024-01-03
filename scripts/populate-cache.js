@@ -21709,10 +21709,6 @@ var votingMachineChainIds = {
   goerli: [goerli.id],
   sepolia: [sepolia.id, avalancheFuji.id]
 };
-var gelatoApiKeys = {
-  testnet: "MgZBKc6a7GHzxlrkdHCWIsazai_Niqbps42wvPlE7xE_",
-  mainnet: "XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_"
-};
 var appConfigInit = (coreNetwork) => {
   return {
     govCoreChainId: govCoreChainId[coreNetwork],
@@ -21721,8 +21717,7 @@ var appConfigInit = (coreNetwork) => {
     votingMachineChainIds: votingMachineChainIds[coreNetwork],
     payloadsControllerConfig: payloadsControllerConfig[coreNetwork],
     payloadsControllerChainIds: payloadsControllerChainIds[coreNetwork],
-    additional: aditionalsAddresses[coreNetwork],
-    gelatoApiKeys
+    additional: aditionalsAddresses[coreNetwork]
   };
 };
 

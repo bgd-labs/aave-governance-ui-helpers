@@ -230,11 +230,6 @@ export const votingMachineChainIds: Record<CoreNetworkName, number[]> = {
   sepolia: [sepolia.id, avalancheFuji.id],
 };
 
-const gelatoApiKeys: Record<string, string> = {
-  testnet: 'MgZBKc6a7GHzxlrkdHCWIsazai_Niqbps42wvPlE7xE_',
-  mainnet: 'XUE_2itpitxYR_gYSvqM6q4In705QddU1Xzz2KsxrXE_',
-};
-
 export const appConfigInit = (coreNetwork: CoreNetworkName) => {
   return {
     govCoreChainId: govCoreChainId[coreNetwork],
@@ -245,6 +240,5 @@ export const appConfigInit = (coreNetwork: CoreNetworkName) => {
     payloadsControllerChainIds: payloadsControllerChainIds[coreNetwork],
 
     additional: aditionalsAddresses[coreNetwork],
-    gelatoApiKeys,
   };
 };
