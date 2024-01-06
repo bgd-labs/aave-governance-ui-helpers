@@ -11,69 +11,32 @@ on:
     - cron: 0 */3 * * *
 
 jobs:
-  mainnet-core:
-    env:
-      CORE_NETWORK: mainnet
+  cache-updates:
+    strategy:
+      matrix:
+        network: [mainnet, sepolia, goerli]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
 
-      - name: Update cache for mainnet gov core
-        uses: ./.github/actions/updateCache
-      - name: Check code diff and push
-        run: |
-          if [[ -z $(git status -s) ]]
-          then
-            echo "tree is clean"
-          else
-            git config --global user.name 'Cache update'
-            git config --global user.email 'cache-bot@bgd.com'
-            git pull
-            git add .
-            git commit -am "chore: automated cache update"
-            git push
-          exit
-          fi
+      - name: Packages install
+        shell: sh
+        run: yarn --frozen-lockfile --prefer-offline
 
-  sepolia-core:
-    env:
-      CORE_NETWORK: sepolia
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update cache
+        shell: sh
+        run: yarn cache:update
+        env:
+          CORE_NETWORK: ${{ matrix.network }}
 
-      - name: Update cache for sepolia gov core
-        uses: ./.github/actions/updateCache
-      - name: Check code diff and push
-        run: |
-          if [[ -z $(git status -s) ]]
-          then
-            echo "tree is clean"
-          else
-            git config --global user.name 'Cache update'
-            git config --global user.email 'cache-bot@bgd.com'
-            git pull
-            git add .
-            git commit -am "chore: automated cache update"
-            git push
-          exit
-          fi
+      - name: Parse cache to separate files
+        shell: sh
+        run: yarn cache:parse
 
-  goerli-core:
-    env:
-      CORE_NETWORK: goerli
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Update cache for goerli gov core
-        uses: ./.github/actions/updateCache
       - name: Check code diff and push
         run: |
           if [[ -z $(git status -s) ]]

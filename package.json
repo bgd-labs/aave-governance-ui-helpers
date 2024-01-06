@@ -27,8 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "build:populate-cache": "npx esbuild src/lowdb/populateCache.ts --tsconfig=./tsconfig.json --bundle --outfile=scripts/populate-cache.js --platform=node --target=ESNEXT",
-    "cache:update": "CACHE_PATH=../src/generated-cache node scripts/populate-cache.js",
+    "cache:update": "CACHE_PATH=../src/generated-cache tsx src/lowdb/populateCache.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },
@@ -50,8 +49,8 @@
   },
   "peerDependencies": {
     "@bgd-labs/aave-address-book": "^2.13.3",
-    "wagmi": "^1.4.12",
-    "viem": "^1.19.15"
+    "viem": "^1.19.15",
+    "wagmi": "^1.4.12"
   },
   "devDependencies": {
     "@bgd-labs/aave-address-book": "^2.13.3",
@@ -76,7 +75,8 @@
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "viem": "^1.19.15",
-    "wagmi": "^1.4.12"
+    "wagmi": "^1.4.12",
+    "tsx": "^4.7.0"
   },
   "dependencies": {
     "bs58": "^5.0.0",

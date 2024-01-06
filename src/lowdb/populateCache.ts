@@ -104,11 +104,9 @@ export async function populateCache() {
   // proposals data
   const proposalsCountInit = await govCore.read.getProposalsCount();
   const proposalsCount = Number(proposalsCountInit);
-
   if (proposalsCount > 0) {
     const cachedIds = proposalFetcher.getIds();
     const proposalIds = Array.from(Array(proposalsCount).keys());
-
     const idsForRequest: number[] = [];
     for (let i = 0; i < proposalIds.length; i++) {
       let found = false;
