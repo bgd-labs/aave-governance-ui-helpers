@@ -93,6 +93,15 @@ export async function populateCache() {
     });
   }
 
+  // configs and constants
+  const { contractsConstants, configs } = await getGovCoreConfigs({
+    client: initialClients[appConfig.govCoreChainId],
+    govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
+    govCoreDataHelperContractAddress:
+      appConfig.govCoreConfig.dataHelperContractAddress,
+  });
+
+  // proposals data
   const proposalsCountInit = await govCore.read.getProposalsCount();
   const proposalsCount = Number(proposalsCountInit);
 
@@ -186,19 +195,12 @@ export async function populateCache() {
     const votingMachineDataHelperData = await getVotingData(initialProposals);
 
     const proposalsData: BasicProposal[] = getDetailedProposalsData(
+      configs,
       govCoreDataHelperData,
       votingMachineDataHelperData,
       idsForRequest,
       true,
     );
-
-    // configs and constants
-    const { contractsConstants, configs } = await getGovCoreConfigs({
-      client: initialClients[appConfig.govCoreChainId],
-      govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
-      govCoreDataHelperContractAddress:
-        appConfig.govCoreConfig.dataHelperContractAddress,
-    });
 
     // populate ipfs data
     const dataFromCache = ipfsFetcher.getIpfsData();

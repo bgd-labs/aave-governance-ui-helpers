@@ -6,6 +6,7 @@ import {
   ProposalData,
   ProposalStructOutput,
   VMProposalStructOutput,
+  VotingConfig,
   VotingMachineProposalState,
 } from './types';
 
@@ -51,6 +52,7 @@ export function formatVotingMachineData(
 }
 
 export function updateVotingMachineData(
+  configs: VotingConfig[],
   proposals: ProposalData[],
   votingMachineDataHelperData: Readonly<VMProposalStructOutput[]>,
   ids: number[],
@@ -69,7 +71,10 @@ export function updateVotingMachineData(
         id: govData.id,
         votingDuration:
           +votingMachineData?.voteConfig.votingDuration ||
-          govData.votingDuration,
+          +govData.votingDuration ||
+          +configs.filter(
+            (config) => +config.accessLevel === +govData.accessLevel,
+          )[0].votingDuration,
         creationTime: govData.creationTime,
         accessLevel: govData.accessLevel,
         basicState: govData.basicState,
@@ -96,6 +101,7 @@ export function updateVotingMachineData(
 }
 
 export function getDetailedProposalsData(
+  configs: VotingConfig[],
   govCoreDataHelperData: Readonly<ProposalStructOutput[]>,
   votingMachineDataHelperData: Readonly<VMProposalStructOutput[]>,
   ids: number[],
@@ -122,7 +128,11 @@ export function getDetailedProposalsData(
           id: Number(govData.id),
           votingDuration:
             +votingMachineData?.voteConfig.votingDuration ||
-            +govData.proposalData.votingDuration,
+            +govData.proposalData.votingDuration ||
+            +configs.filter(
+              (config) =>
+                +config.accessLevel === +govData.proposalData.accessLevel,
+            )[0].votingDuration,
           creationTime: +govData.proposalData.creationTime,
           accessLevel: +govData.proposalData.accessLevel,
           basicState: +govData.proposalData.state,

@@ -23685,7 +23685,7 @@ function formatVotingMachineData(id2, votingMachineData) {
     hasRequiredRoots: votingMachineData.hasRequiredRoots
   };
 }
-function getDetailedProposalsData(govCoreDataHelperData, votingMachineDataHelperData, ids, prerender) {
+function getDetailedProposalsData(configs, govCoreDataHelperData, votingMachineDataHelperData, ids, prerender) {
   const proposalsData = [];
   ids.forEach((id2) => {
     const govData = govCoreDataHelperData.find(
@@ -23700,7 +23700,9 @@ function getDetailedProposalsData(govCoreDataHelperData, votingMachineDataHelper
       if (votingMachineData) {
         const proposalData = {
           id: Number(govData.id),
-          votingDuration: +votingMachineData?.voteConfig.votingDuration || +govData.proposalData.votingDuration,
+          votingDuration: +votingMachineData?.voteConfig.votingDuration || +govData.proposalData.votingDuration || +configs.filter(
+            (config) => +config.accessLevel === +govData.proposalData.accessLevel
+          )[0].votingDuration,
           creationTime: +govData.proposalData.creationTime,
           accessLevel: +govData.proposalData.accessLevel,
           basicState: +govData.proposalData.state,
@@ -24324,6 +24326,11 @@ async function populateCache() {
       });
     });
   }
+  const { contractsConstants, configs } = await getGovCoreConfigs({
+    client: initialClients[appConfig.govCoreChainId],
+    govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
+    govCoreDataHelperContractAddress: appConfig.govCoreConfig.dataHelperContractAddress
+  });
   const proposalsCountInit = await govCore.read.getProposalsCount();
   const proposalsCount = Number(proposalsCountInit);
   if (proposalsCount > 0) {
@@ -24391,16 +24398,12 @@ async function populateCache() {
     };
     const votingMachineDataHelperData = await getVotingData(initialProposals);
     const proposalsData = getDetailedProposalsData(
+      configs,
       govCoreDataHelperData,
       votingMachineDataHelperData,
       idsForRequest,
       true
     );
-    const { contractsConstants, configs } = await getGovCoreConfigs({
-      client: initialClients[appConfig.govCoreChainId],
-      govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
-      govCoreDataHelperContractAddress: appConfig.govCoreConfig.dataHelperContractAddress
-    });
     const dataFromCache = ipfsFetcher.getIpfsData();
     const ipfsData = {};
     dataFromCache.forEach((ipfs) => {
