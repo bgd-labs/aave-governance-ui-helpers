@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.11](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.10...v1.0.11) (2024-01-06)
+
+
+### Bug Fixes
+
+* voting duration in get proposal data ([368bde3](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/368bde37a0d3d038a97e1a309de83d8d013b79fd))
+
 ## [1.0.10](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.9...v1.0.10) (2024-01-03)
 
 
