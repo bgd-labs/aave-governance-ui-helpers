@@ -138,15 +138,14 @@ export async function populateCache() {
       0,
     );
 
-    const govCoreDataHelperData =
-      from > 0
-        ? await govCoreDataHelper.read.getProposalsData([
-            appConfig.govCoreConfig.contractAddress,
-            BigInt(from),
-            BigInt(to > 0 ? to - 1 : 0),
-            BigInt(from - to + 1),
-          ])
-        : [];
+    const govCoreDataHelperData = await govCoreDataHelper.read.getProposalsData(
+      [
+        appConfig.govCoreConfig.contractAddress,
+        BigInt(from),
+        BigInt(to > 0 ? to - 1 : 0),
+        BigInt(from - to + 1),
+      ],
+    );
 
     const initialProposals = govCoreDataHelperData.map((proposal) => {
       return {
