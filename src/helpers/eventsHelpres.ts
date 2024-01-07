@@ -9,13 +9,6 @@ export function getBlocksForEvents(
   const endBlock =
     endBlockNumber && endBlockNumber > 0 && endBlockNumber < currentBlock
       ? endBlockNumber
-      : !!lastBlockNumber &&
-        isFinite(lastBlockNumber) &&
-        lastBlockNumber > startBlockNumber &&
-        lastBlockNumber < currentBlock
-      ? lastBlockNumber + 1
-      : currentBlock > startBlockNumber + blockLimit
-      ? startBlockNumber + blockLimit
       : currentBlock;
 
   const startBlock =
@@ -26,8 +19,8 @@ export function getBlocksForEvents(
     lastBlockNumber < endBlock
       ? lastBlockNumber
       : startBlockNumber < currentBlock
-      ? startBlockNumber
-      : currentBlock - blockLimit;
+        ? startBlockNumber
+        : currentBlock - blockLimit;
 
   return { startBlock, endBlock };
 }
