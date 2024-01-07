@@ -2,7 +2,7 @@ export * from './helpers/appConfig';
 export * from './helpers/bignumber';
 export * from './helpers/checkHash';
 export * from './helpers/contracts';
-export * from './helpers/eventsHelpres';
+export * from './helpers/eventsHelpers';
 export * from './helpers/fetchWithTimeout';
 export * from './helpers/formatProposal';
 export * from './helpers/getBlockNumberByTimestamp';

@@ -3,7 +3,7 @@ import {
   payloadsControllerContract,
   votingMachineContract,
 } from './contracts';
-import { blockLimit, getEventsBySteps } from './eventsHelpres';
+import { blockLimit, getEventsBySteps } from './eventsHelpers';
 import { InitEvent, InitEventWithChainId } from './types';
 
 // payloads created

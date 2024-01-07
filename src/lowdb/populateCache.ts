@@ -9,7 +9,7 @@ import {
   payloadsControllerDataHelperContract,
   votingMachineDataHelperContract,
 } from '../helpers/contracts';
-import { getBlocksForEvents } from '../helpers/eventsHelpres';
+import { getBlocksForEvents } from '../helpers/eventsHelpers';
 import {
   formatDiff,
   formatQuorum,

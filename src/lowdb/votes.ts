@@ -6,7 +6,7 @@ import { Hex } from 'viem';
 import { mainnet } from 'viem/chains';
 
 import { initialClients } from '../helpers/clients';
-import { blockLimit, getBlocksForEvents } from '../helpers/eventsHelpres';
+import { blockLimit, getBlocksForEvents } from '../helpers/eventsHelpers';
 import { getVoters } from '../helpers/getProposalEvents';
 import { VotersData } from '../helpers/types';
 import { baseDirName } from './helpers';

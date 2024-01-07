@@ -2,7 +2,7 @@ import { Hex } from 'viem';
 
 import { normalizeBN } from './bignumber';
 import { votingMachineContract } from './contracts';
-import { getEventsBySteps } from './eventsHelpres';
+import { getEventsBySteps } from './eventsHelpers';
 import { InitEventWithChainId } from './types';
 
 async function getVoteEvents({
