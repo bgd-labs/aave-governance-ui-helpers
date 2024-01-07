@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.12](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.11...v1.0.12) (2024-01-07)
+
+
+### Bug Fixes
+
+* end block in events helpers ([8f6288d](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/8f6288d3aa6e1e33a6e14b6e2acae1818788ee04))
+* remove build step ([#26](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/26)) ([b0d7269](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/b0d72699dd88cc4366ff1bd4852f3df93329072f))
+
 ## [1.0.11](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.10...v1.0.11) (2024-01-06)
 
 
