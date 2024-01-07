@@ -10,6 +10,7 @@ import {
   GovernanceV3Metis,
   GovernanceV3Optimism,
   GovernanceV3Polygon,
+  GovernanceV3Goerli,
 } from '@bgd-labs/aave-address-book';
 import { Hex } from 'viem';
 import {
@@ -49,10 +50,10 @@ export const govCoreConfig: Record<
   },
   // testnets
   goerli: {
-    contractAddress: '0x586207Df62c7D5D1c9dBb8F61EdF77cc30925C4F',
-    dataHelperContractAddress: '0xB84D6c8b2cFC98191a1D6d00B38c1057252d876b',
+    contractAddress: GovernanceV3Goerli.GOVERNANCE,
+    dataHelperContractAddress: GovernanceV3Goerli.GOV_DATA_HELPER,
     votingPortals: {
-      [goerli.id]: '0xFf376b6db4AF0d87Dba35860B3B87F526d7879cF',
+      [goerli.id]: GovernanceV3Goerli.VOTING_PORTAL_ETH_ETH,
     },
   },
   sepolia: {
@@ -159,9 +160,9 @@ const votingMachineConfig: Record<
   // testnets
   goerli: {
     [goerli.id]: {
-      contractAddress: '0xE8AD5ab6295c16D04257BC6Cd6D447ff4018FF89',
-      dataHelperContractAddress: '0xe10617A1ea760E174E82fBeb38a540d8ACe566f5',
-      dataWarehouseAddress: '0xC946cc6bb934bAf2A539BaB62c647aff09D2e2D8',
+      contractAddress: GovernanceV3Goerli.VOTING_MACHINE,
+      dataHelperContractAddress: GovernanceV3Goerli.VM_DATA_HELPER,
+      dataWarehouseAddress: GovernanceV3Goerli.DATA_WAREHOUSE,
     },
   },
   sepolia: {
