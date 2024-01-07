@@ -104,11 +104,9 @@ export async function populateCache() {
   // proposals data
   const proposalsCountInit = await govCore.read.getProposalsCount();
   const proposalsCount = Number(proposalsCountInit);
-
   if (proposalsCount > 0) {
     const cachedIds = proposalFetcher.getIds();
     const proposalIds = Array.from(Array(proposalsCount).keys());
-
     const idsForRequest: number[] = [];
     for (let i = 0; i < proposalIds.length; i++) {
       let found = false;
@@ -124,7 +122,7 @@ export async function populateCache() {
       }
     }
 
-    const fr = Math.max(
+    const from = Math.max(
       Math.max.apply(
         null,
         idsForRequest.map((id) => id),
@@ -140,15 +138,14 @@ export async function populateCache() {
       0,
     );
 
-    const govCoreDataHelperData =
-      fr > 0
-        ? await govCoreDataHelper.read.getProposalsData([
-            appConfig.govCoreConfig.contractAddress,
-            BigInt(fr),
-            BigInt(to > 0 ? to - 1 : 0),
-            BigInt(fr - to + 1),
-          ])
-        : [];
+    const govCoreDataHelperData = await govCoreDataHelper.read.getProposalsData(
+      [
+        appConfig.govCoreConfig.contractAddress,
+        BigInt(from),
+        BigInt(to > 0 ? to - 1 : 0),
+        BigInt(from - to + 1),
+      ],
+    );
 
     const initialProposals = govCoreDataHelperData.map((proposal) => {
       return {
