@@ -559,7 +559,10 @@ export function formatProposal(proposal: Proposal) {
     againstVotes + normalizeRequiredDiff < normalizeMinQuorumVotes
       ? normalizeMinQuorumVotes
       : againstVotes + normalizeRequiredDiff;
-  const requiredAgainstVotes = forVotes === 0 ? 0 : forVotes;
+  const requiredAgainstVotes =
+    forVotes === 0 || forVotes - normalizeRequiredDiff <= 0
+      ? 0
+      : forVotes - normalizeRequiredDiff;
 
   const forPercent = allVotes.gt(0)
     ? new BigNumber(forVotes)
