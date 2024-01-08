@@ -35,7 +35,7 @@ async function updateCache() {
   const logs = await getGovernanceEvents(
     appConfig.govCoreConfig.contractAddress,
     initialClients[appConfig.govCoreChainId],
-    BigInt(lastSeenBlock),
+    BigInt(lastSeenBlock) + BigInt(1),
     currentBlockOnGovernanceChain,
   );
   writeJSONCache(
