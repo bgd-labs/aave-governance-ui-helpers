@@ -1,5 +1,6 @@
 import {
   CHAIN_ID_CLIENT_MAP,
+  getBlockAtTimestamp,
   getContractDeploymentBlock,
   getProposalMetadata,
   readJSONCache,
@@ -7,60 +8,110 @@ import {
 } from '@bgd-labs/js-utils';
 import { getGovernanceEvents, isProposalFinal } from './events/governance';
 import { appConfig } from './helpers/clients';
-import { getPayloadsControllerEvents } from './events/payloadsController';
+import {
+  getPayloadsControllerEvents,
+  isPayloadFinal,
+} from './events/payloadsController';
 import { getVotingMachineEvents } from './events/votingMachine';
 import { getContract } from 'viem';
-import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
+import {
+  IGovernanceCore_ABI,
+  IPayloadsControllerCore_ABI,
+} from '@bgd-labs/aave-address-book';
 
-async function cacheGovernanceEvents() {
-  const path = `${appConfig.govCoreChainId.toString()}/events`;
+async function cacheGovernance() {
   const client = CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId];
   const currentBlockOnGovernanceChain = await client.getBlockNumber();
-  const governanceCache =
-    readJSONCache(path, appConfig.govCoreConfig.contractAddress) || [];
+  const address = appConfig.govCoreConfig.contractAddress;
+  const contract = getContract({
+    abi: IGovernanceCore_ABI,
+    address: address,
+    publicClient: client,
+  });
+  const proposalsCount = await contract.read.getProposalsCount();
+  if (proposalsCount == BigInt(0)) return;
+  // cache data
+  const proposalsPath = `${appConfig.govCoreChainId.toString()}/proposals`;
+  const proposalsCache = readJSONCache(proposalsPath, address) || {};
+  const proposalsToCheck = [...Array(Number(proposalsCount)).keys()];
+  for (let i = 0; i < proposalsToCheck.length; i++) {
+    if (!proposalsCache[i] || !isProposalFinal(proposalsCache[i].state)) {
+      proposalsCache[i] = await contract.read.getProposal([BigInt(i)]);
+    }
+  }
+  writeJSONCache(proposalsPath, address, proposalsCache);
+
+  // cache ipfs
+  const ipfsCache = readJSONCache('web3', 'ipfs') || {};
+  for (const key of Object.keys(proposalsCache)) {
+    if (!ipfsCache[proposalsCache[key].ipfsHash]) {
+      ipfsCache[proposalsCache[key].ipfsHash] = await getProposalMetadata(
+        proposalsCache[key].ipfsHash,
+      );
+    }
+  }
+  writeJSONCache('web3', 'ipfs', ipfsCache);
+
+  // cache events
+  const eventsPath = `${appConfig.govCoreChainId.toString()}/events`;
+  const governanceEvents = readJSONCache(eventsPath, address) || [];
   const lastSeenBlock =
-    governanceCache.length > 0
-      ? governanceCache[governanceCache.length - 1].blockNumber
-      : await getContractDeploymentBlock({
-          client,
-          contractAddress: appConfig.govCoreConfig.contractAddress,
+    governanceEvents.length > 0
+      ? BigInt(governanceEvents[governanceEvents.length - 1].blockNumber)
+      : await getBlockAtTimestamp({
+          client: client,
+          timestamp: proposalsCache[0].createdAt,
           fromBlock: BigInt(0),
           toBlock: currentBlockOnGovernanceChain,
-          maxDelta: BigInt(10000),
+          maxDelta: BigInt(60 * 60 * 24),
         });
   const logs = await getGovernanceEvents(
-    appConfig.govCoreConfig.contractAddress,
+    address,
     client,
     BigInt(lastSeenBlock) + BigInt(1),
     currentBlockOnGovernanceChain,
   );
-  writeJSONCache(path, appConfig.govCoreConfig.contractAddress, [
-    ...governanceCache,
-    ...logs,
-  ]);
+  writeJSONCache(eventsPath, address, [...governanceEvents, ...logs]);
 }
 
-async function cachePayloadsControllersEvents() {
+async function cachePayloadsControllers() {
   return await Promise.allSettled(
     appConfig.payloadsControllerChainIds.map(async (chainId) => {
-      const path = `${chainId}/events`;
       const address =
         // TODO: this is weird as each chain should only have one controller
         appConfig.payloadsControllerConfig[chainId].contractAddresses[0];
       const client = CHAIN_ID_CLIENT_MAP[chainId];
+      const contract = getContract({
+        abi: IPayloadsControllerCore_ABI,
+        publicClient: client,
+        address,
+      });
+      const payloadsCount = await contract.read.getPayloadsCount();
+      if (payloadsCount == 0) return;
       const currentBlockOnPayloadsControllerChain =
         await client.getBlockNumber();
-      const payloadsControllerCache = readJSONCache(path, address) || [];
+      // cache data
+      const payloadsPath = `${chainId}/payloads`;
+      const payloadsCache = readJSONCache(payloadsPath, address) || [];
+      const payloadsToCheck = [...Array(Number(payloadsCount)).keys()];
+      for (let i = 0; i < payloadsToCheck.length; i++) {
+        if (!payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)) {
+          payloadsCache[i] = await contract.read.getPayloadById([i]);
+        }
+      }
+      writeJSONCache(payloadsPath, address, payloadsCache);
+      // cache events
+      const eventsPath = `${chainId}/events`;
+      const eventsCache = readJSONCache(eventsPath, address) || [];
       const lastSeenBlock =
-        payloadsControllerCache.length > 0
-          ? payloadsControllerCache[payloadsControllerCache.length - 1]
-              .blockNumber
-          : await getContractDeploymentBlock({
+        eventsCache.length > 0
+          ? BigInt(eventsCache[eventsCache.length - 1].blockNumber)
+          : await getBlockAtTimestamp({
               client: client,
-              contractAddress: address,
+              timestamp: payloadsCache[0].createdAt,
               fromBlock: BigInt(0),
               toBlock: currentBlockOnPayloadsControllerChain,
-              maxDelta: BigInt(10000),
+              maxDelta: BigInt(60 * 60 * 24),
             });
       const logs = await getPayloadsControllerEvents(
         address,
@@ -68,26 +119,24 @@ async function cachePayloadsControllersEvents() {
         BigInt(lastSeenBlock) + BigInt(1),
         currentBlockOnPayloadsControllerChain,
       );
-      writeJSONCache(path, address, [...payloadsControllerCache, ...logs]);
+      writeJSONCache(eventsPath, address, [...eventsCache, ...logs]);
     }),
   );
 }
 
 async function cacheVotes() {
-  return await Promise.allSettled(
+  // TODO: skip machines that don't have proposals yet
+  return await Promise.all(
     appConfig.votingMachineChainIds.map(async (chainId) => {
       const path = `${chainId}/events`;
-      const address =
-        // TODO: this is weird as each chain should only have one controller
-        appConfig.votingMachineConfig[chainId].contractAddress;
+      const address = appConfig.votingMachineConfig[chainId].contractAddress;
       const client = CHAIN_ID_CLIENT_MAP[chainId];
       const currentBlockOnPayloadsControllerChain =
         await client.getBlockNumber();
-      const payloadsControllerCache = readJSONCache(path, address) || [];
+      const votesCache = readJSONCache(path, address) || [];
       const lastSeenBlock =
-        payloadsControllerCache.length > 0
-          ? payloadsControllerCache[payloadsControllerCache.length - 1]
-              .blockNumber
+        votesCache.length > 0
+          ? BigInt(votesCache[votesCache.length - 1].blockNumber)
           : await getContractDeploymentBlock({
               client: client,
               contractAddress: address,
@@ -101,43 +150,9 @@ async function cacheVotes() {
         BigInt(lastSeenBlock) + BigInt(1),
         currentBlockOnPayloadsControllerChain,
       );
-      writeJSONCache(path, address, [...payloadsControllerCache, ...logs]);
+      writeJSONCache(path, address, [...votesCache, ...logs]);
     }),
   );
-}
-
-async function cacheProposals() {
-  const path = `${appConfig.govCoreChainId.toString()}/proposals`;
-  const client = CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId];
-  const address = appConfig.govCoreConfig.contractAddress;
-
-  const governanceCache = readJSONCache(path, address) || {};
-  const contract = getContract({
-    abi: IGovernanceCore_ABI,
-    address: address,
-    publicClient: client,
-  });
-  const proposalsCount = await contract.read.getProposalsCount();
-  const proposalsToCheck = [...Array(Number(proposalsCount)).keys()];
-  for (let i = 0; i < proposalsToCheck.length; i++) {
-    if (!governanceCache[i] || !isProposalFinal(governanceCache[i].state)) {
-      governanceCache[i] = await contract.read.getProposal([BigInt(i)]);
-    }
-  }
-  writeJSONCache(path, address, governanceCache);
-  return governanceCache;
-}
-
-async function cacheIpfs(governanceCache: any) {
-  const ipfsCache = readJSONCache('web3', 'ipfs') || {};
-  for (const key of Object.keys(governanceCache)) {
-    if (!ipfsCache[governanceCache[key].ipfsHash]) {
-      ipfsCache[governanceCache[key].ipfsHash] = await getProposalMetadata(
-        governanceCache[key].ipfsHash,
-      );
-    }
-  }
-  writeJSONCache('web3', 'ipfs', ipfsCache);
 }
 
 /**
@@ -149,11 +164,9 @@ async function cacheIpfs(governanceCache: any) {
  */
 async function updateCache() {
   // cache governance logs
-  await cacheGovernanceEvents();
-  const cache = await cacheProposals();
-  await cacheIpfs(cache);
+  await cacheGovernance();
   // cache payloadsController logs
-  await cachePayloadsControllersEvents();
+  await cachePayloadsControllers();
   // cache votes
   await cacheVotes();
 }
