@@ -27,7 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "CACHE_PATH=../src/generated-cache tsx src/lowdb/populateCache.ts",
+    "cache:update": "CACHE_PATH=../src/generated-cache npx tsx src/lowdb/populateCache.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },
