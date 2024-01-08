@@ -20,6 +20,15 @@ export const HUMAN_READABLE_PAYLOAD_STATE = {
   [PayloadState.Expired]: 'Expired',
 };
 
+export function isPayloadFinal(state: number) {
+  return [
+    PayloadState.Cancelled,
+    PayloadState.Executed,
+    PayloadState.Expired,
+    // -1, // error
+  ].includes(state);
+}
+
 export async function getPayloadsControllerEvents(
   payloadsControllerAddress: Address,
   publicClient: PublicClient,

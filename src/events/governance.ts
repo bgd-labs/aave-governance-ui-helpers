@@ -13,7 +13,7 @@ export enum ProposalState {
   Expired,
 }
 
-export function proposalStateIsFinal(state: ProposalState) {
+export function isProposalFinal(state: ProposalState) {
   return [
     ProposalState.Executed,
     ProposalState.Failed,
