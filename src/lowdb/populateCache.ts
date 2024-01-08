@@ -122,21 +122,9 @@ export async function populateCache() {
       }
     }
 
-    const from = Math.max(
-      Math.max.apply(
-        null,
-        idsForRequest.map((id) => id),
-      ),
-      0,
-    );
-
-    const to = Math.max(
-      Math.min.apply(
-        null,
-        idsForRequest.map((id) => id),
-      ),
-      0,
-    );
+    const ids = idsForRequest.length ? idsForRequest.map((id) => id) : [0];
+    const from = Math.max(Math.max.apply(null, ids), 0);
+    const to = Math.max(Math.min.apply(null, ids), 0);
 
     const govCoreDataHelperData = await govCoreDataHelper.read.getProposalsData(
       [
