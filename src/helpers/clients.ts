@@ -25,8 +25,8 @@ import { appConfigInit } from './appConfig';
 // chains information (RPC (urls), nativeCurrency, name, blockExplorerUrls)
 export const initialRpcUrls: Record<number, string[]> = {
   [mainnet.id]: [
-    'https://cloudflare-eth.com',
     'https://eth.llamarpc.com',
+    'https://cloudflare-eth.com',
     'https://rpc.mevblocker.io',
   ],
   [polygon.id]: [

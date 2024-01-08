@@ -1,0 +1,41 @@
+import { IPayloadsControllerCore_ABI } from '@bgd-labs/aave-address-book';
+import { getLogsRecursive } from '@bgd-labs/js-utils';
+import { Address, PublicClient, getAbiItem } from 'viem';
+
+export enum PayloadState {
+  None,
+  Created,
+  Queued,
+  Executed,
+  Cancelled,
+  Expired,
+}
+
+export const HUMAN_READABLE_PAYLOAD_STATE = {
+  [PayloadState.None]: 'None',
+  [PayloadState.Created]: 'Created',
+  [PayloadState.Queued]: 'Queued',
+  [PayloadState.Executed]: 'Executed',
+  [PayloadState.Cancelled]: 'Cancelled',
+  [PayloadState.Expired]: 'Expired',
+};
+
+export async function getPayloadsControllerEvents(
+  payloadsControllerAddress: Address,
+  publicClient: PublicClient,
+  fromBlockNumber: bigint,
+  toBlockNumber: bigint,
+) {
+  const logs = await getLogsRecursive({
+    client: publicClient,
+    events: [
+      getAbiItem({ abi: IPayloadsControllerCore_ABI, name: 'PayloadCreated' }),
+      getAbiItem({ abi: IPayloadsControllerCore_ABI, name: 'PayloadQueued' }),
+      getAbiItem({ abi: IPayloadsControllerCore_ABI, name: 'PayloadExecuted' }),
+    ],
+    address: payloadsControllerAddress,
+    fromBlock: fromBlockNumber,
+    toBlock: toBlockNumber,
+  });
+  return logs;
+}

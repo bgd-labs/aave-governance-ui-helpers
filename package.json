@@ -27,7 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "CACHE_PATH=../src/generated-cache tsx src/lowdb/populateCache.ts",
+    "cache:update": "tsx src/cache-update.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },
@@ -73,12 +73,13 @@
     "prettier": "^3.1.1",
     "size-limit": "^11.0.1",
     "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
     "typescript": "^5.3.3",
     "viem": "^1.19.15",
-    "wagmi": "^1.4.12",
-    "tsx": "^4.7.0"
+    "wagmi": "^1.4.12"
   },
   "dependencies": {
+    "@bgd-labs/js-utils": "1.0.1-c50535cfd1cbf2cfc5b50605505cbb96945c8c72.0",
     "bs58": "^5.0.0",
     "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3"

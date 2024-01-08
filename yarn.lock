@@ -1145,6 +1145,15 @@
   resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-2.13.3.tgz#a115c2677aeadd0398caa096436395fe07f4cf48"
   integrity sha512-9WQekYTCjeAuqjRouLHvYdE9R86Hp4m5v9QJhr9zGpsl8OE/YxpmI6QEz6o0gHMB3D6DhqwAZ3nakCouz7Cb+w==
 
+"@bgd-labs/js-utils@1.0.1-c50535cfd1cbf2cfc5b50605505cbb96945c8c72.0":
+  version "1.0.1-c50535cfd1cbf2cfc5b50605505cbb96945c8c72.0"
+  resolved "https://registry.yarnpkg.com/@bgd-labs/js-utils/-/js-utils-1.0.1-c50535cfd1cbf2cfc5b50605505cbb96945c8c72.0.tgz#b07804bc23782af26dc297b90c64952a481482d7"
+  integrity sha512-Wqp5FBKlIke/WeX1u5Q67uzQOw0VnLB+BW4DmnaHj1+1m/XqpQn4uOT1Mv4ml61lFgGlFmFQCotM8XgFXmnCZw==
+  dependencies:
+    bs58 "^5.0.0"
+    gray-matter "^4.0.3"
+    tsx "^4.4.0"
+
 "@coinbase/wallet-sdk@^3.6.6":
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.7.2.tgz#7a89bd9e3a06a1f26d4480d8642af33fb0c7e3aa"
@@ -6677,7 +6686,7 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
-tsx@^4.7.0:
+tsx@^4.4.0, tsx@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/tsx/-/tsx-4.7.0.tgz#1689cfe7dda495ca1f9a66d4cad79cb57b9f6f4a"
   integrity sha512-I+t79RYPlEYlHn9a+KzwrvEwhJg35h/1zHsLC2JXvhC2mdynMv6Zxzvhv5EMV6VF5qJlLlkSnMVvdZV3PSIGcg==
