@@ -1,6 +1,32 @@
 import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
 import { getLogsRecursive } from '@bgd-labs/js-utils';
-import { Address, PublicClient, getAbiItem, getContract } from 'viem';
+import { Address, PublicClient, getAbiItem } from 'viem';
+import type { ExtractAbiEvent } from 'abitype';
+
+export type ProposalCreatedEvent = ExtractAbiEvent<
+  typeof IGovernanceCore_ABI,
+  'ProposalCreated'
+>;
+export type ProposalQueuedEvent = ExtractAbiEvent<
+  typeof IGovernanceCore_ABI,
+  'ProposalQueued'
+>;
+export type ProposalCanceledEvent = ExtractAbiEvent<
+  typeof IGovernanceCore_ABI,
+  'ProposalCanceled'
+>;
+export type ProposalExecutedEvent = ExtractAbiEvent<
+  typeof IGovernanceCore_ABI,
+  'ProposalExecuted'
+>;
+export type ProposalPayloadSentEvent = ExtractAbiEvent<
+  typeof IGovernanceCore_ABI,
+  'PayloadSent'
+>;
+export type ProposalVotingActivatedEvent = ExtractAbiEvent<
+  typeof IGovernanceCore_ABI,
+  'VotingActivated'
+>;
 
 export enum ProposalState {
   Null, // proposal does not exists
@@ -28,7 +54,6 @@ export async function getGovernanceEvents(
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  console.log(fromBlockNumber, toBlockNumber);
   const logs = await getLogsRecursive({
     client: publicClient,
     events: [

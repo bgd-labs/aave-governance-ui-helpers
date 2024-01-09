@@ -1,5 +1,6 @@
 import {
   CHAIN_ID_CLIENT_MAP,
+  ProposalMetadata,
   getBlockAtTimestamp,
   getContractDeploymentBlock,
   getProposalMetadata,
@@ -25,6 +26,8 @@ async function cacheGovernance(): Promise<{
     number,
     ContractFunctionResult<typeof IGovernanceCore_ABI, 'getProposal'>
   >;
+  eventsCache: Awaited<ReturnType<typeof getGovernanceEvents>>;
+  ipfsCache: Record<string, ProposalMetadata>;
 }> {
   const client = CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId];
   const currentBlockOnGovernanceChain = await client.getBlockNumber();
@@ -35,7 +38,8 @@ async function cacheGovernance(): Promise<{
     publicClient: client,
   });
   const proposalsCount = await contract.read.getProposalsCount();
-  if (proposalsCount == BigInt(0)) return { proposalsCache: {} };
+  if (proposalsCount == BigInt(0))
+    return { proposalsCache: {}, eventsCache: [], ipfsCache: {} };
   // cache data
   const proposalsPath = `${appConfig.govCoreChainId.toString()}/proposals`;
   const proposalsCache = readJSONCache(proposalsPath, address) || {};
@@ -48,7 +52,8 @@ async function cacheGovernance(): Promise<{
   writeJSONCache(proposalsPath, address, proposalsCache);
 
   // cache ipfs
-  const ipfsCache = readJSONCache('web3', 'ipfs') || {};
+  const ipfsCache: Record<string, ProposalMetadata> =
+    readJSONCache('web3', 'ipfs') || {};
   for (const key of Object.keys(proposalsCache)) {
     if (!ipfsCache[proposalsCache[key].ipfsHash]) {
       ipfsCache[proposalsCache[key].ipfsHash] = await getProposalMetadata(
@@ -60,7 +65,11 @@ async function cacheGovernance(): Promise<{
 
   // cache events
   const eventsPath = `${appConfig.govCoreChainId.toString()}/events`;
-  const governanceEvents = readJSONCache(eventsPath, address) || [];
+  const governanceEvents =
+    readJSONCache<Awaited<ReturnType<typeof getGovernanceEvents>>>(
+      eventsPath,
+      address,
+    ) || [];
   const lastSeenBlock =
     governanceEvents.length > 0
       ? BigInt(governanceEvents[governanceEvents.length - 1].blockNumber)
@@ -79,8 +88,9 @@ async function cacheGovernance(): Promise<{
     BigInt(lastSeenBlock) + BigInt(1),
     currentBlockOnGovernanceChain,
   );
-  writeJSONCache(eventsPath, address, [...governanceEvents, ...logs]);
-  return { proposalsCache };
+  const eventsCache = [...governanceEvents, ...logs];
+  writeJSONCache(eventsPath, address, eventsCache);
+  return { proposalsCache, eventsCache, ipfsCache };
 }
 
 async function cachePayloadsControllers(controllers: Map<Address, number>) {
@@ -171,10 +181,13 @@ async function cacheVotes(votingPortals: Set<Address>) {
         BigInt(lastSeenBlock) + BigInt(1),
         currentBlockOnPayloadsControllerChain,
       );
-      writeJSONCache(path, address, [...votesCache, ...logs]);
+      const combinedCache = [...votesCache, ...logs];
+      writeJSONCache(path, address, combinedCache);
     }),
   );
 }
+
+async function prepareForConsumption() {}
 
 /**
  * Indexes & caches:
@@ -204,6 +217,8 @@ async function updateCache() {
     votingPortals.add(proposal.votingPortal);
   });
   await cacheVotes(votingPortals);
+
+  await prepareForConsumption();
 }
 
 updateCache();
