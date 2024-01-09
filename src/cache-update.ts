@@ -13,13 +13,19 @@ import {
   isPayloadFinal,
 } from './events/payloadsController';
 import { getVotingMachineEvents } from './events/votingMachine';
-import { getContract } from 'viem';
+import { Address, ContractFunctionResult, getContract } from 'viem';
 import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
+  IVotingPortal_ABI,
 } from '@bgd-labs/aave-address-book';
 
-async function cacheGovernance() {
+async function cacheGovernance(): Promise<{
+  proposalsCache: Record<
+    number,
+    ContractFunctionResult<typeof IGovernanceCore_ABI, 'getProposal'>
+  >;
+}> {
   const client = CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId];
   const currentBlockOnGovernanceChain = await client.getBlockNumber();
   const address = appConfig.govCoreConfig.contractAddress;
@@ -29,7 +35,7 @@ async function cacheGovernance() {
     publicClient: client,
   });
   const proposalsCount = await contract.read.getProposalsCount();
-  if (proposalsCount == BigInt(0)) return;
+  if (proposalsCount == BigInt(0)) return { proposalsCache: {} };
   // cache data
   const proposalsPath = `${appConfig.govCoreChainId.toString()}/proposals`;
   const proposalsCache = readJSONCache(proposalsPath, address) || {};
@@ -58,13 +64,15 @@ async function cacheGovernance() {
   const lastSeenBlock =
     governanceEvents.length > 0
       ? BigInt(governanceEvents[governanceEvents.length - 1].blockNumber)
-      : await getBlockAtTimestamp({
-          client: client,
-          timestamp: proposalsCache[0].createdAt,
-          fromBlock: BigInt(0),
-          toBlock: currentBlockOnGovernanceChain,
-          maxDelta: BigInt(60 * 60 * 24),
-        });
+      : (
+          await getBlockAtTimestamp({
+            client: client,
+            timestamp: proposalsCache[0].createdAt,
+            fromBlock: BigInt(0),
+            toBlock: currentBlockOnGovernanceChain,
+            maxDelta: BigInt(60 * 60 * 24),
+          })
+        ).number;
   const logs = await getGovernanceEvents(
     address,
     client,
@@ -72,14 +80,12 @@ async function cacheGovernance() {
     currentBlockOnGovernanceChain,
   );
   writeJSONCache(eventsPath, address, [...governanceEvents, ...logs]);
+  return { proposalsCache };
 }
 
-async function cachePayloadsControllers() {
+async function cachePayloadsControllers(controllers: Map<Address, number>) {
   return await Promise.allSettled(
-    appConfig.payloadsControllerChainIds.map(async (chainId) => {
-      const address =
-        // TODO: this is weird as each chain should only have one controller
-        appConfig.payloadsControllerConfig[chainId].contractAddresses[0];
+    Array.from(controllers).map(async ([address, chainId]) => {
       const client = CHAIN_ID_CLIENT_MAP[chainId];
       const contract = getContract({
         abi: IPayloadsControllerCore_ABI,
@@ -106,13 +112,15 @@ async function cachePayloadsControllers() {
       const lastSeenBlock =
         eventsCache.length > 0
           ? BigInt(eventsCache[eventsCache.length - 1].blockNumber)
-          : await getBlockAtTimestamp({
-              client: client,
-              timestamp: payloadsCache[0].createdAt,
-              fromBlock: BigInt(0),
-              toBlock: currentBlockOnPayloadsControllerChain,
-              maxDelta: BigInt(60 * 60 * 24),
-            });
+          : (
+              await getBlockAtTimestamp({
+                client: client,
+                timestamp: payloadsCache[0].createdAt,
+                fromBlock: BigInt(0),
+                toBlock: currentBlockOnPayloadsControllerChain,
+                maxDelta: BigInt(60 * 60 * 24),
+              })
+            ).number;
       const logs = await getPayloadsControllerEvents(
         address,
         client,
@@ -124,12 +132,25 @@ async function cachePayloadsControllers() {
   );
 }
 
-async function cacheVotes() {
-  // TODO: skip machines that don't have proposals yet
+async function cacheVotes(votingPortals: Set<Address>) {
+  const votingMachines = await Promise.all(
+    Array.from(votingPortals).map(async (portal) => {
+      const portalContract = getContract({
+        abi: IVotingPortal_ABI,
+        publicClient: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
+        address: portal,
+      });
+      return {
+        machine: await portalContract.read.VOTING_MACHINE(),
+        chainId: Number(await portalContract.read.VOTING_MACHINE_CHAIN_ID()),
+      };
+    }),
+  );
+
   return await Promise.all(
-    appConfig.votingMachineChainIds.map(async (chainId) => {
+    votingMachines.map(async ({ chainId, machine }) => {
       const path = `${chainId}/events`;
-      const address = appConfig.votingMachineConfig[chainId].contractAddress;
+      const address = machine;
       const client = CHAIN_ID_CLIENT_MAP[chainId];
       const currentBlockOnPayloadsControllerChain =
         await client.getBlockNumber();
@@ -164,11 +185,25 @@ async function cacheVotes() {
  */
 async function updateCache() {
   // cache governance logs
-  await cacheGovernance();
+  const { proposalsCache } = await cacheGovernance();
+
   // cache payloadsController logs
-  await cachePayloadsControllers();
+  const controllers = new Map<Address, number>();
+  Object.keys(proposalsCache).map((key) => {
+    const proposal = proposalsCache[key as unknown as number];
+    proposal.payloads.map((payload) =>
+      controllers.set(payload.payloadsController, Number(payload.chain)),
+    );
+  });
+  await cachePayloadsControllers(controllers);
+
   // cache votes
-  await cacheVotes();
+  const votingPortals = new Set<Address>();
+  Object.keys(proposalsCache).map((key) => {
+    const proposal = proposalsCache[key as unknown as number];
+    votingPortals.add(proposal.votingPortal);
+  });
+  await cacheVotes(votingPortals);
 }
 
 updateCache();
