@@ -257,7 +257,7 @@ export interface ProposalWithoutState {
   timings: {
     cooldownPeriod: number;
     expirationTime: number;
-    executionPayloadTime: number;
+    executionDelay: number;
   };
   balances: Balance[];
 }

@@ -25,22 +25,25 @@ import { appConfigInit } from './appConfig';
 // chains information (RPC (urls), nativeCurrency, name, blockExplorerUrls)
 export const initialRpcUrls: Record<number, string[]> = {
   [mainnet.id]: [
-    'https://cloudflare-eth.com',
-    'https://eth.llamarpc.com',
-    'https://rpc.mevblocker.io',
+    'https://blissful-purple-sky.quiknode.pro',
+    'https://rpc.ankr.com/eth',
+    'https://eth.nodeconnect.org',
   ],
   [polygon.id]: [
+    'https://polygon.blockpi.network/v1/rpc/public',
     'https://polygon.llamarpc.com',
     'https://polygon-bor.publicnode.com',
     'https://endpoints.omniatech.io/v1/matic/mainnet/public',
   ],
   [avalanche.id]: [
+    'https://api.avax.network/ext/bc/C/rpc',
     'https://avalanche.drpc.org',
     'https://avax.meowrpc.com',
     'https://avalanche.blockpi.network/v1/rpc/public',
   ],
   [bsc.id]: ['https://binance.llamarpc.com', 'https://bsc.meowrpc.com'],
   [base.id]: [
+    'https://base.blockpi.network/v1/rpc/public',
     'https://base.llamarpc.com',
     'https://base-mainnet.public.blastapi.io',
     'https://base.meowrpc.com',
@@ -55,8 +58,8 @@ export const initialRpcUrls: Record<number, string[]> = {
     'https://metis.api.onfinality.io/public',
   ],
   [optimism.id]: [
-    'https://optimism.llamarpc.com',
     'https://optimism.blockpi.network/v1/rpc/public',
+    'https://optimism.llamarpc.com',
     'https://optimism.publicnode.com',
   ],
   [gnosis.id]: [
@@ -70,9 +73,9 @@ export const initialRpcUrls: Record<number, string[]> = {
     'https://eth-goerli.public.blastapi.io',
   ],
   [sepolia.id]: [
-    'https://ethereum-sepolia.publicnode.com',
-    'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
     'https://endpoints.omniatech.io/v1/eth/sepolia/public',
+    'https://ethereum-sepolia.blockpi.network/v1/rpc/public',
+    'https://ethereum-sepolia.publicnode.com',
   ],
   [polygonMumbai.id]: ['https://rpc.ankr.com/polygon_mumbai'],
   [avalancheFuji.id]: [
@@ -96,7 +99,7 @@ function setChain(chain: Chain, url?: string) {
       ...chain.rpcUrls,
       default: {
         ...chain.rpcUrls.default,
-        http: [url || initialRpcUrls[chain.id][0]],
+        http: [url || initialRpcUrls[chain.id][0], ...initialRpcUrls[chain.id]],
       },
     },
   };
@@ -120,13 +123,22 @@ const CHAINS: Record<number, Chain> = {
   [bscTestnet.id]: setChain(bscTestnet),
 };
 export const initialClients: Record<number, PublicClient> = {};
+
+const fallBackConfig = {
+  rank: false,
+  retryDelay: 100,
+  retryCount: 5,
+};
 appUsedNetworks.forEach((chain) => {
   initialClients[chain] = createPublicClient({
     batch: {
       multicall: true,
     },
     chain: CHAINS[chain],
-    transport: fallback(initialRpcUrls[chain].map((url) => http(url))),
+    transport: fallback(
+      initialRpcUrls[chain].map((url) => http(url)),
+      fallBackConfig,
+    ),
   });
 });
 
@@ -135,5 +147,8 @@ initialClients[mainnet.id] = createPublicClient({
     multicall: true,
   },
   chain: CHAINS[mainnet.id],
-  transport: fallback(initialRpcUrls[mainnet.id].map((url) => http(url))),
+  transport: fallback(
+    initialRpcUrls[mainnet.id].map((url) => http(url)),
+    fallBackConfig,
+  ),
 });
