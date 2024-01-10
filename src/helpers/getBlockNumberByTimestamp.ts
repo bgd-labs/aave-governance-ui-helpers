@@ -32,7 +32,7 @@ const getAverageBlockTime = (chainId: number) => {
     case arbitrum.id:
       return 0.3;
     case metis.id:
-      return 2;
+      return 1.3;
     case optimism.id:
       return 2;
     case sepolia.id:
