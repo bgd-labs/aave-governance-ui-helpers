@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.15](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.14...v1.0.15) (2024-01-10)
+
+
+### Bug Fixes
+
+* RPC urls & types naming ([#30](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/30)) ([9452e84](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/9452e84fd8050d0cf703858dece27f5bbe62c439))
+
 ## [1.0.14](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.13...v1.0.14) (2024-01-08)
 
 
