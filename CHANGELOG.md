@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.16](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.15...v1.0.16) (2024-01-10)
+
+
+### Bug Fixes
+
+* calculation of required against votes ([c96aced](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/c96aceda45e5e577797d624827211730fb9fdb61))
+
 ## [1.0.15](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.14...v1.0.15) (2024-01-10)
 
 
