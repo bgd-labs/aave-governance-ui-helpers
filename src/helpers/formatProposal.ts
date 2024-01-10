@@ -563,7 +563,7 @@ export function formatProposal(proposal: Proposal) {
     forVotes === 0 ||
     forVotes - normalizeRequiredDiff <= 0 ||
     forVotes < normalizeMinQuorumVotes
-      ? 0
+      ? normalizeMinQuorumVotes
       : forVotes - normalizeRequiredDiff;
 
   const forPercent = allVotes.gt(0)
