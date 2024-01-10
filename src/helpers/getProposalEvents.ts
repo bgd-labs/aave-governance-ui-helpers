@@ -1,4 +1,4 @@
-import { Hex } from 'viem';
+import { Hex, zeroAddress, zeroHash } from 'viem';
 
 import { normalizeBN } from './bignumber';
 import { votingMachineContract } from './contracts';
@@ -62,5 +62,15 @@ export async function getVoters({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      proposalId: -1,
+      address: zeroAddress,
+      support: false,
+      votingPower: 0,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+      chainId,
+    },
+  ]);
 }

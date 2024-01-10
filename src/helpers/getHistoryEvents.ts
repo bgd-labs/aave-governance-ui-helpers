@@ -1,3 +1,5 @@
+import { zeroAddress, zeroHash } from 'viem';
+
 import {
   govCoreContract,
   payloadsControllerContract,
@@ -59,7 +61,16 @@ export async function getPayloadsCreated({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      creator: zeroAddress,
+      payloadId: -1,
+      chainId,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+      payloadsController: contractAddress,
+    },
+  ]);
 }
 
 // proposal created
@@ -106,7 +117,13 @@ export async function getProposalCreated({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      proposalId: -1,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+    },
+  ]);
 }
 
 // proposal activate for voting
@@ -153,7 +170,13 @@ export async function getProposalActivated({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      proposalId: -1,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+    },
+  ]);
 }
 
 // voting activate on VM
@@ -200,7 +223,13 @@ export async function getProposalActivatedOnVM({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      proposalId: -1,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+    },
+  ]);
 }
 
 // voting closed on VM and voting results sent
@@ -247,7 +276,13 @@ export async function getProposalVotingClosed({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      proposalId: -1,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+    },
+  ]);
 }
 
 // proposal queued
@@ -294,7 +329,13 @@ export async function getProposalQueued({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      proposalId: -1,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+    },
+  ]);
 }
 
 // payloads queued
@@ -349,7 +390,15 @@ export async function getPayloadsQueued({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      payloadId: -1,
+      chainId,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+      payloadsController: contractAddress,
+    },
+  ]);
 }
 
 // payloads executed
@@ -404,5 +453,13 @@ export async function getPayloadsExecuted({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      payloadId: -1,
+      chainId,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+      payloadsController: contractAddress,
+    },
+  ]);
 }
