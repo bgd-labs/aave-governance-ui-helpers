@@ -228,6 +228,7 @@ export interface BasicProposal {
   votingActivationTime: number;
   votingChainId: number;
   prerender: boolean;
+  lastUpdatedTimestamp?: number;
 }
 
 export interface ProposalData
@@ -257,7 +258,7 @@ export interface ProposalWithoutState {
   timings: {
     cooldownPeriod: number;
     expirationTime: number;
-    executionPayloadTime: number;
+    executionDelay: number;
   };
   balances: Balance[];
 }

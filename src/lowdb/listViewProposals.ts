@@ -43,6 +43,8 @@ export class ListViewProposal {
     // seed
     // fallback to empty array
     db.data ||= { totalProposalCount: 0, proposals: [] };
+    db.data.totalProposalCount = proposalsCount;
+    db.write();
 
     const value = db.chain.get('proposals').find({ id }).value();
     if (
@@ -60,8 +62,6 @@ export class ListViewProposal {
     } else {
       db.data.proposals.push(proposalData);
     }
-
-    db.data.totalProposalCount = proposalsCount;
 
     db.write();
   }
