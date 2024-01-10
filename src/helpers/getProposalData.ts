@@ -91,6 +91,7 @@ export function updateVotingMachineData(
           votingMachineData,
         ),
         prerender: govData.prerender,
+        lastUpdatedTimestamp: dayjs().unix(),
       };
 
       proposalsData.push(proposalData);
@@ -155,6 +156,7 @@ export function getDetailedProposalsData(
             votingMachineData,
           ),
           prerender: !!prerender,
+          lastUpdatedTimestamp: dayjs().unix(),
         };
 
         proposalsData.push(proposalData);

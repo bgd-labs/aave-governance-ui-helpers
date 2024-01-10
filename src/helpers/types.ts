@@ -228,6 +228,7 @@ export interface BasicProposal {
   votingActivationTime: number;
   votingChainId: number;
   prerender: boolean;
+  lastUpdatedTimestamp?: number;
 }
 
 export interface ProposalData
