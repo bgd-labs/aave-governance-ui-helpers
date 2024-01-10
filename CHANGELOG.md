@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.17](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.16...v1.0.17) (2024-01-10)
+
+
+### Bug Fixes
+
+* batch request for events ([#34](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/34)) ([1d5fb40](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1d5fb40fd64c993c6c58a37d32295c9d520b2927))
+* events requests ([34335bc](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/34335bc4b39db4c0ca3e6f03e5240903073f483b))
+
 ## [1.0.16](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.15...v1.0.16) (2024-01-10)
 
 
