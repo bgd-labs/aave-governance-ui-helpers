@@ -1,10 +1,10 @@
+import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
 import dayjs from 'dayjs';
-import { Hex, zeroAddress } from 'viem';
+import { getContract, Hex, zeroAddress } from 'viem';
 
 import { checkHash } from '../helpers/checkHash';
 import { appConfig, initialClients } from '../helpers/clients';
 import {
-  govCoreContract,
   govCoreDataHelperContract,
   payloadsControllerDataHelperContract,
   votingMachineDataHelperContract,
@@ -44,8 +44,9 @@ export async function populateCache() {
   const ipfsFetcher = new IpfsDB();
   const votesFetcher = new VotesDB();
 
-  const govCore = govCoreContract({
-    contractAddress: appConfig.govCoreConfig.contractAddress,
+  const govCore = getContract({
+    address: appConfig.govCoreConfig.contractAddress,
+    abi: IGovernanceCore_ABI,
     client: initialClients[appConfig.govCoreChainId],
   });
   const govCoreDataHelper = govCoreDataHelperContract({

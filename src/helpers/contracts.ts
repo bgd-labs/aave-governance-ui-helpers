@@ -1,7 +1,6 @@
 import {
   IDataWarehouse_ABI,
   IERC20_ABI,
-  IGovernanceCore_ABI,
   IGovernanceDataHelper_ABI,
   IMetaDelegateHelper_ABI,
   IPayloadsControllerCore_ABI,
@@ -12,23 +11,21 @@ import {
 import { getContract } from 'viem';
 
 import { IAaveTokenV3_ABI } from '../abis/IAaveTokenV3';
-import { IATokenWithDelegation_ABI } from '../abis/IATokenWithDelegation';
 import { IBaseVotingStrategy_ABI } from '../abis/IBaseVotingStrategy';
 import { InitContract } from './types';
 
 // main contracts
-export function govCoreContract({
-  contractAddress,
-  client,
-  walletClient,
-}: InitContract) {
-  return getContract({
-    address: contractAddress,
-    abi: IGovernanceCore_ABI,
-    publicClient: client,
-    walletClient,
-  });
-}
+// export function govCoreContract({
+//   contractAddress,
+//   client,
+//   walletClient,
+// }: InitContract) {
+//   return getContract({
+//     address: contractAddress,
+//     abi: IGovernanceCore_ABI,
+//     client: { public: client, wallet: walletClient },
+//   });
+// }
 
 export function govCoreDataHelperContract({
   contractAddress,
@@ -38,8 +35,7 @@ export function govCoreDataHelperContract({
   return getContract({
     address: contractAddress,
     abi: IGovernanceDataHelper_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
@@ -51,8 +47,7 @@ export function votingMachineContract({
   return getContract({
     address: contractAddress,
     abi: IVotingMachineWithProofs_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
@@ -64,8 +59,7 @@ export function votingMachineDataHelperContract({
   return getContract({
     address: contractAddress,
     abi: IVotingMachineDataHelper_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
@@ -77,8 +71,7 @@ export function payloadsControllerContract({
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerCore_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
@@ -90,8 +83,7 @@ export function payloadsControllerDataHelperContract({
   return getContract({
     address: contractAddress,
     abi: IPayloadsControllerDataHelper_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 // end
@@ -105,8 +97,7 @@ export function metaDelegateHelperContract({
   return getContract({
     address: contractAddress,
     abi: IMetaDelegateHelper_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
@@ -118,8 +109,7 @@ export function dataWarehouseContract({
   return getContract({
     address: contractAddress,
     abi: IDataWarehouse_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
@@ -131,8 +121,7 @@ export function erc20Contract({
   return getContract({
     address: contractAddress,
     abi: IERC20_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
@@ -144,23 +133,21 @@ export function aaveTokenV3Contract({
   return getContract({
     address: contractAddress,
     abi: IAaveTokenV3_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }
 
-export function aTokenWithDelegationContract({
-  contractAddress,
-  client,
-  walletClient,
-}: InitContract) {
-  return getContract({
-    address: contractAddress,
-    abi: IATokenWithDelegation_ABI,
-    publicClient: client,
-    walletClient,
-  });
-}
+// export function aTokenWithDelegationContract({
+//   contractAddress,
+//   client,
+//   walletClient,
+// }: InitContract) {
+//   return getContract({
+//     address: contractAddress,
+//     abi: IATokenWithDelegation_ABI,
+//     client: { public: client, wallet: walletClient },
+//   });
+// }
 
 export function baseVotingStrategyContract({
   contractAddress,
@@ -170,7 +157,6 @@ export function baseVotingStrategyContract({
   return getContract({
     address: contractAddress,
     abi: IBaseVotingStrategy_ABI,
-    publicClient: client,
-    walletClient,
+    client: { public: client, wallet: walletClient },
   });
 }

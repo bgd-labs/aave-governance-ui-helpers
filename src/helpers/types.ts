@@ -1,5 +1,4 @@
-import { PublicClient, WalletClient } from '@wagmi/core';
-import { Hex } from 'viem';
+import { Hex, PublicClient, WalletClient } from 'viem';
 
 // generic
 export type ClientsRecord = Record<number, PublicClient>;

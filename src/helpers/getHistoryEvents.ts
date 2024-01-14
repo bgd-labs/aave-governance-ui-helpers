@@ -1,10 +1,7 @@
+import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
 import { zeroAddress, zeroHash } from 'viem';
 
-import {
-  govCoreContract,
-  payloadsControllerContract,
-  votingMachineContract,
-} from './contracts';
+import { payloadsControllerContract, votingMachineContract } from './contracts';
 import { blockLimit, getEventsBySteps } from './eventsHelpres';
 import { InitEvent, InitEventWithChainId } from './types';
 
@@ -80,11 +77,9 @@ async function getProposalCreatedEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const govCore = govCoreContract({ contractAddress, client });
-
   const events = await client.getContractEvents({
-    address: govCore.address,
-    abi: govCore.abi,
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
     eventName: 'ProposalCreated',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -133,11 +128,9 @@ async function getProposalActivatedEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const govCore = govCoreContract({ contractAddress, client });
-
   const events = await client.getContractEvents({
-    address: govCore.address,
-    abi: govCore.abi,
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
     eventName: 'VotingActivated',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -292,11 +285,9 @@ async function getProposalQueuedEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const govCore = govCoreContract({ contractAddress, client });
-
   const events = await client.getContractEvents({
-    address: govCore.address,
-    abi: govCore.abi,
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
     eventName: 'ProposalQueued',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),

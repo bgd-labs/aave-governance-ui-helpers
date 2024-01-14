@@ -1,5 +1,4 @@
-import { PublicClient } from '@wagmi/core';
-import { Hex } from 'viem';
+import { Hex, PublicClient } from 'viem';
 
 import { govCoreDataHelperContract } from './contracts';
 import { VotingConfig } from './types';
