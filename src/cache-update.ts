@@ -187,8 +187,6 @@ async function cacheVotes(votingPortals: Set<Address>) {
   );
 }
 
-async function prepareForConsumption() {}
-
 /**
  * Indexes & caches:
  * - events on the governance :+1:
@@ -217,8 +215,6 @@ async function updateCache() {
     votingPortals.add(proposal.votingPortal);
   });
   await cacheVotes(votingPortals);
-
-  await prepareForConsumption();
 }
 
 updateCache();

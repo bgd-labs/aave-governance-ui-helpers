@@ -1,5 +1,5 @@
 import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
-import { getLogsRecursive } from '@bgd-labs/js-utils';
+import { getLogs } from '@bgd-labs/js-utils';
 import { Address, PublicClient, getAbiItem } from 'viem';
 import type { ExtractAbiEvent } from 'abitype';
 
@@ -54,7 +54,7 @@ export async function getGovernanceEvents(
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  const logs = await getLogsRecursive({
+  const logs = await getLogs({
     client: publicClient,
     events: [
       getAbiItem({ abi: IGovernanceCore_ABI, name: 'ProposalCreated' }),

@@ -1,5 +1,5 @@
 import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book';
-import { getLogsRecursive } from '@bgd-labs/js-utils';
+import { getLogs } from '@bgd-labs/js-utils';
 import { Address, PublicClient, getAbiItem } from 'viem';
 
 export async function getVotingMachineEvents(
@@ -8,7 +8,7 @@ export async function getVotingMachineEvents(
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  const logs = await getLogsRecursive({
+  const logs = await getLogs({
     client: publicClient,
     events: [
       getAbiItem({
