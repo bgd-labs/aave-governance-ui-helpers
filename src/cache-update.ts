@@ -14,7 +14,12 @@ import {
   isPayloadFinal,
 } from './events/payloadsController';
 import { getVotingMachineEvents } from './events/votingMachine';
-import { Address, ContractFunctionResult, getContract } from 'viem';
+import {
+  Address,
+  ContractFunctionResult,
+  GetContractReturnType,
+  getContract,
+} from 'viem';
 import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
@@ -76,7 +81,7 @@ async function cacheGovernance(): Promise<{
       : (
           await getBlockAtTimestamp({
             client: client,
-            timestamp: proposalsCache[0].createdAt,
+            timestamp: BigInt(proposalsCache[0].creationTime),
             fromBlock: BigInt(0),
             toBlock: currentBlockOnGovernanceChain,
             maxDelta: BigInt(60 * 60 * 24),
@@ -108,7 +113,20 @@ async function cachePayloadsControllers(controllers: Map<Address, number>) {
         await client.getBlockNumber();
       // cache data
       const payloadsPath = `${chainId}/payloads`;
-      const payloadsCache = readJSONCache(payloadsPath, address) || [];
+      const payloadsCache =
+        readJSONCache(
+          /*<
+          Record<
+            number,
+            ContractFunctionReturnType<
+              typeof IPayloadsControllerCore_ABI,
+              AbiStateMutability,
+              'getPayloadById'
+            >
+          >
+        >*/ payloadsPath,
+          address,
+        ) || {};
       const payloadsToCheck = [...Array(Number(payloadsCount)).keys()];
       for (let i = 0; i < payloadsToCheck.length; i++) {
         if (!payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)) {
