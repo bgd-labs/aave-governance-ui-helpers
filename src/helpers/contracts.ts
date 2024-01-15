@@ -1,5 +1,4 @@
 import {
-  IDataWarehouse_ABI,
   IERC20_ABI,
   IGovernanceDataHelper_ABI,
   IMetaDelegateHelper_ABI,
@@ -15,18 +14,6 @@ import { IBaseVotingStrategy_ABI } from '../abis/IBaseVotingStrategy';
 import { InitContract } from './types';
 
 // main contracts
-// export function govCoreContract({
-//   contractAddress,
-//   client,
-//   walletClient,
-// }: InitContract) {
-//   return getContract({
-//     address: contractAddress,
-//     abi: IGovernanceCore_ABI,
-//     client: { public: client, wallet: walletClient },
-//   });
-// }
-
 export function govCoreDataHelperContract({
   contractAddress,
   client,
@@ -101,18 +88,6 @@ export function metaDelegateHelperContract({
   });
 }
 
-export function dataWarehouseContract({
-  contractAddress,
-  client,
-  walletClient,
-}: InitContract) {
-  return getContract({
-    address: contractAddress,
-    abi: IDataWarehouse_ABI,
-    client: { public: client, wallet: walletClient },
-  });
-}
-
 export function erc20Contract({
   contractAddress,
   client,
@@ -136,18 +111,6 @@ export function aaveTokenV3Contract({
     client: { public: client, wallet: walletClient },
   });
 }
-
-// export function aTokenWithDelegationContract({
-//   contractAddress,
-//   client,
-//   walletClient,
-// }: InitContract) {
-//   return getContract({
-//     address: contractAddress,
-//     abi: IATokenWithDelegation_ABI,
-//     client: { public: client, wallet: walletClient },
-//   });
-// }
 
 export function baseVotingStrategyContract({
   contractAddress,

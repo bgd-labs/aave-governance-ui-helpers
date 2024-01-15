@@ -1,6 +1,6 @@
 // only for internal usage
 
-import { Chain, createPublicClient, fallback, http, PublicClient } from 'viem';
+import { Chain, createPublicClient, fallback, http } from 'viem';
 import {
   arbitrum,
   avalanche,
@@ -20,6 +20,7 @@ import {
 
 import { coreName } from '../lowdb/helpers';
 import { appConfigInit } from './appConfig';
+import { ClientsRecord } from './types';
 
 // chains information (RPC (urls), nativeCurrency, name, blockExplorerUrls)
 export const initialRpcUrls: Record<number, string[]> = {
@@ -121,7 +122,7 @@ const CHAINS: Record<number, Chain> = {
   [avalancheFuji.id]: setChain(avalancheFuji),
   [bscTestnet.id]: setChain(bscTestnet),
 };
-export const initialClients: Record<number, PublicClient> = {};
+export const initialClients: ClientsRecord = {};
 
 const fallBackConfig = {
   rank: false,
