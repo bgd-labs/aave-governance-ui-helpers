@@ -1,4 +1,5 @@
-import { PublicClient } from 'viem';
+import { Client } from 'viem';
+import { getBlock } from 'viem/actions';
 import {
   arbitrum,
   avalanche,
@@ -59,7 +60,7 @@ export async function getBlockNumberByTimestamp({
   chainId,
   targetTimestamp,
 }: {
-  client: PublicClient;
+  client: Client;
   chainId: number;
   targetTimestamp: number;
 }) {
@@ -69,7 +70,7 @@ export async function getBlockNumberByTimestamp({
   let iterationCount = 0;
   let averageBlockTime = getAverageBlockTime(chainId);
 
-  const currentBlock = await client.getBlock({ blockTag: 'latest' });
+  const currentBlock = await getBlock(client, { blockTag: 'latest' });
 
   if (targetTimestamp > Number(currentBlock.timestamp)) {
     throw new Error('Target timestamp is in the future.');
@@ -109,7 +110,7 @@ export async function getBlockNumberByTimestamp({
     }
 
     // Get block data
-    estimatedBlock = await client.getBlock({
+    estimatedBlock = await getBlock(client, {
       blockNumber: BigInt(estimatedBlockNumber),
     });
 

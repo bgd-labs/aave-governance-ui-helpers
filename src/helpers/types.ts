@@ -1,17 +1,16 @@
-import { Hex, PublicClient, WalletClient } from 'viem';
+import { Client, Hex } from 'viem';
 
 // generic
-export type ClientsRecord = Record<number, PublicClient>;
+export type ClientsRecord = Record<number, Client>;
 
 export type InitContract = {
   contractAddress: Hex;
-  client: PublicClient;
-  walletClient?: WalletClient;
+  client: Client;
 };
 
 export type InitEvent = {
   contractAddress: Hex;
-  client: PublicClient;
+  client: Client;
   startBlock: number;
   endBlock: number;
 };
