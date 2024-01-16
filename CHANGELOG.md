@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.17...v1.1.0) (2024-01-16)
+
+
+### Features
+
+* migrated to viem and wagmi v2 ([#36](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/36)) ([fc43990](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/fc439904021866d40c8b0e45e022e04ba3f6f6d8))
+
 ## [1.0.17](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.16...v1.0.17) (2024-01-10)
 
 
