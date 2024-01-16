@@ -1735,10 +1735,10 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.202.tgz#f09dbd2fb082d507178b2f2a5c7e74bd72ff98f8"
   integrity sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==
 
-"@types/node@^20.11.3":
-  version "20.11.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.3.tgz#ac29fba7aeadc74046b02e50758156f4850f1296"
-  integrity sha512-nrlmbvGPNGaj84IJZXMPhQuCMEVTT/hXZMJJG/aIqVL9fKxqk814sGGtJA4GI6hpJSLQjpi6cn0Qx9eOf9SDVg==
+"@types/node@^20.11.4":
+  version "20.11.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.4.tgz#c724a5d6723182af758b91b994209336f4439cb7"
+  integrity sha512-6I0fMH8Aoy2lOejL3s4LhyIYX34DPwY8bl5xlNjBvUEk8OHrcuzsFt+Ied4LvJihbtXPM+8zUqdydfIti86v9g==
   dependencies:
     undici-types "~5.26.4"
 
@@ -3686,7 +3686,7 @@ loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-lowdb@^6.1.1:
+lowdb@6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/lowdb/-/lowdb-6.1.1.tgz#fb3c66a116b0ef799641f677676071661f6804f4"
   integrity sha512-HO13FCxI8SCwfj2JRXOKgXggxnmfSc+l0aJsZ5I34X3pwzG/DPBSKyKu3Zkgg/pNmx854SVgE2la0oUeh6wzNw==
@@ -4713,10 +4713,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-viem@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.1.0.tgz#70e3b64e9dcb6539e556a463a9bf9b5d581648ee"
-  integrity sha512-C3qOgbuJh3yl4xBtyqLV0jPR+ctRbL/i9dGb4rV47Z7ojWxGBoB9XtOOM9xVGxdhUYtiEXSk0NIZRz/y+JAh4Q==
+viem@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.1.1.tgz#8ab73c84d66369e80b9090626a0a8010d681e2d4"
+  integrity sha512-gJiwYceD7Dsjioglr+85GQS3u5Gp9XGG8oJqGsauBaEPFlkmbRx7cxD2Q5RZXFToVvEbarOWtITZtGHBsGv4MQ==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"

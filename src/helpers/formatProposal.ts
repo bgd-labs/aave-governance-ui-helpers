@@ -102,17 +102,25 @@ export function getProposalStepsAndAmounts({
   );
 
   const lastPayloadQueuedAt = Math.max.apply(
-    null,
-    proposalData.payloads.map((payload) => payload?.queuedAt || 0),
+    0,
+    proposalData.payloads.map((payload) => payload?.queuedAt),
+  );
+  const firstPayloadQueuedAt = Math.min.apply(
+    Math.min.apply(
+      0,
+      proposalData.payloads.map((payload) => payload?.queuedAt),
+    ),
+    proposalData.payloads.map((payload) => payload?.queuedAt),
   );
   const lastPayloadExecutedAt = Math.max.apply(
-    null,
-    proposalData.payloads.map((payload) => payload?.executedAt || 0),
+    0,
+    proposalData.payloads.map((payload) => payload?.executedAt),
   );
   const lastPayloadCanceledAt = Math.max.apply(
-    null,
-    proposalData.payloads.map((payload) => payload?.cancelledAt || 0),
+    0,
+    proposalData.payloads.map((payload) => payload?.cancelledAt),
   );
+
   const lastPayloadExpiredAt = Math.max.apply(
     null,
     proposalData.payloads.map((payload) => {
@@ -224,6 +232,7 @@ export function getProposalStepsAndAmounts({
     isVotingClosed,
     isVotingFailed,
     lastPayloadQueuedAt,
+    firstPayloadQueuedAt,
     lastPayloadCanceledAt,
     lastPayloadExecutedAt,
     lastPayloadExpiredAt,
@@ -366,7 +375,7 @@ export function getEstimatedState(
     isVotingStarted,
     isVotingEnded,
     isVotingClosed,
-    lastPayloadQueuedAt,
+    firstPayloadQueuedAt,
     predictPayloadExpiredTime,
   } = getProposalStepsAndAmounts({
     proposalData: proposal.data,
@@ -406,13 +415,13 @@ export function getEstimatedState(
 
   const isPayloadsWaitForQueued =
     proposal.data.basicState === BasicProposalState.Executed &&
-    now < lastPayloadQueuedAt + proposal.timings.executionDelay;
+    now < firstPayloadQueuedAt + proposal.timings.executionDelay;
 
   const executedTimestamp =
-    proposal.data.queuingTime > 0 && lastPayloadQueuedAt === 0
+    proposal.data.queuingTime > 0 && firstPayloadQueuedAt === 0
       ? proposal.data.queuingTime + proposal.timings.cooldownPeriod
-      : proposal.data.queuingTime > 0 && lastPayloadQueuedAt > 0
-        ? lastPayloadQueuedAt + proposal.timings.executionDelay
+      : proposal.data.queuingTime > 0 && firstPayloadQueuedAt > 0
+        ? firstPayloadQueuedAt + proposal.timings.executionDelay
         : 0;
 
   if (
