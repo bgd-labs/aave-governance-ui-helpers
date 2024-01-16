@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.1.0...v1.1.1) (2024-01-16)
+
+
+### Bug Fixes
+
+* estimated status naming ([2c75c12](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/2c75c12ccf136b4b0eed7fceed0881fbfc271a4b))
+
 ## [1.1.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.17...v1.1.0) (2024-01-16)
 
 
