@@ -1,7 +1,8 @@
+import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book';
 import { Hex, zeroAddress, zeroHash } from 'viem';
+import { getContractEvents } from 'viem/actions';
 
 import { normalizeBN } from './bignumber';
-import { votingMachineContract } from './contracts';
 import { getEventsBySteps } from './eventsHelpres';
 import { InitEventWithChainId } from './types';
 
@@ -12,14 +13,9 @@ async function getVoteEvents({
   endBlock,
   chainId,
 }: InitEventWithChainId) {
-  const votingMachine = votingMachineContract({
-    contractAddress,
-    client,
-  });
-
-  const events = await client.getContractEvents({
-    address: votingMachine.address,
-    abi: votingMachine.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IVotingMachineWithProofs_ABI,
     eventName: 'VoteEmitted',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),

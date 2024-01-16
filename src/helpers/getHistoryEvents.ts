@@ -1,10 +1,11 @@
-import { zeroAddress, zeroHash } from 'viem';
-
 import {
-  govCoreContract,
-  payloadsControllerContract,
-  votingMachineContract,
-} from './contracts';
+  IGovernanceCore_ABI,
+  IPayloadsControllerCore_ABI,
+  IVotingMachineWithProofs_ABI,
+} from '@bgd-labs/aave-address-book';
+import { zeroAddress, zeroHash } from 'viem';
+import { getContractEvents } from 'viem/actions';
+
 import { blockLimit, getEventsBySteps } from './eventsHelpres';
 import { InitEvent, InitEventWithChainId } from './types';
 
@@ -16,14 +17,9 @@ async function getPayloadsCreatedEvents({
   endBlock,
   chainId,
 }: InitEventWithChainId) {
-  const payloadsController = payloadsControllerContract({
-    contractAddress,
-    client,
-  });
-
-  const events = await client.getContractEvents({
-    address: payloadsController.address,
-    abi: payloadsController.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IPayloadsControllerCore_ABI,
     eventName: 'PayloadCreated',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -80,11 +76,9 @@ async function getProposalCreatedEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const govCore = govCoreContract({ contractAddress, client });
-
-  const events = await client.getContractEvents({
-    address: govCore.address,
-    abi: govCore.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
     eventName: 'ProposalCreated',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -133,11 +127,9 @@ async function getProposalActivatedEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const govCore = govCoreContract({ contractAddress, client });
-
-  const events = await client.getContractEvents({
-    address: govCore.address,
-    abi: govCore.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
     eventName: 'VotingActivated',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -186,11 +178,9 @@ async function getProposalActivatedOnVMEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const votingMachine = votingMachineContract({ contractAddress, client });
-
-  const events = await client.getContractEvents({
-    address: votingMachine.address,
-    abi: votingMachine.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IVotingMachineWithProofs_ABI,
     eventName: 'ProposalVoteStarted',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -239,11 +229,9 @@ async function getProposalVotingClosedEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const votingMachine = votingMachineContract({ contractAddress, client });
-
-  const events = await client.getContractEvents({
-    address: votingMachine.address,
-    abi: votingMachine.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IVotingMachineWithProofs_ABI,
     eventName: 'ProposalResultsSent',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -292,11 +280,9 @@ async function getProposalQueuedEvents({
   startBlock,
   endBlock,
 }: InitEvent) {
-  const govCore = govCoreContract({ contractAddress, client });
-
-  const events = await client.getContractEvents({
-    address: govCore.address,
-    abi: govCore.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IGovernanceCore_ABI,
     eventName: 'ProposalQueued',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -346,14 +332,9 @@ async function getPayloadsQueuedEvents({
   endBlock,
   chainId,
 }: InitEventWithChainId) {
-  const payloadsController = payloadsControllerContract({
-    contractAddress,
-    client,
-  });
-
-  const events = await client.getContractEvents({
-    address: payloadsController.address,
-    abi: payloadsController.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IPayloadsControllerCore_ABI,
     eventName: 'PayloadQueued',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -409,14 +390,9 @@ async function getPayloadsExecutedEvents({
   endBlock,
   chainId,
 }: InitEventWithChainId) {
-  const payloadsController = payloadsControllerContract({
-    contractAddress,
-    client,
-  });
-
-  const events = await client.getContractEvents({
-    address: payloadsController.address,
-    abi: payloadsController.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IPayloadsControllerCore_ABI,
     eventName: 'PayloadExecuted',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),

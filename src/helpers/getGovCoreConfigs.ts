@@ -1,7 +1,7 @@
-import { PublicClient } from '@wagmi/core';
-import { Hex } from 'viem';
+import { IGovernanceDataHelper_ABI } from '@bgd-labs/aave-address-book';
+import { Client, Hex } from 'viem';
+import { readContract } from 'viem/actions';
 
-import { govCoreDataHelperContract } from './contracts';
 import { VotingConfig } from './types';
 
 export async function getGovCoreConfigs({
@@ -9,21 +9,18 @@ export async function getGovCoreConfigs({
   govCoreContractAddress,
   govCoreDataHelperContractAddress,
 }: {
-  client: PublicClient;
+  client: Client;
   govCoreContractAddress: Hex;
   govCoreDataHelperContractAddress: Hex;
 }) {
   try {
-    const govCoreDataHelper = govCoreDataHelperContract({
-      contractAddress: govCoreDataHelperContractAddress,
-      client,
-    });
-
     const accessLevels: Readonly<number[]> = [1, 2]; // access levels that we can’t get from contracts in any way, so far there are only two of them, we need to keep an eye on that suddenly there will be more of them
-    const constants = await govCoreDataHelper.read.getConstants([
-      govCoreContractAddress,
-      accessLevels,
-    ]);
+    const constants = await readContract(client, {
+      abi: IGovernanceDataHelper_ABI,
+      address: govCoreDataHelperContractAddress,
+      functionName: 'getConstants',
+      args: [govCoreContractAddress, accessLevels],
+    });
 
     const contractsConstants = {
       precisionDivider: constants.precisionDivider.toString(),
