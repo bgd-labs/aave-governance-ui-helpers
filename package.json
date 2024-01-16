@@ -27,7 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "tsx src/cache-update.ts",
+    "cache:update": "VERBOSE=true tsx src/cache-update.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },
@@ -77,7 +77,7 @@
     "tsx": "^4.7.0"
   },
   "dependencies": {
-    "@bgd-labs/js-utils": "1.0.5",
+    "@bgd-labs/js-utils": "1.0.7-fe83bf3602c1e46b22191efcb18705734497d9c0.0",
     "bs58": "^5.0.0",
     "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3"

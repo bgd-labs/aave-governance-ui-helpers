@@ -1133,11 +1133,12 @@
   resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-2.15.2.tgz#9742da4118c5e02181a6d4e2606825c2b5c4473c"
   integrity sha512-OrKzdc2y5QIKqviQD/AI3cugGNOuYsGF/mJ5Uo2E77mmCxF/lcNnupfOthednVEfkCvUadDeOAR2wst0Fj3/Jw==
 
-"@bgd-labs/js-utils@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@bgd-labs/js-utils/-/js-utils-1.0.5.tgz#1c4e83558d2d8793adec8dd205773902edcbda02"
-  integrity sha512-kcXaLGH+snv1FRlfmfitaiAYCk5SBZ+LfepJ/fBgyr2et5OX/dGm5nc2l0qqHOITDBZmPvj3bNELm+CEm2asdQ==
+"@bgd-labs/js-utils@1.0.7-fe83bf3602c1e46b22191efcb18705734497d9c0.0":
+  version "1.0.7-fe83bf3602c1e46b22191efcb18705734497d9c0.0"
+  resolved "https://registry.yarnpkg.com/@bgd-labs/js-utils/-/js-utils-1.0.7-fe83bf3602c1e46b22191efcb18705734497d9c0.0.tgz#cd67326321c60dd0c013daaac38f2c522c8733b0"
+  integrity sha512-AVUUnU7Y0ziAu8WHgiY/5ZEjKwRLGmx3TVtpG2svqbkUDaK1nb9MQQLxCzyQPXfSuKjqsLBLiWN0Y7xAR1LNTg==
   dependencies:
+    "@supercharge/promise-pool" "^3.1.0"
     bs58 "^5.0.0"
     gray-matter "^4.0.3"
     tsx "^4.4.0"
@@ -1728,6 +1729,11 @@
     "@size-limit/esbuild" "11.0.1"
     "@size-limit/file" "11.0.1"
     size-limit "11.0.1"
+
+"@supercharge/promise-pool@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@supercharge/promise-pool/-/promise-pool-3.1.0.tgz#308b9f4d4bf1d607695f916d9454a3556cd4c2b4"
+  integrity sha512-gB3NukbIcYzRtPoE6dx9svQYPodxvnfQlaaQd8N/z87E6WaMfRE7o5HwB+LZ+KeM0nsNAq1n4TmBtfz1VCUR+Q==
 
 "@types/json-schema@^7.0.9":
   version "7.0.12"
