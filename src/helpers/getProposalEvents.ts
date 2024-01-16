@@ -1,7 +1,8 @@
-import { Hex } from 'viem';
+import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book';
+import { Hex, zeroAddress, zeroHash } from 'viem';
+import { getContractEvents } from 'viem/actions';
 
 import { normalizeBN } from './bignumber';
-import { votingMachineContract } from './contracts';
 import { getEventsBySteps } from './eventsHelpers';
 import { InitEventWithChainId } from './types';
 
@@ -12,14 +13,9 @@ async function getVoteEvents({
   endBlock,
   chainId,
 }: InitEventWithChainId) {
-  const votingMachine = votingMachineContract({
-    contractAddress,
-    client,
-  });
-
-  const events = await client.getContractEvents({
-    address: votingMachine.address,
-    abi: votingMachine.abi,
+  const events = await getContractEvents(client, {
+    address: contractAddress,
+    abi: IVotingMachineWithProofs_ABI,
     eventName: 'VoteEmitted',
     fromBlock: BigInt(startBlock),
     toBlock: BigInt(endBlock),
@@ -62,5 +58,15 @@ export async function getVoters({
     });
   };
 
-  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc);
+  return getEventsBySteps(startBlock, endBlock, blockLimit, callbackFunc, [
+    {
+      proposalId: -1,
+      address: zeroAddress,
+      support: false,
+      votingPower: 0,
+      transactionHash: zeroHash,
+      blockNumber: startBlock,
+      chainId,
+    },
+  ]);
 }

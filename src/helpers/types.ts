@@ -1,18 +1,16 @@
-import { PublicClient, WalletClient } from '@wagmi/core';
-import { Hex } from 'viem';
+import { Client, Hex } from 'viem';
 
 // generic
-export type ClientsRecord = Record<number, PublicClient>;
+export type ClientsRecord = Record<number, Client>;
 
 export type InitContract = {
   contractAddress: Hex;
-  client: PublicClient;
-  walletClient?: WalletClient;
+  client: Client;
 };
 
 export type InitEvent = {
   contractAddress: Hex;
-  client: PublicClient;
+  client: Client;
   startBlock: number;
   endBlock: number;
 };
@@ -228,6 +226,7 @@ export interface BasicProposal {
   votingActivationTime: number;
   votingChainId: number;
   prerender: boolean;
+  lastUpdatedTimestamp?: number;
 }
 
 export interface ProposalData
@@ -257,7 +256,7 @@ export interface ProposalWithoutState {
   timings: {
     cooldownPeriod: number;
     expirationTime: number;
-    executionPayloadTime: number;
+    executionDelay: number;
   };
   balances: Balance[];
 }
@@ -292,8 +291,8 @@ export enum ProposalEstimatedState {
   Active = 'Will open for voting',
   Succeed = 'Will pass',
   Defeated = 'Will fail',
-  ProposalExecuted = 'Proposal will be executed',
-  PayloadsExecuted = 'Payloads will start being executed',
+  ProposalExecuted = 'Proposal will start executing',
+  PayloadsExecuted = 'Payloads will start executing',
   Expired = 'Will expire',
 }
 

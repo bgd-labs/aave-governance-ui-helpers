@@ -1,4 +1,5 @@
-import { PublicClient } from '@wagmi/core';
+import { Client } from 'viem';
+import { getBlock } from 'viem/actions';
 import {
   arbitrum,
   avalanche,
@@ -6,6 +7,7 @@ import {
   base,
   bsc,
   bscTestnet,
+  gnosis,
   goerli,
   mainnet,
   metis,
@@ -19,19 +21,19 @@ import {
 const getAverageBlockTime = (chainId: number) => {
   switch (chainId) {
     case mainnet.id:
-      return 13;
+      return 12;
     case polygon.id:
-      return 3;
+      return 2;
     case avalanche.id:
-      return 5;
+      return 3;
     case bsc.id:
-      return 4;
+      return 3;
     case base.id:
       return 2;
     case arbitrum.id:
-      return 1;
+      return 0.3;
     case metis.id:
-      return 2;
+      return 1.3;
     case optimism.id:
       return 2;
     case sepolia.id:
@@ -41,11 +43,13 @@ const getAverageBlockTime = (chainId: number) => {
     case optimismGoerli.id:
       return 2;
     case avalancheFuji.id:
-      return 5;
+      return 4;
     case polygonMumbai.id:
       return 3;
     case bscTestnet.id:
       return 4;
+    case gnosis.id:
+      return 5;
     default:
       return 13;
   }
@@ -56,7 +60,7 @@ export async function getBlockNumberByTimestamp({
   chainId,
   targetTimestamp,
 }: {
-  client: PublicClient;
+  client: Client;
   chainId: number;
   targetTimestamp: number;
 }) {
@@ -66,7 +70,7 @@ export async function getBlockNumberByTimestamp({
   let iterationCount = 0;
   let averageBlockTime = getAverageBlockTime(chainId);
 
-  const currentBlock = await client.getBlock({ blockTag: 'latest' });
+  const currentBlock = await getBlock(client, { blockTag: 'latest' });
 
   if (targetTimestamp > Number(currentBlock.timestamp)) {
     throw new Error('Target timestamp is in the future.');
@@ -106,15 +110,14 @@ export async function getBlockNumberByTimestamp({
     }
 
     // Get block data
-    estimatedBlock = await client.getBlock({
+    estimatedBlock = await getBlock(client, {
       blockNumber: BigInt(estimatedBlockNumber),
     });
 
     // Calculate a new average block time based on the difference of the timestamps
-    averageBlockTime = Math.ceil(
+    averageBlockTime =
       (Number(estimatedBlock.timestamp) - previousBlockTimestamp) /
-        (estimatedBlockNumber - previousBlockNumber),
-    );
+      (estimatedBlockNumber - previousBlockNumber);
 
     previousBlockTimestamp = Number(estimatedBlock.timestamp);
     previousBlockNumber = Number(estimatedBlock.number);

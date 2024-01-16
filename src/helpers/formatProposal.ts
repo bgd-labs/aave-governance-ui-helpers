@@ -62,7 +62,7 @@ interface BasicProposalWithConfigsData {
   differential: number;
   precisionDivider: string;
   cooldownPeriod: number;
-  executionPayloadTime: number;
+  executionDelay: number;
 }
 
 export function getProposalStepsAndAmounts({
@@ -71,7 +71,7 @@ export function getProposalStepsAndAmounts({
   differential,
   precisionDivider,
   cooldownPeriod,
-  executionPayloadTime,
+  executionDelay,
 }: BasicProposalWithConfigsData) {
   const now = dayjs().unix();
 
@@ -102,17 +102,25 @@ export function getProposalStepsAndAmounts({
   );
 
   const lastPayloadQueuedAt = Math.max.apply(
-    null,
-    proposalData.payloads.map((payload) => payload?.queuedAt || 0),
+    0,
+    proposalData.payloads.map((payload) => payload?.queuedAt),
+  );
+  const firstPayloadQueuedAt = Math.min.apply(
+    Math.min.apply(
+      0,
+      proposalData.payloads.map((payload) => payload?.queuedAt),
+    ),
+    proposalData.payloads.map((payload) => payload?.queuedAt),
   );
   const lastPayloadExecutedAt = Math.max.apply(
-    null,
-    proposalData.payloads.map((payload) => payload?.executedAt || 0),
+    0,
+    proposalData.payloads.map((payload) => payload?.executedAt),
   );
   const lastPayloadCanceledAt = Math.max.apply(
-    null,
-    proposalData.payloads.map((payload) => payload?.cancelledAt || 0),
+    0,
+    proposalData.payloads.map((payload) => payload?.cancelledAt),
   );
+
   const lastPayloadExpiredAt = Math.max.apply(
     null,
     proposalData.payloads.map((payload) => {
@@ -185,7 +193,7 @@ export function getProposalStepsAndAmounts({
     !isCanceled;
 
   const isPayloadsQueued =
-    isProposalExecuted && now > lastPayloadQueuedAt + executionPayloadTime;
+    isProposalExecuted && now > lastPayloadQueuedAt + executionDelay;
 
   const isPayloadsExecuted =
     isVotingEnded &&
@@ -224,6 +232,7 @@ export function getProposalStepsAndAmounts({
     isVotingClosed,
     isVotingFailed,
     lastPayloadQueuedAt,
+    firstPayloadQueuedAt,
     lastPayloadCanceledAt,
     lastPayloadExecutedAt,
     lastPayloadExpiredAt,
@@ -304,7 +313,7 @@ function getStateTimestamp(proposal: Proposal) {
     differential: proposal.config.differential,
     precisionDivider: proposal.precisionDivider,
     cooldownPeriod: proposal.timings.cooldownPeriod,
-    executionPayloadTime: proposal.timings.executionPayloadTime,
+    executionDelay: proposal.timings.executionDelay,
   });
 
   if (proposal.state === ProposalState.Created && !isExpired && !isCanceled) {
@@ -366,7 +375,7 @@ export function getEstimatedState(
     isVotingStarted,
     isVotingEnded,
     isVotingClosed,
-    lastPayloadQueuedAt,
+    firstPayloadQueuedAt,
     predictPayloadExpiredTime,
   } = getProposalStepsAndAmounts({
     proposalData: proposal.data,
@@ -374,7 +383,7 @@ export function getEstimatedState(
     differential: proposal.config.differential,
     precisionDivider: proposal.precisionDivider,
     cooldownPeriod: proposal.timings.cooldownPeriod,
-    executionPayloadTime: proposal.timings.executionPayloadTime,
+    executionDelay: proposal.timings.executionDelay,
   });
 
   const { forVotes, againstVotes } = normalizeVotes(forVotesS, againstVotesS);
@@ -406,13 +415,13 @@ export function getEstimatedState(
 
   const isPayloadsWaitForQueued =
     proposal.data.basicState === BasicProposalState.Executed &&
-    now < lastPayloadQueuedAt + proposal.timings.executionPayloadTime;
+    now < firstPayloadQueuedAt + proposal.timings.executionDelay;
 
   const executedTimestamp =
-    proposal.data.queuingTime > 0 && lastPayloadQueuedAt === 0
+    proposal.data.queuingTime > 0 && firstPayloadQueuedAt === 0
       ? proposal.data.queuingTime + proposal.timings.cooldownPeriod
-      : proposal.data.queuingTime > 0 && lastPayloadQueuedAt > 0
-        ? lastPayloadQueuedAt + proposal.timings.executionPayloadTime
+      : proposal.data.queuingTime > 0 && firstPayloadQueuedAt > 0
+        ? firstPayloadQueuedAt + proposal.timings.executionDelay
         : 0;
 
   if (
@@ -478,7 +487,7 @@ export function getWaitForState(proposal: Proposal) {
     differential: proposal.config.differential,
     precisionDivider: proposal.precisionDivider,
     cooldownPeriod: proposal.timings.cooldownPeriod,
-    executionPayloadTime: proposal.timings.executionPayloadTime,
+    executionDelay: proposal.timings.executionDelay,
   });
 
   if (!isVotingFailed) {
@@ -530,7 +539,7 @@ export function formatProposal(proposal: Proposal) {
     differential: proposal.config.differential,
     precisionDivider: proposal.precisionDivider,
     cooldownPeriod: proposal.timings.cooldownPeriod,
-    executionPayloadTime: proposal.timings.executionPayloadTime,
+    executionDelay: proposal.timings.executionDelay,
   });
 
   const stateTimestamp = getStateTimestamp(proposal);
@@ -559,7 +568,12 @@ export function formatProposal(proposal: Proposal) {
     againstVotes + normalizeRequiredDiff < normalizeMinQuorumVotes
       ? normalizeMinQuorumVotes
       : againstVotes + normalizeRequiredDiff;
-  const requiredAgainstVotes = forVotes === 0 ? 0 : forVotes;
+  const requiredAgainstVotes =
+    forVotes === 0 ||
+    forVotes - normalizeRequiredDiff <= 0 ||
+    forVotes < normalizeMinQuorumVotes
+      ? normalizeMinQuorumVotes
+      : forVotes - normalizeRequiredDiff;
 
   const forPercent = allVotes.gt(0)
     ? new BigNumber(forVotes)

@@ -3,6 +3,7 @@ import { Low } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import { join } from 'path';
 import { Hex } from 'viem';
+import { getBlockNumber, getEnsName } from 'viem/actions';
 import { mainnet } from 'viem/chains';
 
 import { initialClients } from '../helpers/clients';
@@ -58,7 +59,7 @@ export class Votes {
 
     const isCached = (db.data ||= { voters: [], lastVoteBlockNumber: {} });
 
-    const currentBlock = await votingMachineClient.getBlockNumber();
+    const currentBlock = await getBlockNumber(votingMachineClient);
 
     const { endBlock, startBlock } = getBlocksForEvents(
       Number(currentBlock),
@@ -85,7 +86,7 @@ export class Votes {
           .slice(0, 5)
           .map(async (vote) => {
             try {
-              const name = await mainnetClient.getEnsName({
+              const name = await getEnsName(mainnetClient, {
                 address: vote.address,
               });
 

@@ -1,5 +1,57 @@
 # Changelog
 
+## [1.1.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.1.0...v1.1.1) (2024-01-16)
+
+
+### Bug Fixes
+
+* estimated status naming ([2c75c12](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/2c75c12ccf136b4b0eed7fceed0881fbfc271a4b))
+
+## [1.1.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.17...v1.1.0) (2024-01-16)
+
+
+### Features
+
+* migrated to viem and wagmi v2 ([#36](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/36)) ([fc43990](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/fc439904021866d40c8b0e45e022e04ba3f6f6d8))
+
+## [1.0.17](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.16...v1.0.17) (2024-01-10)
+
+
+### Bug Fixes
+
+* batch request for events ([#34](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/34)) ([1d5fb40](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1d5fb40fd64c993c6c58a37d32295c9d520b2927))
+* events requests ([34335bc](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/34335bc4b39db4c0ca3e6f03e5240903073f483b))
+
+## [1.0.16](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.15...v1.0.16) (2024-01-10)
+
+
+### Bug Fixes
+
+* calculation of required against votes ([c96aced](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/c96aceda45e5e577797d624827211730fb9fdb61))
+
+## [1.0.15](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.14...v1.0.15) (2024-01-10)
+
+
+### Bug Fixes
+
+* RPC urls & types naming ([#30](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/30)) ([9452e84](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/9452e84fd8050d0cf703858dece27f5bbe62c439))
+
+## [1.0.14](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.13...v1.0.14) (2024-01-08)
+
+
+### Bug Fixes
+
+* requiredAgainstVotes ([2a91128](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/2a9112863731c30ccf3ff73c2a396678da4e2418))
+
+## [1.0.13](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.12...v1.0.13) (2024-01-08)
+
+
+### Bug Fixes
+
+* cache build ([47a15a7](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/47a15a76f7c05fa79e6bef2b18c3ab20ea1feaa8))
+* cache build ([4b421be](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/4b421be5f574c40945374c7099da47d00daffdc7))
+* get block number by timestamp ([320a8bd](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/320a8bdafd8dbc53bcf8ddd59b96aa6df04c46b5))
+
 ## [1.0.12](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.11...v1.0.12) (2024-01-07)
 
 

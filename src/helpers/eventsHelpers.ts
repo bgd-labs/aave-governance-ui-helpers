@@ -30,6 +30,7 @@ export async function getEventsBySteps<T>(
   endBlock: number,
   blockLimit: number,
   callbackFunc: (startBlock: number, endBlock: number) => Promise<T>,
+  defaultValue: T,
 ) {
   const blockSteps = Math.ceil((endBlock - startBlock) / blockLimit);
 
@@ -38,7 +39,7 @@ export async function getEventsBySteps<T>(
     eventsCountArray[i] = i;
   }
 
-  const results = await Promise.all(
+  const results = await Promise.allSettled(
     eventsCountArray.map(async (count) => {
       const startBlockNumber = startBlock + blockLimit * count;
       const endBlockNumber = startBlock + (blockLimit * count + blockLimit);
@@ -50,5 +51,9 @@ export async function getEventsBySteps<T>(
     }),
   );
 
-  return results.flat();
+  const formattedResults = results.map((item) =>
+    item.status === 'fulfilled' ? item.value : defaultValue,
+  );
+
+  return formattedResults.flat();
 }
