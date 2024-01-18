@@ -1,6 +1,6 @@
 import { IPayloadsControllerCore_ABI } from '@bgd-labs/aave-address-book';
-import { getLogs } from '@bgd-labs/js-utils';
-import { Address, PublicClient, getAbiItem } from 'viem';
+import { strategicGetLogs } from '@bgd-labs/js-utils';
+import { Address, Client, getAbiItem } from 'viem';
 
 export enum PayloadState {
   None,
@@ -31,12 +31,12 @@ export function isPayloadFinal(state: number) {
 
 export async function getPayloadsControllerEvents(
   payloadsControllerAddress: Address,
-  publicClient: PublicClient,
+  client: Client,
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  const logs = await getLogs({
-    client: publicClient,
+  const logs = await strategicGetLogs({
+    client,
     events: [
       getAbiItem({ abi: IPayloadsControllerCore_ABI, name: 'PayloadCreated' }),
       getAbiItem({ abi: IPayloadsControllerCore_ABI, name: 'PayloadQueued' }),

@@ -1,6 +1,6 @@
 import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
-import { getLogs } from '@bgd-labs/js-utils';
-import { Address, PublicClient, getAbiItem } from 'viem';
+import { strategicGetLogs } from '@bgd-labs/js-utils';
+import { Address, Client, getAbiItem } from 'viem';
 import type { ExtractAbiEvent } from 'abitype';
 
 export type ProposalCreatedEvent = ExtractAbiEvent<
@@ -50,12 +50,12 @@ export function isProposalFinal(state: ProposalState) {
 
 export async function getGovernanceEvents(
   governanceAddress: Address,
-  publicClient: PublicClient,
+  client: Client,
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  const logs = await getLogs({
-    client: publicClient,
+  const logs = await strategicGetLogs({
+    client,
     events: [
       getAbiItem({ abi: IGovernanceCore_ABI, name: 'ProposalCreated' }),
       getAbiItem({ abi: IGovernanceCore_ABI, name: 'ProposalQueued' }),
