@@ -1,6 +1,6 @@
 # Repository with cache and helpers for aave governance v3
 
-This repository saves and updates the cache for finished proposals, also includes helper functions connected to Aave governance UI version 3.
+This repository saves and updates the cache for Aave governance, also includes helper functions connected to Aave governance UI.
 
 ### Installation like a package
 
@@ -30,4 +30,4 @@ yarn cache:update && yarn cache:parse
 
 ## License
 
-Copyright © 2023, [BGD Labs](https://bgdlabs.com/). Released under the [MIT License](./LICENSE).
+Copyright © 2024, [BGD Labs](https://bgdlabs.com/). Released under the [MIT License](./LICENSE).

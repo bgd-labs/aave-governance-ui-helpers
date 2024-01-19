@@ -19,7 +19,13 @@
         "signature": "execute()",
         "callData": "0x"
       }
-    ]
+    ],
+    "id": 0,
+    "chainId": 1088,
+    "actionAddresses": [
+      "0x0f24aF3ea7460E09E33B2e9814Df5856433BE80D"
+    ],
+    "payloadsController": "0x2233F8A66A728FBa6E1dC95570B25360D07D5524"
   },
   "1": {
     "creator": "0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4",
@@ -41,7 +47,13 @@
         "signature": "execute()",
         "callData": "0x"
       }
-    ]
+    ],
+    "id": 1,
+    "chainId": 1088,
+    "actionAddresses": [
+      "0x010E3eAFec51c5256b1439cF9cAaFD5046486F1a"
+    ],
+    "payloadsController": "0x2233F8A66A728FBa6E1dC95570B25360D07D5524"
   },
   "2": {
     "creator": "0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4",
@@ -63,7 +75,13 @@
         "signature": "execute()",
         "callData": "0x"
       }
-    ]
+    ],
+    "id": 2,
+    "chainId": 1088,
+    "actionAddresses": [
+      "0x6c3bD2D5885D9e8a9B48c403EEb7A25195b7CCc1"
+    ],
+    "payloadsController": "0x2233F8A66A728FBa6E1dC95570B25360D07D5524"
   },
   "3": {
     "creator": "0xe3FD707583932a99513a5c65c8463De769f5DAdF",
@@ -85,10 +103,18 @@
         "signature": "execute()",
         "callData": "0x"
       }
-    ]
+    ],
+    "id": 3,
+    "chainId": 1088,
+    "actionAddresses": [
+      "0x3999d49Bbad3A7375B0376BDF2bA4f2e3c9F5177"
+    ],
+    "payloadsController": "0x2233F8A66A728FBa6E1dC95570B25360D07D5524"
   },
   "4": {
     "creator": "0xdA2E8BBe274fADF24dc391f81382c8232bd855b7",
+    "id": 4,
+    "chainId": 1088,
     "maximumAccessLevelRequired": 1,
     "state": 3,
     "createdAt": 1704628190,
@@ -98,15 +124,9 @@
     "expirationTime": 1707652190,
     "delay": 86400,
     "gracePeriod": 604800,
-    "actions": [
-      {
-        "target": "0xf7Afd747928485193B8B4c3146Ba63E8c3221239",
-        "withDelegateCall": true,
-        "accessLevel": 1,
-        "value": "0",
-        "signature": "execute()",
-        "callData": "0x"
-      }
+    "payloadsController": "0x2233F8A66A728FBa6E1dC95570B25360D07D5524",
+    "actionAddresses": [
+      "0xf7Afd747928485193B8B4c3146Ba63E8c3221239"
     ]
   }
 }

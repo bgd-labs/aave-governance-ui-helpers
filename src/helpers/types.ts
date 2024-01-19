@@ -88,13 +88,13 @@ export interface PayloadForCreation {
 }
 
 export enum BasicProposalState {
-  Null,
-  Created,
-  Active,
-  Queued,
-  Executed,
-  Failed,
-  Cancelled,
+  Null, // proposal does not exists
+  Created, // created, waiting for a cooldown to initiate the balances snapshot
+  Active, // balances snapshot set, voting in progress
+  Queued, // voting results submitted, but proposal is under grace period when guardian can cancel it
+  Executed, // results sent to the execution chain(s)
+  Failed, // voting was not successful
+  Cancelled, // got cancelled by guardian, or because proposition power of creator dropped below allowed minimum
   Expired,
 }
 

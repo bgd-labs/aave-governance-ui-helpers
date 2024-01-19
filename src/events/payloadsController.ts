@@ -2,14 +2,7 @@ import { IPayloadsControllerCore_ABI } from '@bgd-labs/aave-address-book';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
 import { Address, Client, getAbiItem } from 'viem';
 
-export enum PayloadState {
-  None,
-  Created,
-  Queued,
-  Executed,
-  Cancelled,
-  Expired,
-}
+import { PayloadState } from '../helpers/types';
 
 export const HUMAN_READABLE_PAYLOAD_STATE = {
   [PayloadState.None]: 'None',

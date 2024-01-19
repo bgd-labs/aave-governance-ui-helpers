@@ -1,5 +1,4 @@
 // only for internal usage
-
 import { Chain, createPublicClient, fallback, http } from 'viem';
 import {
   arbitrum,
@@ -18,9 +17,13 @@ import {
   sepolia,
 } from 'viem/chains';
 
-import { coreName } from '../lowdb/helpers';
-import { appConfigInit } from './appConfig';
+import { appConfigInit, CoreNetworkName } from './appConfig';
 import { ClientsRecord } from './types';
+
+require('dotenv').config();
+
+export const coreName: CoreNetworkName =
+  (process.env.CORE_NETWORK as CoreNetworkName) || 'mainnet';
 
 // chains information (RPC (urls), nativeCurrency, name, blockExplorerUrls)
 export const initialRpcUrls: Record<number, string[]> = {

@@ -1,30 +1,31 @@
 import {
+  IGovernanceCore_ABI,
+  IPayloadsControllerCore_ABI,
+  IVotingPortal_ABI,
+} from '@bgd-labs/aave-address-book';
+import {
   CHAIN_ID_CLIENT_MAP,
-  ProposalMetadata,
   getBlockAtTimestamp,
   getContractDeploymentBlock,
   getProposalMetadata,
+  ProposalMetadata,
   readJSONCache,
   writeJSONCache,
 } from '@bgd-labs/js-utils';
-import { getGovernanceEvents, isProposalFinal } from './events/governance';
-import { appConfig } from './helpers/clients';
-import {
-  getPayloadsControllerEvents,
-  isPayloadFinal,
-} from './events/payloadsController';
-import { getVotingMachineEvents } from './events/votingMachine';
 import {
   AbiStateMutability,
   Address,
   ContractFunctionReturnType,
   getContract,
 } from 'viem';
+
+import { getGovernanceEvents, isProposalFinal } from './events/governance';
 import {
-  IGovernanceCore_ABI,
-  IPayloadsControllerCore_ABI,
-  IVotingPortal_ABI,
-} from '@bgd-labs/aave-address-book';
+  getPayloadsControllerEvents,
+  isPayloadFinal,
+} from './events/payloadsController';
+import { getVotingMachineEvents } from './events/votingMachine';
+import { appConfig } from './helpers/clients';
 
 export async function cacheGovernance(
   bookKeepingCache: BookKeepingCache,

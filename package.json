@@ -1,6 +1,6 @@
 {
   "name": "@bgd-labs/aave-governance-ui-helpers",
-  "description": "This repository saves and updates the cache for finished proposals, also includes helper functions connected to Aave governance UI version 3.",
+  "description": "This repository saves and updates the cache for Aave governance v3, also includes helper functions connected to Aave governance UI version 3.",
   "version": "1.1.1",
   "author": "BGD labs",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "RPC_GNOSIS=https://rpc.eu-central-2.gateway.fm/v4/gnosis/non-archival/mainnet VERBOSE=true tsx src/cache-update.ts",
+    "cache:update": "VERBOSE=true tsx src/update-cache.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },
@@ -52,10 +52,10 @@
     "viem": "^2.1.1"
   },
   "devDependencies": {
-    "@bgd-labs/aave-address-book": "^2.15.2",
-    "@size-limit/preset-small-lib": "^11.0.1",
+    "@bgd-labs/aave-address-book": "^2.17.0",
+    "@size-limit/preset-small-lib": "^11.0.2",
     "@types/lodash": "^4.14.202",
-    "@types/node": "^20.11.4",
+    "@types/node": "^20.11.5",
     "bignumber.js": "^9.1.2",
     "dotenv": "^16.3.1",
     "esbuild-plugin-file-path-extensions": "^2.0.0",
@@ -68,16 +68,15 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^8.0.3",
     "lodash": "^4.17.21",
-    "lowdb": "6.1.1",
-    "prettier": "^3.2.2",
-    "size-limit": "^11.0.1",
+    "prettier": "^3.2.4",
+    "size-limit": "^11.0.2",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "viem": "^2.1.1",
     "tsx": "^4.7.0"
   },
   "dependencies": {
-    "@bgd-labs/js-utils": "1.1.1-cb1067e3ec47921f7b8428aaaf603ecc47b66ea4.0",
+    "@bgd-labs/js-utils": "1.1.1",
     "bs58": "^5.0.0",
     "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3"

@@ -7,10 +7,10 @@ import {
   GovernanceV3BNB,
   GovernanceV3Ethereum,
   GovernanceV3Gnosis,
+  GovernanceV3Goerli,
   GovernanceV3Metis,
   GovernanceV3Optimism,
   GovernanceV3Polygon,
-  GovernanceV3Goerli,
 } from '@bgd-labs/aave-address-book';
 import { Hex } from 'viem';
 import {

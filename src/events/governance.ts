@@ -1,7 +1,9 @@
 import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
-import { Address, Client, getAbiItem } from 'viem';
 import type { ExtractAbiEvent } from 'abitype';
+import { Address, Client, getAbiItem } from 'viem';
+
+import { BasicProposalState } from '../helpers/types';
 
 export type ProposalCreatedEvent = ExtractAbiEvent<
   typeof IGovernanceCore_ABI,
@@ -28,23 +30,12 @@ export type ProposalVotingActivatedEvent = ExtractAbiEvent<
   'VotingActivated'
 >;
 
-export enum ProposalState {
-  Null, // proposal does not exists
-  Created, // created, waiting for a cooldown to initiate the balances snapshot
-  Active, // balances snapshot set, voting in progress
-  Queued, // voting results submitted, but proposal is under grace period when guardian can cancel it
-  Executed, // results sent to the execution chain(s)
-  Failed, // voting was not successful
-  Cancelled, // got cancelled by guardian, or because proposition power of creator dropped below allowed minimum
-  Expired,
-}
-
-export function isProposalFinal(state: ProposalState) {
+export function isProposalFinal(state: BasicProposalState) {
   return [
-    ProposalState.Executed,
-    ProposalState.Failed,
-    ProposalState.Cancelled,
-    ProposalState.Expired,
+    BasicProposalState.Executed,
+    BasicProposalState.Failed,
+    BasicProposalState.Cancelled,
+    BasicProposalState.Expired,
   ].includes(state);
 }
 
