@@ -88,7 +88,7 @@
       "hasRequiredRoots": true
     },
     "prerender": true,
-    "lastUpdatedTimestamp": 1705612553
+    "lastUpdatedTimestamp": 1705627153
   },
   {
     "id": 2,
@@ -629,7 +629,7 @@
       "hasRequiredRoots": true
     },
     "prerender": true,
-    "lastUpdatedTimestamp": 1705612553
+    "lastUpdatedTimestamp": 1705627153
   },
   {
     "id": 11,
@@ -2372,6 +2372,52 @@
       "hasRequiredRoots": true
     },
     "prerender": true,
-    "lastUpdatedTimestamp": 1705612553
+    "lastUpdatedTimestamp": 1705627153
+  },
+  {
+    "id": 46,
+    "votingDuration": 600,
+    "creationTime": 1703022684,
+    "accessLevel": 1,
+    "basicState": 7,
+    "queuingTime": 0,
+    "ipfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1",
+    "initialPayloads": [
+      {
+        "id": 19,
+        "chainId": 43113,
+        "payloadsController": "0x1fad4eac642D8CAFb7fC5d38973D1C2764202da5"
+      }
+    ],
+    "snapshotBlockHash": "0x74e2f0bd635704be67b68d35a3d215bb42f6ae35c52d41500e42daf94c7db5de",
+    "creator": "0x3a267Ba253E5c6a551b66BC672c059e08d901221",
+    "canceledAt": 0,
+    "votingActivationTime": 1703039928,
+    "votingChainId": 43113,
+    "votingMachineData": {
+      "id": 46,
+      "forVotes": "2000000000000000000000",
+      "againstVotes": "0",
+      "startTime": 1704264399,
+      "endTime": 1704264999,
+      "votingClosedAndSentBlockNumber": 29312888,
+      "votingClosedAndSentTimestamp": 1705393719,
+      "l1BlockHash": "0x74e2f0bd635704be67b68d35a3d215bb42f6ae35c52d41500e42daf94c7db5de",
+      "strategy": "0x8234a814E3220aa38889b59340bF25914eb09783",
+      "sentToGovernance": true,
+      "createdBlock": 29030336,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0xdaEcee477B931b209e8123401EA37582ACB3811d",
+        "0x354032B31339853A3D682613749F183328d07275",
+        "0x26aAB2aE39897338c2d91491C46c14a8c2a67919"
+      ],
+      "hasRequiredRoots": true
+    },
+    "prerender": true,
+    "lastUpdatedTimestamp": 1705627153
   }
 ]
