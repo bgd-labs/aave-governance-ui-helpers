@@ -88,7 +88,7 @@
       "hasRequiredRoots": true
     },
     "prerender": true,
-    "lastUpdatedTimestamp": 1705677534
+    "lastUpdatedTimestamp": 1705688576
   },
   {
     "id": 2,
@@ -629,7 +629,7 @@
       "hasRequiredRoots": true
     },
     "prerender": true,
-    "lastUpdatedTimestamp": 1705677534
+    "lastUpdatedTimestamp": 1705688576
   },
   {
     "id": 11,
@@ -2372,7 +2372,7 @@
       "hasRequiredRoots": true
     },
     "prerender": true,
-    "lastUpdatedTimestamp": 1705677534
+    "lastUpdatedTimestamp": 1705688576
   },
   {
     "id": 46,
@@ -2419,5 +2419,51 @@
     },
     "prerender": true,
     "lastUpdatedTimestamp": 1705627153
+  },
+  {
+    "id": 47,
+    "votingDuration": 600,
+    "creationTime": 1703093688,
+    "accessLevel": 1,
+    "basicState": 5,
+    "queuingTime": 0,
+    "ipfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1",
+    "initialPayloads": [
+      {
+        "id": 45,
+        "chainId": 11155111,
+        "payloadsController": "0x7E314a46AA6dF79c51869967B9b8e9f8Bb20781d"
+      }
+    ],
+    "snapshotBlockHash": "0xeb5621c287203b6f6889dd30451f610726e0b10e30161968f8785085ac0bbc27",
+    "creator": "0x3a267Ba253E5c6a551b66BC672c059e08d901221",
+    "canceledAt": 0,
+    "votingActivationTime": 1703098632,
+    "votingChainId": 11155111,
+    "votingMachineData": {
+      "id": 47,
+      "forVotes": "3000000000000000000000",
+      "againstVotes": "0",
+      "startTime": 1705393860,
+      "endTime": 1705394460,
+      "votingClosedAndSentBlockNumber": 5095464,
+      "votingClosedAndSentTimestamp": 1705396452,
+      "l1BlockHash": "0xeb5621c287203b6f6889dd30451f610726e0b10e30161968f8785085ac0bbc27",
+      "strategy": "0xd3FbD65A1Ea9b58E7047fA57AF1E051e023C0361",
+      "sentToGovernance": true,
+      "createdBlock": 5095292,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0xdaEcee477B931b209e8123401EA37582ACB3811d",
+        "0x354032B31339853A3D682613749F183328d07275",
+        "0x26aAB2aE39897338c2d91491C46c14a8c2a67919"
+      ],
+      "hasRequiredRoots": true
+    },
+    "prerender": true,
+    "lastUpdatedTimestamp": 1705688576
   }
 ]
