@@ -26,7 +26,9 @@ import {
   IVotingPortal_ABI,
 } from '@bgd-labs/aave-address-book';
 
-async function cacheGovernance(): Promise<{
+export async function cacheGovernance(
+  bookKeepingCache: BookKeepingCache,
+): Promise<{
   proposalsCache: Record<
     string,
     ContractFunctionReturnType<
@@ -38,6 +40,7 @@ async function cacheGovernance(): Promise<{
   eventsCache: Awaited<ReturnType<typeof getGovernanceEvents>>;
   ipfsCache: Record<string, ProposalMetadata>;
 }> {
+  const bookKeepingCacheId = 'governance';
   const client = CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId];
   const currentBlockOnGovernanceChain = await client.getBlockNumber();
   const address = appConfig.govCoreConfig.contractAddress;
@@ -47,8 +50,15 @@ async function cacheGovernance(): Promise<{
     client,
   });
   const proposalsCount = await contract.read.getProposalsCount();
-  if (proposalsCount == BigInt(0))
-    return { proposalsCache: {}, eventsCache: [], ipfsCache: {} };
+  if (proposalsCount == BigInt(0)) {
+    bookKeepingCache[bookKeepingCacheId] =
+      currentBlockOnGovernanceChain.toString();
+    return {
+      proposalsCache: {},
+      eventsCache: [],
+      ipfsCache: {},
+    };
+  }
   // cache data
   const proposalsPath = `${appConfig.govCoreChainId.toString()}/proposals`;
   const proposalsCache =
@@ -89,18 +99,17 @@ async function cacheGovernance(): Promise<{
       eventsPath,
       address,
     ) || [];
-  const lastSeenBlock =
-    governanceEvents.length > 0
-      ? BigInt(governanceEvents[governanceEvents.length - 1].blockNumber)
-      : (
-          await getBlockAtTimestamp({
-            client: client,
-            timestamp: BigInt(proposalsCache[0].creationTime),
-            fromBlock: BigInt(0),
-            toBlock: currentBlockOnGovernanceChain,
-            maxDelta: BigInt(60 * 60 * 24),
-          })
-        ).number;
+  const lastSeenBlock = bookKeepingCache[bookKeepingCacheId]
+    ? BigInt(bookKeepingCache[bookKeepingCacheId])
+    : (
+        await getBlockAtTimestamp({
+          client: client,
+          timestamp: BigInt(proposalsCache[0].creationTime),
+          fromBlock: BigInt(0),
+          toBlock: currentBlockOnGovernanceChain,
+          maxDelta: BigInt(60 * 60 * 24),
+        })
+      ).number;
   const logs = await getGovernanceEvents(
     address,
     client,
@@ -109,12 +118,18 @@ async function cacheGovernance(): Promise<{
   );
   const eventsCache = [...governanceEvents, ...logs];
   writeJSONCache(eventsPath, address, eventsCache);
+  bookKeepingCache[bookKeepingCacheId] =
+    currentBlockOnGovernanceChain.toString();
   return { proposalsCache, eventsCache, ipfsCache };
 }
 
-async function cachePayloadsControllers(controllers: Map<Address, number>) {
+async function cachePayloadsControllers(
+  controllers: Map<Address, number>,
+  bookKeepingCache: BookKeepingCache,
+) {
   return await Promise.all(
     Array.from(controllers).map(async ([address, chainId]) => {
+      const payloadsPath = `${chainId}/payloads`;
       const client = CHAIN_ID_CLIENT_MAP[chainId];
       const contract = getContract({
         abi: IPayloadsControllerCore_ABI,
@@ -122,11 +137,15 @@ async function cachePayloadsControllers(controllers: Map<Address, number>) {
         address,
       });
       const payloadsCount = await contract.read.getPayloadsCount();
-      if (payloadsCount == 0) return;
+
       const currentBlockOnPayloadsControllerChain =
         await client.getBlockNumber();
+      if (payloadsCount == 0) {
+        bookKeepingCache[payloadsPath] =
+          currentBlockOnPayloadsControllerChain.toString();
+        return;
+      }
       // cache data
-      const payloadsPath = `${chainId}/payloads`;
       const payloadsCache =
         readJSONCache<
           Record<
@@ -152,18 +171,17 @@ async function cachePayloadsControllers(controllers: Map<Address, number>) {
           eventsPath,
           address,
         ) || [];
-      const lastSeenBlock =
-        eventsCache.length > 0
-          ? BigInt(eventsCache[eventsCache.length - 1].blockNumber)
-          : (
-              await getBlockAtTimestamp({
-                client: client,
-                timestamp: BigInt(payloadsCache[0].createdAt),
-                fromBlock: BigInt(0),
-                toBlock: currentBlockOnPayloadsControllerChain,
-                maxDelta: BigInt(60 * 60), // 1h
-              })
-            ).number;
+      const lastSeenBlock = bookKeepingCache[payloadsPath]
+        ? BigInt(bookKeepingCache[payloadsPath])
+        : (
+            await getBlockAtTimestamp({
+              client: client,
+              timestamp: BigInt(payloadsCache[0].createdAt),
+              fromBlock: BigInt(0),
+              toBlock: currentBlockOnPayloadsControllerChain,
+              maxDelta: BigInt(60 * 60), // 1h
+            })
+          ).number;
       const logs = await getPayloadsControllerEvents(
         address,
         client,
@@ -172,11 +190,16 @@ async function cachePayloadsControllers(controllers: Map<Address, number>) {
       );
 
       writeJSONCache(eventsPath, address, [...eventsCache, ...logs]);
+      bookKeepingCache[payloadsPath] =
+        currentBlockOnPayloadsControllerChain.toString();
     }),
   );
 }
 
-async function cacheVotes(votingPortals: Set<Address>) {
+async function cacheVotes(
+  votingPortals: Set<Address>,
+  bookKeepingCache: BookKeepingCache,
+) {
   const votingMachines = await Promise.all(
     Array.from(votingPortals).map(async (portal) => {
       const portalContract = getContract({
@@ -198,34 +221,39 @@ async function cacheVotes(votingPortals: Set<Address>) {
       const path = `${chainId}/events`;
       const address = machine;
       const client = CHAIN_ID_CLIENT_MAP[chainId];
-      const currentBlockOnPayloadsControllerChain =
-        await client.getBlockNumber();
+      const currentBlockOnVotingMachineChain = await client.getBlockNumber();
       const votesCache =
         readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
           path,
           address,
         ) || [];
-      const lastSeenBlock =
-        votesCache.length > 0
-          ? BigInt(votesCache[votesCache.length - 1].blockNumber)
-          : await getContractDeploymentBlock({
-              client: client,
-              contractAddress: address,
-              fromBlock: BigInt(0),
-              toBlock: currentBlockOnPayloadsControllerChain,
-              maxDelta: BigInt(10000),
-            });
+      const lastSeenBlock = bookKeepingCache[path]
+        ? BigInt(bookKeepingCache[path])
+        : await getContractDeploymentBlock({
+            client: client,
+            contractAddress: address,
+            fromBlock: BigInt(0),
+            toBlock: currentBlockOnVotingMachineChain,
+            maxDelta: BigInt(10000),
+          });
       const logs = await getVotingMachineEvents(
         address,
         client,
         BigInt(lastSeenBlock) + BigInt(1),
-        currentBlockOnPayloadsControllerChain,
+        currentBlockOnVotingMachineChain,
       );
       const combinedCache = [...votesCache, ...logs];
       writeJSONCache(path, address, combinedCache);
+      bookKeepingCache[path] = String(currentBlockOnVotingMachineChain);
     }),
   );
 }
+
+/**
+ * simple cache mapping:
+ * filename:blockNumber with the last used block for caching
+ */
+type BookKeepingCache = Record<string, string>;
 
 /**
  * Indexes & caches:
@@ -235,8 +263,14 @@ async function cacheVotes(votingPortals: Set<Address>) {
  * - ipfs data
  */
 async function updateCache() {
+  /**
+   * the cache is initialized, passed to each function to be mutated and in the end written back to the file
+   */
+  const bookKeepingCache =
+    readJSONCache<Record<string, string>>('bookKeeping', 'lastFetchedBlocks') ||
+    {};
   // cache governance logs
-  const { proposalsCache } = await cacheGovernance();
+  const { proposalsCache } = await cacheGovernance(bookKeepingCache);
   console.log('caching governance finished');
 
   // cache payloadsController logs
@@ -247,7 +281,7 @@ async function updateCache() {
       controllers.set(payload.payloadsController, Number(payload.chain)),
     );
   });
-  await cachePayloadsControllers(controllers);
+  await cachePayloadsControllers(controllers, bookKeepingCache);
   console.log('caching payloadsController finished');
 
   // cache votes
@@ -256,8 +290,10 @@ async function updateCache() {
     const proposal = proposalsCache[key];
     votingPortals.add(proposal.votingPortal);
   });
-  await cacheVotes(votingPortals);
+  await cacheVotes(votingPortals, bookKeepingCache);
   console.log('caching votes finished');
+
+  writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
 }
 
 updateCache();

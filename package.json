@@ -27,7 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "VERBOSE=true tsx src/cache-update.ts",
+    "cache:update": "RPC_GNOSIS=https://rpc.eu-central-2.gateway.fm/v4/gnosis/non-archival/mainnet VERBOSE=true tsx src/cache-update.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },
