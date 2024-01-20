@@ -1,5 +1,7 @@
 import { Client, Hex } from 'viem';
 
+import { ProposalMetadata } from './parseIpfs';
+
 // generic
 export type ClientsRecord = Record<number, Client>;
 
@@ -87,7 +89,7 @@ export interface PayloadForCreation {
   payloadId: number;
 }
 
-export enum BasicProposalState {
+export enum ProposalState {
   Null, // proposal does not exists
   Created, // created, waiting for a cooldown to initiate the balances snapshot
   Active, // balances snapshot set, voting in progress
@@ -114,7 +116,7 @@ export enum PayloadState {
   Expired,
 }
 
-export enum ProposalState {
+export enum CombineProposalState {
   Created,
   Active,
   Succeed,
@@ -222,7 +224,7 @@ export interface BasicProposal {
   votingDuration: number;
   creationTime: number;
   accessLevel: number;
-  basicState: BasicProposalState;
+  state: ProposalState;
   queuingTime: number;
   ipfsHash: string;
   initialPayloads: InitialPayload[];
@@ -269,7 +271,7 @@ export interface ProposalWithoutState {
 }
 
 export interface Proposal extends ProposalWithoutState {
-  state: ProposalState;
+  combineState: CombineProposalState;
 }
 
 export interface ProposalWithLoadings {
@@ -287,7 +289,6 @@ export enum ProposalStateWithName {
   Active = 'Voting',
   Succeed = 'Passed',
   Failed = 'Failed',
-  Defeated = 'Failed',
   Executed = 'Executed',
   Expired = 'Expired',
   Canceled = 'Canceled',
@@ -297,7 +298,7 @@ export enum ProposalStateWithName {
 export enum ProposalEstimatedState {
   Active = 'Will open for voting',
   Succeed = 'Will pass',
-  Defeated = 'Will fail',
+  Failed = 'Will fail',
   ProposalExecuted = 'Proposal will start executing',
   PayloadsExecuted = 'Payloads will start executing',
   Expired = 'Will expire',
@@ -312,21 +313,10 @@ export enum ProposalWaitForState {
   WaitForExecutePayloads = 'Pending payloads execution',
 }
 
-export type ProposalMetadata = {
-  title: string;
-  description: string;
-  shortDescription: string;
-  ipfsHash: string;
-  originalIpfsHash: string;
-  aip: number;
-  discussions: string;
-  author: string;
-};
-
 export interface FinishedProposalForList
   extends Pick<ProposalMetadata, 'title'> {
   id: number;
-  state: ProposalState;
+  combineState: CombineProposalState;
   finishedTimestamp: number;
   ipfsHash: string;
 }
@@ -339,7 +329,7 @@ export interface CachedProposalDataItem {
       title: string;
       ipfsHash: string;
     };
-    state: ProposalState;
+    combineState: CombineProposalState;
   };
 }
 

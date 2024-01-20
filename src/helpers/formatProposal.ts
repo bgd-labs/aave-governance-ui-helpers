@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { normalizeBN, valueToBigNumber } from './bignumber';
 import { checkHash } from './checkHash';
 import {
-  BasicProposalState,
+  CombineProposalState,
   PayloadState,
   Proposal,
   ProposalData as BasicProposal,
@@ -161,12 +161,10 @@ export function getProposalStepsAndAmounts({
   );
 
   const isCanceled =
-    proposalData.basicState === BasicProposalState.Cancelled ||
-    allPayloadsCanceled;
+    proposalData.state === ProposalState.Cancelled || allPayloadsCanceled;
 
   const isExpired =
-    proposalData.basicState === BasicProposalState.Expired ||
-    allPayloadsExpired;
+    proposalData.state === ProposalState.Expired || allPayloadsExpired;
 
   const isVotingActive = isVotingStarted && !isVotingEnded && !isCanceled;
 
@@ -189,7 +187,7 @@ export function getProposalStepsAndAmounts({
     isVotingEnded &&
     isVotingClosed &&
     !isVotingFailed &&
-    proposalData.basicState === BasicProposalState.Executed &&
+    proposalData.state === ProposalState.Executed &&
     !isCanceled;
 
   const isPayloadsQueued =
@@ -199,15 +197,15 @@ export function getProposalStepsAndAmounts({
     isVotingEnded &&
     isVotingClosed &&
     !isVotingFailed &&
-    proposalData.basicState === BasicProposalState.Executed &&
+    proposalData.state === ProposalState.Executed &&
     !isCanceled &&
     allPayloadsExecuted &&
     !isExpired;
 
   let isProposalActive = true;
   if (
-    proposalData.basicState === BasicProposalState.Null ||
-    proposalData.basicState === BasicProposalState.Created
+    proposalData.state === ProposalState.Null ||
+    proposalData.state === ProposalState.Created
   ) {
     isProposalActive = false;
   } else if (isCanceled) {
@@ -269,14 +267,14 @@ export function getProposalState({ ...data }: BasicProposalWithConfigsData) {
     !isCanceled &&
     data.proposalData.votingMachineState ===
       VotingMachineProposalState.NotCreated &&
-    data.proposalData.basicState <= BasicProposalState.Active
+    data.proposalData.state <= ProposalState.Active
   ) {
-    return ProposalState.Created;
+    return CombineProposalState.Created;
   } else if (
     isVotingActive &&
     checkHash(data.proposalData.snapshotBlockHash).notZero
   ) {
-    return ProposalState.Active;
+    return CombineProposalState.Active;
   } else if (
     isVotingEnded &&
     !isCanceled &&
@@ -285,15 +283,15 @@ export function getProposalState({ ...data }: BasicProposalWithConfigsData) {
     !allPayloadsExecuted &&
     !isExpired
   ) {
-    return ProposalState.Succeed;
+    return CombineProposalState.Succeed;
   } else if (isVotingFailed && !isCanceled) {
-    return ProposalState.Defeated;
+    return CombineProposalState.Defeated;
   } else if (isCanceled) {
-    return ProposalState.Canceled;
+    return CombineProposalState.Canceled;
   } else if (isPayloadsExecuted) {
-    return ProposalState.Executed;
+    return CombineProposalState.Executed;
   } else {
-    return ProposalState.Expired;
+    return CombineProposalState.Expired;
   }
 }
 
@@ -316,7 +314,11 @@ function getStateTimestamp(proposal: Proposal) {
     executionDelay: proposal.timings.executionDelay,
   });
 
-  if (proposal.state === ProposalState.Created && !isExpired && !isCanceled) {
+  if (
+    proposal.combineState === CombineProposalState.Created &&
+    !isExpired &&
+    !isCanceled
+  ) {
     return proposal.data.creationTime;
   } else if (
     proposal.data.votingMachineState ===
@@ -339,23 +341,23 @@ function getStateTimestamp(proposal: Proposal) {
   } else if (
     isVotingStarted &&
     isVotingEnded &&
-    proposal.state !== ProposalState.Executed &&
+    proposal.combineState !== CombineProposalState.Executed &&
     !isExpired &&
     !isCanceled
   ) {
     return proposal.data.votingMachineData.endTime > 0
       ? proposal.data.votingMachineData.endTime
       : proposal.data.creationTime + proposal.config.coolDownBeforeVotingStart;
-  } else if (proposal.state === ProposalState.Defeated) {
+  } else if (proposal.combineState === CombineProposalState.Defeated) {
     return proposal.data.votingMachineData.endTime;
-  } else if (proposal.state === ProposalState.Executed) {
+  } else if (proposal.combineState === CombineProposalState.Executed) {
     return lastPayloadExecutedAt;
-  } else if (proposal.state === ProposalState.Canceled) {
+  } else if (proposal.combineState === CombineProposalState.Canceled) {
     return lastPayloadCanceledAt > proposal.data.canceledAt
       ? lastPayloadCanceledAt
       : proposal.data.canceledAt;
   } else if (
-    proposal.data.basicState === BasicProposalState.Executed &&
+    proposal.data.state === ProposalState.Executed &&
     allPayloadsExpired
   ) {
     return lastPayloadExpiredAt;
@@ -414,7 +416,7 @@ export function getEstimatedState(
     now < proposal.data.queuingTime + proposal.timings.cooldownPeriod;
 
   const isPayloadsWaitForQueued =
-    proposal.data.basicState === BasicProposalState.Executed &&
+    proposal.data.state === ProposalState.Executed &&
     now < firstPayloadQueuedAt + proposal.timings.executionDelay;
 
   const executedTimestamp =
@@ -445,7 +447,7 @@ export function getEstimatedState(
     };
   } else if (isVotingDefeated && isVotingStarted && !isVotingEnded) {
     return {
-      estimatedState: ProposalEstimatedState.Defeated,
+      estimatedState: ProposalEstimatedState.Failed,
       timestampForEstimatedState: proposal.data.votingMachineData.endTime,
     };
   } else if (isProposalWaitForQueued && !isPayloadsWaitForQueued) {
@@ -462,7 +464,7 @@ export function getEstimatedState(
     return {
       estimatedState: ProposalEstimatedState.Expired,
       timestampForEstimatedState:
-        proposal.data.basicState === BasicProposalState.Executed
+        proposal.data.state === ProposalState.Executed
           ? predictPayloadExpiredTime
           : proposal.data.creationTime + proposal.timings.expirationTime,
     };
@@ -512,7 +514,7 @@ export function getWaitForState(proposal: Proposal) {
       return ProposalWaitForState.WaitForQueueProposal;
     } else if (
       isProposalQueued &&
-      proposal.data.basicState !== BasicProposalState.Executed
+      proposal.data.state !== ProposalState.Executed
     ) {
       return ProposalWaitForState.WaitForExecuteProposal;
     } else if (isProposalExecuted && lastPayloadQueuedAt === 0) {

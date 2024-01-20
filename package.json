@@ -27,7 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/update-cache.ts",
+    "cache:update": "RPC_SEPOLIA=https://rpc2.sepolia.org RPC_GOERLI=https://ethereum-goerli.publicnode.com RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/update-cache.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },
@@ -71,9 +71,9 @@
     "prettier": "^3.2.4",
     "size-limit": "^11.0.2",
     "tsup": "^8.0.1",
+    "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "viem": "^2.1.1",
-    "tsx": "^4.7.0"
+    "viem": "^2.1.1"
   },
   "dependencies": {
     "@bgd-labs/js-utils": "1.1.1",

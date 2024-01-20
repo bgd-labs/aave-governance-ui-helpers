@@ -3,7 +3,7 @@ import { strategicGetLogs } from '@bgd-labs/js-utils';
 import type { ExtractAbiEvent } from 'abitype';
 import { Address, Client, getAbiItem } from 'viem';
 
-import { BasicProposalState } from '../helpers/types';
+import { ProposalState } from '../helpers/types';
 
 export type ProposalCreatedEvent = ExtractAbiEvent<
   typeof IGovernanceCore_ABI,
@@ -30,12 +30,12 @@ export type ProposalVotingActivatedEvent = ExtractAbiEvent<
   'VotingActivated'
 >;
 
-export function isProposalFinal(state: BasicProposalState) {
+export function isProposalFinal(state: ProposalState) {
   return [
-    BasicProposalState.Executed,
-    BasicProposalState.Failed,
-    BasicProposalState.Cancelled,
-    BasicProposalState.Expired,
+    ProposalState.Executed,
+    ProposalState.Failed,
+    ProposalState.Cancelled,
+    ProposalState.Expired,
   ].includes(state);
 }
 

@@ -77,7 +77,7 @@ export function updateVotingMachineData(
           )[0].votingDuration,
         creationTime: govData.creationTime,
         accessLevel: govData.accessLevel,
-        basicState: govData.basicState,
+        state: govData.state,
         queuingTime: govData.queuingTime,
         ipfsHash: govData.ipfsHash,
         initialPayloads: govData.initialPayloads,
@@ -136,7 +136,7 @@ export function getDetailedProposalsData(
             )[0].votingDuration,
           creationTime: +govData.proposalData.creationTime,
           accessLevel: +govData.proposalData.accessLevel,
-          basicState: +govData.proposalData.state,
+          state: +govData.proposalData.state,
           queuingTime: +govData.proposalData.queuingTime,
           ipfsHash: govData.proposalData.ipfsHash,
           initialPayloads: govData.proposalData.payloads.map((payload) => {
