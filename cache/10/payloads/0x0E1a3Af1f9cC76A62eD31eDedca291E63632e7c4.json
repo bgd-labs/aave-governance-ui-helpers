@@ -22,9 +22,6 @@
     ],
     "id": 0,
     "chainId": 10,
-    "actionAddresses": [
-      "0x6d4F341d8Bb3Dc5ABe822Aa940F1884508C13f99"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "1": {
@@ -50,9 +47,6 @@
     ],
     "id": 1,
     "chainId": 10,
-    "actionAddresses": [
-      "0x4B02E9A575DFf2783568cE3DFD354736388D813d"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "2": {
@@ -78,9 +72,6 @@
     ],
     "id": 2,
     "chainId": 10,
-    "actionAddresses": [
-      "0x0cB2535D00cddFae5Ed1aFf2e5a0239fC947D17d"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "3": {
@@ -106,9 +97,6 @@
     ],
     "id": 3,
     "chainId": 10,
-    "actionAddresses": [
-      "0xf8bC2a699559c96D48cf1e6F70aa2e67508C2aE9"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "4": {
@@ -134,9 +122,6 @@
     ],
     "id": 4,
     "chainId": 10,
-    "actionAddresses": [
-      "0x1EC6efd07F8f7FCceD48872E3e9043c4A7e3825D"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "5": {
@@ -162,9 +147,6 @@
     ],
     "id": 5,
     "chainId": 10,
-    "actionAddresses": [
-      "0x41DaCfA8Bc41221F46c780fD6469dAD4CDCceF83"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "6": {
@@ -190,9 +172,6 @@
     ],
     "id": 6,
     "chainId": 10,
-    "actionAddresses": [
-      "0x7f9e2cE0e7A24358e360611382aA5CdCB0aEF86c"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "7": {
@@ -218,9 +197,6 @@
     ],
     "id": 7,
     "chainId": 10,
-    "actionAddresses": [
-      "0xCAB466a6bEd466316B20151c9526aFC7654d00F2"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "8": {
@@ -246,15 +222,10 @@
     ],
     "id": 8,
     "chainId": 10,
-    "actionAddresses": [
-      "0xc443f6dB6184027C3D6fcD3439367780e9726f4a"
-    ],
     "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   },
   "9": {
     "creator": "0xdA2E8BBe274fADF24dc391f81382c8232bd855b7",
-    "id": 9,
-    "chainId": 10,
     "maximumAccessLevelRequired": 1,
     "state": 3,
     "createdAt": 1704624073,
@@ -264,9 +235,18 @@
     "expirationTime": 1707648073,
     "delay": 86400,
     "gracePeriod": 604800,
-    "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4",
-    "actionAddresses": [
-      "0xfE30792b1b4d9216aa7c24E0B948a584ac3E1Fb9"
-    ]
+    "actions": [
+      {
+        "target": "0xfE30792b1b4d9216aa7c24E0B948a584ac3E1Fb9",
+        "withDelegateCall": true,
+        "accessLevel": 1,
+        "value": "0",
+        "signature": "execute()",
+        "callData": "0x"
+      }
+    ],
+    "id": 9,
+    "chainId": 10,
+    "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
   }
 }

@@ -22,9 +22,6 @@
     ],
     "id": 0,
     "chainId": 100,
-    "actionAddresses": [
-      "0x6Cf806CF51749bE514B7055b6fDBe346aee47B7b"
-    ],
     "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
   },
   "1": {
@@ -50,9 +47,6 @@
     ],
     "id": 1,
     "chainId": 100,
-    "actionAddresses": [
-      "0xC3785B4249699f8D522ea7997e59028010b21c8c"
-    ],
     "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
   },
   "2": {
@@ -78,15 +72,10 @@
     ],
     "id": 2,
     "chainId": 100,
-    "actionAddresses": [
-      "0xDf004C9546730d4614169A6a7CBB6260699627e7"
-    ],
     "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
   },
   "3": {
     "creator": "0xdA2E8BBe274fADF24dc391f81382c8232bd855b7",
-    "id": 3,
-    "chainId": 100,
     "maximumAccessLevelRequired": 1,
     "state": 3,
     "createdAt": 1704627645,
@@ -96,9 +85,18 @@
     "expirationTime": 1707651645,
     "delay": 86400,
     "gracePeriod": 604800,
-    "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b",
-    "actionAddresses": [
-      "0x5e7590bbEFb804C3969C3A517fDd674858A70b01"
-    ]
+    "actions": [
+      {
+        "target": "0x5e7590bbEFb804C3969C3A517fDd674858A70b01",
+        "withDelegateCall": true,
+        "accessLevel": 1,
+        "value": "0",
+        "signature": "execute()",
+        "callData": "0x"
+      }
+    ],
+    "id": 3,
+    "chainId": 100,
+    "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
   }
 }

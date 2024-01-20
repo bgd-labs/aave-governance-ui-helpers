@@ -22,9 +22,6 @@
     ],
     "id": 0,
     "chainId": 8453,
-    "actionAddresses": [
-      "0x889c0cc3283DB588A34E89Ad1E8F25B0fc827b4b"
-    ],
     "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
   },
   "1": {
@@ -50,9 +47,6 @@
     ],
     "id": 1,
     "chainId": 8453,
-    "actionAddresses": [
-      "0x445a95c7e70673188417995425047bF541eEc19D"
-    ],
     "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
   },
   "2": {
@@ -78,9 +72,6 @@
     ],
     "id": 2,
     "chainId": 8453,
-    "actionAddresses": [
-      "0xb5a1Fe36dcf5Ba149Cb8d90A03f4709141eE5442"
-    ],
     "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
   },
   "3": {
@@ -106,9 +97,6 @@
     ],
     "id": 3,
     "chainId": 8453,
-    "actionAddresses": [
-      "0x3b0b255e648D6680a6cf1A5aF92c73240e13C69d"
-    ],
     "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
   },
   "4": {
@@ -134,9 +122,6 @@
     ],
     "id": 4,
     "chainId": 8453,
-    "actionAddresses": [
-      "0xCAB466a6bEd466316B20151c9526aFC7654d00F2"
-    ],
     "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
   },
   "5": {
@@ -162,15 +147,10 @@
     ],
     "id": 5,
     "chainId": 8453,
-    "actionAddresses": [
-      "0xC0a05B7592f5d2BC9ae10d69A6Da3e5A8314C307"
-    ],
     "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
   },
   "6": {
     "creator": "0xdA2E8BBe274fADF24dc391f81382c8232bd855b7",
-    "id": 6,
-    "chainId": 8453,
     "maximumAccessLevelRequired": 1,
     "state": 3,
     "createdAt": 1704627347,
@@ -180,9 +160,18 @@
     "expirationTime": 1707651347,
     "delay": 86400,
     "gracePeriod": 604800,
-    "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01",
-    "actionAddresses": [
-      "0xE7d9F770F27D1dBdE49bd04B947C3123D0A5b09B"
-    ]
+    "actions": [
+      {
+        "target": "0xE7d9F770F27D1dBdE49bd04B947C3123D0A5b09B",
+        "withDelegateCall": true,
+        "accessLevel": 1,
+        "value": "0",
+        "signature": "execute()",
+        "callData": "0x"
+      }
+    ],
+    "id": 6,
+    "chainId": 8453,
+    "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
   }
 }

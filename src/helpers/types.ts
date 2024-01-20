@@ -175,7 +175,14 @@ export type Payload = {
   delay: number;
   gracePeriod: number;
   payloadsController: Hex;
-  actionAddresses: Hex[];
+  actions: readonly {
+    target: `0x${string}`;
+    withDelegateCall: boolean;
+    accessLevel: number;
+    value: bigint;
+    signature: string;
+    callData: `0x${string}`;
+  }[];
 };
 
 // type for create payload actions

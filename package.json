@@ -27,7 +27,7 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "VERBOSE=true tsx src/update-cache.ts",
+    "cache:update": "RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/update-cache.ts",
     "cache:parse": "node scripts/parseProposalDetails.js",
     "ci:publish": "npm run build && npm publish --access=public"
   },

@@ -155,13 +155,56 @@ async function updateIpfsCache(proposals: Record<number, BasicProposal>) {
   return ipfsCache;
 }
 
-// TODO: need add caching payloads if it not in proposal yet
-async function updatePayloadsData(
-  payloadsChainIds: number[],
-  payloadsControllers: Hex[],
-  proposalData: BasicProposal,
+async function updatePayloadsEvents(
+  chainId: number,
+  controller: Hex,
+  payloadsCache: Record<number, Payload>,
   bookKeepingCache: BookKeepingCache,
 ) {
+  const client = CHAIN_ID_CLIENT_MAP[chainId];
+  const payloadsPath = `${chainId}/payloads`;
+
+  // cache events
+  const currentBlockOnPayloadsControllerChain = await client.getBlock();
+  const eventsPath = `${chainId}/events`;
+  const eventsCache =
+    readJSONCache<Awaited<ReturnType<typeof getPayloadsControllerEvents>>>(
+      eventsPath,
+      controller,
+    ) || [];
+
+  const lastSeenBlock = bookKeepingCache[payloadsPath]
+    ? BigInt(bookKeepingCache[payloadsPath])
+    : (
+        await getBlockAtTimestamp({
+          client: client,
+          timestamp: BigInt(
+            payloadsCache[0]?.createdAt ||
+              currentBlockOnPayloadsControllerChain.timestamp,
+          ),
+          fromBlock: BigInt(0),
+          toBlock: currentBlockOnPayloadsControllerChain.number,
+          maxDelta: BigInt(60 * 60), // 1h
+        })
+      ).number;
+
+  const logs = await getPayloadsControllerEvents(
+    controller,
+    client,
+    BigInt(lastSeenBlock) + BigInt(1),
+    currentBlockOnPayloadsControllerChain.number,
+  );
+  writeJSONCache(eventsPath, controller, [...eventsCache, ...logs]);
+  bookKeepingCache[payloadsPath] =
+    currentBlockOnPayloadsControllerChain.number.toString();
+}
+
+async function updatePayloadsData(
+  controllers: Map<Address, number>,
+  bookKeepingCache: BookKeepingCache,
+  proposalData?: BasicProposal,
+) {
+  // initialize contracts
   const payloadsControllerDataHelpers = {
     [appConfig.payloadsControllerChainIds[0]]: getContract({
       address:
@@ -184,120 +227,103 @@ async function updatePayloadsData(
     });
   }
 
-  const payloadsData = await Promise.all(
-    payloadsChainIds.map(async (chainId) => {
-      return await Promise.all(
-        payloadsControllers.map(async (controller) => {
-          const client = CHAIN_ID_CLIENT_MAP[chainId];
-          const payloadsPath = `${chainId}/payloads`;
-          const payloadsCache =
-            readJSONCache<Record<number, Payload>>(payloadsPath, controller) ||
-            {};
+  // to get only needed payloads for proposal
+  if (proposalData) {
+    return await Promise.all(
+      Array.from(controllers).map(async ([controller, chainId]) => {
+        const payloadsPath = `${chainId}/payloads`;
+        const payloadsCache =
+          readJSONCache<Record<number, Payload>>(payloadsPath, controller) ||
+          {};
 
-          const proposalPayloadsIds = proposalData.initialPayloads
-            .filter(
-              (payload) =>
-                payload.payloadsController === controller &&
-                payload.chainId === chainId,
-            )
-            .map((payload) => payload.id);
+        const proposalPayloadsIds = proposalData.initialPayloads
+          .filter(
+            (payload) =>
+              payload.payloadsController === controller &&
+              payload.chainId === chainId,
+          )
+          .map((payload) => payload.id);
 
-          const payloadController = appConfig.payloadsControllerConfig[
-            chainId
-          ].contractAddresses.find(
-            (address) => address.toLowerCase() === controller.toLowerCase(),
-          );
+        const initialPayloadsData =
+          (await payloadsControllerDataHelpers[chainId].read.getPayloadsData([
+            controller,
+            proposalPayloadsIds,
+          ])) || [];
 
-          if (payloadController) {
-            const payloadsData =
-              (await payloadsControllerDataHelpers[
-                chainId
-              ].read.getPayloadsData([controller, proposalPayloadsIds])) || [];
+        const payloadsData = initialPayloadsData.map((payload) => {
+          return {
+            ...payload.data,
+            id: Number(payload.id),
+            chainId,
+            payloadsController: controller,
+          };
+        });
 
-            const formattedPayloadsData = payloadsData.map((payload) => {
-              return {
-                creator: payload.data.creator,
-                id: Number(payload.id),
-                chainId,
-                maximumAccessLevelRequired:
-                  payload.data.maximumAccessLevelRequired,
-                state: payload.data.state,
-                createdAt: payload.data.createdAt,
-                queuedAt: payload.data.queuedAt,
-                executedAt: payload.data.executedAt,
-                cancelledAt: payload.data.cancelledAt,
-                expirationTime: payload.data.expirationTime,
-                delay: payload.data.delay,
-                gracePeriod: payload.data.gracePeriod,
-                payloadsController: controller,
-                actionAddresses: payload.data.actions.map(
-                  (action) => action.target,
-                ),
-              };
-            });
-
-            formattedPayloadsData.forEach((payloadData) => {
-              if (
-                (!!payloadsCache[payloadData.id] &&
-                  !isPayloadFinal(payloadsCache[payloadData.id].state)) ||
-                !payloadsCache[payloadData.id]
-              ) {
-                payloadsCache[payloadData.id] = payloadData;
-              }
-            });
-            writeJSONCache(payloadsPath, payloadController, payloadsCache);
-
-            // cache events
-            const currentBlockOnPayloadsControllerChain =
-              await client.getBlock();
-
-            const eventsPath = `${chainId}/events`;
-            const eventsCache =
-              readJSONCache<
-                Awaited<ReturnType<typeof getPayloadsControllerEvents>>
-              >(eventsPath, payloadController) || [];
-
-            console.log(bookKeepingCache);
-
-            const lastSeenBlock = bookKeepingCache[payloadsPath]
-              ? BigInt(bookKeepingCache[payloadsPath])
-              : (
-                  await getBlockAtTimestamp({
-                    client: client,
-                    timestamp: BigInt(
-                      payloadsCache[0]?.createdAt ||
-                        currentBlockOnPayloadsControllerChain.timestamp,
-                    ),
-                    fromBlock: BigInt(0),
-                    toBlock: currentBlockOnPayloadsControllerChain.number,
-                    maxDelta: BigInt(60 * 60), // 1h
-                  })
-                ).number;
-
-            const logs = await getPayloadsControllerEvents(
-              payloadController,
-              client,
-              BigInt(lastSeenBlock) + BigInt(1),
-              currentBlockOnPayloadsControllerChain.number,
-            );
-            writeJSONCache(eventsPath, payloadController, [
-              ...eventsCache,
-              ...logs,
-            ]);
-            bookKeepingCache[payloadsPath] =
-              currentBlockOnPayloadsControllerChain.number.toString();
-
-            return formattedPayloadsData;
+        payloadsData.forEach((payloadData) => {
+          if (
+            !payloadsCache[payloadData.id] ||
+            !isPayloadFinal(payloadsCache[payloadData.id].state)
+          ) {
+            payloadsCache[payloadData.id] = payloadData;
           }
-        }),
-      );
-    }),
-  );
+        });
+        writeJSONCache(payloadsPath, controller, payloadsCache);
 
-  return {
-    proposalId: proposalData.id,
-    payloadsData,
-  };
+        await updatePayloadsEvents(
+          chainId,
+          controller,
+          payloadsCache,
+          bookKeepingCache,
+        );
+
+        return payloadsData;
+      }),
+    );
+    // to get all payloads from controllers (before it getting to proposal)
+  } else {
+    return await Promise.all(
+      Array.from(controllers).map(async ([controller, chainId]) => {
+        const payloadsPath = `${chainId}/payloads`;
+        const payloadsCache =
+          readJSONCache<Record<number, Payload>>(payloadsPath, controller) ||
+          {};
+
+        const client = CHAIN_ID_CLIENT_MAP[chainId];
+        const contract = getContract({
+          abi: IPayloadsControllerCore_ABI,
+          client,
+          address: controller,
+        });
+        const payloadsCount = await contract.read.getPayloadsCount();
+        const payloadsToCheck = [...Array(Number(payloadsCount)).keys()];
+        const payloadsData: Payload[] = [];
+
+        for (let i = 0; i < payloadsToCheck.length; i++) {
+          if (!payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)) {
+            const payload = await contract.read.getPayloadById([i]);
+            const formattedData = {
+              ...payload,
+              id: Number(i),
+              chainId,
+              payloadsController: controller,
+            };
+            payloadsData.push(formattedData);
+            payloadsCache[i] = formattedData;
+          }
+        }
+        writeJSONCache(payloadsPath, controller, payloadsCache);
+
+        await updatePayloadsEvents(
+          chainId,
+          controller,
+          payloadsCache,
+          bookKeepingCache,
+        );
+
+        return payloadsData;
+      }),
+    );
+  }
 }
 
 async function updateGovCoreEvents(
@@ -343,79 +369,6 @@ async function updateGovCoreEvents(
   writeJSONCache(eventsPath, contract.address, eventsCache);
   bookKeepingCache[bookKeepingCacheId] =
     currentBlockOnGovernanceChain.toString();
-}
-
-// TODO: temporary
-async function cachePayloadsControllers(
-  controllers: Map<Address, number>,
-  bookKeepingCache: BookKeepingCache,
-) {
-  return await Promise.all(
-    Array.from(controllers).map(async ([address, chainId]) => {
-      const payloadsPath = `${chainId}/payloads`;
-      const client = CHAIN_ID_CLIENT_MAP[chainId];
-      const contract = getContract({
-        abi: IPayloadsControllerCore_ABI,
-        client,
-        address,
-      });
-      const payloadsCount = await contract.read.getPayloadsCount();
-
-      const currentBlockOnPayloadsControllerChain =
-        await client.getBlockNumber();
-      if (payloadsCount === 0) {
-        bookKeepingCache[payloadsPath] =
-          currentBlockOnPayloadsControllerChain.toString();
-        return;
-      }
-      // cache data
-      const payloadsCache =
-        readJSONCache<Record<number, Payload>>(payloadsPath, address) || {};
-      const payloadsToCheck = [...Array(Number(payloadsCount)).keys()];
-      for (let i = 0; i < payloadsToCheck.length; i++) {
-        if (!payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)) {
-          const payload = await contract.read.getPayloadById([i]);
-          const payloadData = {
-            ...payload,
-            id: i,
-            chainId,
-            actionAddresses: payload.actions.map((action) => action.target),
-            payloadsController: contract.address,
-          };
-          payloadsCache[i] = payloadData;
-        }
-      }
-      writeJSONCache(payloadsPath, address, payloadsCache);
-      // cache events
-      const eventsPath = `${chainId}/events`;
-      const eventsCache =
-        readJSONCache<Awaited<ReturnType<typeof getPayloadsControllerEvents>>>(
-          eventsPath,
-          address,
-        ) || [];
-      const lastSeenBlock = bookKeepingCache[payloadsPath]
-        ? BigInt(bookKeepingCache[payloadsPath])
-        : (
-            await getBlockAtTimestamp({
-              client: client,
-              timestamp: BigInt(payloadsCache[0].createdAt),
-              fromBlock: BigInt(0),
-              toBlock: currentBlockOnPayloadsControllerChain,
-              maxDelta: BigInt(60 * 60), // 1h
-            })
-          ).number;
-      const logs = await getPayloadsControllerEvents(
-        address,
-        client,
-        BigInt(lastSeenBlock) + BigInt(1),
-        currentBlockOnPayloadsControllerChain,
-      );
-
-      writeJSONCache(eventsPath, address, [...eventsCache, ...logs]);
-      bookKeepingCache[payloadsPath] =
-        currentBlockOnPayloadsControllerChain.toString();
-    }),
-  );
 }
 
 /**
@@ -540,19 +493,16 @@ async function updateCache() {
   const now = dayjs().unix();
   await Promise.all(
     proposalsData.map(async (data) => {
-      const payloadsChainIds = data.initialPayloads
-        .map((payload) => payload.chainId)
-        .filter((value, index, self) => self.indexOf(value) === index);
-      const payloadsControllers = data.initialPayloads
-        .map((payload) => payload.payloadsController)
-        .filter((value, index, self) => self.indexOf(value) === index);
+      const controllers = new Map<Address, number>();
+      data.initialPayloads.map((payload) =>
+        controllers.set(payload.payloadsController, Number(payload.chainId)),
+      );
 
       // update payloads cache
-      const { payloadsData } = await updatePayloadsData(
-        payloadsChainIds,
-        payloadsControllers,
-        data,
+      const payloadsData = await updatePayloadsData(
+        controllers,
         bookKeepingCache,
+        data,
       );
       console.log('Caching proposals payloads data finished.');
 
@@ -638,18 +588,17 @@ async function updateCache() {
   await updateGovCoreEvents(proposalsCache, bookKeepingCache);
   console.log('Caching proposals events finished.');
 
-  writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
-
-  // TODO: temporary
-  // cache payloadsController logs
+  // cache payloads data for payloads that not in proposals yet
   const controllers = new Map<Address, number>();
   Object.values(proposalsCache).forEach((proposal) => {
     proposal.initialPayloads.map((payload) =>
       controllers.set(payload.payloadsController, Number(payload.chainId)),
     );
   });
-  await cachePayloadsControllers(controllers, bookKeepingCache);
-  console.log('caching payloadsController finished');
+  await updatePayloadsData(controllers, bookKeepingCache);
+  console.log('Caching outside payloads data finished.');
+
+  writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
 }
 
 updateCache();
