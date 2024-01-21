@@ -1,3 +1,5 @@
+// TODO: need add history events for proposal parser
+
 import {
   CHAIN_ID_CLIENT_MAP,
   readJSONCache,
@@ -7,7 +9,21 @@ import { Hex } from 'viem';
 import { getEnsName } from 'viem/actions';
 import { mainnet } from 'viem/chains';
 
-import { BasicProposal, normalizeBN, Payload, VotersData } from '..';
+import {
+  BasicProposal,
+  checkHash,
+  CombineProposalState,
+  FinishedProposalForList,
+  getGovCoreConfigs,
+  getProposalState,
+  getProposalStepsAndAmounts,
+  getVotingMachineProposalState,
+  normalizeBN,
+  Payload,
+  ProposalState,
+  VotersData,
+  VotingMachineProposalState,
+} from '..';
 import { isProposalFinal } from '../events/governance.ts';
 import { getVotingMachineEvents } from '../events/votingMachine.ts';
 import { appConfig, coreName } from '../helpers/config.ts';
@@ -149,6 +165,171 @@ async function parseCache() {
     cachedProposalsIds: proposalIds,
   });
   console.log('Proposals ids updated.');
+
+  // get gov core configs
+  const { contractsConstants, configs } = await getGovCoreConfigs({
+    govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
+    govCoreDataHelperContractAddress:
+      appConfig.govCoreConfig.dataHelperContractAddress,
+    client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
+  });
+
+  // format data for proposals list cache
+  const proposalsListCache =
+    readJSONCache<{
+      totalProposalCount: number;
+      proposals: FinishedProposalForList[];
+    }>(`${initDirName}`, `list_view_proposals`) || undefined;
+  const formattedProposalsDataForList: FinishedProposalForList[] =
+    Object.values(proposalsCache)
+      .filter((proposal) => proposal.prerender)
+      .map((proposal) => {
+        if (
+          !proposalsListCache ||
+          !proposalsListCache.proposals.find((prop) => prop.id === proposal.id)
+        ) {
+          const proposalConfig = configs.filter(
+            (config) => config.accessLevel === proposal.accessLevel,
+          )[0];
+
+          // get payloads data for proposal
+          const proposalPayloadsData = proposal.initialPayloads.map(
+            (payload) => {
+              const payloadsPath = `${payload.chainId}/payloads`;
+              const payloadsCache =
+                readJSONCache<Record<number, Payload>>(
+                  payloadsPath,
+                  payload.payloadsController,
+                ) || {};
+
+              return payloadsCache[payload.id];
+            },
+          );
+
+          // minimal delay from all payloads in proposal for finished timestamp
+          const executionDelay = Math.min.apply(
+            0,
+            proposalPayloadsData.map((payload) => payload?.delay || 0),
+          );
+
+          const formattedProposalData = {
+            ...proposal,
+            payloads: proposalPayloadsData,
+            title: ipfsCache[proposal.ipfsHash]?.title || '',
+            votingMachineState: getVotingMachineProposalState(proposal),
+          };
+
+          const proposalState = getProposalState({
+            proposalData: formattedProposalData,
+            quorum: proposalConfig.quorum,
+            differential: proposalConfig.differential,
+            precisionDivider: contractsConstants.precisionDivider,
+            cooldownPeriod: contractsConstants.cooldownPeriod,
+            executionDelay,
+          });
+
+          let finishedTimestamp = formattedProposalData.creationTime;
+
+          const {
+            isVotingEnded,
+            isVotingStarted,
+            isExpired,
+            lastPayloadExecutedAt,
+            lastPayloadCanceledAt,
+            lastPayloadExpiredAt,
+            allPayloadsExpired,
+            isCanceled,
+          } = getProposalStepsAndAmounts({
+            // @ts-ignore
+            proposalData: formattedProposalData,
+            quorum: proposalConfig.quorum,
+            differential: proposalConfig.differential,
+            precisionDivider: contractsConstants.precisionDivider,
+            cooldownPeriod: contractsConstants.cooldownPeriod,
+            executionDelay,
+          });
+
+          if (
+            proposalState === CombineProposalState.Created &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp = formattedProposalData.creationTime;
+          } else if (
+            formattedProposalData.votingMachineState ===
+              VotingMachineProposalState.NotCreated &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp =
+              formattedProposalData.creationTime +
+              proposalConfig.coolDownBeforeVotingStart;
+          } else if (
+            checkHash(formattedProposalData.snapshotBlockHash).notZero &&
+            !isVotingStarted &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp = formattedProposalData.votingActivationTime;
+          } else if (
+            !isVotingEnded &&
+            isVotingStarted &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp =
+              formattedProposalData.votingMachineData.startTime;
+          } else if (
+            isVotingStarted &&
+            isVotingEnded &&
+            proposalState !== CombineProposalState.Executed &&
+            !isExpired &&
+            !isCanceled
+          ) {
+            finishedTimestamp =
+              formattedProposalData.votingMachineData.endTime > 0
+                ? formattedProposalData.votingMachineData.endTime
+                : formattedProposalData.creationTime +
+                  proposalConfig.coolDownBeforeVotingStart;
+          } else if (proposalState === CombineProposalState.Failed) {
+            finishedTimestamp = formattedProposalData.votingMachineData.endTime;
+          } else if (proposalState === CombineProposalState.Executed) {
+            finishedTimestamp = lastPayloadExecutedAt;
+          } else if (proposalState === CombineProposalState.Canceled) {
+            finishedTimestamp =
+              lastPayloadCanceledAt > formattedProposalData.canceledAt
+                ? lastPayloadCanceledAt
+                : formattedProposalData.canceledAt;
+          } else if (
+            formattedProposalData.state === ProposalState.Executed &&
+            allPayloadsExpired
+          ) {
+            finishedTimestamp = lastPayloadExpiredAt;
+          } else {
+            finishedTimestamp =
+              formattedProposalData.creationTime +
+              contractsConstants.expirationTime;
+          }
+
+          return {
+            id: proposal.id,
+            title: ipfsCache[proposal.ipfsHash]?.title || '',
+            combineState: proposalState,
+            finishedTimestamp: finishedTimestamp,
+            ipfsHash: proposal.ipfsHash,
+          };
+        } else {
+          return proposalsListCache.proposals.filter(
+            (prop) => prop.id === proposal.id,
+          )[0];
+        }
+      });
+
+  writeJSONCache(`${initDirName}`, 'list_view_proposals', {
+    totalProposalCount: Object.keys(proposalsCache).length,
+    proposals: formattedProposalsDataForList,
+  });
+  console.log('Proposals list cache updated.');
 }
 
 parseCache();

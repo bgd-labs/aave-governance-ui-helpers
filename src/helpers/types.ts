@@ -120,7 +120,7 @@ export enum CombineProposalState {
   Created,
   Active,
   Succeed,
-  Defeated,
+  Failed,
   Executed,
   Expired,
   Canceled,

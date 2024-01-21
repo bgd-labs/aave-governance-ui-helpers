@@ -285,7 +285,7 @@ export function getProposalState({ ...data }: BasicProposalWithConfigsData) {
   ) {
     return CombineProposalState.Succeed;
   } else if (isVotingFailed && !isCanceled) {
-    return CombineProposalState.Defeated;
+    return CombineProposalState.Failed;
   } else if (isCanceled) {
     return CombineProposalState.Canceled;
   } else if (isPayloadsExecuted) {
@@ -348,7 +348,7 @@ function getStateTimestamp(proposal: Proposal) {
     return proposal.data.votingMachineData.endTime > 0
       ? proposal.data.votingMachineData.endTime
       : proposal.data.creationTime + proposal.config.coolDownBeforeVotingStart;
-  } else if (proposal.combineState === CombineProposalState.Defeated) {
+  } else if (proposal.combineState === CombineProposalState.Failed) {
     return proposal.data.votingMachineData.endTime;
   } else if (proposal.combineState === CombineProposalState.Executed) {
     return lastPayloadExecutedAt;
