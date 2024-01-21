@@ -14,19 +14,23 @@ import {
 } from '@bgd-labs/js-utils';
 import { Address, getContract, Hex, zeroAddress } from 'viem';
 
-import { getGovernanceEvents, isProposalFinal } from '../src/events/governance';
 import {
-  getPayloadsControllerEvents,
-  isPayloadFinal,
-} from '../src/events/payloadsController';
-import { getVotingMachineEvents } from '../src/events/votingMachine';
-import { appConfig } from '../src/helpers/config';
-import { getGovCoreConfigs, getDetailedProposalsData,   BasicProposal,
+  BasicProposal,
+  getDetailedProposalsData,
+  getGovCoreConfigs,
   InitialProposal,
   Payload,
   PayloadState,
-  ProposalState, } from '../src';
-import { getProposalMetadata, ProposalMetadata } from '../src/helpers/parseIpfs';
+  ProposalState,
+} from '../';
+import { getGovernanceEvents, isProposalFinal } from '../events/governance';
+import {
+  getPayloadsControllerEvents,
+  isPayloadFinal,
+} from '../events/payloadsController';
+import { getVotingMachineEvents } from '../events/votingMachine';
+import { appConfig } from '../helpers/config';
+import { getProposalMetadata, ProposalMetadata } from '../helpers/parseIpfs';
 
 async function cacheVotes(
   votingMachines: Record<number, Hex>,
