@@ -1,0 +1,83 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1705753175,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1708777175,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xc66A72836B7832372A799b5E564dFa8Ed10df405",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 47,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmavSmy3nyVsYS5RV4W8drqmkhCcDLFqztv5RhwVPonS8H",
+    "description": "\n## Simple Summary\n\nThis AIP activates the new GHO based Safety module by initiating the emission schedule approved by the community during the [Snapshot vote](https://snapshot.org/#/aave.eth/proposal/0x4bc99a842adab6cdd8c7d5c7a787ee4c0056be554fde0d008d53b45b3e795065)\n\n## Motivation\n\nThe GHO Safety Module will fortify the Aave Protocol’s resilience by adding a stablecoin asset, which is inherently less volatile than AAVE. This strategic move diversifies the Safety Module’s capacity to absorb shocks from various risk vectors in case of shortfall events.\n\n## Specification\n\nThe GHO Safety module will be activated with the following parameters:\n\n- Base emission: 50 AAVE/day\n- Duration: Three months\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/198281130656afdb67959cfd957018fcf773a5fa/src/20240119_AaveV3Ethereum_StkGHOActivation/AaveV3Ethereum_StkGHOActivation_20240119.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/198281130656afdb67959cfd957018fcf773a5fa/src/20240119_AaveV3Ethereum_StkGHOActivation/AaveV3Ethereum_StkGHOActivation_20240119.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4bc99a842adab6cdd8c7d5c7a787ee4c0056be554fde0d008d53b45b3e795065)\n- [Discussion](https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkgho/15635)\n- [StkGHO](https://etherscan.io/address/0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d)\n- [StakeToken Repository](https://github.com/bgd-labs/stake-token)\n\n## Disclaimer\n\nAave Labs, and ACI receive no compensation beyond Aave protocol for the creation of this proposal. ACI is delegate within the Aave ecosystem.\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "StkGHO Activation",
+    "author": "Aave Labs & ACI",
+    "discussions": "https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkgho/15635",
+    "originalIpfsHash": "0xbaf47f585bee303606be09f9f9c4215875e8ab48df280c5cabebb94d722a5dd2"
+  },
+  "proposal": {
+    "id": 7,
+    "votingDuration": 259200,
+    "creationTime": 1705754099,
+    "accessLevel": 1,
+    "state": 2,
+    "queuingTime": 0,
+    "ipfsHash": "0xbaf47f585bee303606be09f9f9c4215875e8ab48df280c5cabebb94d722a5dd2",
+    "initialPayloads": [
+      {
+        "id": 47,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0xca622f4db63ee5795875e5ff61025fdb3e051c99528353d2b38503b971493933",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1705840523,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 7,
+      "forVotes": "162660032304994728648366",
+      "againstVotes": "0",
+      "startTime": 1705841730,
+      "endTime": 1706100930,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0xca622f4db63ee5795875e5ff61025fdb3e051c99528353d2b38503b971493933",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 52582793,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "prerender": false,
+    "lastUpdatedTimestamp": 1705844998
+  }
+}

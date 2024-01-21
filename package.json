@@ -27,8 +27,8 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "RPC_SEPOLIA=https://rpc2.sepolia.org RPC_GOERLI=https://ethereum-goerli.publicnode.com RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/update-cache.ts",
-    "cache:parse": "node scripts/parseProposalDetails.js",
+    "cache:update": "RPC_SEPOLIA=https://rpc2.sepolia.org RPC_GOERLI=https://ethereum-goerli.publicnode.com RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx scripts/update-cache.ts",
+    "cache:parse": "VERBOSE=true tsx scripts/parse-cache.ts",
     "ci:publish": "npm run build && npm publish --access=public"
   },
   "files": [
@@ -57,7 +57,7 @@
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.5",
     "bignumber.js": "^9.1.2",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.3.2",
     "esbuild-plugin-file-path-extensions": "^2.0.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",

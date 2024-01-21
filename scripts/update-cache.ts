@@ -14,23 +14,19 @@ import {
 } from '@bgd-labs/js-utils';
 import { Address, getContract, Hex, zeroAddress } from 'viem';
 
-import { getGovernanceEvents, isProposalFinal } from './events/governance';
+import { getGovernanceEvents, isProposalFinal } from '../src/events/governance';
 import {
   getPayloadsControllerEvents,
   isPayloadFinal,
-} from './events/payloadsController';
-import { getVotingMachineEvents } from './events/votingMachine';
-import { appConfig } from './helpers/config';
-import { getGovCoreConfigs } from './helpers/getGovCoreConfigs';
-import { getDetailedProposalsData } from './helpers/getProposalData';
-import { getProposalMetadata, ProposalMetadata } from './helpers/parseIpfs';
-import {
-  BasicProposal,
+} from '../src/events/payloadsController';
+import { getVotingMachineEvents } from '../src/events/votingMachine';
+import { appConfig } from '../src/helpers/config';
+import { getGovCoreConfigs, getDetailedProposalsData,   BasicProposal,
   InitialProposal,
   Payload,
   PayloadState,
-  ProposalState,
-} from './helpers/types';
+  ProposalState, } from '../src';
+import { getProposalMetadata, ProposalMetadata } from '../src/helpers/parseIpfs';
 
 async function cacheVotes(
   votingMachines: Record<number, Hex>,
@@ -374,7 +370,7 @@ type BookKeepingCache = Record<string, string>;
  * - events on the payloadsController
  * - events on the voting machines
  * - ipfs data
- * - combine proposals data (gov core proposal data + voting machine proposal data)
+ * - combine proposals data (gov core + voting machine, proposal data)
  * - payloads data
  */
 async function updateCache() {

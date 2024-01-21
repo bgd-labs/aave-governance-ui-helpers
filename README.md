@@ -12,18 +12,11 @@ This repository saves and updates the cache for Aave governance, also includes h
 
 ## How to update cache
 
-You need upload project locally than create an env file with network name, here is an example [env](./.env.example)
-
-Currently [available networks](https://github.com/bgd-labs/aave-governance-ui-helpers/blob/main/src/helpers/appConfig.ts#L16)
+- Clone project from github
+- Create an env file with network name, here is an example [env](./.env.example)
 
 after
 
-for lowdb initial:
-```sh
-yarn build:populate-cache && yarn cache:update && yarn cache:parse
-```
-
-for lowdb update:
 ```sh
 yarn cache:update && yarn cache:parse
 ```
