@@ -342,3 +342,39 @@ export interface CachedDetails {
   ipfs: ProposalMetadata;
   proposal: BasicProposal;
 }
+
+export enum HistoryItemType {
+  PAYLOADS_CREATED,
+  CREATED,
+  PROPOSAL_ACTIVATE,
+  OPEN_TO_VOTE,
+  VOTING_OVER,
+  VOTING_CLOSED,
+  RESULTS_SENT,
+  PROPOSAL_QUEUED,
+  PROPOSAL_EXECUTED,
+  PAYLOADS_QUEUED,
+  PAYLOADS_EXECUTED,
+  PROPOSAL_CANCELED,
+  PAYLOADS_EXPIRED,
+  PROPOSAL_EXPIRED,
+}
+
+export type FilteredEvent = {
+  transactionHash: string;
+};
+
+export type TxInfo = {
+  id: number;
+  hash: string;
+  chainId: number;
+  hashLoading: boolean;
+};
+
+export type ProposalHistoryItem = {
+  type: HistoryItemType;
+  title: string;
+  txInfo: TxInfo;
+  timestamp?: number;
+  addresses?: string[];
+};

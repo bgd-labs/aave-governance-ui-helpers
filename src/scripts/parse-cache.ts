@@ -1,35 +1,460 @@
-// TODO: need add history events for proposal parser
-
 import {
   CHAIN_ID_CLIENT_MAP,
   readJSONCache,
   writeJSONCache,
 } from '@bgd-labs/js-utils';
-import { Hex } from 'viem';
-import { getEnsName } from 'viem/actions';
+import { Hex, zeroHash } from 'viem';
+import { getBlock, getEnsName } from 'viem/actions';
 import { mainnet } from 'viem/chains';
 
 import {
   BasicProposal,
   checkHash,
   CombineProposalState,
+  ContractsConstants,
   FinishedProposalForList,
   getGovCoreConfigs,
   getProposalState,
   getProposalStepsAndAmounts,
   getVotingMachineProposalState,
+  HistoryItemType,
   normalizeBN,
   Payload,
+  PayloadState,
+  ProposalHistoryItem,
   ProposalState,
   VotersData,
+  VotingConfig,
   VotingMachineProposalState,
 } from '..';
-import { isProposalFinal } from '../events/governance.ts';
+import { getGovernanceEvents, isProposalFinal } from '../events/governance.ts';
+import { getPayloadsControllerEvents } from '../events/payloadsController.ts';
 import { getVotingMachineEvents } from '../events/votingMachine.ts';
 import { appConfig, coreName } from '../helpers/config.ts';
 import { ProposalMetadata } from '../helpers/parseIpfs.ts';
 
 const initDirName = `ui/${coreName}`;
+
+function getProposalPayloads(proposal: BasicProposal) {
+  // get payloads data for proposal
+  const proposalPayloadsData = proposal.initialPayloads.map((payload) => {
+    const payloadsPath = `${payload.chainId}/payloads`;
+    const payloadsCache =
+      readJSONCache<Record<number, Payload>>(
+        payloadsPath,
+        payload.payloadsController,
+      ) || {};
+
+    return payloadsCache[payload.id];
+  });
+
+  // minimal delay from all payloads in proposal for finished timestamp
+  const executionDelay = Math.min.apply(
+    0,
+    proposalPayloadsData.map((payload) => payload?.delay || 0),
+  );
+
+  return { proposalPayloadsData, executionDelay };
+}
+
+function formatProposalsData(
+  proposal: BasicProposal,
+  configs: VotingConfig[],
+  constants: ContractsConstants,
+) {
+  const ipfsCache: Record<string, ProposalMetadata> =
+    readJSONCache('web3', 'ipfs') || {};
+
+  const proposalConfig = configs.filter(
+    (config) => config.accessLevel === proposal.accessLevel,
+  )[0];
+
+  const { proposalPayloadsData, executionDelay } =
+    getProposalPayloads(proposal);
+
+  const formattedProposalData = {
+    ...proposal,
+    payloads: proposalPayloadsData,
+    title: ipfsCache[proposal.ipfsHash]?.title || '',
+    votingMachineState: getVotingMachineProposalState(proposal),
+  };
+
+  const proposalState = getProposalState({
+    proposalData: formattedProposalData,
+    quorum: proposalConfig.quorum,
+    differential: proposalConfig.differential,
+    precisionDivider: constants.precisionDivider,
+    cooldownPeriod: constants.cooldownPeriod,
+    executionDelay,
+  });
+
+  return {
+    executionDelay,
+    formattedProposalData,
+    proposalState,
+    proposalConfig,
+    constants,
+  };
+}
+
+async function parseProposalEvents(
+  proposal: BasicProposal,
+  configs: VotingConfig[],
+  contractsConstants: ContractsConstants,
+) {
+  const proposalHistoryEvents =
+    readJSONCache<Record<string, ProposalHistoryItem>>(
+      `${initDirName}/events`,
+      `proposal_${proposal.id}_events`,
+    ) || {};
+
+  const setEvent = ({
+    historyId,
+    type,
+    id,
+    hash,
+    chainId,
+    timestamp,
+    addresses,
+  }: {
+    historyId: string;
+    type: HistoryItemType;
+    id: number;
+    chainId: number;
+    hash?: Hex;
+    timestamp?: number;
+    addresses?: Hex[];
+  }) => {
+    proposalHistoryEvents[historyId] = {
+      type: type,
+      title: '',
+      timestamp: timestamp,
+      addresses,
+      txInfo: {
+        id,
+        hash: hash || zeroHash,
+        chainId,
+        hashLoading: false,
+      },
+    };
+  };
+
+  const {
+    formattedProposalData,
+    executionDelay,
+    proposalConfig,
+    constants,
+    proposalState,
+  } = formatProposalsData(proposal, configs, contractsConstants);
+
+  const {
+    isVotingFailed,
+    isVotingEnded,
+    lastPayloadCanceledAt,
+    lastPayloadExpiredAt,
+  } = getProposalStepsAndAmounts({
+    proposalData: formattedProposalData,
+    quorum: proposalConfig.quorum,
+    differential: proposalConfig.differential,
+    precisionDivider: constants.precisionDivider,
+    cooldownPeriod: constants.cooldownPeriod,
+    executionDelay,
+  });
+
+  const govCoreEventsPath = `${appConfig.govCoreChainId}/events`;
+  const governanceEvents =
+    readJSONCache<Awaited<ReturnType<typeof getGovernanceEvents>>>(
+      govCoreEventsPath,
+      appConfig.govCoreConfig.contractAddress,
+    ) || [];
+
+  // PAYLOADS_CREATED
+  formattedProposalData.payloads.forEach((payload, index) => {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_CREATED}_${payload.id}_${payload.chainId}`;
+
+    const eventsPath = `${payload.chainId}/events`;
+    const eventsCache =
+      readJSONCache<Awaited<ReturnType<typeof getPayloadsControllerEvents>>>(
+        eventsPath,
+        payload.payloadsController,
+      ) || [];
+
+    setEvent({
+      historyId,
+      type: HistoryItemType.PAYLOADS_CREATED,
+      id: payload.id,
+      chainId: payload.chainId,
+      timestamp: payload.createdAt,
+      addresses: payload.actions.map((action) => action.target),
+      hash: eventsCache.find(
+        (event) =>
+          event.eventName === 'PayloadCreated' &&
+          event.args.payloadId === payload.id,
+      )?.transactionHash,
+    });
+  });
+
+  // PROPOSAL_CREATED
+  const historyIdProposalCreated = `${formattedProposalData.id}_${HistoryItemType.CREATED}`;
+  setEvent({
+    historyId: historyIdProposalCreated,
+    type: HistoryItemType.PAYLOADS_CREATED,
+    id: formattedProposalData.id,
+    chainId: appConfig.govCoreChainId,
+    timestamp: formattedProposalData.creationTime,
+    hash: governanceEvents.find(
+      (event) =>
+        event.eventName === 'ProposalCreated' &&
+        Number(event.args.proposalId) === formattedProposalData.id,
+    )?.transactionHash,
+  });
+
+  // PROPOSAL_ACTIVATE
+  if (checkHash(formattedProposalData.snapshotBlockHash).notZero) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_ACTIVATE}`;
+    setEvent({
+      historyId,
+      type: HistoryItemType.PROPOSAL_ACTIVATE,
+      id: formattedProposalData.id,
+      chainId: appConfig.govCoreChainId,
+      timestamp: formattedProposalData.votingActivationTime,
+      hash: governanceEvents.find(
+        (event) =>
+          event.eventName === 'VotingActivated' &&
+          Number(event.args.proposalId) === formattedProposalData.id,
+      )?.transactionHash,
+    });
+  }
+
+  // OPEN_TO_VOTE
+  if (formattedProposalData.votingMachineData.createdBlock > 0) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.OPEN_TO_VOTE}`;
+    setEvent({
+      historyId,
+      type: HistoryItemType.OPEN_TO_VOTE,
+      id: formattedProposalData.id,
+      chainId: formattedProposalData.votingChainId,
+      timestamp: formattedProposalData.votingMachineData.startTime,
+    });
+  }
+
+  // VOTING_OVER
+  if (isVotingEnded) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.VOTING_OVER}`;
+    setEvent({
+      historyId,
+      type: HistoryItemType.VOTING_OVER,
+      id: formattedProposalData.id,
+      chainId: formattedProposalData.votingChainId,
+      timestamp: formattedProposalData.votingMachineData.endTime,
+    });
+  }
+
+  // VOTING_CLOSED
+  if (
+    formattedProposalData.votingMachineData.votingClosedAndSentTimestamp > 0 &&
+    !isVotingFailed
+  ) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.VOTING_CLOSED}`;
+    setEvent({
+      historyId,
+      type: HistoryItemType.VOTING_CLOSED,
+      id: formattedProposalData.id,
+      chainId: formattedProposalData.votingChainId,
+      timestamp:
+        formattedProposalData.votingMachineData.votingClosedAndSentTimestamp,
+    });
+  }
+
+  // RESULTS_SENT
+  if (
+    formattedProposalData.votingMachineData.sentToGovernance &&
+    !isVotingFailed
+  ) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.RESULTS_SENT}`;
+    setEvent({
+      historyId,
+      type: HistoryItemType.RESULTS_SENT,
+      id: formattedProposalData.id,
+      chainId: appConfig.govCoreChainId,
+    });
+  }
+
+  // PROPOSAL_QUEUED
+  if (formattedProposalData.queuingTime > 0 && !isVotingFailed) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_QUEUED}`;
+    setEvent({
+      historyId,
+      type: HistoryItemType.PROPOSAL_QUEUED,
+      id: formattedProposalData.id,
+      chainId: appConfig.govCoreChainId,
+      timestamp: formattedProposalData.queuingTime,
+      hash: governanceEvents.find(
+        (event) =>
+          event.eventName === 'ProposalQueued' &&
+          Number(event.args.proposalId) === formattedProposalData.id,
+      )?.transactionHash,
+    });
+  }
+
+  // PROPOSAL_EXECUTED
+  if (formattedProposalData.state === ProposalState.Executed) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXECUTED}`;
+    const executedTimestamp = (
+      await getBlock(CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId], {
+        blockHash: governanceEvents.find(
+          (event) =>
+            event.eventName === 'ProposalExecuted' &&
+            Number(event.args.proposalId) === formattedProposalData.id,
+        )?.blockHash,
+      })
+    ).timestamp;
+
+    setEvent({
+      historyId,
+      type: HistoryItemType.PROPOSAL_EXECUTED,
+      id: formattedProposalData.id,
+      chainId: appConfig.govCoreChainId,
+      timestamp: executedTimestamp,
+      hash: governanceEvents.find(
+        (event) =>
+          event.eventName === 'ProposalExecuted' &&
+          Number(event.args.proposalId) === formattedProposalData.id,
+      )?.transactionHash,
+    });
+  }
+
+  // PAYLOADS_QUEUED
+  if (
+    formattedProposalData.payloads.some(
+      (payload) => payload?.queuedAt > 0 && !isVotingFailed,
+    )
+  ) {
+    formattedProposalData.payloads.forEach((payload) => {
+      if (payload?.queuedAt > 0) {
+        const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_QUEUED}_${payload.id}_${payload.chainId}`;
+
+        const eventsPath = `${payload.chainId}/events`;
+        const eventsCache =
+          readJSONCache<
+            Awaited<ReturnType<typeof getPayloadsControllerEvents>>
+          >(eventsPath, payload.payloadsController) || [];
+
+        setEvent({
+          historyId,
+          type: HistoryItemType.PAYLOADS_QUEUED,
+          id: payload.id,
+          chainId: payload.chainId,
+          timestamp: payload.queuedAt,
+          hash: eventsCache.find(
+            (event) =>
+              event.eventName === 'PayloadQueued' &&
+              event.args.payloadId === payload.id,
+          )?.transactionHash,
+        });
+      }
+    });
+  }
+
+  // PAYLOADS_EXECUTED
+  if (
+    formattedProposalData.payloads.some(
+      (payload) => payload?.executedAt > 0 && !isVotingFailed,
+    )
+  ) {
+    formattedProposalData.payloads.forEach((payload, index) => {
+      if (payload?.executedAt > 0) {
+        const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXECUTED}_${payload.id}_${payload.chainId}`;
+
+        const eventsPath = `${payload.chainId}/events`;
+        const eventsCache =
+          readJSONCache<
+            Awaited<ReturnType<typeof getPayloadsControllerEvents>>
+          >(eventsPath, payload.payloadsController) || [];
+
+        setEvent({
+          historyId,
+          type: HistoryItemType.PAYLOADS_EXECUTED,
+          id: payload.id,
+          chainId: payload.chainId,
+          timestamp: payload.executedAt,
+          hash: eventsCache.find(
+            (event) =>
+              event.eventName === 'PayloadExecuted' &&
+              event.args.payloadId === payload.id,
+          )?.transactionHash,
+        });
+      }
+    });
+  }
+
+  // PROPOSAL_CANCELED
+  if (proposalState === CombineProposalState.Canceled) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_CANCELED}`;
+    setEvent({
+      historyId,
+      type: HistoryItemType.PROPOSAL_CANCELED,
+      id: formattedProposalData.id,
+      chainId: appConfig.govCoreChainId,
+      timestamp:
+        lastPayloadCanceledAt > formattedProposalData.canceledAt
+          ? lastPayloadCanceledAt
+          : formattedProposalData.canceledAt,
+      hash: governanceEvents.find(
+        (event) =>
+          event.eventName === 'ProposalCanceled' &&
+          Number(event.args.proposalId) === formattedProposalData.id,
+      )?.transactionHash,
+    });
+  }
+
+  // PAYLOADS_EXPIRED
+  if (
+    formattedProposalData.payloads.some(
+      (payload) => payload?.state === PayloadState.Expired && !isVotingFailed,
+    )
+  ) {
+    formattedProposalData.payloads.forEach((payload, index) => {
+      if (payload.state === PayloadState.Expired) {
+        const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXPIRED}_${payload.id}_${payload.chainId}`;
+        setEvent({
+          historyId,
+          type: HistoryItemType.PAYLOADS_EXPIRED,
+          id: payload.id,
+          chainId: payload.chainId,
+          timestamp:
+            payload.queuedAt <= 0
+              ? payload.createdAt + payload.expirationTime
+              : payload.queuedAt + payload.delay + payload.gracePeriod,
+        });
+      }
+    });
+  }
+
+  // PROPOSAL_EXPIRED
+  if (proposalState === CombineProposalState.Expired) {
+    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXPIRED}`;
+
+    setEvent({
+      historyId,
+      type: HistoryItemType.PROPOSAL_EXPIRED,
+      id: formattedProposalData.id,
+      chainId: appConfig.govCoreChainId,
+      timestamp:
+        formattedProposalData.state === ProposalState.Executed
+          ? lastPayloadExpiredAt
+          : formattedProposalData.creationTime +
+            contractsConstants.expirationTime,
+    });
+  }
+
+  writeJSONCache(
+    `${initDirName}/events`,
+    `proposal_${proposal.id}_events`,
+    proposalHistoryEvents,
+  );
+  console.log(`Proposal ${proposal.id} events data cached.`);
+}
 
 async function parseCache() {
   // get ipfs cache
@@ -43,6 +468,14 @@ async function parseCache() {
       proposalsPath,
       appConfig.govCoreConfig.contractAddress,
     ) || {};
+
+  // get gov core configs
+  const { contractsConstants, configs } = await getGovCoreConfigs({
+    govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
+    govCoreDataHelperContractAddress:
+      appConfig.govCoreConfig.dataHelperContractAddress,
+    client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
+  });
 
   await Promise.allSettled(
     Object.values(proposalsCache).map(async (proposal) => {
@@ -105,16 +538,7 @@ async function parseCache() {
       );
 
       // get payloads data for proposal
-      const proposalPayloadsData = proposal.initialPayloads.map((payload) => {
-        const payloadsPath = `${payload.chainId}/payloads`;
-        const payloadsCache =
-          readJSONCache<Record<number, Payload>>(
-            payloadsPath,
-            payload.payloadsController,
-          ) || {};
-
-        return payloadsCache[payload.id];
-      });
+      const { proposalPayloadsData } = getProposalPayloads(proposal);
 
       const dataToWrite = {
         payloads: proposalPayloadsData,
@@ -155,6 +579,8 @@ async function parseCache() {
         );
         console.log(`Proposal ${proposal.id} voters data cached.`);
       }
+
+      parseProposalEvents(proposal, configs, contractsConstants);
     }),
   );
 
@@ -165,14 +591,6 @@ async function parseCache() {
     cachedProposalsIds: proposalIds,
   });
   console.log('Proposals ids updated.');
-
-  // get gov core configs
-  const { contractsConstants, configs } = await getGovCoreConfigs({
-    govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
-    govCoreDataHelperContractAddress:
-      appConfig.govCoreConfig.dataHelperContractAddress,
-    client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
-  });
 
   // format data for proposals list cache
   const proposalsListCache =
@@ -188,45 +606,12 @@ async function parseCache() {
           !proposalsListCache ||
           !proposalsListCache.proposals.find((prop) => prop.id === proposal.id)
         ) {
-          const proposalConfig = configs.filter(
-            (config) => config.accessLevel === proposal.accessLevel,
-          )[0];
-
-          // get payloads data for proposal
-          const proposalPayloadsData = proposal.initialPayloads.map(
-            (payload) => {
-              const payloadsPath = `${payload.chainId}/payloads`;
-              const payloadsCache =
-                readJSONCache<Record<number, Payload>>(
-                  payloadsPath,
-                  payload.payloadsController,
-                ) || {};
-
-              return payloadsCache[payload.id];
-            },
-          );
-
-          // minimal delay from all payloads in proposal for finished timestamp
-          const executionDelay = Math.min.apply(
-            0,
-            proposalPayloadsData.map((payload) => payload?.delay || 0),
-          );
-
-          const formattedProposalData = {
-            ...proposal,
-            payloads: proposalPayloadsData,
-            title: ipfsCache[proposal.ipfsHash]?.title || '',
-            votingMachineState: getVotingMachineProposalState(proposal),
-          };
-
-          const proposalState = getProposalState({
-            proposalData: formattedProposalData,
-            quorum: proposalConfig.quorum,
-            differential: proposalConfig.differential,
-            precisionDivider: contractsConstants.precisionDivider,
-            cooldownPeriod: contractsConstants.cooldownPeriod,
+          const {
+            formattedProposalData,
+            proposalState,
+            proposalConfig,
             executionDelay,
-          });
+          } = formatProposalsData(proposal, configs, contractsConstants);
 
           let finishedTimestamp = formattedProposalData.creationTime;
 
@@ -240,7 +625,6 @@ async function parseCache() {
             allPayloadsExpired,
             isCanceled,
           } = getProposalStepsAndAmounts({
-            // @ts-ignore
             proposalData: formattedProposalData,
             quorum: proposalConfig.quorum,
             differential: proposalConfig.differential,
