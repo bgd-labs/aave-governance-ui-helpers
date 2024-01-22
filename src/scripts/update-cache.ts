@@ -30,7 +30,10 @@ import {
 } from '../events/payloadsController';
 import { getVotingMachineEvents } from '../events/votingMachine';
 import { appConfig } from '../helpers/config';
-import { getProposalMetadata, ProposalMetadata } from '../helpers/parseIpfs';
+import {
+  getProposalMetadataInit,
+  ProposalMetadata,
+} from '../helpers/parseIpfs';
 
 async function cacheVotes(
   votingMachines: Record<number, Hex>,
@@ -137,7 +140,7 @@ async function updateIpfsCache(proposals: Record<number, BasicProposal>) {
   for (const key of Object.keys(proposals)) {
     const id = Number(key);
     if (!ipfsCache[proposals[id].ipfsHash]) {
-      ipfsCache[proposals[id].ipfsHash] = await getProposalMetadata(
+      ipfsCache[proposals[id].ipfsHash] = await getProposalMetadataInit(
         proposals[id].ipfsHash,
       );
     }

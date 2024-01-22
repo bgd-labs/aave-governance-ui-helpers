@@ -20,7 +20,7 @@ export function getLink(hash: string, gateway: string): string {
   return `${gateway}/${hash}`;
 }
 
-export async function getProposalMetadata(
+export async function getProposalMetadataInit(
   hash: string,
   gateway: string = ipfsGateway,
 ): Promise<ProposalMetadata> {

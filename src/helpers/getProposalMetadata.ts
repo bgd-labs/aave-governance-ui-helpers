@@ -1,9 +1,6 @@
 import { zeroHash } from 'viem';
 
-import {
-  getProposalMetadata as getProposalMetadataInit,
-  ProposalMetadata,
-} from './parseIpfs';
+import { getProposalMetadataInit, ProposalMetadata } from './parseIpfs';
 
 const incorectedHashses = [
   '0x0000000000000000000000000000000000000000000000000000000000000020',
