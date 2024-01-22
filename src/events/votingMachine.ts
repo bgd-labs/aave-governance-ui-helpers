@@ -8,7 +8,7 @@ export async function getVotingMachineEvents(
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  const logs = await strategicGetLogs({
+  return await strategicGetLogs({
     client,
     events: [
       getAbiItem({
@@ -29,5 +29,4 @@ export async function getVotingMachineEvents(
     fromBlock: fromBlockNumber,
     toBlock: toBlockNumber,
   });
-  return logs;
 }

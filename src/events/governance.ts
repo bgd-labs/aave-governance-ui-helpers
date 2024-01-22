@@ -45,7 +45,7 @@ export async function getGovernanceEvents(
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  const logs = await strategicGetLogs({
+  return await strategicGetLogs({
     client,
     events: [
       getAbiItem({ abi: IGovernanceCore_ABI, name: 'ProposalCreated' }),
@@ -59,5 +59,4 @@ export async function getGovernanceEvents(
     fromBlock: fromBlockNumber,
     toBlock: toBlockNumber,
   });
-  return logs;
 }

@@ -108,352 +108,355 @@ async function parseProposalEvents(
       `proposal_${proposal.id}_events`,
     ) || {};
 
-  const setEvent = ({
-    historyId,
-    type,
-    id,
-    hash,
-    chainId,
-    timestamp,
-    addresses,
-  }: {
-    historyId: string;
-    type: HistoryItemType;
-    id: number;
-    chainId: number;
-    hash?: Hex;
-    timestamp?: number;
-    addresses?: Hex[];
-  }) => {
-    proposalHistoryEvents[historyId] = {
-      type: type,
-      title: '',
-      timestamp: timestamp,
+  if (!proposalHistoryEvents || !proposal.prerender) {
+    const setEvent = ({
+      historyId,
+      type,
+      id,
+      hash,
+      chainId,
+      timestamp,
       addresses,
-      txInfo: {
-        id,
-        hash: hash || zeroHash,
-        chainId,
-        hashLoading: false,
-      },
+    }: {
+      historyId: string;
+      type: HistoryItemType;
+      id: number;
+      chainId: number;
+      hash?: Hex;
+      timestamp?: number;
+      addresses?: Hex[];
+    }) => {
+      proposalHistoryEvents[historyId] = {
+        type: type,
+        title: '',
+        timestamp: timestamp,
+        addresses,
+        txInfo: {
+          id,
+          hash: hash || zeroHash,
+          chainId,
+          hashLoading: false,
+        },
+      };
     };
-  };
 
-  const {
-    formattedProposalData,
-    executionDelay,
-    proposalConfig,
-    constants,
-    proposalState,
-  } = formatProposalsData(proposal, configs, contractsConstants);
+    const {
+      formattedProposalData,
+      executionDelay,
+      proposalConfig,
+      constants,
+      proposalState,
+    } = formatProposalsData(proposal, configs, contractsConstants);
 
-  const {
-    isVotingFailed,
-    isVotingEnded,
-    lastPayloadCanceledAt,
-    lastPayloadExpiredAt,
-  } = getProposalStepsAndAmounts({
-    proposalData: formattedProposalData,
-    quorum: proposalConfig.quorum,
-    differential: proposalConfig.differential,
-    precisionDivider: constants.precisionDivider,
-    cooldownPeriod: constants.cooldownPeriod,
-    executionDelay,
-  });
+    const {
+      isVotingFailed,
+      isVotingEnded,
+      lastPayloadCanceledAt,
+      lastPayloadExpiredAt,
+    } = getProposalStepsAndAmounts({
+      proposalData: formattedProposalData,
+      quorum: proposalConfig.quorum,
+      differential: proposalConfig.differential,
+      precisionDivider: constants.precisionDivider,
+      cooldownPeriod: constants.cooldownPeriod,
+      executionDelay,
+    });
 
-  const govCoreEventsPath = `${appConfig.govCoreChainId}/events`;
-  const governanceEvents =
-    readJSONCache<Awaited<ReturnType<typeof getGovernanceEvents>>>(
-      govCoreEventsPath,
-      appConfig.govCoreConfig.contractAddress,
-    ) || [];
-
-  // PAYLOADS_CREATED
-  formattedProposalData.payloads.forEach((payload, index) => {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_CREATED}_${payload.id}_${payload.chainId}`;
-
-    const eventsPath = `${payload.chainId}/events`;
-    const eventsCache =
-      readJSONCache<Awaited<ReturnType<typeof getPayloadsControllerEvents>>>(
-        eventsPath,
-        payload.payloadsController,
+    const govCoreEventsPath = `${appConfig.govCoreChainId}/events`;
+    const governanceEvents =
+      readJSONCache<Awaited<ReturnType<typeof getGovernanceEvents>>>(
+        govCoreEventsPath,
+        appConfig.govCoreConfig.contractAddress,
       ) || [];
 
+    // PAYLOADS_CREATED
+    formattedProposalData.payloads.forEach((payload, index) => {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_CREATED}_${payload.id}_${payload.chainId}`;
+
+      const eventsPath = `${payload.chainId}/events`;
+      const eventsCache =
+        readJSONCache<Awaited<ReturnType<typeof getPayloadsControllerEvents>>>(
+          eventsPath,
+          payload.payloadsController,
+        ) || [];
+
+      setEvent({
+        historyId,
+        type: HistoryItemType.PAYLOADS_CREATED,
+        id: payload.id,
+        chainId: payload.chainId,
+        timestamp: payload.createdAt,
+        addresses: payload.actions.map((action) => action.target),
+        hash: eventsCache.find(
+          (event) =>
+            event.eventName === 'PayloadCreated' &&
+            event.args.payloadId === payload.id,
+        )?.transactionHash,
+      });
+    });
+
+    // PROPOSAL_CREATED
+    const historyIdProposalCreated = `${formattedProposalData.id}_${HistoryItemType.CREATED}`;
     setEvent({
-      historyId,
+      historyId: historyIdProposalCreated,
       type: HistoryItemType.PAYLOADS_CREATED,
-      id: payload.id,
-      chainId: payload.chainId,
-      timestamp: payload.createdAt,
-      addresses: payload.actions.map((action) => action.target),
-      hash: eventsCache.find(
-        (event) =>
-          event.eventName === 'PayloadCreated' &&
-          event.args.payloadId === payload.id,
-      )?.transactionHash,
-    });
-  });
-
-  // PROPOSAL_CREATED
-  const historyIdProposalCreated = `${formattedProposalData.id}_${HistoryItemType.CREATED}`;
-  setEvent({
-    historyId: historyIdProposalCreated,
-    type: HistoryItemType.PAYLOADS_CREATED,
-    id: formattedProposalData.id,
-    chainId: appConfig.govCoreChainId,
-    timestamp: formattedProposalData.creationTime,
-    hash: governanceEvents.find(
-      (event) =>
-        event.eventName === 'ProposalCreated' &&
-        Number(event.args.proposalId) === formattedProposalData.id,
-    )?.transactionHash,
-  });
-
-  // PROPOSAL_ACTIVATE
-  if (checkHash(formattedProposalData.snapshotBlockHash).notZero) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_ACTIVATE}`;
-    setEvent({
-      historyId,
-      type: HistoryItemType.PROPOSAL_ACTIVATE,
       id: formattedProposalData.id,
       chainId: appConfig.govCoreChainId,
-      timestamp: formattedProposalData.votingActivationTime,
+      timestamp: formattedProposalData.creationTime,
       hash: governanceEvents.find(
         (event) =>
-          event.eventName === 'VotingActivated' &&
+          event.eventName === 'ProposalCreated' &&
           Number(event.args.proposalId) === formattedProposalData.id,
       )?.transactionHash,
     });
-  }
 
-  // OPEN_TO_VOTE
-  if (formattedProposalData.votingMachineData.createdBlock > 0) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.OPEN_TO_VOTE}`;
-    setEvent({
-      historyId,
-      type: HistoryItemType.OPEN_TO_VOTE,
-      id: formattedProposalData.id,
-      chainId: formattedProposalData.votingChainId,
-      timestamp: formattedProposalData.votingMachineData.startTime,
-    });
-  }
+    // PROPOSAL_ACTIVATE
+    if (checkHash(formattedProposalData.snapshotBlockHash).notZero) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_ACTIVATE}`;
+      setEvent({
+        historyId,
+        type: HistoryItemType.PROPOSAL_ACTIVATE,
+        id: formattedProposalData.id,
+        chainId: appConfig.govCoreChainId,
+        timestamp: formattedProposalData.votingActivationTime,
+        hash: governanceEvents.find(
+          (event) =>
+            event.eventName === 'VotingActivated' &&
+            Number(event.args.proposalId) === formattedProposalData.id,
+        )?.transactionHash,
+      });
+    }
 
-  // VOTING_OVER
-  if (isVotingEnded) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.VOTING_OVER}`;
-    setEvent({
-      historyId,
-      type: HistoryItemType.VOTING_OVER,
-      id: formattedProposalData.id,
-      chainId: formattedProposalData.votingChainId,
-      timestamp: formattedProposalData.votingMachineData.endTime,
-    });
-  }
+    // OPEN_TO_VOTE
+    if (formattedProposalData.votingMachineData.createdBlock > 0) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.OPEN_TO_VOTE}`;
+      setEvent({
+        historyId,
+        type: HistoryItemType.OPEN_TO_VOTE,
+        id: formattedProposalData.id,
+        chainId: formattedProposalData.votingChainId,
+        timestamp: formattedProposalData.votingMachineData.startTime,
+      });
+    }
 
-  // VOTING_CLOSED
-  if (
-    formattedProposalData.votingMachineData.votingClosedAndSentTimestamp > 0 &&
-    !isVotingFailed
-  ) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.VOTING_CLOSED}`;
-    setEvent({
-      historyId,
-      type: HistoryItemType.VOTING_CLOSED,
-      id: formattedProposalData.id,
-      chainId: formattedProposalData.votingChainId,
-      timestamp:
-        formattedProposalData.votingMachineData.votingClosedAndSentTimestamp,
-    });
-  }
+    // VOTING_OVER
+    if (isVotingEnded) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.VOTING_OVER}`;
+      setEvent({
+        historyId,
+        type: HistoryItemType.VOTING_OVER,
+        id: formattedProposalData.id,
+        chainId: formattedProposalData.votingChainId,
+        timestamp: formattedProposalData.votingMachineData.endTime,
+      });
+    }
 
-  // RESULTS_SENT
-  if (
-    formattedProposalData.votingMachineData.sentToGovernance &&
-    !isVotingFailed
-  ) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.RESULTS_SENT}`;
-    setEvent({
-      historyId,
-      type: HistoryItemType.RESULTS_SENT,
-      id: formattedProposalData.id,
-      chainId: appConfig.govCoreChainId,
-    });
-  }
+    // VOTING_CLOSED
+    if (
+      formattedProposalData.votingMachineData.votingClosedAndSentTimestamp >
+        0 &&
+      !isVotingFailed
+    ) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.VOTING_CLOSED}`;
+      setEvent({
+        historyId,
+        type: HistoryItemType.VOTING_CLOSED,
+        id: formattedProposalData.id,
+        chainId: formattedProposalData.votingChainId,
+        timestamp:
+          formattedProposalData.votingMachineData.votingClosedAndSentTimestamp,
+      });
+    }
 
-  // PROPOSAL_QUEUED
-  if (formattedProposalData.queuingTime > 0 && !isVotingFailed) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_QUEUED}`;
-    setEvent({
-      historyId,
-      type: HistoryItemType.PROPOSAL_QUEUED,
-      id: formattedProposalData.id,
-      chainId: appConfig.govCoreChainId,
-      timestamp: formattedProposalData.queuingTime,
-      hash: governanceEvents.find(
-        (event) =>
-          event.eventName === 'ProposalQueued' &&
-          Number(event.args.proposalId) === formattedProposalData.id,
-      )?.transactionHash,
-    });
-  }
+    // RESULTS_SENT
+    if (
+      formattedProposalData.votingMachineData.sentToGovernance &&
+      !isVotingFailed
+    ) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.RESULTS_SENT}`;
+      setEvent({
+        historyId,
+        type: HistoryItemType.RESULTS_SENT,
+        id: formattedProposalData.id,
+        chainId: appConfig.govCoreChainId,
+      });
+    }
 
-  // PROPOSAL_EXECUTED
-  if (formattedProposalData.state === ProposalState.Executed) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXECUTED}`;
-    const executedTimestamp = (
-      await getBlock(CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId], {
-        blockHash: governanceEvents.find(
+    // PROPOSAL_QUEUED
+    if (formattedProposalData.queuingTime > 0 && !isVotingFailed) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_QUEUED}`;
+      setEvent({
+        historyId,
+        type: HistoryItemType.PROPOSAL_QUEUED,
+        id: formattedProposalData.id,
+        chainId: appConfig.govCoreChainId,
+        timestamp: formattedProposalData.queuingTime,
+        hash: governanceEvents.find(
+          (event) =>
+            event.eventName === 'ProposalQueued' &&
+            Number(event.args.proposalId) === formattedProposalData.id,
+        )?.transactionHash,
+      });
+    }
+
+    // PROPOSAL_EXECUTED
+    if (formattedProposalData.state === ProposalState.Executed) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXECUTED}`;
+      const executedTimestamp = (
+        await getBlock(CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId], {
+          blockHash: governanceEvents.find(
+            (event) =>
+              event.eventName === 'ProposalExecuted' &&
+              Number(event.args.proposalId) === formattedProposalData.id,
+          )?.blockHash,
+        })
+      ).timestamp;
+
+      setEvent({
+        historyId,
+        type: HistoryItemType.PROPOSAL_EXECUTED,
+        id: formattedProposalData.id,
+        chainId: appConfig.govCoreChainId,
+        timestamp: executedTimestamp,
+        hash: governanceEvents.find(
           (event) =>
             event.eventName === 'ProposalExecuted' &&
             Number(event.args.proposalId) === formattedProposalData.id,
-        )?.blockHash,
-      })
-    ).timestamp;
+        )?.transactionHash,
+      });
+    }
 
-    setEvent({
-      historyId,
-      type: HistoryItemType.PROPOSAL_EXECUTED,
-      id: formattedProposalData.id,
-      chainId: appConfig.govCoreChainId,
-      timestamp: executedTimestamp,
-      hash: governanceEvents.find(
-        (event) =>
-          event.eventName === 'ProposalExecuted' &&
-          Number(event.args.proposalId) === formattedProposalData.id,
-      )?.transactionHash,
-    });
+    // PAYLOADS_QUEUED
+    if (
+      formattedProposalData.payloads.some(
+        (payload) => payload?.queuedAt > 0 && !isVotingFailed,
+      )
+    ) {
+      formattedProposalData.payloads.forEach((payload) => {
+        if (payload?.queuedAt > 0) {
+          const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_QUEUED}_${payload.id}_${payload.chainId}`;
+
+          const eventsPath = `${payload.chainId}/events`;
+          const eventsCache =
+            readJSONCache<
+              Awaited<ReturnType<typeof getPayloadsControllerEvents>>
+            >(eventsPath, payload.payloadsController) || [];
+
+          setEvent({
+            historyId,
+            type: HistoryItemType.PAYLOADS_QUEUED,
+            id: payload.id,
+            chainId: payload.chainId,
+            timestamp: payload.queuedAt,
+            hash: eventsCache.find(
+              (event) =>
+                event.eventName === 'PayloadQueued' &&
+                event.args.payloadId === payload.id,
+            )?.transactionHash,
+          });
+        }
+      });
+    }
+
+    // PAYLOADS_EXECUTED
+    if (
+      formattedProposalData.payloads.some(
+        (payload) => payload?.executedAt > 0 && !isVotingFailed,
+      )
+    ) {
+      formattedProposalData.payloads.forEach((payload, index) => {
+        if (payload?.executedAt > 0) {
+          const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXECUTED}_${payload.id}_${payload.chainId}`;
+
+          const eventsPath = `${payload.chainId}/events`;
+          const eventsCache =
+            readJSONCache<
+              Awaited<ReturnType<typeof getPayloadsControllerEvents>>
+            >(eventsPath, payload.payloadsController) || [];
+
+          setEvent({
+            historyId,
+            type: HistoryItemType.PAYLOADS_EXECUTED,
+            id: payload.id,
+            chainId: payload.chainId,
+            timestamp: payload.executedAt,
+            hash: eventsCache.find(
+              (event) =>
+                event.eventName === 'PayloadExecuted' &&
+                event.args.payloadId === payload.id,
+            )?.transactionHash,
+          });
+        }
+      });
+    }
+
+    // PROPOSAL_CANCELED
+    if (proposalState === CombineProposalState.Canceled) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_CANCELED}`;
+      setEvent({
+        historyId,
+        type: HistoryItemType.PROPOSAL_CANCELED,
+        id: formattedProposalData.id,
+        chainId: appConfig.govCoreChainId,
+        timestamp:
+          lastPayloadCanceledAt > formattedProposalData.canceledAt
+            ? lastPayloadCanceledAt
+            : formattedProposalData.canceledAt,
+        hash: governanceEvents.find(
+          (event) =>
+            event.eventName === 'ProposalCanceled' &&
+            Number(event.args.proposalId) === formattedProposalData.id,
+        )?.transactionHash,
+      });
+    }
+
+    // PAYLOADS_EXPIRED
+    if (
+      formattedProposalData.payloads.some(
+        (payload) => payload?.state === PayloadState.Expired && !isVotingFailed,
+      )
+    ) {
+      formattedProposalData.payloads.forEach((payload, index) => {
+        if (payload.state === PayloadState.Expired) {
+          const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXPIRED}_${payload.id}_${payload.chainId}`;
+          setEvent({
+            historyId,
+            type: HistoryItemType.PAYLOADS_EXPIRED,
+            id: payload.id,
+            chainId: payload.chainId,
+            timestamp:
+              payload.queuedAt <= 0
+                ? payload.createdAt + payload.expirationTime
+                : payload.queuedAt + payload.delay + payload.gracePeriod,
+          });
+        }
+      });
+    }
+
+    // PROPOSAL_EXPIRED
+    if (proposalState === CombineProposalState.Expired) {
+      const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXPIRED}`;
+
+      setEvent({
+        historyId,
+        type: HistoryItemType.PROPOSAL_EXPIRED,
+        id: formattedProposalData.id,
+        chainId: appConfig.govCoreChainId,
+        timestamp:
+          formattedProposalData.state === ProposalState.Executed
+            ? lastPayloadExpiredAt
+            : formattedProposalData.creationTime +
+              contractsConstants.expirationTime,
+      });
+    }
+
+    writeJSONCache(
+      `${initDirName}/events`,
+      `proposal_${proposal.id}_events`,
+      proposalHistoryEvents,
+    );
+    console.log(`Proposal ${proposal.id} events data cached.`);
   }
-
-  // PAYLOADS_QUEUED
-  if (
-    formattedProposalData.payloads.some(
-      (payload) => payload?.queuedAt > 0 && !isVotingFailed,
-    )
-  ) {
-    formattedProposalData.payloads.forEach((payload) => {
-      if (payload?.queuedAt > 0) {
-        const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_QUEUED}_${payload.id}_${payload.chainId}`;
-
-        const eventsPath = `${payload.chainId}/events`;
-        const eventsCache =
-          readJSONCache<
-            Awaited<ReturnType<typeof getPayloadsControllerEvents>>
-          >(eventsPath, payload.payloadsController) || [];
-
-        setEvent({
-          historyId,
-          type: HistoryItemType.PAYLOADS_QUEUED,
-          id: payload.id,
-          chainId: payload.chainId,
-          timestamp: payload.queuedAt,
-          hash: eventsCache.find(
-            (event) =>
-              event.eventName === 'PayloadQueued' &&
-              event.args.payloadId === payload.id,
-          )?.transactionHash,
-        });
-      }
-    });
-  }
-
-  // PAYLOADS_EXECUTED
-  if (
-    formattedProposalData.payloads.some(
-      (payload) => payload?.executedAt > 0 && !isVotingFailed,
-    )
-  ) {
-    formattedProposalData.payloads.forEach((payload, index) => {
-      if (payload?.executedAt > 0) {
-        const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXECUTED}_${payload.id}_${payload.chainId}`;
-
-        const eventsPath = `${payload.chainId}/events`;
-        const eventsCache =
-          readJSONCache<
-            Awaited<ReturnType<typeof getPayloadsControllerEvents>>
-          >(eventsPath, payload.payloadsController) || [];
-
-        setEvent({
-          historyId,
-          type: HistoryItemType.PAYLOADS_EXECUTED,
-          id: payload.id,
-          chainId: payload.chainId,
-          timestamp: payload.executedAt,
-          hash: eventsCache.find(
-            (event) =>
-              event.eventName === 'PayloadExecuted' &&
-              event.args.payloadId === payload.id,
-          )?.transactionHash,
-        });
-      }
-    });
-  }
-
-  // PROPOSAL_CANCELED
-  if (proposalState === CombineProposalState.Canceled) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_CANCELED}`;
-    setEvent({
-      historyId,
-      type: HistoryItemType.PROPOSAL_CANCELED,
-      id: formattedProposalData.id,
-      chainId: appConfig.govCoreChainId,
-      timestamp:
-        lastPayloadCanceledAt > formattedProposalData.canceledAt
-          ? lastPayloadCanceledAt
-          : formattedProposalData.canceledAt,
-      hash: governanceEvents.find(
-        (event) =>
-          event.eventName === 'ProposalCanceled' &&
-          Number(event.args.proposalId) === formattedProposalData.id,
-      )?.transactionHash,
-    });
-  }
-
-  // PAYLOADS_EXPIRED
-  if (
-    formattedProposalData.payloads.some(
-      (payload) => payload?.state === PayloadState.Expired && !isVotingFailed,
-    )
-  ) {
-    formattedProposalData.payloads.forEach((payload, index) => {
-      if (payload.state === PayloadState.Expired) {
-        const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXPIRED}_${payload.id}_${payload.chainId}`;
-        setEvent({
-          historyId,
-          type: HistoryItemType.PAYLOADS_EXPIRED,
-          id: payload.id,
-          chainId: payload.chainId,
-          timestamp:
-            payload.queuedAt <= 0
-              ? payload.createdAt + payload.expirationTime
-              : payload.queuedAt + payload.delay + payload.gracePeriod,
-        });
-      }
-    });
-  }
-
-  // PROPOSAL_EXPIRED
-  if (proposalState === CombineProposalState.Expired) {
-    const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXPIRED}`;
-
-    setEvent({
-      historyId,
-      type: HistoryItemType.PROPOSAL_EXPIRED,
-      id: formattedProposalData.id,
-      chainId: appConfig.govCoreChainId,
-      timestamp:
-        formattedProposalData.state === ProposalState.Executed
-          ? lastPayloadExpiredAt
-          : formattedProposalData.creationTime +
-            contractsConstants.expirationTime,
-    });
-  }
-
-  writeJSONCache(
-    `${initDirName}/events`,
-    `proposal_${proposal.id}_events`,
-    proposalHistoryEvents,
-  );
-  console.log(`Proposal ${proposal.id} events data cached.`);
 }
 
 async function parseCache() {
@@ -580,7 +583,7 @@ async function parseCache() {
         console.log(`Proposal ${proposal.id} voters data cached.`);
       }
 
-      parseProposalEvents(proposal, configs, contractsConstants);
+      await parseProposalEvents(proposal, configs, contractsConstants);
     }),
   );
 

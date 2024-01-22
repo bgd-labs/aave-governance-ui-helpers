@@ -27,8 +27,8 @@
     "build": "tsup",
     "size": "size-limit",
     "lint": "npx eslint --fix",
-    "cache:update": "RPC_SEPOLIA=https://rpc2.sepolia.org RPC_GOERLI=https://ethereum-goerli.publicnode.com RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/scripts/update-cache.ts",
-    "cache:parse": "RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/scripts/parse-cache.ts",
+    "cache:update": "RPC_FUJI=https://avalanche-fuji-c-chain.publicnode.com RPC_SEPOLIA=https://ethereum-sepolia.publicnode.com RPC_GOERLI=https://ethereum-goerli.publicnode.com RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/scripts/update-cache.ts",
+    "cache:parse": "RPC_FUJI=https://avalanche-fuji-c-chain.publicnode.com RPC_SEPOLIA=https://ethereum-sepolia.publicnode.com RPC_GOERLI=https://ethereum-goerli.publicnode.com RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/scripts/parse-cache.ts",
     "ci:publish": "npm run build && npm publish --access=public"
   },
   "files": [
