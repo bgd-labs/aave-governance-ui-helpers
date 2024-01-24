@@ -1,6 +1,41 @@
-import { Client, Hex } from 'viem';
+import {
+  IGovernanceCore_ABI,
+  IPayloadsControllerCore_ABI,
+} from '@bgd-labs/aave-address-book';
+import { ProposalMetadata } from '@bgd-labs/js-utils';
+import {
+  AbiStateMutability,
+  Client,
+  ContractFunctionReturnType,
+  Hex,
+} from 'viem';
 
-import { ProposalMetadata } from './parseIpfs';
+/**
+ * simple cache mapping:
+ * filename:blockNumber with the last used block for caching
+ */
+export type BookKeepingCache = Record<string, string>;
+export type ProposalsCache = Record<
+  number,
+  ContractFunctionReturnType<
+    typeof IGovernanceCore_ABI,
+    AbiStateMutability,
+    'getProposal'
+  > & {
+    isFinished: boolean; // state when all payloads inside proposal in final stage
+  }
+>;
+export type Payload = ContractFunctionReturnType<
+  typeof IPayloadsControllerCore_ABI,
+  AbiStateMutability,
+  'getPayloadById'
+> & {
+  // need for comfortable filtering
+  id: number;
+  chainId: number;
+  payloadsController: Hex;
+};
+export type PayloadsCache = Record<number, Payload>;
 
 // generic
 export type ClientsRecord = Record<number, Client>;
@@ -163,30 +198,6 @@ export type VotingMachineData = {
   hasRequiredRoots: boolean;
 };
 
-export type Payload = {
-  creator: Hex;
-  id: number;
-  chainId: number;
-  maximumAccessLevelRequired: number;
-  state: PayloadState;
-  createdAt: number;
-  queuedAt: number;
-  executedAt: number;
-  cancelledAt: number;
-  expirationTime: number;
-  delay: number;
-  gracePeriod: number;
-  payloadsController: Hex;
-  actions: readonly {
-    target: `0x${string}`;
-    withDelegateCall: boolean;
-    accessLevel: number;
-    value: bigint;
-    signature: string;
-    callData: `0x${string}`;
-  }[];
-};
-
 // type for create payload actions
 export type PayloadAction = {
   payloadAddress: Hex;
@@ -234,7 +245,7 @@ export interface BasicProposal {
   canceledAt: number;
   votingActivationTime: number;
   votingChainId: number;
-  prerender: boolean;
+  isFinished: boolean;
   lastUpdatedTimestamp?: number;
 }
 

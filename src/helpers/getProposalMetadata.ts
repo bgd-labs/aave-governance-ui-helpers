@@ -1,6 +1,14 @@
+import {
+  getProposalMetadata as getProposalMetadataInit,
+  ProposalMetadata as ProposalMetadataInit,
+} from '@bgd-labs/js-utils';
 import { zeroHash } from 'viem';
 
-import { getProposalMetadataInit, ProposalMetadata } from './parseIpfs';
+export type ProposalMetadata = ProposalMetadataInit & {
+  originalIpfsHash: string;
+};
+
+export const ipfsGateway = 'https://cloudflare-ipfs.com/ipfs';
 
 const incorectedHashses = [
   '0x0000000000000000000000000000000000000000000000000000000000000020',
@@ -22,7 +30,11 @@ export async function getProposalMetadata(
     }
   } else {
     try {
-      return await getProposalMetadataInit(hash, gateway);
+      const metadata = await getProposalMetadataInit(hash, gateway);
+      return {
+        ...metadata,
+        originalIpfsHash: hash,
+      };
     } catch (e) {
       if (!!setIpfsError) {
         setIpfsError(hash);

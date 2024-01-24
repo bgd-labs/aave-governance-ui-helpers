@@ -90,7 +90,7 @@ export function updateVotingMachineData(
           govData.id,
           votingMachineData,
         ),
-        prerender: govData.prerender,
+        isFinished: govData.isFinished,
         lastUpdatedTimestamp: dayjs().unix(),
       };
 
@@ -106,7 +106,7 @@ export function getDetailedProposalsData(
   govCoreDataHelperData: Readonly<ProposalStructOutput[]>,
   votingMachineDataHelperData: Readonly<VMProposalStructOutput[]>,
   ids: number[],
-  prerender?: boolean,
+  isFinished?: boolean,
 ): BasicProposal[] {
   const proposalsData: BasicProposal[] = [];
 
@@ -155,7 +155,7 @@ export function getDetailedProposalsData(
             Number(govData.id),
             votingMachineData,
           ),
-          prerender: !!prerender,
+          isFinished: !!isFinished,
           lastUpdatedTimestamp: dayjs().unix(),
         };
 

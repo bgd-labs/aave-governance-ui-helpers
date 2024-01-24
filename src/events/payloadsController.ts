@@ -4,6 +4,15 @@ import { Address, Client, getAbiItem } from 'viem';
 
 import { PayloadState } from '../helpers/types';
 
+export const HUMAN_READABLE_PAYLOAD_STATE = {
+  [PayloadState.None]: 'None',
+  [PayloadState.Created]: 'Created',
+  [PayloadState.Queued]: 'Queued',
+  [PayloadState.Executed]: 'Executed',
+  [PayloadState.Cancelled]: 'Cancelled',
+  [PayloadState.Expired]: 'Expired',
+};
+
 export function isPayloadFinal(state: number) {
   return [
     PayloadState.Cancelled,

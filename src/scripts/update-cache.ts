@@ -1,9 +1,7 @@
 import {
   IGovernanceCore_ABI,
-  IGovernanceDataHelper_ABI,
   IPayloadsControllerCore_ABI,
-  IPayloadsControllerDataHelper_ABI,
-  IVotingMachineDataHelper_ABI,
+  IVotingPortal_ABI,
 } from '@bgd-labs/aave-address-book';
 import {
   CHAIN_ID_CLIENT_MAP,
@@ -12,153 +10,51 @@ import {
   readJSONCache,
   writeJSONCache,
 } from '@bgd-labs/js-utils';
-import { Address, getContract, Hex, zeroAddress } from 'viem';
+import { Address, getContract, Hex } from 'viem';
 
 import {
-  BasicProposal,
-  getDetailedProposalsData,
-  getGovCoreConfigs,
-  InitialProposal,
-  Payload,
+  BookKeepingCache,
+  getProposalMetadata,
+  PayloadsCache,
   PayloadState,
+  ProposalMetadata,
+  ProposalsCache,
   ProposalState,
 } from '../';
-import { getGovernanceEvents, isProposalFinal } from '../events/governance';
+import { getGovernanceEvents } from '../events/governance';
 import {
   getPayloadsControllerEvents,
   isPayloadFinal,
 } from '../events/payloadsController';
 import { getVotingMachineEvents } from '../events/votingMachine';
 import { appConfig } from '../helpers/config';
-import {
-  getProposalMetadataInit,
-  ProposalMetadata,
-} from '../helpers/parseIpfs';
 
-async function cacheVotes(
-  votingMachines: Record<number, Hex>,
-  bookKeepingCache: BookKeepingCache,
-) {
-  return await Promise.all(
-    Object.entries(votingMachines).map(async (value) => {
-      const chainId = Number(value[0]);
-      const path = `${chainId}/events`;
-      const address = value[1];
-      const client = CHAIN_ID_CLIENT_MAP[chainId];
-      const currentBlockOnVotingMachineChain = await client.getBlockNumber();
-      const votesCache =
-        readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
-          path,
-          address,
-        ) || [];
-      const lastSeenBlock = bookKeepingCache[path]
-        ? BigInt(bookKeepingCache[path])
-        : await getContractDeploymentBlock({
-            client: client,
-            contractAddress: address,
-            fromBlock: BigInt(0),
-            toBlock: currentBlockOnVotingMachineChain,
-            maxDelta: BigInt(10000),
-          });
-      const logs = await getVotingMachineEvents(
-        address,
-        client,
-        BigInt(lastSeenBlock) + BigInt(1),
-        currentBlockOnVotingMachineChain,
-      );
-      const combinedCache = [...votesCache, ...logs];
-      writeJSONCache(path, address, combinedCache);
-      bookKeepingCache[path] = String(currentBlockOnVotingMachineChain);
-    }),
-  );
-}
-
-async function getVotingData(
-  initialProposals: InitialProposal[],
-  bookKeepingCache: BookKeepingCache,
-) {
-  const votingMachineDataHelpers = {
-    [appConfig.votingMachineChainIds[0]]: getContract({
-      address:
-        appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]]
-          .dataHelperContractAddress,
-      abi: IVotingMachineDataHelper_ABI,
-      client: CHAIN_ID_CLIENT_MAP[appConfig.votingMachineChainIds[0]],
-    }),
-  };
-  if (appConfig.votingMachineChainIds.length > 1) {
-    appConfig.votingMachineChainIds.forEach((chainId) => {
-      const votingMachineConfig = appConfig.votingMachineConfig[chainId];
-      votingMachineDataHelpers[chainId] = getContract({
-        address: votingMachineConfig.dataHelperContractAddress,
-        abi: IVotingMachineDataHelper_ABI,
-        client: CHAIN_ID_CLIENT_MAP[chainId],
-      });
-    });
-  }
-
-  const votingMachineChainIds = initialProposals
-    .map((data) => data.votingChainId)
-    .filter((value, index, self) => self.indexOf(value) === index);
-
-  const votingMachines: Record<number, Hex> = {};
-  const data = await Promise.all(
-    votingMachineChainIds.map(async (chainId) => {
-      const votingMachineDataHelper = votingMachineDataHelpers[chainId];
-
-      const formattedInitialProposals = initialProposals
-        .filter((proposal) => proposal.votingChainId === chainId)
-        .map((proposal) => {
-          return {
-            id: proposal.id,
-            snapshotBlockHash: proposal.snapshotBlockHash,
-          };
-        });
-
-      votingMachines[chainId] =
-        appConfig.votingMachineConfig[chainId].contractAddress;
-
-      return (
-        (await votingMachineDataHelper.read.getProposalsData([
-          appConfig.votingMachineConfig[chainId].contractAddress,
-          formattedInitialProposals,
-          zeroAddress,
-        ])) || []
-      );
-    }),
-  );
-
-  await cacheVotes(votingMachines, bookKeepingCache);
-  console.log('Caching votes events finished.');
-
-  return data.flat();
-}
-
-async function updateIpfsCache(proposals: Record<number, BasicProposal>) {
+async function updateIpfsCache(proposalsCache: ProposalsCache) {
   const ipfsCache: Record<string, ProposalMetadata> =
     readJSONCache('web3', 'ipfs') || {};
-  for (const key of Object.keys(proposals)) {
+  for (const key of Object.keys(proposalsCache)) {
     const id = Number(key);
-    if (!ipfsCache[proposals[id].ipfsHash]) {
-      ipfsCache[proposals[id].ipfsHash] = await getProposalMetadataInit(
-        proposals[id].ipfsHash,
-      );
+    if (!ipfsCache[proposalsCache[id].ipfsHash]) {
+      const metadata = await getProposalMetadata(proposalsCache[id].ipfsHash);
+      if (metadata) {
+        ipfsCache[proposalsCache[id].ipfsHash] = metadata;
+      }
     }
   }
   writeJSONCache('web3', 'ipfs', ipfsCache);
+  console.log('Caching proposals ipfs metadata finished.');
   return ipfsCache;
 }
 
 async function updatePayloadsEvents(
   chainId: number,
   controller: Hex,
-  payloadsCache: Record<number, Payload>,
+  payloadsCache: PayloadsCache,
   bookKeepingCache: BookKeepingCache,
 ) {
   const client = CHAIN_ID_CLIENT_MAP[chainId];
   const payloadsPath = `${chainId}/payloads`;
 
-  // cache events
   const currentBlockOnPayloadsControllerChain = await client.getBlock();
   const eventsPath = `${chainId}/events`;
   const eventsCache =
@@ -191,137 +87,61 @@ async function updatePayloadsEvents(
   writeJSONCache(eventsPath, controller, [...eventsCache, ...logs]);
   bookKeepingCache[payloadsPath] =
     currentBlockOnPayloadsControllerChain.number.toString();
+  writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
+  console.log('BookKeeping updated.');
 }
 
 async function updatePayloadsData(
   controllers: Map<Address, number>,
   bookKeepingCache: BookKeepingCache,
-  proposalData?: BasicProposal,
+  secondTime?: boolean,
 ) {
-  // initialize contracts
-  const payloadsControllerDataHelpers = {
-    [appConfig.payloadsControllerChainIds[0]]: getContract({
-      address:
-        appConfig.payloadsControllerConfig[
-          appConfig.payloadsControllerChainIds[0]
-        ].dataHelperContractAddress,
-      abi: IPayloadsControllerDataHelper_ABI,
-      client: CHAIN_ID_CLIENT_MAP[appConfig.payloadsControllerChainIds[0]],
-    }),
-  };
-  if (appConfig.payloadsControllerChainIds.length > 1) {
-    appConfig.payloadsControllerChainIds.forEach((chainId) => {
-      const payloadsControllerConfig =
-        appConfig.payloadsControllerConfig[chainId];
-      payloadsControllerDataHelpers[chainId] = getContract({
-        address: payloadsControllerConfig.dataHelperContractAddress,
-        abi: IPayloadsControllerDataHelper_ABI,
-        client: CHAIN_ID_CLIENT_MAP[chainId],
+  return await Promise.all(
+    Array.from(controllers).map(async ([controller, chainId]) => {
+      const payloadsPath = `${chainId}/payloads`;
+      const payloadsCache =
+        readJSONCache<PayloadsCache>(payloadsPath, controller) || {};
+
+      const client = CHAIN_ID_CLIENT_MAP[chainId];
+      const contract = getContract({
+        abi: IPayloadsControllerCore_ABI,
+        client,
+        address: controller,
       });
-    });
-  }
-
-  // to get only needed payloads for proposal
-  if (proposalData) {
-    return await Promise.all(
-      Array.from(controllers).map(async ([controller, chainId]) => {
-        const payloadsPath = `${chainId}/payloads`;
-        const payloadsCache =
-          readJSONCache<Record<number, Payload>>(payloadsPath, controller) ||
-          {};
-
-        const proposalPayloadsIds = proposalData.initialPayloads
-          .filter(
-            (payload) =>
-              payload.payloadsController === controller &&
-              payload.chainId === chainId,
-          )
-          .map((payload) => payload.id);
-
-        const initialPayloadsData =
-          (await payloadsControllerDataHelpers[chainId].read.getPayloadsData([
-            controller,
-            proposalPayloadsIds,
-          ])) || [];
-
-        const payloadsData = initialPayloadsData.map((payload) => {
-          return {
-            ...payload.data,
-            id: Number(payload.id),
+      const payloadsCount = await contract.read.getPayloadsCount();
+      const payloadsIds = [...Array(Number(payloadsCount)).keys()];
+      for (let i = 0; i < payloadsIds.length; i++) {
+        if (
+          secondTime
+            ? !payloadsCache[i]
+            : !payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)
+        ) {
+          const payload = await contract.read.getPayloadById([i]);
+          payloadsCache[i] = {
+            ...payload,
+            id: Number(i),
             chainId,
             payloadsController: controller,
           };
-        });
-
-        payloadsData.forEach((payloadData) => {
-          if (
-            !payloadsCache[payloadData.id] ||
-            !isPayloadFinal(payloadsCache[payloadData.id].state)
-          ) {
-            payloadsCache[payloadData.id] = payloadData;
-          }
-        });
-        writeJSONCache(payloadsPath, controller, payloadsCache);
-
-        await updatePayloadsEvents(
-          chainId,
-          controller,
-          payloadsCache,
-          bookKeepingCache,
-        );
-
-        return payloadsData;
-      }),
-    );
-    // to get all payloads from controllers
-  } else {
-    return await Promise.all(
-      Array.from(controllers).map(async ([controller, chainId]) => {
-        const payloadsPath = `${chainId}/payloads`;
-        const payloadsCache =
-          readJSONCache<Record<number, Payload>>(payloadsPath, controller) ||
-          {};
-
-        const client = CHAIN_ID_CLIENT_MAP[chainId];
-        const contract = getContract({
-          abi: IPayloadsControllerCore_ABI,
-          client,
-          address: controller,
-        });
-        const payloadsCount = await contract.read.getPayloadsCount();
-        const payloadsToCheck = [...Array(Number(payloadsCount)).keys()];
-        const payloadsData: Payload[] = [];
-
-        for (let i = 0; i < payloadsToCheck.length; i++) {
-          if (!payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)) {
-            const payload = await contract.read.getPayloadById([i]);
-            const formattedData = {
-              ...payload,
-              id: Number(i),
-              chainId,
-              payloadsController: controller,
-            };
-            payloadsData.push(formattedData);
-            payloadsCache[i] = formattedData;
-          }
         }
-        writeJSONCache(payloadsPath, controller, payloadsCache);
+      }
+      writeJSONCache(payloadsPath, controller, payloadsCache);
 
+      if (secondTime) {
         await updatePayloadsEvents(
           chainId,
           controller,
           payloadsCache,
           bookKeepingCache,
         );
-
-        return payloadsData;
-      }),
-    );
-  }
+      }
+      return payloadsCache;
+    }),
+  );
 }
 
 async function updateGovCoreEvents(
-  proposalsCache: Record<number, BasicProposal>,
+  proposalsCache: ProposalsCache,
   bookKeepingCache: BookKeepingCache,
 ) {
   const bookKeepingCacheId = `${appConfig.govCoreChainId}/governance`;
@@ -361,15 +181,69 @@ async function updateGovCoreEvents(
   );
   const eventsCache = [...governanceEvents, ...logs];
   writeJSONCache(eventsPath, contract.address, eventsCache);
+  console.log('Caching proposals events finished.');
+
   bookKeepingCache[bookKeepingCacheId] =
     currentBlockOnGovernanceChain.toString();
+  // update bookKeeping
+  writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
+  console.log('BookKeeping updated.');
 }
 
-/**
- * simple cache mapping:
- * filename:blockNumber with the last used block for caching
- */
-type BookKeepingCache = Record<string, string>;
+async function updateVMEvents(
+  votingPortals: Set<Address>,
+  bookKeepingCache: BookKeepingCache,
+) {
+  const votingMachines = await Promise.all(
+    Array.from(votingPortals).map(async (portal) => {
+      const portalContract = getContract({
+        abi: IVotingPortal_ABI,
+        client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
+        address: portal,
+      });
+      return {
+        machine: await portalContract.read.VOTING_MACHINE(),
+        chainId: Number(await portalContract.read.VOTING_MACHINE_CHAIN_ID()),
+      };
+    }),
+  );
+
+  const votingEvents = await Promise.all(
+    votingMachines.map(async ({ chainId, machine }) => {
+      const path = `${chainId}/events`;
+      const address = machine;
+      const client = CHAIN_ID_CLIENT_MAP[chainId];
+      const currentBlockOnVotingMachineChain = await client.getBlockNumber();
+      const votesCache =
+        readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
+          path,
+          address,
+        ) || [];
+      const lastSeenBlock = bookKeepingCache[path]
+        ? BigInt(bookKeepingCache[path])
+        : await getContractDeploymentBlock({
+            client: client,
+            contractAddress: address,
+            fromBlock: BigInt(0),
+            toBlock: currentBlockOnVotingMachineChain,
+            maxDelta: BigInt(10000),
+          });
+      const logs = await getVotingMachineEvents(
+        address,
+        client,
+        BigInt(lastSeenBlock) + BigInt(1),
+        currentBlockOnVotingMachineChain,
+      );
+      const combinedCache = [...votesCache, ...logs];
+      writeJSONCache(path, address, combinedCache);
+      bookKeepingCache[path] = String(currentBlockOnVotingMachineChain);
+    }),
+  );
+  console.log('Caching VM events finished.');
+  writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
+  console.log('BookKeeping updated.');
+  return votingEvents;
+}
 
 /**
  * Indexes & caches:
@@ -377,7 +251,7 @@ type BookKeepingCache = Record<string, string>;
  * - events on the payloadsController
  * - events on the voting machines
  * - ipfs data
- * - combine proposals data (gov core + voting machine, proposal data)
+ * - proposals data
  * - payloads data
  */
 async function updateCache() {
@@ -387,29 +261,13 @@ async function updateCache() {
   const bookKeepingCache =
     readJSONCache<Record<string, string>>('bookKeeping', 'lastFetchedBlocks') ||
     {};
-
   // initialize contracts
   const govCoreClient = CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId];
-
   const govCore = getContract({
     address: appConfig.govCoreConfig.contractAddress,
     abi: IGovernanceCore_ABI,
     client: govCoreClient,
   });
-  const govCoreDataHelper = getContract({
-    address: appConfig.govCoreConfig.dataHelperContractAddress,
-    abi: IGovernanceDataHelper_ABI,
-    client: govCoreClient,
-  });
-
-  // get gov core configs
-  const { configs } = await getGovCoreConfigs({
-    govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
-    govCoreDataHelperContractAddress:
-      appConfig.govCoreConfig.dataHelperContractAddress,
-    client: govCoreClient,
-  });
-
   // check proposals count
   const proposalsCount = await govCore.read.getProposalsCount();
   if (proposalsCount === BigInt(0)) {
@@ -421,131 +279,81 @@ async function updateCache() {
 
     return;
   }
-
   // initialize gov core data from cache
   const proposalsPath = `${appConfig.govCoreChainId}/proposals`;
   const proposalsCache =
-    readJSONCache<Record<number, BasicProposal>>(
-      proposalsPath,
-      govCore.address,
-    ) || {};
-
-  // check ids for request
+    readJSONCache<ProposalsCache>(proposalsPath, govCore.address) || {};
+  // update active proposals data and payloads data connected to this proposals
   const proposalsIds = [...Array(Number(proposalsCount)).keys()];
-  const cachedProposalsIds = Object.values(proposalsCache)
-    .filter((proposal) => proposal.prerender)
-    .map((proposal) => proposal.id);
-  const proposalsIdsForRequest: number[] = [];
-  for (let i = 0; i < proposalsIds.length; i++) {
-    let found = false;
-    for (let j = 0; j < cachedProposalsIds.length; j++) {
-      if (proposalsIds[i] === cachedProposalsIds[j]) {
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      proposalsIdsForRequest.push(proposalsIds[i]);
-    }
-  }
-
-  // get gov core proposals data from data helper contract
-  const ids = !!proposalsIdsForRequest.length ? proposalsIdsForRequest : [0];
-  const from = Math.max.apply(0, ids);
-  const to = Math.min.apply(0, ids);
-  const govCoreDataHelperData = await govCoreDataHelper.read.getProposalsData([
-    govCore.address,
-    BigInt(from),
-    BigInt(to > 0 ? to - 1 : 0),
-    BigInt(from - to + 1),
-  ]);
-
-  // format data for getting voting data
-  const initialProposals = govCoreDataHelperData.map((proposal) => {
-    return {
-      id: proposal.id,
-      votingChainId: Number(proposal.votingChainId),
-      snapshotBlockHash: proposal.proposalData.snapshotBlockHash,
-    };
-  });
-  const votingMachineData = await getVotingData(
-    initialProposals,
-    bookKeepingCache,
-  );
-
-  // combine voting machine data with proposal data
-  const proposalsData: BasicProposal[] = getDetailedProposalsData(
-    configs,
-    govCoreDataHelperData,
-    votingMachineData,
-    proposalsIdsForRequest,
-    false, // will be true only when proposal fully executed (proposal executed + all proposal payloads executed)
-  );
-
-  // update ipfs cache
-  await updateIpfsCache(proposalsData);
-  console.log('Caching proposals ipfs metadata finished.');
-
   await Promise.all(
-    proposalsData.map(async (data) => {
-      const controllers = new Map<Address, number>();
-      data.initialPayloads.map((payload) =>
-        controllers.set(payload.payloadsController, Number(payload.chainId)),
-      );
+    proposalsIds.map(async (id) => {
+      if (!proposalsCache[id] || !proposalsCache[id].isFinished) {
+        const proposalData = await govCore.read.getProposal([BigInt(id)]);
+        const controllers = new Map<Address, number>();
+        proposalData.payloads.map((payload) =>
+          controllers.set(payload.payloadsController, Number(payload.chain)),
+        );
+        // update payloads cache
+        const payloadsData = await updatePayloadsData(
+          controllers,
+          bookKeepingCache,
+        );
+        console.log('Caching payloads data with events finished.');
+        // get payloads data for current proposal
+        const proposalPayloadsData = proposalData.payloads.map((payload) => {
+          const cachedPayloadsData = payloadsData
+            .flat()
+            .find(
+              (payloadS) =>
+                payloadS[payload.payloadId] &&
+                payloadS[payload.payloadId].id === payload.payloadId &&
+                payloadS[payload.payloadId].payloadsController ===
+                  payload.payloadsController &&
+                payloadS[payload.payloadId].chainId === Number(payload.chain),
+            );
+          if (cachedPayloadsData) {
+            return cachedPayloadsData[payload.payloadId];
+          }
+          return undefined;
+        });
 
-      // update payloads cache
-      const payloadsData = await updatePayloadsData(
-        controllers,
-        bookKeepingCache,
-        data,
-      );
-      console.log('Caching proposals payloads data finished.');
+        const isProposalPayloadsFinished = proposalPayloadsData.every(
+          (payload) => payload && payload?.state > PayloadState.Queued,
+        );
 
-      // get payloads data for current proposal
-      const proposalPayloadsData = data.initialPayloads.map((payload) => {
-        return payloadsData
-          .flat()
-          .flat()
-          .find(
-            (payloadS) =>
-              payloadS &&
-              payloadS.id === payload.id &&
-              payloadS.payloadsController === payload.payloadsController &&
-              payloadS.chainId === payload.chainId,
-          );
-      });
-
-      const isProposalPayloadsFinished = proposalPayloadsData.every(
-        (payload) => payload && payload?.state > PayloadState.Queued,
-      );
-
-      // update proposalsCache
-      proposalsCache[data.id] = {
-        ...data,
-        prerender:
-          data.state === ProposalState.Executed
-            ? isProposalPayloadsFinished
-            : isProposalFinal(data.state),
-      };
+        proposalsCache[id] = {
+          ...proposalData,
+          isFinished:
+            proposalData.state === ProposalState.Executed
+              ? isProposalPayloadsFinished
+              : proposalData.state > ProposalState.Executed,
+        };
+      }
     }),
   );
   // update gov core cache
   writeJSONCache(proposalsPath, govCore.address, proposalsCache);
   console.log('Caching proposals data finished.');
+  // update ipfs cache
+  await updateIpfsCache(proposalsCache);
+  // update gov core events
   await updateGovCoreEvents(proposalsCache, bookKeepingCache);
-  console.log('Caching proposals events finished.');
-
-  // cache payloads data for payloads that not in proposals
+  // update VM events
+  const votingPortals = new Set<Address>();
+  Object.values(proposalsCache).forEach((proposal) => {
+    votingPortals.add(proposal.votingPortal);
+  });
+  await updateVMEvents(votingPortals, bookKeepingCache);
+  // update payloads data for payloads that not in proposals and all payloads events
   const controllers = new Map<Address, number>();
   Object.values(proposalsCache).forEach((proposal) => {
-    proposal.initialPayloads.map((payload) =>
-      controllers.set(payload.payloadsController, Number(payload.chainId)),
+    proposal.payloads.map((payload) =>
+      controllers.set(payload.payloadsController, Number(payload.chain)),
     );
   });
-  await updatePayloadsData(controllers, bookKeepingCache);
-  console.log('Caching outside payloads data finished.');
-
+  await updatePayloadsData(controllers, bookKeepingCache, true);
+  console.log('Caching outside payloads data with events finished.');
+  // update bookKeeping
   writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
   console.log('BookKeeping updated.');
 }
