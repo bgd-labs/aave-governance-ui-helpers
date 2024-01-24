@@ -2,13 +2,14 @@ import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
 } from '@bgd-labs/aave-address-book';
-import { ProposalMetadata } from '@bgd-labs/js-utils';
 import {
   AbiStateMutability,
   Client,
   ContractFunctionReturnType,
   Hex,
 } from 'viem';
+
+import { ProposalMetadata } from './getProposalMetadata.ts';
 
 /**
  * simple cache mapping:
