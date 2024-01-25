@@ -1,7 +1,10 @@
+export * from './events/governance.ts';
+export * from './events/payloadsController.ts';
+export * from './events/votingMachine.ts';
 export * from './helpers/appConfig';
 export * from './helpers/bignumber';
 export * from './helpers/checkHash';
-export * from './helpers/eventsHelpres';
+export * from './helpers/eventsHelpers';
 export * from './helpers/fetchWithTimeout';
 export * from './helpers/formatProposal';
 export * from './helpers/getBlockNumberByTimestamp';
@@ -11,3 +14,4 @@ export * from './helpers/getProposalData';
 export * from './helpers/getProposalEvents';
 export * from './helpers/getProposalMetadata';
 export * from './helpers/types';
+export * from './scripts/update-cache-package.ts';

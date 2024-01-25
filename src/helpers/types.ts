@@ -1,4 +1,42 @@
-import { Client, Hex } from 'viem';
+import {
+  IGovernanceCore_ABI,
+  IPayloadsControllerCore_ABI,
+} from '@bgd-labs/aave-address-book';
+import {
+  AbiStateMutability,
+  Client,
+  ContractFunctionReturnType,
+  Hex,
+} from 'viem';
+
+import { ProposalMetadata } from './getProposalMetadata.ts';
+
+/**
+ * simple cache mapping:
+ * filename:blockNumber with the last used block for caching
+ */
+export type BookKeepingCache = Record<string, string>;
+export type ProposalsCache = Record<
+  number,
+  ContractFunctionReturnType<
+    typeof IGovernanceCore_ABI,
+    AbiStateMutability,
+    'getProposal'
+  > & {
+    isFinished: boolean; // state when all payloads inside proposal in final stage
+  }
+>;
+export type Payload = ContractFunctionReturnType<
+  typeof IPayloadsControllerCore_ABI,
+  AbiStateMutability,
+  'getPayloadById'
+> & {
+  // need for comfortable filtering
+  id: number;
+  chainId: number;
+  payloadsController: Hex;
+};
+export type PayloadsCache = Record<number, Payload>;
 
 // generic
 export type ClientsRecord = Record<number, Client>;
@@ -87,14 +125,14 @@ export interface PayloadForCreation {
   payloadId: number;
 }
 
-export enum BasicProposalState {
-  Null,
-  Created,
-  Active,
-  Queued,
-  Executed,
-  Failed,
-  Cancelled,
+export enum ProposalState {
+  Null, // proposal does not exists
+  Created, // created, waiting for a cooldown to initiate the balances snapshot
+  Active, // balances snapshot set, voting in progress
+  Queued, // voting results submitted, but proposal is under grace period when guardian can cancel it
+  Executed, // results sent to the execution chain(s)
+  Failed, // voting was not successful
+  Cancelled, // got cancelled by guardian, or because proposition power of creator dropped below allowed minimum
   Expired,
 }
 
@@ -114,11 +152,11 @@ export enum PayloadState {
   Expired,
 }
 
-export enum ProposalState {
+export enum CombineProposalState {
   Created,
   Active,
   Succeed,
-  Defeated,
+  Failed,
   Executed,
   Expired,
   Canceled,
@@ -161,23 +199,6 @@ export type VotingMachineData = {
   hasRequiredRoots: boolean;
 };
 
-export type Payload = {
-  creator: Hex;
-  id: number;
-  chainId: number;
-  maximumAccessLevelRequired: number;
-  state: PayloadState;
-  createdAt: number;
-  queuedAt: number;
-  executedAt: number;
-  cancelledAt: number;
-  expirationTime: number;
-  delay: number;
-  gracePeriod: number;
-  payloadsController: Hex;
-  actionAddresses: Hex[];
-};
-
 // type for create payload actions
 export type PayloadAction = {
   payloadAddress: Hex;
@@ -215,7 +236,7 @@ export interface BasicProposal {
   votingDuration: number;
   creationTime: number;
   accessLevel: number;
-  basicState: BasicProposalState;
+  state: ProposalState;
   queuingTime: number;
   ipfsHash: string;
   initialPayloads: InitialPayload[];
@@ -225,7 +246,7 @@ export interface BasicProposal {
   canceledAt: number;
   votingActivationTime: number;
   votingChainId: number;
-  prerender: boolean;
+  isFinished: boolean;
   lastUpdatedTimestamp?: number;
 }
 
@@ -262,7 +283,7 @@ export interface ProposalWithoutState {
 }
 
 export interface Proposal extends ProposalWithoutState {
-  state: ProposalState;
+  combineState: CombineProposalState;
 }
 
 export interface ProposalWithLoadings {
@@ -280,7 +301,6 @@ export enum ProposalStateWithName {
   Active = 'Voting',
   Succeed = 'Passed',
   Failed = 'Failed',
-  Defeated = 'Failed',
   Executed = 'Executed',
   Expired = 'Expired',
   Canceled = 'Canceled',
@@ -290,7 +310,7 @@ export enum ProposalStateWithName {
 export enum ProposalEstimatedState {
   Active = 'Will open for voting',
   Succeed = 'Will pass',
-  Defeated = 'Will fail',
+  Failed = 'Will fail',
   ProposalExecuted = 'Proposal will start executing',
   PayloadsExecuted = 'Payloads will start executing',
   Expired = 'Will expire',
@@ -305,21 +325,10 @@ export enum ProposalWaitForState {
   WaitForExecutePayloads = 'Pending payloads execution',
 }
 
-export type ProposalMetadata = {
-  title: string;
-  description: string;
-  shortDescription: string;
-  ipfsHash: string;
-  originalIpfsHash: string;
-  aip: number;
-  discussions: string;
-  author: string;
-};
-
 export interface FinishedProposalForList
   extends Pick<ProposalMetadata, 'title'> {
   id: number;
-  state: ProposalState;
+  combineState: CombineProposalState;
   finishedTimestamp: number;
   ipfsHash: string;
 }
@@ -332,7 +341,7 @@ export interface CachedProposalDataItem {
       title: string;
       ipfsHash: string;
     };
-    state: ProposalState;
+    combineState: CombineProposalState;
   };
 }
 
@@ -345,3 +354,39 @@ export interface CachedDetails {
   ipfs: ProposalMetadata;
   proposal: BasicProposal;
 }
+
+export enum HistoryItemType {
+  PAYLOADS_CREATED,
+  CREATED,
+  PROPOSAL_ACTIVATE,
+  OPEN_TO_VOTE,
+  VOTING_OVER,
+  VOTING_CLOSED,
+  RESULTS_SENT,
+  PROPOSAL_QUEUED,
+  PROPOSAL_EXECUTED,
+  PAYLOADS_QUEUED,
+  PAYLOADS_EXECUTED,
+  PROPOSAL_CANCELED,
+  PAYLOADS_EXPIRED,
+  PROPOSAL_EXPIRED,
+}
+
+export type FilteredEvent = {
+  transactionHash: string;
+};
+
+export type TxInfo = {
+  id: number;
+  hash: string;
+  chainId: number;
+  hashLoading: boolean;
+};
+
+export type ProposalHistoryItem = {
+  type: HistoryItemType;
+  title: string;
+  txInfo: TxInfo;
+  timestamp?: number;
+  addresses?: string[];
+};

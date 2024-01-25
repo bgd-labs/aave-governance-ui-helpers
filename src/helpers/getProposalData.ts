@@ -77,7 +77,7 @@ export function updateVotingMachineData(
           )[0].votingDuration,
         creationTime: govData.creationTime,
         accessLevel: govData.accessLevel,
-        basicState: govData.basicState,
+        state: govData.state,
         queuingTime: govData.queuingTime,
         ipfsHash: govData.ipfsHash,
         initialPayloads: govData.initialPayloads,
@@ -90,7 +90,7 @@ export function updateVotingMachineData(
           govData.id,
           votingMachineData,
         ),
-        prerender: govData.prerender,
+        isFinished: govData.isFinished,
         lastUpdatedTimestamp: dayjs().unix(),
       };
 
@@ -106,7 +106,7 @@ export function getDetailedProposalsData(
   govCoreDataHelperData: Readonly<ProposalStructOutput[]>,
   votingMachineDataHelperData: Readonly<VMProposalStructOutput[]>,
   ids: number[],
-  prerender?: boolean,
+  isFinished?: boolean,
 ): BasicProposal[] {
   const proposalsData: BasicProposal[] = [];
 
@@ -136,7 +136,7 @@ export function getDetailedProposalsData(
             )[0].votingDuration,
           creationTime: +govData.proposalData.creationTime,
           accessLevel: +govData.proposalData.accessLevel,
-          basicState: +govData.proposalData.state,
+          state: +govData.proposalData.state,
           queuingTime: +govData.proposalData.queuingTime,
           ipfsHash: govData.proposalData.ipfsHash,
           initialPayloads: govData.proposalData.payloads.map((payload) => {
@@ -155,7 +155,7 @@ export function getDetailedProposalsData(
             Number(govData.id),
             votingMachineData,
           ),
-          prerender: !!prerender,
+          isFinished: !!isFinished,
           lastUpdatedTimestamp: dayjs().unix(),
         };
 

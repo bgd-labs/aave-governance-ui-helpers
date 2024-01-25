@@ -3,7 +3,7 @@ import { Hex, zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 
 import { normalizeBN } from './bignumber';
-import { getEventsBySteps } from './eventsHelpres';
+import { getEventsBySteps } from './eventsHelpers';
 import { InitEventWithChainId } from './types';
 
 async function getVoteEvents({
