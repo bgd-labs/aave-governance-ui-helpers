@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.1.1...v2.0.0) (2024-01-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* initial cache update ([#39](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/39)) (#40)
+
+### Features
+
+* initial cache update ([#39](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/39)) ([#40](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/40)) ([8337445](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/8337445c3b2ff6dea4fb0ed0e2ca6f35af2af91c))
+
 ## [1.1.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.1.0...v1.1.1) (2024-01-16)
 
 
