@@ -14,7 +14,8 @@ jobs:
   cache-updates:
     strategy:
       matrix:
-        network: [mainnet, sepolia, goerli]
+        # Only mainnet for now
+        network: [mainnet]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
