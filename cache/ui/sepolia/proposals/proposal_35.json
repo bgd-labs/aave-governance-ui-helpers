@@ -1,0 +1,87 @@
+{
+  "payloads": [
+    {
+      "creator": "0xAd9A211D227d2D9c1B5573f73CDa0284b758Ac0C",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1700298276,
+      "queuedAt": 1700458848,
+      "executedAt": 1700738160,
+      "cancelledAt": 0,
+      "expirationTime": 1703322276,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xF19dE078dbaC9db382cAF8015cb208667eC581c0",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 28,
+      "chainId": 11155111,
+      "payloadsController": "0x7E314a46AA6dF79c51869967B9b8e9f8Bb20781d"
+    }
+  ],
+  "ipfs": {
+    "title": "Supply/Borrow Cap Updates for Aave v3",
+    "shortDescription": "Update Supply and Borrow Caps on Polygon, Arbitrum and Optimism v3",
+    "author": "Chaos Labs (@ori-chaoslabs, @yhayun)",
+    "discussions": "https://governance.aave.com/t/arc-v3-borrow-cap-recommendations-fast-track-2022-12-05/10927 , https://governance.aave.com/t/arc-v3-supply-cap-recommendations-for-uncapped-assets-fast-track/10750",
+    "created": "2022-12-13T00:00:00.000Z",
+    "preview": "# Simple Summary\n\nA proposal to:\n- Add Borrow Caps for six (6) …",
+    "basename": "SUPPLY-BORROW-CAPS-UPDATE-AAVE-V3",
+    "description": "\n\n# Simple Summary\n\nA proposal to:\n- Add Borrow Caps for six (6) uncapped assets and amend the Borrow Cap of seven (7) assets across three (3) chains in v3.\n- Add Supply Caps for seven (7) uncapped assets on (2) chains in v3.\n\n\n# Motivation\n\nThe objective of this proposal by Chaos Labs is to recommend:\n- Supply caps for for v3 uncapped assets, taking into account Asset Market Cap, Asset Counter Party Risk, Asset Volume, Asset Liquidity (DEX and CEX based), Historical Liquidations in times of high volatility\n- Borrow caps using the AAVE V3 [Borrow Caps Methodology](https://governance.aave.com/t/aave-v3-borrow-caps-methodology/10925).\n\nThese are initial supply and borrow caps for these assets and they will be continuosly iterated upon.\n\nThe respective governance forum discussion is linked below:\n- [[ARC] V3 Borrow Cap Recommendations (Fast-track)](https://governance.aave.com/t/arc-v3-borrow-cap-recommendations-fast-track-2022-12-05/10927)\n- [V3 Supply Cap Recommendations for Uncapped Assets (Fast-track)](https://governance.aave.com/t/arc-v3-supply-cap-recommendations-for-uncapped-assets-fast-track/10750)\n\n\n# Specification\n\nThe following risk parameter proposal is presented below:\n\nBorrow Caps:\n- Arbitrum\n\n![](../assets/SUPPLY-BORROW-CAPS-UPDATE-AAVE-V3/ARBITRUM-BORROW-CAP-RECS.png)\n- Polygon\n\n![](../assets/SUPPLY-BORROW-CAPS-UPDATE-AAVE-V3/POLYGON-BORROW-CAP-RECS.jpeg)\n- Optimism\n\n![](../assets/SUPPLY-BORROW-CAPS-UPDATE-AAVE-V3/OPTIMISM-BORROW-CAP-RECS.png)\n\nSupply Caps:\n- Arbitrum\n\n![](../assets/SUPPLY-BORROW-CAPS-UPDATE-AAVE-V3/ARBITRUM-SUPPLY-CAP-RECS.jpg)\n- Optimism\n\n![](../assets/SUPPLY-BORROW-CAPS-UPDATE-AAVE-V3/OPTIMISM-SUPPLY-CAP-RECS.jpg)\n\n# Implementation\nPayload implemendations can be found below:\n- Borrow Caps ([Polygon](https://github.com/bgd-labs/aave-v3-crosschain-listing-template/blob/master/src/contracts/polygon/AaveV3PolBorrowCapsPayload.sol), [Arbitrum](https://github.com/bgd-labs/aave-v3-crosschain-listing-template/blob/master/src/contracts/arbitrum/AaveV3ArbBorrowCapsPayload.sol), [Optimism](https://github.com/bgd-labs/aave-v3-crosschain-listing-template/blob/master/src/contracts/optimism/AaveV3OptBorrowCapsPayload.sol))\n- Supply Caps ([Arbitrum](https://github.com/bgd-labs/aave-v3-crosschain-listing-template/blob/master/src/contracts/arbitrum/AaveV3ArbCapsPayload.sol), [Optimism](https://github.com/bgd-labs/aave-v3-crosschain-listing-template/blob/master/src/contracts/optimism/AaveV3OptCapsPayload.sol))\n\nProposal payloads can be found below: \n- Borrow Caps ([Polygon](https://polygonscan.com/address/0x691b41805f7ef2d7de6165bc42295b035a31600d#code), [Arbitrum](https://arbiscan.io/address/0x691b41805f7ef2d7de6165bc42295b035a31600d#code), [Optimism](https://optimistic.etherscan.io/address/0x280e404338d9d8e50b11d6677b9c91ba86e0fd22#code))\n- Supply Caps ([Arbitrum](https://arbiscan.io/address/0xc9df68edcb0c8fb7ced82e5836b75c002c723e17#code), [Optimism](https://optimistic.etherscan.io/address/0x691b41805f7ef2d7de6165bc42295b035a31600d#code))\n\n# Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "ipfsHash": "QmS199Zp79PYBu6TFpm6kwMQQaxCv32yRVMtYqY8JDRCHe",
+    "originalIpfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1"
+  },
+  "proposal": {
+    "id": 35,
+    "votingDuration": 600,
+    "creationTime": 1700365500,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1700458836,
+    "ipfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1",
+    "initialPayloads": [
+      {
+        "id": 28,
+        "chainId": 11155111,
+        "payloadsController": "0x7E314a46AA6dF79c51869967B9b8e9f8Bb20781d"
+      }
+    ],
+    "snapshotBlockHash": "0xcb7f96cf9ff87ce0d07d5d79d88b2989ec5bcd90069db5f561aa7dbbf215263b",
+    "creator": "0xAd9A211D227d2D9c1B5573f73CDa0284b758Ac0C",
+    "canceledAt": 0,
+    "votingActivationTime": 1700366124,
+    "votingChainId": 11155111,
+    "votingMachineData": {
+      "id": 35,
+      "forVotes": "3500000000000000000000",
+      "againstVotes": "1500000000000000000000",
+      "startTime": 1700366496,
+      "endTime": 1700367096,
+      "votingClosedAndSentBlockNumber": 4729484,
+      "votingClosedAndSentTimestamp": 1700458836,
+      "l1BlockHash": "0xcb7f96cf9ff87ce0d07d5d79d88b2989ec5bcd90069db5f561aa7dbbf215263b",
+      "strategy": "0xd3FbD65A1Ea9b58E7047fA57AF1E051e023C0361",
+      "sentToGovernance": true,
+      "createdBlock": 4722501,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0xdaEcee477B931b209e8123401EA37582ACB3811d",
+        "0x354032B31339853A3D682613749F183328d07275",
+        "0x26aAB2aE39897338c2d91491C46c14a8c2a67919"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1706071407
+  }
+}

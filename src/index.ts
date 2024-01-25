@@ -1,3 +1,6 @@
+export * from './events/governance.ts';
+export * from './events/payloadsController.ts';
+export * from './events/votingMachine.ts';
 export * from './helpers/appConfig';
 export * from './helpers/bignumber';
 export * from './helpers/checkHash';
@@ -11,7 +14,4 @@ export * from './helpers/getProposalData';
 export * from './helpers/getProposalEvents';
 export * from './helpers/getProposalMetadata';
 export * from './helpers/types';
-// export { cacheGovernance } from './cache-update';
-// export * from './events/governance';
-// export * from './events/payloadsController';
-// export * from './events/votingMachine';
+export * from './scripts/update-cache-package.ts';

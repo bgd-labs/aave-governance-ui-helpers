@@ -1,18 +1,14 @@
-import base58 from 'bs58';
-import matter from 'gray-matter';
+import {
+  getProposalMetadata as getProposalMetadataInit,
+  ProposalMetadata as ProposalMetadataInit,
+} from '@bgd-labs/js-utils';
 import { zeroHash } from 'viem';
 
-import { fetchWithTimeout } from './fetchWithTimeout';
-import { ProposalMetadata } from './types';
+export type ProposalMetadata = ProposalMetadataInit & {
+  originalIpfsHash: string;
+};
 
-export const ipfsGateway = 'https://ipfs.io/ipfs';
-
-export function getLink(hash: string, gateway: string): string {
-  return `${gateway}/${hash}`;
-}
-type MemorizeMetadata = Record<string, ProposalMetadata>;
-
-const MEMORIZE: MemorizeMetadata = {};
+export const ipfsGateway = 'https://cloudflare-ipfs.com/ipfs';
 
 const incorectedHashses = [
   '0x0000000000000000000000000000000000000000000000000000000000000020',
@@ -21,16 +17,10 @@ const incorectedHashses = [
 
 export async function getProposalMetadata(
   hash: string,
-  gateway = ipfsGateway,
+  gateway?: string,
   setIpfsError?: (hash: string, text?: string) => void,
   errorText?: string,
-): Promise<ProposalMetadata> {
-  const ipfsHash = hash.startsWith('0x')
-    ? base58.encode(Buffer.from(`1220${hash.slice(2)}`, 'hex'))
-    : hash;
-
-  if (MEMORIZE[ipfsHash]) return MEMORIZE[ipfsHash];
-
+): Promise<ProposalMetadata | undefined> {
   if (incorectedHashses.some((h) => hash === h)) {
     if (!!setIpfsError) {
       setIpfsError(hash, errorText);
@@ -40,47 +30,11 @@ export async function getProposalMetadata(
     }
   } else {
     try {
-      const ipfsResponse: Response = await fetchWithTimeout(
-        getLink(ipfsHash, gateway),
-      );
-
-      if (!ipfsResponse.ok) {
-        if (!!setIpfsError) {
-          setIpfsError(hash);
-        }
-        return MEMORIZE[ipfsHash];
-      }
-
-      const clone = ipfsResponse.clone();
-      try {
-        const response: ProposalMetadata = await ipfsResponse.json();
-
-        const { content } = matter(response.description);
-
-        MEMORIZE[ipfsHash] = {
-          title: response.title,
-          aip: response.aip,
-          originalIpfsHash: hash,
-          author: response.author,
-          discussions: response.discussions,
-          shortDescription: response.shortDescription,
-          ipfsHash,
-          description: content,
-        };
-      } catch (e) {
-        const text = await clone.text();
-        const { content, data } = matter(text);
-        MEMORIZE[ipfsHash] = {
-          title: data.title,
-          aip: data.aip,
-          originalIpfsHash: hash,
-          author: data.author,
-          discussions: data.discussions,
-          shortDescription: data.shortDescription,
-          ipfsHash,
-          description: content,
-        };
-      }
+      const metadata = await getProposalMetadataInit(hash, gateway);
+      return {
+        ...metadata,
+        originalIpfsHash: hash,
+      };
     } catch (e) {
       if (!!setIpfsError) {
         setIpfsError(hash);
@@ -90,6 +44,4 @@ export async function getProposalMetadata(
       }
     }
   }
-
-  return MEMORIZE[ipfsHash];
 }

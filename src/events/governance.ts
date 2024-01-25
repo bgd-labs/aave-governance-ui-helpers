@@ -1,7 +1,9 @@
 import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
-import { Address, Client, getAbiItem } from 'viem';
 import type { ExtractAbiEvent } from 'abitype';
+import { Address, Client, getAbiItem } from 'viem';
+
+import { ProposalState } from '../helpers/types';
 
 export type ProposalCreatedEvent = ExtractAbiEvent<
   typeof IGovernanceCore_ABI,
@@ -28,17 +30,6 @@ export type ProposalVotingActivatedEvent = ExtractAbiEvent<
   'VotingActivated'
 >;
 
-export enum ProposalState {
-  Null, // proposal does not exists
-  Created, // created, waiting for a cooldown to initiate the balances snapshot
-  Active, // balances snapshot set, voting in progress
-  Queued, // voting results submitted, but proposal is under grace period when guardian can cancel it
-  Executed, // results sent to the execution chain(s)
-  Failed, // voting was not successful
-  Cancelled, // got cancelled by guardian, or because proposition power of creator dropped below allowed minimum
-  Expired,
-}
-
 export function isProposalFinal(state: ProposalState) {
   return [
     ProposalState.Executed,
@@ -54,7 +45,7 @@ export async function getGovernanceEvents(
   fromBlockNumber: bigint,
   toBlockNumber: bigint,
 ) {
-  const logs = await strategicGetLogs({
+  return await strategicGetLogs({
     client,
     events: [
       getAbiItem({ abi: IGovernanceCore_ABI, name: 'ProposalCreated' }),
@@ -68,5 +59,4 @@ export async function getGovernanceEvents(
     fromBlock: fromBlockNumber,
     toBlock: toBlockNumber,
   });
-  return logs;
 }
