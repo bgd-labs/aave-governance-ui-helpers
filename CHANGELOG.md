@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.0.0...v2.0.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* github workflow, remove testnets ([c280789](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/c28078917d276b71532c25584b3fe46d9dea0dfa))
+* update cache ([160dfde](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/160dfdee0f8042ef7e0f0fe9b3df10a2502b1f12))
+
 ## [2.0.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.1.1...v2.0.0) (2024-01-25)
 
 
