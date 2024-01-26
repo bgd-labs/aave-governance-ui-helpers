@@ -169,7 +169,7 @@ async function parseProposalEvents(
       `proposal_${proposal.id}_events`,
     ) || {};
 
-  if (!proposalHistoryEvents || !proposal.isFinished) {
+  if (!Object.keys(proposalHistoryEvents).length || !proposal.isFinished) {
     const setEvent = ({
       historyId,
       type,
@@ -260,7 +260,7 @@ async function parseProposalEvents(
     const historyIdProposalCreated = `${formattedProposalData.id}_${HistoryItemType.CREATED}`;
     setEvent({
       historyId: historyIdProposalCreated,
-      type: HistoryItemType.PAYLOADS_CREATED,
+      type: HistoryItemType.CREATED,
       id: formattedProposalData.id,
       chainId: appConfig.govCoreChainId,
       timestamp: formattedProposalData.creationTime,
