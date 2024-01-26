@@ -1,0 +1,143 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1706273255,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1709297255,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x983921EFA9859880d8dc66c90BE93f18C02B3A1A",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 50,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1706273555,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1709297555,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x443d2441F3b45167C4ECDDa9985DF8dCFAad6e08",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 10,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1706273615,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1709297615,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x641Bb6A9a092EDBaE407373e2B563400617229d2",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 9,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmRYc9zwXtgjiXbQw8ThEaajwedPBMGFThuf1eyTZmmoBJ",
+    "description": "\n## Simple Summary\n\nThis AIP proposes to update ETH LSTs (wstETH, rETH, cbETH) and WETH risk parameters on the Aave V3 Ethereum Mainnet, OP Mainnet and Arbitrum.\n\n## Motivation\n\nWe propose updating the ETH LSTs and WETH risk parameters to be optimal and competitive in the current market landscape. This will maintain Aave’s position as the prime liquidity protocol by increasing our protocol attractiveness for users looking to maximize their capital efficiency.\n\n## Specification\n\nThe proposed changes update some risk parameters on ETH LSTs and WETH.\n\n**ETH correlated E-Mode Ethereum**\n\nUpdate ETH-correlated E-Mode parameters with the following values.\n\n| Risk Parameter        | Current Value | Proposed Value |\n| --------------------- | ------------- | -------------- |\n| Loan To Value (LTV)   | 90%           | 93%            |\n| Liquidation Threshold | 93%           | 95%            |\n\nWe propose no changes to the ETH LSTs non-E-Mode parameters.\n\n**ETH correlated E-Mode Arbitrum**\n\nUpdate ETH-correlated E-Mode parameters with the following values.\n\n| Risk Parameter        | Current Value | Proposed Value |\n| --------------------- | ------------- | -------------- |\n| Loan To Value (LTV)   | 90%           | 93%            |\n| Liquidation Threshold | 93%           | 95%            |\n| Liquidation Bonus     | 2%            | 1%             |\n\nWe propose no changes to the ETH LSTs non-E-Mode parameters.\n\n**ETH correlated E-Mode Optimism**\n\n| Risk Parameter        | Current Value | Proposed Value |\n| --------------------- | ------------- | -------------- |\n| Loan To Value (LTV)   | 90%           | 93%            |\n| Liquidation Threshold | 93%           | 95%            |\n\nWe propose no changes to the stETH non-E-Mode parameters.\n\n**WETH Ethereum**\n\n| Risk Parameter | Current Value | Proposed Value |\n| -------------- | ------------- | -------------- |\n| Optimal Ratio  | 80%           | 90%            |\n\nOther parameters will remain unchanged.\n\n**WETH Arbitrum**\n\n| Risk Parameter | Current Value | Proposed Value |\n| -------------- | ------------- | -------------- |\n| Optimal Ratio  | 80%           | 90%            |\n\nOther parameters will remain unchanged.\n\n**WETH Optimism**\n\n| Risk Parameter | Current Value | Proposed Value |\n| -------------- | ------------- | -------------- |\n| Optimal Ratio  | 80%           | 90%            |\n\nOther parameters will remain unchanged\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/27a8a98867feed069d724225c13462592bc4c416/src/20240121_Multi_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum/AaveV3Ethereum_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum_20240121.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/27a8a98867feed069d724225c13462592bc4c416/src/20240121_Multi_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum/AaveV3Optimism_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum_20240121.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/27a8a98867feed069d724225c13462592bc4c416/src/20240121_Multi_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum/AaveV3Arbitrum_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum_20240121.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/27a8a98867feed069d724225c13462592bc4c416/src/20240121_Multi_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum/AaveV3Ethereum_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum_20240121.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/27a8a98867feed069d724225c13462592bc4c416/src/20240121_Multi_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum/AaveV3Optimism_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum_20240121.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/27a8a98867feed069d724225c13462592bc4c416/src/20240121_Multi_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum/AaveV3Arbitrum_UpdateStETHAndWETHRiskParamsOnAaveV3EthereumOptimismAndArbitrum_20240121.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb8790aeb32267062c1500deb613ad15ebd5deac4d78d1786cb1690c12d0512c9)\n- [Discussion](https://governance.aave.com/t/arfc-update-steth-and-weth-risk-params-on-aave-v3-ethereum-optimism-and-arbitrum/16168)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Update ETH EMode and WETH Risk Params on Aave v3 Ethereum, Optimism and Arbitrum",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-update-steth-and-weth-risk-params-on-aave-v3-ethereum-optimism-and-arbitrum/16168",
+    "originalIpfsHash": "0x2fa324a635a80a4f64b8636199440b6ef8687135aa81ccf396570eb8aecc7bed"
+  },
+  "proposal": {
+    "id": 11,
+    "votingDuration": 259200,
+    "creationTime": 1706273699,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x2fa324a635a80a4f64b8636199440b6ef8687135aa81ccf396570eb8aecc7bed",
+    "initialPayloads": [
+      {
+        "id": 50,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 10,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 9,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 11,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1706282238
+  }
+}
