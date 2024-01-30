@@ -13,6 +13,7 @@ import {
 import { Address, getContract, Hex } from 'viem';
 
 import {
+  aditionalsAddresses,
   BookKeepingCache,
   getProposalMetadata,
   PayloadsCache,
@@ -27,6 +28,9 @@ import {
   isPayloadFinal,
 } from '../events/payloadsController';
 import { getVotingMachineEvents } from '../events/votingMachine';
+import { getDelegationEvents } from '../events/delegations';
+import { appConfig } from '../helpers/config';
+import { getBlockNumber } from 'viem/actions';
 
 async function updateIpfsCache(proposalsCache: ProposalsCache) {
   const ipfsCache: Record<string, ProposalMetadata> =
@@ -247,6 +251,40 @@ async function updateVMEvents(
   return votingEvents;
 }
 
+export async function updateDelegationCache(
+  chainId: number,
+  // votingTokens: Address[],
+  bookKeepingCache: BookKeepingCache,
+) {
+  const path = `${chainId}/delegation/events`;
+  const delegationCache =
+    readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
+      path,
+      'delegations',
+    ) || [];
+  const client = CHAIN_ID_CLIENT_MAP[chainId];
+  const blockNumber = await getBlockNumber(client);
+  const fromBlock = bookKeepingCache[path]
+    ? Number(bookKeepingCache[path])
+    : 18870593;
+  const events = await getDelegationEvents(
+    [
+      aditionalsAddresses.mainnet.aaveAddress,
+      aditionalsAddresses.mainnet.aAaveAddress,
+      aditionalsAddresses.mainnet.stkAAVEAddress,
+    ],
+    client,
+    BigInt(fromBlock),
+    BigInt(blockNumber),
+  );
+  console.log(events);
+  console.log(events.length);
+  const combinedCache = [...delegationCache, ...events];
+  writeJSONCache(path, 'delegations', combinedCache);
+  bookKeepingCache[path] = String(blockNumber);
+  writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
+}
+
 /**
  * Indexes & caches:
  * - events on the governance
@@ -365,6 +403,8 @@ export async function updateCache({
     );
   });
   await updatePayloadsData(controllers, bookKeepingCache, true);
+  // update delegations
+  await updateDelegationCache(govCoreChainId, bookKeepingCache);
   console.log('Caching outside payloads data with events finished.');
   // update bookKeeping
   writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);

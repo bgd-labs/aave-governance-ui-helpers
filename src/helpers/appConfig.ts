@@ -186,7 +186,10 @@ const govCoreChainId: Record<CoreNetworkName, number> = {
   sepolia: sepolia.id,
 };
 
-const aditionalsAddresses: Record<CoreNetworkName, Record<string, Hex>> = {
+export const aditionalsAddresses: Record<
+  CoreNetworkName,
+  Record<string, Hex>
+> = {
   mainnet: {
     aaveAddress: AaveV3Ethereum.ASSETS.AAVE.UNDERLYING,
     aAaveAddress: AaveV3Ethereum.ASSETS.AAVE.A_TOKEN,
