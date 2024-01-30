@@ -3,9 +3,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1706273255,
-      "queuedAt": 0,
+      "queuedAt": 1706625503,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1709297255,
@@ -28,9 +28,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1706273555,
-      "queuedAt": 0,
+      "queuedAt": 1706625575,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1709297555,
@@ -53,9 +53,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1706273615,
-      "queuedAt": 0,
+      "queuedAt": 1706625898,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1709297615,
@@ -89,8 +89,8 @@
     "votingDuration": 259200,
     "creationTime": 1706273699,
     "accessLevel": 1,
-    "state": 2,
-    "queuingTime": 0,
+    "state": 4,
+    "queuingTime": 1706625299,
     "ipfsHash": "0x2fa324a635a80a4f64b8636199440b6ef8687135aa81ccf396570eb8aecc7bed",
     "initialPayloads": [
       {
@@ -120,11 +120,11 @@
       "againstVotes": "0",
       "startTime": 1706361364,
       "endTime": 1706620564,
-      "votingClosedAndSentBlockNumber": 0,
-      "votingClosedAndSentTimestamp": 0,
+      "votingClosedAndSentBlockNumber": 52925005,
+      "votingClosedAndSentTimestamp": 1706620569,
       "l1BlockHash": "0xb85a9561021e2e9523df0ed4f15af1e4e7423dfff498ce94cb7b28ece6517d23",
       "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
-      "sentToGovernance": false,
+      "sentToGovernance": true,
       "createdBlock": 52810685,
       "votedInfo": {
         "support": false,
@@ -138,6 +138,6 @@
       "hasRequiredRoots": true
     },
     "isFinished": false,
-    "lastUpdatedTimestamp": 1706617820
+    "lastUpdatedTimestamp": 1706627874
   }
 }
