@@ -1,0 +1,113 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3765A685a401622C060E5D700D9ad89413363a91",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1706623739,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1709647739,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x7cAAf036c24e38eeA0688d2eD52A756Df83037fB",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 52,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1706651594,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1709675594,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x5E6ac2EEd9b13C4D093a281E78feda6bF4f6a8b5",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 30,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmS11C6F2jQ7AVcfsoyg6xRqARgaTr78EyLS5pWYExJwc3",
+    "description": "\n## Simple Summary\n\nIn preparation for launching the GHO Stability Module (GSM) and the $1M RWA strategy with Centirfuge, this publication seeks to make available the necessary amount of USDC, USDT and DAI on Ethereum.\n\n# Motivation\n\nThe GSM is expected to be available for deployment in the near future. The Centrifuge proposal is currently mid way through the review process. The current stable coin holdings on Ethereum are insufficient to support both the GSM, RWA strategy and Service Provider (SP) commitments. Additional funds are needed on Ethereum to support the GSM.\n\nIn addition to the above, this proposal also contains a small bit of house keeping that includes setting two legacy aUSDC Allowances to zero. Whilst the funds mentioned can not be claimed, they are currently showing as available when querying the Allowance ([10.](https://etherscan.io/address/0xBcca60bB61934080951369a648Fb03DF4F96263C#readProxyContract)) balance.\n\nThe two allowances, 174k and 196k, are legacy from previous [CRV](https://app.aave.com/governance/proposal/146) and [BAL](https://app.aave.com/governance/proposal/115) bonding curve deployments respectively.\n\n# Specification\n\nPart A of this proposal will perform the following:\n\n- Withdraw all amUSDC & aPolUSDC from Polygon V2 and V3\n- Withdraw all amDAI from Polygon V2\n- Withdraw 1.0M amPolDAI from Polygon V3\n- Withdraw all amUSDT & aPolUSDT from Polygon V2 and V3\n- Bridge all withdrawn assets to Ethereum\n\n_note_ When withdrawing all units from pools, in actuality, 10 units will be left as to not empty the pool.\n\n- Withdraw 128 aWETH from Ethereum V2\n- The received 128 wETH is to be withdrawn into ETH\n- Transfer the 128 ETH to SAFE address: 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642 as part of the \"Frontier\" [initiative](https://governance.aave.com/t/arfc-introducing-frontier-staking-as-a-service-for-the-aave-dao/16225). The snapshot for Frontier can be found [here](https://snapshot.org/#/aave.eth/proposal/0x6fc11878e04e6bd26def1077115f67294c7a4cb0b91d4c4eacfa4e036791cfef).\n\nRevoke the following allowances for the Aave Collector on Mainnet:\n\n`IERC20Token.approve(spender, 0);`\n\n| token | spender                                    | description                  |\n| ----- | ------------------------------------------ | ---------------------------- |\n| aENS  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |\n| aMANA | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aUST  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |\n| sUSD  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |\n| aUSDC | 0x04f90d449d4f8316edd6ef4f963b657f8444a4ca | One Way Bonding Curve        |\n| aRAI  | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aZRX  | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aAMPL | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aSUSD | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aUSDC | 0x46a1b7d4a2920270c7eb2c2db4df2259a109bcb4 | CRV Bad Debt Repayment       |\n| TUSD  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |\n| BUSD  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |\n| aTUSD | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aDPI  | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aFRAX | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n| aBUSD | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |\n\n## References\n\n- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8ff6392611bd569cf381b3dc0f41575e445e9386/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/8ff6392611bd569cf381b3dc0f41575e445e9386/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.sol)\n- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8ff6392611bd569cf381b3dc0f41575e445e9386/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/8ff6392611bd569cf381b3dc0f41575e445e9386/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19)\n- [Discussion](https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128)\n\n## Disclaimer\n\nTokenLogic and karpatkey receive no compensation beyond Aave protocol for the creation of this proposal. TokenLogic and karpatkey are both delegates within the Aave ecosystem.\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1), Frontier Staking as a Service",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/gho-stability-module-update/14442/10",
+    "originalIpfsHash": "0x36664a88ec779d778e529d1175762ae8b062bcedc553c07936e158255ad31700"
+  },
+  "proposal": {
+    "id": 14,
+    "votingDuration": 259200,
+    "creationTime": 1706716655,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x36664a88ec779d778e529d1175762ae8b062bcedc553c07936e158255ad31700",
+    "initialPayloads": [
+      {
+        "id": 52,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 30,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 14,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1706725011
+  }
+}
