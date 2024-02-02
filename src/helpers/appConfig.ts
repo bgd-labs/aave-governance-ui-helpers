@@ -11,6 +11,7 @@ import {
   GovernanceV3Metis,
   GovernanceV3Optimism,
   GovernanceV3Polygon,
+  GovernanceV3Scroll,
 } from '@bgd-labs/aave-address-book';
 import { Hex } from 'viem';
 import {
@@ -25,6 +26,7 @@ import {
   metis,
   optimism,
   polygon,
+  scroll,
   sepolia,
 } from 'viem/chains';
 
@@ -112,6 +114,10 @@ export const payloadsControllerConfig: Record<
     [bsc.id]: {
       dataHelperContractAddress: GovernanceV3BNB.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3BNB.PAYLOADS_CONTROLLER],
+    },
+    [scroll.id]: {
+      dataHelperContractAddress: GovernanceV3Scroll.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Scroll.PAYLOADS_CONTROLLER],
     },
   },
   // testnets
@@ -220,6 +226,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     optimism.id,
     bsc.id,
     gnosis.id,
+    scroll.id,
   ],
   goerli: [goerli.id],
   sepolia: [sepolia.id, avalancheFuji.id],
