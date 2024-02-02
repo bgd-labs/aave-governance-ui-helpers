@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x9A187663E454e99CAFd40a2712606CC306e301b2",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1706827265,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1709851265,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x2a1cb7834E36b318c5ad1939C45Ce3e365b92A7d",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 12,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qmeuhhj1wcicVHvouqqL6sRithN54JQbYUzEZjJxroKpUA",
+    "description": "\n## Simple Summary\n\nA proposal for MAI / MIMATIC deprecation on Aave Optimism v3. For more details, see the full forum post [here](https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation-phase-2/15957).\n\n## Motivation\n\nAs a continuation of our previous [MAI/MIMATIC deprecation](https://governance-v2.aave.com/governance/proposal/376/) AIP following MAI's depeg, Gauntlet recommends lowering MAI LT to 1% on Aave v3 Optimism.\n\n## Specification\n\n| Asset | Current LT | Gauntlet Rec LT |\n| ----- | ---------- | --------------- |\n| MAI   | 65%        | 1%              |\n\n## References\n\n- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/28a99cfe636a003b92fb1e8b8af03a66e4b3eaa6/src/20240122_AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2/AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2_20240122.sol)\n- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/28a99cfe636a003b92fb1e8b8af03a66e4b3eaa6/src/20240122_AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2/AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2_20240122.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x67a6941140c0c0662cfbf99254100f58930afb6763b8040c4bdbd0dfbb2a952b)\n- [Discussion](https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation-phase-2/15957)\n\n## Disclaimer\n\nGauntlet has not been compensated by any third party for publishing this ARFC.\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n\n_By approving this proposal, you agree that any services provided by Gauntlet shall be governed by the terms of service available at gauntlet.network/tos._\n",
+    "title": "Gauntlet recommendation for MAI / MIMATIC deprecation phase 2",
+    "author": "Gauntlet",
+    "discussions": "https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation-phase-2/15957",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x67a6941140c0c0662cfbf99254100f58930afb6763b8040c4bdbd0dfbb2a952b",
+    "originalIpfsHash": "0xf6328acd631e4aac9d1e14e98d4bc56f0a852f496afb7c5e3d5254e2757ce353"
+  },
+  "proposal": {
+    "id": 19,
+    "votingDuration": 259200,
+    "creationTime": 1706886299,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xf6328acd631e4aac9d1e14e98d4bc56f0a852f496afb7c5e3d5254e2757ce353",
+    "initialPayloads": [
+      {
+        "id": 12,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x683a4F9915D6216f73d6Df50151725036bD26C02",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 19,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1706887028
+  }
+}
