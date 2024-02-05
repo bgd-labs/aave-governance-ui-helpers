@@ -1,0 +1,83 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1707143567,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1710167567,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x8C56419f15734b51E3Ca6D6547393914311ab44C",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 59,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmcW3z3XyfJMU8gHL6daPiXAJSJxpsAivuLFLvWWn3QNVy",
+    "description": "\n## Simple Summary\n\nA proposal to reduce Liquidation Thresholds on Aave V2 Ethereum.\n\n## Motivation\n\nFollowing the v2 deprecation framework, Chaos Labs and Gauntlet advise implementing the subsequent parameter changes to the frozen assets on Aave v2 Ethereum and Polygon\n\nAs Liquidation Threshold reductions may lead to user accounts being eligible for liquidations upon their approval, we want to clarify the full implications to the community at each step. We will publicly communicate the planned amendments and list of affected accounts leading to the on-chain execution.\n\n## Specification\n\nChaos and Gauntlet align on following recommendations, choosing the higher value between Gauntlet’s aggressive and Chaos’s moderate approach for each asset:\n\n##### Aave v2 Ethereum\n\n| Asset | Current LT | Recommended LT |\n| ----- | ---------- | -------------- |\n| CRV   | 18%        | 14%            |\n| ENS   | 24%        | 0.05%          |\n| LINK  | 74%        | 72%            |\n| MKR   | 18%        | 14%            |\n| UNI   | 20%        | 14%            |\n| ZRX   | 12%        | 8%             |\n\n|       | Value liquidated | Accounts liquidated |\n| ----- | ---------------- | ------------------- |\n| Total | $67,480          | 47                  |\n\n## References\n\n- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/295f9414834c29c4250b6da9d52c2c3e958b0728/src/20240201_AaveV2Ethereum_ChaosLabsV2EthereumLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumLTReductions_20240201.sol)\n- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/295f9414834c29c4250b6da9d52c2c3e958b0728/src/20240201_AaveV2Ethereum_ChaosLabsV2EthereumLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumLTReductions_20240201.t.sol)\n- [Snapshot](No snapshot for Direct-to-AIP)\n- [Discussion](https://governance.aave.com/t/arfc-v2-ethereum-lt-reductions-01-30-2024/16468)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "V2 Ethereum LT Reductions",
+    "author": "Chaos Labs - Eyal Ovadya",
+    "discussions": "https://governance.aave.com/t/arfc-v2-ethereum-lt-reductions-01-30-2024/16468",
+    "originalIpfsHash": "0xd26c294080aa7bf96dc3f291b00ca4bf57586b3977724a90a4e7cf46ef98741c"
+  },
+  "proposal": {
+    "id": 23,
+    "votingDuration": 259200,
+    "creationTime": 1707143675,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xd26c294080aa7bf96dc3f291b00ca4bf57586b3977724a90a4e7cf46ef98741c",
+    "initialPayloads": [
+      {
+        "id": 59,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 23,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1707146198
+  }
+}
