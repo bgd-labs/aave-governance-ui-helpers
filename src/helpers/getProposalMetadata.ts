@@ -4,7 +4,11 @@ import {
 } from '@bgd-labs/js-utils';
 import { zeroHash } from 'viem';
 
-export type ProposalMetadata = ProposalMetadataInit & {
+type InitMetadataWithSnapshot = ProposalMetadataInit & {
+  snapshot?: string;
+};
+
+export type ProposalMetadata = InitMetadataWithSnapshot & {
   originalIpfsHash: string;
 };
 
@@ -30,7 +34,10 @@ export async function getProposalMetadata(
     }
   } else {
     try {
-      const metadata = await getProposalMetadataInit(hash, gateway);
+      const metadata: InitMetadataWithSnapshot = await getProposalMetadataInit(
+        hash,
+        gateway,
+      );
       return {
         ...metadata,
         originalIpfsHash: hash,
