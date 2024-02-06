@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.1.0...v2.2.0) (2024-02-06)
+
+
+### Features
+
+* added helper for getting proofs ([#44](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/44)) ([65845ca](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/65845cafd775450df9cec733792c5bcb16d8fa7e))
+
 ## [2.1.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.0.0...v2.1.0) (2024-02-02)
 
 
