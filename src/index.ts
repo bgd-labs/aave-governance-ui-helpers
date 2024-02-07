@@ -13,6 +13,5 @@ export * from './helpers/getHistoryEvents';
 export * from './helpers/getProposalData';
 export * from './helpers/getProposalEvents';
 export * from './helpers/getProposalMetadata';
-export * from './helpers/helperToGetProofs.ts';
 export * from './helpers/types';
 export * from './scripts/update-cache-package.ts';
