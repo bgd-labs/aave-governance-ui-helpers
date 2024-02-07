@@ -40,11 +40,12 @@
     "node": ">=18"
   },
   "peerDependencies": {
-    "@bgd-labs/aave-address-book": "^2.18.0",
+    "@bgd-labs/aave-address-book": "^2.19.0",
     "viem": "^2.7.1"
   },
   "devDependencies": {
     "@bgd-labs/aave-address-book": "^2.19.0",
+    "@bgd-labs/js-utils": "1.1.1",
     "@size-limit/preset-small-lib": "^11.0.2",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.16",
@@ -66,7 +67,6 @@
     "viem": "^2.7.3"
   },
   "dependencies": {
-    "@bgd-labs/js-utils": "1.1.1",
     "dayjs": "^1.11.10",
     "gray-matter": "^4.0.3"
   }
