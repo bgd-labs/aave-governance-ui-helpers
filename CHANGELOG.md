@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.2.0...v2.2.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* cache events parser ([b0e0900](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/b0e0900e6e73aef29ff1597d6949042cf5f38d9f))
+* remove proofs helper ([#48](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/48)) ([3a798ac](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/3a798acfa5734459aabacf17eda60fb9f22ecde2))
+
 ## [2.2.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.1.0...v2.2.0) (2024-02-06)
 
 
