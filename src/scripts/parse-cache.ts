@@ -169,7 +169,16 @@ async function parseProposalEvents(
       `proposal_${proposal.id}_events`,
     ) || {};
 
-  if (!Object.keys(proposalHistoryEvents).length || !proposal.isFinished) {
+  if (
+    (!!Object.keys(proposalHistoryEvents).length &&
+      !Object.keys(proposalHistoryEvents)
+        [Object.keys(proposalHistoryEvents).length - 1].split('_')
+        .some(
+          (event) => event === HistoryItemType.PAYLOADS_EXECUTED.toString(),
+        )) ||
+    !Object.keys(proposalHistoryEvents).length ||
+    !proposal.isFinished
+  ) {
     const setEvent = ({
       historyId,
       type,
