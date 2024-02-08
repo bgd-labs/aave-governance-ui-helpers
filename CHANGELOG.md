@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.2.1...v3.0.0) (2024-02-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* update package structure and added ether-v5 proofs helper ([#49](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/49))
+
+### Features
+
+* update package structure and added ether-v5 proofs helper ([#49](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/49)) ([f89aa88](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f89aa88908d4daa86af2365cb5998fce13f9d15c))
+
 ## [2.2.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.2.0...v2.2.1) (2024-02-07)
 
 
