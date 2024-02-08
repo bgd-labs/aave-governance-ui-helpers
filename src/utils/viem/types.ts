@@ -178,7 +178,7 @@ export type ContractsConstants = {
 export type InitialPayload = {
   id: number;
   chainId: number;
-  payloadsController: Hex;
+  payloadsController: Address | string;
 };
 
 export interface BasicProposal {
