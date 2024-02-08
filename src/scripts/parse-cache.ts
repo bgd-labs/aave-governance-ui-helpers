@@ -36,10 +36,13 @@ import {
   VotingConfig,
   VotingMachineProposalState,
 } from '..';
-import { getGovernanceEvents, isProposalFinal } from '../events/governance.ts';
-import { getPayloadsControllerEvents } from '../events/payloadsController.ts';
-import { getVotingMachineEvents } from '../events/votingMachine.ts';
-import { appConfig, coreName } from '../helpers/config.ts';
+import {
+  getGovernanceEvents,
+  isProposalFinal,
+} from '../utils/viem/events/governance.ts';
+import { getPayloadsControllerEvents } from '../utils/viem/events/payloadsController.ts';
+import { getVotingMachineEvents } from '../utils/viem/events/votingMachine.ts';
+import { appConfig, coreName } from './config.ts';
 
 const initDirName = `ui/${coreName}`;
 

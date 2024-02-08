@@ -1,4 +1,4 @@
-import { appConfig } from '../helpers/config';
+import { appConfig } from './config.ts';
 import { updateCache } from './update-cache-package.ts';
 
 updateCache({

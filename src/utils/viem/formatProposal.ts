@@ -1,18 +1,18 @@
 import { BigNumber } from 'bignumber.js';
 import dayjs from 'dayjs';
 
-import { normalizeBN, valueToBigNumber } from './bignumber';
-import { checkHash } from './checkHash';
 import {
+  checkHash,
   CombineProposalState,
+  normalizeBN,
   PayloadState,
-  Proposal,
-  ProposalData as BasicProposal,
   ProposalEstimatedState,
   ProposalState,
   ProposalWaitForState,
+  valueToBigNumber,
   VotingMachineProposalState,
-} from './types';
+} from '../generic';
+import { Proposal, ProposalData as BasicProposal } from './types.ts';
 
 export function normalizeVotes(forVotes: string, againstVotes: string) {
   const forVotesN = normalizeBN(forVotes, 18).toNumber();

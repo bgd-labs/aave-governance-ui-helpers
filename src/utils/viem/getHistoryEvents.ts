@@ -6,7 +6,7 @@ import {
 import { zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 
-import { blockLimit, getEventsBySteps } from './eventsHelpers';
+import { blockLimit, getEventsBySteps } from '../generic';
 import { InitEvent, InitEventWithChainId } from './types';
 
 // payloads created

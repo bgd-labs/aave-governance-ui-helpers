@@ -3,7 +3,7 @@ import { strategicGetLogs } from '@bgd-labs/js-utils';
 import type { ExtractAbiEvent } from 'abitype';
 import { Address, Client, getAbiItem } from 'viem';
 
-import { ProposalState } from '../helpers/types';
+import { ProposalState } from '../../generic';
 
 export type ProposalCreatedEvent = ExtractAbiEvent<
   typeof IGovernanceCore_ABI,
