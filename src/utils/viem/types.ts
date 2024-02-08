@@ -4,37 +4,47 @@ import {
 } from '@bgd-labs/aave-address-book';
 import {
   AbiStateMutability,
+  Address,
   Client,
   ContractFunctionReturnType,
   Hex,
 } from 'viem';
 
-import { ProposalMetadata } from './getProposalMetadata.ts';
+import {
+  CombineProposalState,
+  HistoryItemType,
+  ProposalMetadata,
+  ProposalState,
+  VotingMachineProposalState,
+} from '../generic';
 
+// types for cache system
 /**
  * simple cache mapping:
  * filename:blockNumber with the last used block for caching
  */
 export type BookKeepingCache = Record<string, string>;
+
+type ProposalInitialStruct = ContractFunctionReturnType<
+  typeof IGovernanceCore_ABI,
+  AbiStateMutability,
+  'getProposal'
+>;
 export type ProposalsCache = Record<
   number,
-  ContractFunctionReturnType<
-    typeof IGovernanceCore_ABI,
-    AbiStateMutability,
-    'getProposal'
-  > & {
-    isFinished: boolean; // state when all payloads inside proposal in final stage
+  ProposalInitialStruct & {
+    isFinished: boolean; // state when all payloads inside proposal in final state
   }
 >;
+
 export type Payload = ContractFunctionReturnType<
   typeof IPayloadsControllerCore_ABI,
   AbiStateMutability,
   'getPayloadById'
 > & {
-  // need for comfortable filtering
   id: number;
   chainId: number;
-  payloadsController: Hex;
+  payloadsController: Address | string;
 };
 export type PayloadsCache = Record<number, Payload>;
 
@@ -59,33 +69,10 @@ export type InitEventWithChainId = InitEvent & {
 // end
 
 // from contracts
-type PayloadStructOutput = {
-  chain: bigint;
-  accessLevel: number;
-  payloadsController: Hex;
-  payloadId: number;
-};
-
 export type ProposalStructOutput = {
   id: bigint;
   votingChainId: bigint;
-  proposalData: {
-    state: number;
-    accessLevel: number;
-    creationTime: number;
-    votingDuration: number;
-    votingActivationTime: number;
-    queuingTime: number;
-    cancelTimestamp: number;
-    creator: Hex;
-    votingPortal: Hex;
-    snapshotBlockHash: Hex;
-    ipfsHash: Hex;
-    forVotes: bigint;
-    againstVotes: bigint;
-    cancellationFee: bigint;
-    payloads: Readonly<PayloadStructOutput[]>;
-  };
+  proposalData: ProposalInitialStruct;
 };
 
 type VMProposalWithoutVotesStructOutput = {
@@ -123,43 +110,6 @@ export interface PayloadForCreation {
   accessLevel: number;
   payloadsController: Hex;
   payloadId: number;
-}
-
-export enum ProposalState {
-  Null, // proposal does not exists
-  Created, // created, waiting for a cooldown to initiate the balances snapshot
-  Active, // balances snapshot set, voting in progress
-  Queued, // voting results submitted, but proposal is under grace period when guardian can cancel it
-  Executed, // results sent to the execution chain(s)
-  Failed, // voting was not successful
-  Cancelled, // got cancelled by guardian, or because proposition power of creator dropped below allowed minimum
-  Expired,
-}
-
-export enum VotingMachineProposalState {
-  NotCreated,
-  Active,
-  Finished,
-  SentToGovernance,
-}
-
-export enum PayloadState {
-  None,
-  Created,
-  Queued,
-  Executed,
-  Cancelled,
-  Expired,
-}
-
-export enum CombineProposalState {
-  Created,
-  Active,
-  Succeed,
-  Failed,
-  Executed,
-  Expired,
-  Canceled,
 }
 
 export type VotersData = {
@@ -296,35 +246,6 @@ export interface ProposalWithId extends ProposalWithLoadings {
   id: number;
 }
 
-export enum ProposalStateWithName {
-  Created = 'Created',
-  Active = 'Voting',
-  Succeed = 'Passed',
-  Failed = 'Failed',
-  Executed = 'Executed',
-  Expired = 'Expired',
-  Canceled = 'Canceled',
-  ActiveAll = 'Active',
-}
-
-export enum ProposalEstimatedState {
-  Active = 'Will open for voting',
-  Succeed = 'Will pass',
-  Failed = 'Will fail',
-  ProposalExecuted = 'Proposal will start executing',
-  PayloadsExecuted = 'Payloads will start executing',
-  Expired = 'Will expire',
-}
-
-export enum ProposalWaitForState {
-  WaitForActivateVoting = 'Pending voting activation',
-  WaitForCloseVoting = 'Pending voting closure',
-  WaitForQueueProposal = 'Proposal is time-locked',
-  WaitForExecuteProposal = 'Pending proposal execution',
-  WaitForQueuePayloads = 'Payloads are time-locked',
-  WaitForExecutePayloads = 'Pending payloads execution',
-}
-
 export interface FinishedProposalForList
   extends Pick<ProposalMetadata, 'title'> {
   id: number;
@@ -353,23 +274,6 @@ export interface CachedDetails {
   payloads: Payload[];
   ipfs: ProposalMetadata;
   proposal: BasicProposal;
-}
-
-export enum HistoryItemType {
-  PAYLOADS_CREATED,
-  CREATED,
-  PROPOSAL_ACTIVATE,
-  OPEN_TO_VOTE,
-  VOTING_OVER,
-  VOTING_CLOSED,
-  RESULTS_SENT,
-  PROPOSAL_QUEUED,
-  PROPOSAL_EXECUTED,
-  PAYLOADS_QUEUED,
-  PAYLOADS_EXECUTED,
-  PROPOSAL_CANCELED,
-  PAYLOADS_EXPIRED,
-  PROPOSAL_EXPIRED,
 }
 
 export type FilteredEvent = {

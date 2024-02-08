@@ -2,7 +2,7 @@ import { IGovernanceDataHelper_ABI } from '@bgd-labs/aave-address-book';
 import { Client, Hex } from 'viem';
 import { readContract } from 'viem/actions';
 
-import { VotingConfig } from './types';
+import { VotingConfig } from './types.ts';
 
 export async function getGovCoreConfigs({
   client,

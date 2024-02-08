@@ -1,6 +1,6 @@
-// only for internal usage
+// only for internal usage, for generating cache
 
-import { appConfigInit, CoreNetworkName } from './appConfig';
+import { appConfigInit, CoreNetworkName } from '..';
 
 require('dotenv').config();
 

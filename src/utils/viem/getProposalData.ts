@@ -1,14 +1,13 @@
 import dayjs from 'dayjs';
-import { zeroHash } from 'viem';
 
+import { VotingMachineProposalState, zeroHash } from '../generic';
 import {
   BasicProposal,
   ProposalData,
   ProposalStructOutput,
   VMProposalStructOutput,
   VotingConfig,
-  VotingMachineProposalState,
-} from './types';
+} from './types.ts';
 
 export function getVotingMachineProposalState(proposal: BasicProposal) {
   const now = dayjs().unix();

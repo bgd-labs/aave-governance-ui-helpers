@@ -21,12 +21,12 @@ import {
   ProposalsCache,
   ProposalState,
 } from '../';
-import { getGovernanceEvents } from '../events/governance';
+import { getGovernanceEvents } from '../utils/viem/events/governance.ts';
 import {
   getPayloadsControllerEvents,
   isPayloadFinal,
-} from '../events/payloadsController';
-import { getVotingMachineEvents } from '../events/votingMachine';
+} from '../utils/viem/events/payloadsController.ts';
+import { getVotingMachineEvents } from '../utils/viem/events/votingMachine.ts';
 
 async function updateIpfsCache(proposalsCache: ProposalsCache) {
   const ipfsCache: Record<string, ProposalMetadata> =

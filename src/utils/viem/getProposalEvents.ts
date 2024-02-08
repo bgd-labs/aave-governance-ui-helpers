@@ -2,9 +2,8 @@ import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book';
 import { Hex, zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 
-import { normalizeBN } from './bignumber';
-import { getEventsBySteps } from './eventsHelpers';
-import { InitEventWithChainId } from './types';
+import { getEventsBySteps, normalizeBN } from '../generic';
+import { InitEventWithChainId } from './types.ts';
 
 async function getVoteEvents({
   contractAddress,
