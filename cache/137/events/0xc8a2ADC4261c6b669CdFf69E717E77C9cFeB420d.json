@@ -42231,5 +42231,97 @@
     "blockHash": "0x6964e874f184c3058b8bd545670e2061c483ce04f948bb18cbdb31426eb7857a",
     "logIndex": 172,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "36",
+      "voter": "0x1DAbd4B02fD18C848CaF4D656584207438f453Bb",
+      "support": true,
+      "votingPower": "16528708340000000000"
+    },
+    "address": "0xc8a2adc4261c6b669cdff69e717e77c9cfeb420d",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000024",
+      "0x0000000000000000000000001dabd4b02fd18c848caf4d656584207438f453bb",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000e561c4a991bc8800",
+    "blockNumber": "53995387",
+    "transactionHash": "0x25d6be3fe68008df325d52e8d412b79f940f2a04df07eb951b896121f0a9bd08",
+    "transactionIndex": 68,
+    "blockHash": "0x3b0a9e29fb34801afacec17bc49379027a526f22339132def236fe069832de6d",
+    "logIndex": 351,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "35",
+      "voter": "0x1DAbd4B02fD18C848CaF4D656584207438f453Bb",
+      "support": true,
+      "votingPower": "16528708340000000000"
+    },
+    "address": "0xc8a2adc4261c6b669cdff69e717e77c9cfeb420d",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000023",
+      "0x0000000000000000000000001dabd4b02fd18c848caf4d656584207438f453bb",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000e561c4a991bc8800",
+    "blockNumber": "53995412",
+    "transactionHash": "0x6c73a1e1caf5476d6c747b9ee8df44df05c6a919cbd9f9646f267f02e0e770dd",
+    "transactionIndex": 112,
+    "blockHash": "0xe2de614c70a4650ef121d6c81038fa5707c9c75f157762317676c20b82092c45",
+    "logIndex": 528,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "34",
+      "voter": "0x1DAbd4B02fD18C848CaF4D656584207438f453Bb",
+      "support": true,
+      "votingPower": "16528708340000000000"
+    },
+    "address": "0xc8a2adc4261c6b669cdff69e717e77c9cfeb420d",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000022",
+      "0x0000000000000000000000001dabd4b02fd18c848caf4d656584207438f453bb",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000e561c4a991bc8800",
+    "blockNumber": "53995545",
+    "transactionHash": "0xb57656e1dd07feb794be86229176205ee7a58081195373703de63899025f2b84",
+    "transactionIndex": 44,
+    "blockHash": "0x8cf97d1ef1af78cd2b8751f68501e687bffc6fa86a6929ccd1790a6e22254b83",
+    "logIndex": 590,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "33",
+      "voter": "0x1DAbd4B02fD18C848CaF4D656584207438f453Bb",
+      "support": true,
+      "votingPower": "16528708340000000000"
+    },
+    "address": "0xc8a2adc4261c6b669cdff69e717e77c9cfeb420d",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000021",
+      "0x0000000000000000000000001dabd4b02fd18c848caf4d656584207438f453bb",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000e561c4a991bc8800",
+    "blockNumber": "53995739",
+    "transactionHash": "0xb89874fad6450b20dc1abfba02e8f3d53772d7fff00ca945d0e3677bb7f02848",
+    "transactionIndex": 60,
+    "blockHash": "0xdf11c106bc16ae7664b9b8c693c2e1576621161942b2c6d269fc603dc5c6219f",
+    "logIndex": 332,
+    "removed": false
   }
 ]
