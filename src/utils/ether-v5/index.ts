@@ -1,1 +1,1 @@
-export * from './proofsHelpers.ts';
+export * from './proofsHelpers';

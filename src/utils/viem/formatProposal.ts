@@ -12,7 +12,7 @@ import {
   valueToBigNumber,
   VotingMachineProposalState,
 } from '../generic';
-import { Proposal, ProposalData as BasicProposal } from './types.ts';
+import { Proposal, ProposalData as BasicProposal } from './types';
 
 export function normalizeVotes(forVotes: string, againstVotes: string) {
   const forVotesN = normalizeBN(forVotes, 18).toNumber();

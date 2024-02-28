@@ -1,3 +1,3 @@
-export * from './constants.ts';
-export * from './genericFunctions.ts';
-export * from './types.ts';
+export * from './constants';
+export * from './genericFunctions';
+export * from './types';

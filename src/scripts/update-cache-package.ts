@@ -21,12 +21,13 @@ import {
   ProposalsCache,
   ProposalState,
 } from '../';
-import { getGovernanceEvents } from '../utils/viem/events/governance.ts';
+import { getGovernanceEvents } from '../utils/viem/events/governance';
 import {
   getPayloadsControllerEvents,
   isPayloadFinal,
-} from '../utils/viem/events/payloadsController.ts';
-import { getVotingMachineEvents } from '../utils/viem/events/votingMachine.ts';
+} from '../utils/viem/events/payloadsController';
+import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
+import { getBlock, getBlockNumber } from 'viem/actions';
 
 async function updateIpfsCache(proposalsCache: ProposalsCache) {
   const ipfsCache: Record<string, ProposalMetadata> =
@@ -54,7 +55,7 @@ async function updatePayloadsEvents(
   const client = CHAIN_ID_CLIENT_MAP[chainId];
   const payloadsPath = `${chainId}/payloads`;
 
-  const currentBlockOnPayloadsControllerChain = await client.getBlock();
+  const currentBlockOnPayloadsControllerChain = await getBlock(client);
   const eventsPath = `${chainId}/events`;
   const eventsCache =
     readJSONCache<Awaited<ReturnType<typeof getPayloadsControllerEvents>>>(
@@ -149,7 +150,7 @@ async function updateGovCoreEvents(
   const eventsPath = `${Number(govCoreChainId)}/events`;
 
   const client = CHAIN_ID_CLIENT_MAP[Number(govCoreChainId)];
-  const currentBlockOnGovernanceChain = await client.getBlockNumber();
+  const currentBlockOnGovernanceChain = await getBlockNumber(client);
   const contract = getContract({
     abi: IGovernanceCore_ABI,
     address: govCoreContractAddress,
@@ -215,7 +216,7 @@ async function updateVMEvents(
       const path = `${chainId}/events`;
       const address = machine;
       const client = CHAIN_ID_CLIENT_MAP[chainId];
-      const currentBlockOnVotingMachineChain = await client.getBlockNumber();
+      const currentBlockOnVotingMachineChain = await getBlockNumber(client);
       const votesCache =
         readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
           path,
@@ -279,7 +280,7 @@ export async function updateCache({
   // check proposals count
   const proposalsCount = await govCore.read.getProposalsCount();
   if (proposalsCount === BigInt(0)) {
-    const currentBlockOnGovernanceChain = await govCoreClient.getBlockNumber();
+    const currentBlockOnGovernanceChain = await getBlockNumber(govCoreClient);
     bookKeepingCache[`${govCoreChainId}/governance`] =
       currentBlockOnGovernanceChain.toString();
     writeJSONCache('bookKeeping', 'lastFetchedBlocks', bookKeepingCache);
