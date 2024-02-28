@@ -7,7 +7,7 @@ import {
   ProposalStructOutput,
   VMProposalStructOutput,
   VotingConfig,
-} from './types.ts';
+} from './types';
 
 export function getVotingMachineProposalState(proposal: BasicProposal) {
   const now = dayjs().unix();

@@ -7,8 +7,8 @@ import {
   blockLimit,
   ProposalMetadata,
   zeroHash,
-} from './index.ts';
-import { AssetsBalanceSlots } from './types.ts';
+} from './index';
+import { AssetsBalanceSlots } from './types';
 
 export function baseToCidv0(hash: string) {
   return bs58.encode(Buffer.from(`1220${hash.slice(2)}`, 'hex'));

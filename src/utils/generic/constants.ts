@@ -1,4 +1,4 @@
-import { Asset } from './types.ts';
+import { Asset } from './types';
 
 // balance slots by assets name
 export const baseSlots = {

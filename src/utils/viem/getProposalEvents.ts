@@ -3,7 +3,7 @@ import { Hex, zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 
 import { getEventsBySteps, normalizeBN } from '../generic';
-import { InitEventWithChainId } from './types.ts';
+import { InitEventWithChainId } from './types';
 
 async function getVoteEvents({
   contractAddress,

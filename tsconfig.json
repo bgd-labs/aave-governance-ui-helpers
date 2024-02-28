@@ -6,8 +6,12 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "cache"]
+  "exclude": [
+    "node_modules",
+    "cache",
+    "src/update-cache-package.ts",
+    "src/update-cache.ts",
+  ],
 }
