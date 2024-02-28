@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.0...v3.0.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* update to new version of js-utils ([#51](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/51)) ([4e1a66a](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/4e1a66a5e32f565d7c2440987dbc7fe6c583b71a))
+
 ## [3.0.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v2.2.1...v3.0.0) (2024-02-08)
 
 
