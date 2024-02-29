@@ -12,29 +12,13 @@ import {
   toHex,
   toRlp,
 } from 'viem';
-import { getBlock } from 'viem/actions';
+import { getBlock, getProof } from 'viem/actions';
 
 import {
   AssetsBalanceSlots,
   BalanceForProof,
   getVoteBalanceSlot,
 } from '../generic';
-
-// types
-export type Proof = {
-  balance: Hex; //QUANTITY - the balance of the account. Seeeth_getBalance
-  codeHash: Hex; //DATA, 32 Bytes - hash of the code of the account. For a simple Account without code it will return "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-  nonce: Hex; //QUANTITY, - nonce of the account. See eth_getTransactionCount
-  storageHash: Hex; //DATA, 32 Bytes - SHA3 of the StorageRoot. All storage will deliver a MerkleProof starting with this rootHash.
-  accountProof: Hex[]; //ARRAY - Array of rlp-serialized MerkleTree-Nodes, starting with the stateRoot-Node, following the path of the SHA3 (address) as key.
-  storageProof: {
-    //ARRAY - Array of storage-entries as requested. Each entry is an object with these properties:
-    key: Hex; //QUANTITY - the requested storage key
-    value: Hex; //QUANTITY - the storage value
-    proof: Hex[]; //ARRAY - Array of rlp-serialized MerkleTree-Nodes, starting with the storageHash-Node, following the path of the SHA3 (key) as path.
-  }[];
-};
-// end
 
 export const formatToProofRLP = (rawData: Hex[]) => {
   return toRlp(rawData.map((d: Hex) => fromRlp(d, 'hex')));
@@ -120,18 +104,6 @@ export async function getBlockNumberByBlockHash(
   return Number((await getBlock(client, { blockHash })).number);
 }
 
-export const getProof = async (
-  client: Client, // gov core client
-  address: Address,
-  storageKeys: string[],
-  blockNumber: number,
-) => {
-  return (await client.request({
-    method: 'eth_getProof' as any,
-    params: [address, storageKeys, toHex(blockNumber)] as any,
-  })) as unknown as Proof;
-};
-
 export async function getAndFormatProof({
   client,
   userAddress,
@@ -150,12 +122,11 @@ export async function getAndFormatProof({
     userAddress,
   );
 
-  const rawProofData = await getProof(
-    client,
-    underlyingAsset,
-    [hashedHolderSlot],
-    blockNumber,
-  );
+  const rawProofData = await getProof(client, {
+    address: underlyingAsset,
+    storageKeys: [hashedHolderSlot],
+    blockNumber: BigInt(blockNumber),
+  });
 
   const proof = formatToProofRLP(rawProofData.storageProof[0].proof);
 
@@ -229,11 +200,10 @@ export async function getProofOfRepresentative({
   );
   const hexSlot = toHex(balanceSlotRaw);
   const slot = getSolidityTwoLevelStorageSlotHash(hexSlot, address, chainId);
-  const rawProofData = await getProof(
-    client,
-    govCoreAddress,
-    [slot],
-    blockNumber,
-  );
+  const rawProofData = await getProof(client, {
+    address: govCoreAddress,
+    storageKeys: [slot],
+    blockNumber: BigInt(blockNumber),
+  });
   return formatToProofRLP(rawProofData.storageProof[0].proof);
 }
