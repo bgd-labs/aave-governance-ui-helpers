@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.3](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.2...v3.0.3) (2024-02-29)
+
+
+### Bug Fixes
+
+* tsup config ([#54](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/54)) ([86ef70c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/86ef70cedf4de57e2bf4dcbe3089c96d51af1f9b))
+
 ## [3.0.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.1...v3.0.2) (2024-02-29)
 
 
