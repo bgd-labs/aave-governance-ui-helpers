@@ -1,15 +1,7 @@
 import { Options } from 'tsup';
 
 const config: Options = {
-  entry: [
-    'src/abis/*.ts',
-    'src/scripts/update-cache-package.ts',
-    'src/utils/viem/**/*.ts',
-    'src/utils/ether-v5/**/*.ts',
-    'src/utils/generic/*.ts',
-
-    'src/index.ts',
-  ],
+  entry: ['src/abis/*.ts', 'src/utils/ether-v5/**/*.ts', 'src/index.ts'],
   sourcemap: true,
   format: ['iife', 'cjs', 'esm'],
   // otherwise .env is ordered wrongly
