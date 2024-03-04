@@ -1,0 +1,83 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1709286647,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1712310647,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x782f46853885d3E3482Ec2cFffaB86F7c9097138",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 70,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmaEnGaaFBsbJpdg4aQGCNhNHLhrJN2qk9vGGgb6xEn4Wf",
+    "description": "\n## Simple Summary\n\nThis ARFC proposes an increase in the GHO borrow rate from 6.22% APR to 7.22% APR to support the GHO peg restoration further, align borrowing costs with average market rates, and maintain its attractiveness as an option. The discounted rates remain unchanged at a 30% discount.\n\n## Motivation\n\nAIP-381 allows for 100 bps increases in the GHO borrow rate every 7 days while maintaining rates up to 9.5% APR if the monthly average price of GHO stays outside a 0,995<>1,005 price range.\n\nWhile the peg has improved, it is still outside of the target range. This ARFC continues with the previous proposals for a further increase in the GHO borrow rate.\n\nThe GHO peg has shown more stability recently but is still slightly below the target. The average monthly borrow rate on Aave for DAI is 8.41%, LUSD is 7.34%, USDC is 9.01%, and USDT is 8.94%.\n\nIncreasing the non-discounted borrow rate of GHO from 6.22% to 7.22% will keep it an attractive option, increase protocol revenue, and is not expected to negatively affect the peg.\n\n## Specification\n\n- **Current Borrow Rate:** 6.22% APR - ~6.35% APY\n- **Proposed Borrow Rate:** 7.22% - ~7.48% APY (non-discounted)\n- **Discounted Rates:** 30% discount\n- **New Discounted Borrow Rate:**\n  - GHO: ~5.24% APY\n\nIf required, ACI will monitor the GHO peg and use authorized discretion for further rate adjustments in coordination with Aave finance SPs.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/23873467c60a1c79bf5ed9a73c60e05ceaea6171/src/20240229_AaveV3Ethereum_GHOBorrowRateIncrease20240229/AaveV3Ethereum_GHOBorrowRateIncrease20240229_20240229.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/23873467c60a1c79bf5ed9a73c60e05ceaea6171/src/20240229_AaveV3Ethereum_GHOBorrowRateIncrease20240229/AaveV3Ethereum_GHOBorrowRateIncrease20240229_20240229.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-increase-gho-borrow-rate-29-02-2024/16787)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO Borrow Rate Increase 2024-02-29",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-29-02-2024/16787",
+    "originalIpfsHash": "0xb0cb4e66131b2fde2206963b7e70e49d2366e41b54133861f0552538b1804b9c"
+  },
+  "proposal": {
+    "id": 40,
+    "votingDuration": 259200,
+    "creationTime": 1709286719,
+    "accessLevel": 1,
+    "state": 2,
+    "queuingTime": 0,
+    "ipfsHash": "0xb0cb4e66131b2fde2206963b7e70e49d2366e41b54133861f0552538b1804b9c",
+    "initialPayloads": [
+      {
+        "id": 70,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0xe79bd15fb75ffa99294f0e76f783c6e75fb50dcbd24aa53352061abd37051635",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1709373143,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 40,
+      "forVotes": "396413263193112889219525",
+      "againstVotes": "0",
+      "startTime": 1709374063,
+      "endTime": 1709633263,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0xe79bd15fb75ffa99294f0e76f783c6e75fb50dcbd24aa53352061abd37051635",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 54173228,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1709523964
+  }
+}

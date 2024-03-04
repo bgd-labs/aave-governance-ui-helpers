@@ -1063,18 +1063,18 @@
     "isFinished": true
   },
   "37": {
-    "state": 2,
+    "state": 4,
     "accessLevel": 1,
     "creationTime": 1709047367,
     "votingDuration": 259200,
     "votingActivationTime": 1709150951,
-    "queuingTime": 0,
+    "queuingTime": 1709412515,
     "cancelTimestamp": 0,
     "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
     "votingPortal": "0x9b24C168d6A76b5459B1d47071a54962a4df36c3",
     "snapshotBlockHash": "0x39983dde15d3a5b924ef303c2fcb1bbb501ef62ce5f60ac1e9cb9721e94926ec",
     "ipfsHash": "0xa451c9a2426267673fd125702c99581683426ca5ff1a003b07a3cd129ed30470",
-    "forVotes": "0",
+    "forVotes": "501835680744385030940417",
     "againstVotes": "0",
     "cancellationFee": "50000000000000000",
     "payloads": [
@@ -1085,7 +1085,7 @@
         "payloadId": 67
       }
     ],
-    "isFinished": false
+    "isFinished": true
   },
   "38": {
     "state": 6,
@@ -1111,5 +1111,104 @@
       }
     ],
     "isFinished": true
+  },
+  "39": {
+    "state": 2,
+    "accessLevel": 1,
+    "creationTime": 1709224031,
+    "votingDuration": 259200,
+    "votingActivationTime": 1709310455,
+    "queuingTime": 0,
+    "cancelTimestamp": 0,
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "votingPortal": "0x9b24C168d6A76b5459B1d47071a54962a4df36c3",
+    "snapshotBlockHash": "0xfb60f22ca487370d0ae91009c6450b4f337090c49daa3f320675ee6b7a214c73",
+    "ipfsHash": "0x6f3e2a38b68d225055ea1f4d82ac73ef779d27eb11834fdbbfcd0a8652971289",
+    "forVotes": "0",
+    "againstVotes": "0",
+    "cancellationFee": "50000000000000000",
+    "payloads": [
+      {
+        "chain": "1",
+        "accessLevel": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5",
+        "payloadId": 69
+      },
+      {
+        "chain": "137",
+        "accessLevel": 1,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C",
+        "payloadId": 38
+      },
+      {
+        "chain": "10",
+        "accessLevel": 1,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4",
+        "payloadId": 13
+      },
+      {
+        "chain": "42161",
+        "accessLevel": 1,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C",
+        "payloadId": 12
+      },
+      {
+        "chain": "8453",
+        "accessLevel": 1,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01",
+        "payloadId": 7
+      }
+    ],
+    "isFinished": false
+  },
+  "40": {
+    "state": 2,
+    "accessLevel": 1,
+    "creationTime": 1709286719,
+    "votingDuration": 259200,
+    "votingActivationTime": 1709373143,
+    "queuingTime": 0,
+    "cancelTimestamp": 0,
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "votingPortal": "0x9b24C168d6A76b5459B1d47071a54962a4df36c3",
+    "snapshotBlockHash": "0xe79bd15fb75ffa99294f0e76f783c6e75fb50dcbd24aa53352061abd37051635",
+    "ipfsHash": "0xb0cb4e66131b2fde2206963b7e70e49d2366e41b54133861f0552538b1804b9c",
+    "forVotes": "0",
+    "againstVotes": "0",
+    "cancellationFee": "50000000000000000",
+    "payloads": [
+      {
+        "chain": "1",
+        "accessLevel": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5",
+        "payloadId": 70
+      }
+    ],
+    "isFinished": false
+  },
+  "41": {
+    "state": 2,
+    "accessLevel": 1,
+    "creationTime": 1709293187,
+    "votingDuration": 259200,
+    "votingActivationTime": 1709379611,
+    "queuingTime": 0,
+    "cancelTimestamp": 0,
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "votingPortal": "0x9b24C168d6A76b5459B1d47071a54962a4df36c3",
+    "snapshotBlockHash": "0x44eda8153d92a43c42ebe9acee5b609108ca55e1e358b6410454927453b7a597",
+    "ipfsHash": "0x65de3c96f0d171e2fa490c180d4aee2a7c057bd9a2e70f7549cdd201efdac409",
+    "forVotes": "0",
+    "againstVotes": "0",
+    "cancellationFee": "50000000000000000",
+    "payloads": [
+      {
+        "chain": "137",
+        "accessLevel": 1,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C",
+        "payloadId": 39
+      }
+    ],
+    "isFinished": false
   }
 }
