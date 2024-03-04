@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.4](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.3...v3.0.4) (2024-03-04)
+
+
+### Bug Fixes
+
+* viem supports typed getProof since a few versions ([#55](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/55)) ([c739ab1](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/c739ab105cdbbf5fd274cdfdea8ca03fcfccb79a))
+
 ## [3.0.3](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.2...v3.0.3) (2024-02-29)
 
 
