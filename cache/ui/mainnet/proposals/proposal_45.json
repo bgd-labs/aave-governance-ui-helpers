@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1709975423,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1712999423,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xaDbe5540140D1b5eB9dcac7Ea20DF95c37287426",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 74,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmUqFNsi5WBEVijtgTt5rGSNmhMpgW4eog3KxLWGA9w5gG",
+    "description": "\n## Simple Summary\n\nThis publication proposes amending daily AAVE emissions across the three Safety Module (SM) categories to support GHO stability.\n\n## Motivation\n\nWith the introduction of stkGHO, GHO went through a positive price action and recovered the 1:1 peg.\n\nSince then, however, the price of GHO has been drifting. There is additional risk of GHO being redeemed from the SM and sold in the market. There are currently around 5.2M GHO cooling off from the stkGHO module.\n\nTo support the GHO peg and to pave the way for future GHO supply expansion, this publication proposes increasing the daily AAVE emissions going to stkGHO holders.\n\nThis publication also proposes to offset this increase in AAVE emissions by reducing the emissions directed to stkAAVE and stkBPT holders. The overall amount of AAVE per day is to remain unchanged.\n\n## Specification\n\nThis proposal will implement the following changes to the AAVE emissions across the three SM categories:\n\n| Asset Current        | AAVE/Day | Proposed AAVE/Day |\n| -------------------- | -------- | ----------------- |\n| stkAAVE              | 385      | 360               |\n| stkGHO               | 50       | 100               |\n| stkBPT (AAVE/wstETH) | 385      | 360               |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/48bcc880f0956f13f4255f0b5e4b3562b3936fbb/src/20240229_AaveV3Ethereum_AmendSafetyModuleEmissions/AaveV3Ethereum_AmendSafetyModuleEmissions_20240229.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/48bcc880f0956f13f4255f0b5e4b3562b3936fbb/src/20240229_AaveV3Ethereum_AmendSafetyModuleEmissions/AaveV3Ethereum_AmendSafetyModuleEmissions_20240229.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d)\n- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Amend Safety Module Emissions",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d",
+    "originalIpfsHash": "0x6079957be200c574924e7da977bc296374ac89604d488a737c19684bf1a2cc45"
+  },
+  "proposal": {
+    "id": 45,
+    "votingDuration": 259200,
+    "creationTime": 1709975579,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x6079957be200c574924e7da977bc296374ac89604d488a737c19684bf1a2cc45",
+    "initialPayloads": [
+      {
+        "id": 74,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 45,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1709975922
+  }
+}
