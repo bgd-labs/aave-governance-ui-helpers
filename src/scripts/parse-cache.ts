@@ -39,10 +39,10 @@ import {
 import {
   getGovernanceEvents,
   isProposalFinal,
-} from '../utils/viem/events/governance.ts';
-import { getPayloadsControllerEvents } from '../utils/viem/events/payloadsController.ts';
-import { getVotingMachineEvents } from '../utils/viem/events/votingMachine.ts';
-import { appConfig, coreName } from './config.ts';
+} from '../utils/viem/events/governance';
+import { getPayloadsControllerEvents } from '../utils/viem/events/payloadsController';
+import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
+import { appConfig, coreName } from './config';
 
 const initDirName = `ui/${coreName}`;
 
@@ -390,7 +390,7 @@ async function parseProposalEvents(
         type: HistoryItemType.PROPOSAL_EXECUTED,
         id: formattedProposalData.id,
         chainId: appConfig.govCoreChainId,
-        timestamp: executedTimestamp,
+        timestamp: Number(executedTimestamp),
         hash: governanceEvents.find(
           (event) =>
             event.eventName === 'ProposalExecuted' &&

@@ -1,5 +1,5 @@
-import { appConfig } from './config.ts';
-import { updateCache } from './update-cache-package.ts';
+import { appConfig } from './config';
+import { updateCache } from './update-cache-package';
 
 updateCache({
   govCoreChainId: appConfig.govCoreChainId,
