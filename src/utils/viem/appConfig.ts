@@ -7,7 +7,6 @@ import {
   GovernanceV3BNB,
   GovernanceV3Ethereum,
   GovernanceV3Gnosis,
-  GovernanceV3Goerli,
   GovernanceV3Metis,
   GovernanceV3Optimism,
   GovernanceV3Polygon,
@@ -21,7 +20,6 @@ import {
   base,
   bsc,
   gnosis,
-  goerli,
   mainnet,
   metis,
   optimism,
@@ -30,7 +28,7 @@ import {
   sepolia,
 } from 'viem/chains';
 
-export type CoreNetworkName = 'mainnet' | 'goerli' | 'sepolia';
+export type CoreNetworkName = 'mainnet' | 'sepolia';
 
 type Config = {
   contractAddress: Hex;
@@ -51,13 +49,6 @@ export const govCoreConfig: Record<
     },
   },
   // testnets
-  goerli: {
-    contractAddress: GovernanceV3Goerli.GOVERNANCE,
-    dataHelperContractAddress: GovernanceV3Goerli.GOV_DATA_HELPER,
-    votingPortals: {
-      [goerli.id]: GovernanceV3Goerli.VOTING_PORTAL_ETH_ETH,
-    },
-  },
   sepolia: {
     contractAddress: '0xc4ABF658C3Dda84225cF8A07d7D5Bb6Aa41d9E59',
     dataHelperContractAddress: '0x863f9De2f82AB502612E8B7d4f4863c8535cb8cA',
@@ -121,13 +112,6 @@ export const payloadsControllerConfig: Record<
     },
   },
   // testnets
-  goerli: {
-    [goerli.id]: {
-      dataHelperContractAddress: '0xbd2db358f3C82F2883132A6584e22F38A979e768',
-      contractAddresses: ['0x064361B3761CcDd17300146bf58a79d1E570382E'],
-      payloadAddress: '0xf6b9c3fCF7f91817E7bF0efF792BA692c7bd372A', // only for test
-    },
-  },
   sepolia: {
     [sepolia.id]: {
       dataHelperContractAddress: '0x6B9AF21B95FE20b5a878b43670c23124841ec31A',
@@ -164,13 +148,6 @@ const votingMachineConfig: Record<
     },
   },
   // testnets
-  goerli: {
-    [goerli.id]: {
-      contractAddress: GovernanceV3Goerli.VOTING_MACHINE,
-      dataHelperContractAddress: GovernanceV3Goerli.VM_DATA_HELPER,
-      dataWarehouseAddress: GovernanceV3Goerli.DATA_WAREHOUSE,
-    },
-  },
   sepolia: {
     [sepolia.id]: {
       contractAddress: '0xA1995F1d5A8A247c064a76F336E1C2ecD24Ef0D9',
@@ -188,7 +165,6 @@ const votingMachineConfig: Record<
 const govCoreChainId: Record<CoreNetworkName, number> = {
   mainnet: mainnet.id,
   // testnets
-  goerli: goerli.id,
   sepolia: sepolia.id,
 };
 
@@ -201,12 +177,6 @@ const aditionalsAddresses: Record<CoreNetworkName, Record<string, Hex>> = {
     delegationHelper: GovernanceV3Ethereum.META_DELEGATE_HELPER,
   },
   // testnets
-  goerli: {
-    aaveAddress: '0xb6D88BfC5b145a558b279cf7692e6F02064889d0',
-    aAaveAddress: '0xD1ff82609FB63A0eee6FE7D2896d80d29491cCCd',
-    stkAAVEAddress: '0x1406A9Ea2B0ec8FD4bCa4F876DAae2a70a9856Ec',
-    delegationHelper: '0x1966133c190475E8385Dc1b4150B5f81c70DC578',
-  },
   sepolia: {
     aaveAddress: '0xdaEcee477B931b209e8123401EA37582ACB3811d',
     aAaveAddress: '0x26aAB2aE39897338c2d91491C46c14a8c2a67919',
@@ -228,13 +198,11 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     gnosis.id,
     scroll.id,
   ],
-  goerli: [goerli.id],
   sepolia: [sepolia.id, avalancheFuji.id],
 };
 
 export const votingMachineChainIds: Record<CoreNetworkName, number[]> = {
   mainnet: [mainnet.id, polygon.id, avalanche.id],
-  goerli: [goerli.id],
   sepolia: [sepolia.id, avalancheFuji.id],
 };
 

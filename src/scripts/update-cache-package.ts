@@ -11,6 +11,7 @@ import {
   writeJSONCache,
 } from '@bgd-labs/js-utils';
 import { Address, getContract, Hex } from 'viem';
+import { getBlock, getBlockNumber } from 'viem/actions';
 
 import {
   BookKeepingCache,
@@ -27,7 +28,6 @@ import {
   isPayloadFinal,
 } from '../utils/viem/events/payloadsController';
 import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
-import { getBlock, getBlockNumber } from 'viem/actions';
 
 async function updateIpfsCache(proposalsCache: ProposalsCache) {
   const ipfsCache: Record<string, ProposalMetadata> =
