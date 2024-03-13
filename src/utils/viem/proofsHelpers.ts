@@ -24,8 +24,12 @@ export const formatToProofRLP = (rawData: Hex[]) => {
   return toRlp(rawData.map((d: Hex) => fromRlp(d, 'hex')));
 };
 
-// IMPORTANT valid only for post-Shapella blocks, as it includes `withdrawalsRoot`
-export const prepareBLockRLP = (rawBlock: Block) => {
+// IMPORTANT valid only for post-Dancun blocks:
+// https://eips.ethereum.org/EIPS/eip-4844#header-extension
+// https://eips.ethereum.org/EIPS/eip-4788#block-structure-and-validity
+export const prepareBLockRLP = (
+  rawBlock: Block & { parentBeaconBlockRoot: Hex },
+) => {
   const rawData: Hex[] = [
     rawBlock.parentHash,
     rawBlock.sha3Uncles,
@@ -44,6 +48,9 @@ export const prepareBLockRLP = (rawBlock: Block) => {
     rawBlock.nonce as Hex,
     toHex(rawBlock.baseFeePerGas || 0), // 0 to account for type null
     rawBlock.withdrawalsRoot as Hex,
+    toHex(rawBlock.blobGasUsed),
+    toHex(rawBlock.excessBlobGas),
+    rawBlock.parentBeaconBlockRoot,
   ];
   return toRlp(rawData);
 };
