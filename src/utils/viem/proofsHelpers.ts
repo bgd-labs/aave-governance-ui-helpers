@@ -48,8 +48,10 @@ export const prepareBLockRLP = (
     rawBlock.nonce as Hex,
     toHex(rawBlock.baseFeePerGas || 0), // 0 to account for type null
     rawBlock.withdrawalsRoot as Hex,
-    toHex(rawBlock.blobGasUsed),
-    toHex(rawBlock.excessBlobGas),
+    // @ts-ignore
+    rawBlock.blobGasUsed === '0x0' ? '0x' : toHex(rawBlock.blobGasUsed),
+    // @ts-ignore
+    rawBlock.excessBlobGas === '0x0' ? '0x' : toHex(rawBlock.excessBlobGas),
     rawBlock.parentBeaconBlockRoot,
   ];
   return toRlp(rawData);
