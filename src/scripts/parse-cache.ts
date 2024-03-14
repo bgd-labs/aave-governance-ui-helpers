@@ -23,6 +23,7 @@ import {
   getProposalStepsAndAmounts,
   getVotingMachineProposalState,
   HistoryItemType,
+  InitialPayload,
   InitialProposal,
   normalizeBN,
   Payload,
@@ -833,6 +834,40 @@ async function parseCache() {
     proposals: formattedProposalsDataForList,
   });
   console.log('Proposals list cache updated.');
+
+  // format data for proposals payloads cache
+  const proposalsPayloadsCache =
+    readJSONCache<{
+      data: Record<number, InitialPayload[]>;
+    }>(`${initDirName}`, `proposals_payloads`) || undefined;
+
+  const proposalPayloadsData: Record<number, InitialPayload[]> = {};
+  const formattedProposalsDataForProposalPayloads = proposalsData.map(
+    (proposal) => {
+      if (
+        !proposalsPayloadsCache ||
+        !proposalsPayloadsCache.data[proposal.id]
+      ) {
+        return {
+          id: proposal.id,
+          payloads: proposal.initialPayloads,
+        };
+      } else {
+        return {
+          id: proposal.id,
+          payloads: proposalsPayloadsCache.data[proposal.id],
+        };
+      }
+    },
+  );
+  formattedProposalsDataForProposalPayloads.forEach((proposal) => {
+    proposalPayloadsData[proposal.id] = proposal.payloads;
+  });
+
+  writeJSONCache(`${initDirName}`, 'proposals_payloads', {
+    data: proposalPayloadsData,
+  });
+  console.log('Proposals payloads cache updated.');
 }
 
 parseCache();
