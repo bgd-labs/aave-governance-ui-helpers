@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.1.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.7...v3.1.0) (2024-03-14)
+
+
+### Features
+
+* added proposal payloads cache file ([fc019f2](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/fc019f2858f718ec706e00644f221bb07692961c))
+* return fee cache support ([#64](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/64)) ([02253fb](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/02253fbcadfa6fa21fd85596937bd4a61bd56d4e))
+
 ## [3.0.7](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.6...v3.0.7) (2024-03-13)
 
 
