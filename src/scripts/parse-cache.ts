@@ -676,7 +676,11 @@ async function parseCache() {
           ipfs: ProposalMetadata;
           proposal: BasicProposal;
         }>(`${initDirName}/proposals`, `proposal_${proposal.id}`) || undefined;
-      if (!proposalCache || !proposalCache?.proposal.isFinished) {
+      if (
+        !proposalCache ||
+        !proposalCache?.proposal.isFinished ||
+        Number(proposalCache.proposal.cancellationFee) > 0
+      ) {
         writeJSONCache(
           `${initDirName}/proposals`,
           `proposal_${proposal.id}`,
@@ -916,7 +920,6 @@ async function parseCache() {
         return {
           proposalId: proposal.id,
           creator: proposal.creator,
-          title: ipfsCache[proposal.ipfsHash]?.title || '',
           proposalStatus: proposalState,
           ipfsHash: proposal.ipfsHash,
           status: status,
@@ -935,7 +938,6 @@ async function parseCache() {
       [proposal.proposalId]: {
         proposalId: proposal.proposalId,
         proposalStatus: proposal.proposalStatus,
-        title: proposal.title,
         ipfsHash: proposal.ipfsHash,
         status: proposal.status,
       },

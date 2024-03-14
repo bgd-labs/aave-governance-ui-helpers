@@ -262,12 +262,12 @@ export enum ReturnFeeState {
   NOT_AVAILABLE,
 }
 
-export interface ReturnFee extends Pick<ProposalMetadata, 'title'> {
+export type ReturnFee = {
   proposalId: number;
   proposalStatus: CombineProposalState;
   ipfsHash: string;
   status: ReturnFeeState;
-}
+};
 
 export interface CachedProposalDataItem {
   proposal: {

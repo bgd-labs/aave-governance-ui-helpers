@@ -296,7 +296,11 @@ export async function updateCache({
   const proposalsIds = [...Array(Number(proposalsCount)).keys()];
   await Promise.all(
     proposalsIds.map(async (id) => {
-      if (!proposalsCache[id] || !proposalsCache[id].isFinished) {
+      if (
+        !proposalsCache[id] ||
+        !proposalsCache[id].isFinished ||
+        Number(proposalsCache[id].cancellationFee) > 0
+      ) {
         const proposalData = await govCore.read.getProposal([BigInt(id)]);
         const controllers = new Map<Address, number>();
         proposalData.payloads.map((payload) =>
