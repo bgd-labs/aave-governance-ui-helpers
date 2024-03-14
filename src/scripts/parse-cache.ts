@@ -877,10 +877,7 @@ async function parseCache() {
       data: Record<Address, Record<number, ReturnFee>>;
     }>(`${initDirName}`, `return_fees`) || undefined;
 
-  const returnFeesData: Record<
-    Address,
-    Record<number, ReturnFee>
-  > = returnFeesCache || {};
+  const returnFeesData: Record<Address, Record<number, ReturnFee>> = {};
   const formattedProposalsDataForReturnFeesData = proposalsData.map(
     (proposal) => {
       if (

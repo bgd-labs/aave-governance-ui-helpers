@@ -72,7 +72,7 @@ This repository saves and updates the cache for Aave governance, also includes h
         client: govCoreViemClient, // viem client
         blockHash: proposal.snapshotBlockHash, // from proposal data
         balances: formattedBalances,
-        address: voterAddress, // voter asset (signer or representation address)
+        address: voterAddress, // signer or representation address
         aAaveAddress: assets.aAaveAddress,
         slots: assetsBalanceSlots,
     });
@@ -82,7 +82,7 @@ This repository saves and updates the cache for Aave governance, also includes h
         provider: govCoreRPCProvider, // ether js v5 provider
         blockHash: proposal.snapshotBlockHash, // from proposal data
         balances: formattedBalances,
-        address: voterAddress, // voter asset (signer or representation address)
+        address: voterAddress, // signer or representation address
         aAaveAddress: assets.aAaveAddress,
         slots: assetsBalanceSlots,
     });

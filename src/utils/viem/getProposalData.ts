@@ -91,6 +91,7 @@ export function updateVotingMachineData(
         ),
         isFinished: govData.isFinished,
         lastUpdatedTimestamp: dayjs().unix(),
+        cancellationFee: Number(govData.cancellationFee),
       };
 
       proposalsData.push(proposalData);
@@ -156,6 +157,7 @@ export function getDetailedProposalsData(
           ),
           isFinished: !!isFinished,
           lastUpdatedTimestamp: dayjs().unix(),
+          cancellationFee: Number(govData.proposalData.cancellationFee),
         };
 
         proposalsData.push(proposalData);
