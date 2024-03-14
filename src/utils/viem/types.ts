@@ -198,6 +198,7 @@ export interface BasicProposal {
   votingChainId: number;
   isFinished: boolean;
   lastUpdatedTimestamp?: number;
+  cancellationFee: number;
 }
 
 export interface ProposalData
@@ -252,6 +253,20 @@ export interface FinishedProposalForList
   combineState: CombineProposalState;
   finishedTimestamp: number;
   ipfsHash: string;
+}
+
+export enum ReturnFeeState {
+  LATER,
+  AVAILABLE,
+  RETURNED,
+  NOT_AVAILABLE,
+}
+
+export interface ReturnFee extends Pick<ProposalMetadata, 'title'> {
+  proposalId: number;
+  proposalStatus: CombineProposalState;
+  ipfsHash: string;
+  status: ReturnFeeState;
 }
 
 export interface CachedProposalDataItem {

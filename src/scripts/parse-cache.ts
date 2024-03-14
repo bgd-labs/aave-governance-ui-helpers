@@ -7,7 +7,7 @@ import {
   readJSONCache,
   writeJSONCache,
 } from '@bgd-labs/js-utils';
-import { getContract, Hex, zeroAddress, zeroHash } from 'viem';
+import { Address, getContract, Hex, zeroAddress, zeroHash } from 'viem';
 import { getBlock, getEnsName } from 'viem/actions';
 import { mainnet } from 'viem/chains';
 
@@ -32,6 +32,8 @@ import {
   ProposalMetadata,
   ProposalsCache,
   ProposalState,
+  ReturnFee,
+  ReturnFeeState,
   VMProposalStructOutput,
   VotersData,
   VotingConfig,
@@ -868,6 +870,85 @@ async function parseCache() {
     data: proposalPayloadsData,
   });
   console.log('Proposals payloads cache updated.');
+
+  // format data for return fees cache
+  const returnFeesCache =
+    readJSONCache<{
+      data: Record<Address, Record<number, ReturnFee>>;
+    }>(`${initDirName}`, `return_fees`) || undefined;
+
+  const returnFeesData: Record<
+    Address,
+    Record<number, ReturnFee>
+  > = returnFeesCache || {};
+  const formattedProposalsDataForReturnFeesData = proposalsData.map(
+    (proposal) => {
+      if (
+        !returnFeesCache ||
+        !returnFeesCache.data[proposal.creator as Address] ||
+        (returnFeesCache.data[proposal.creator as Address] &&
+          !returnFeesCache.data[proposal.creator as Address][proposal.id]) ||
+        (returnFeesCache.data[proposal.creator as Address] &&
+          returnFeesCache.data[proposal.creator as Address][proposal.id] &&
+          returnFeesCache.data[proposal.creator as Address][proposal.id]
+            .status < ReturnFeeState.RETURNED)
+      ) {
+        const { proposalState } = formatProposalsData(
+          proposal,
+          configs,
+          contractsConstants,
+        );
+
+        let status = ReturnFeeState.LATER;
+        if (
+          proposalState === CombineProposalState.Executed &&
+          proposal.cancellationFee > 0
+        ) {
+          status = ReturnFeeState.AVAILABLE;
+        } else if (
+          proposalState === CombineProposalState.Executed &&
+          proposal.cancellationFee <= 0
+        ) {
+          status = ReturnFeeState.RETURNED;
+        } else if (proposalState > CombineProposalState.Executed) {
+          status = ReturnFeeState.NOT_AVAILABLE;
+        } else {
+          status = ReturnFeeState.LATER;
+        }
+
+        return {
+          proposalId: proposal.id,
+          creator: proposal.creator,
+          title: ipfsCache[proposal.ipfsHash]?.title || '',
+          proposalStatus: proposalState,
+          ipfsHash: proposal.ipfsHash,
+          status: status,
+        };
+      } else {
+        return {
+          creator: proposal.creator,
+          ...returnFeesCache.data[proposal.creator as Address][proposal.id],
+        };
+      }
+    },
+  );
+  formattedProposalsDataForReturnFeesData.forEach((proposal) => {
+    returnFeesData[proposal.creator as Address] = {
+      ...returnFeesData[proposal.creator as Address],
+      [proposal.proposalId]: {
+        proposalId: proposal.proposalId,
+        proposalStatus: proposal.proposalStatus,
+        title: proposal.title,
+        ipfsHash: proposal.ipfsHash,
+        status: proposal.status,
+      },
+    };
+  });
+
+  writeJSONCache(`${initDirName}`, 'return_fees', {
+    data: returnFeesData,
+  });
+  console.log('Proposals return fees cache updated.');
 }
 
 parseCache();
