@@ -923,6 +923,8 @@ async function parseCache() {
           proposalStatus: proposalState,
           ipfsHash: proposal.ipfsHash,
           status: status,
+          title:
+            ipfsCache[proposal.ipfsHash].title || `Proposal ${proposal.id}`,
         };
       } else {
         return {
@@ -940,6 +942,7 @@ async function parseCache() {
         proposalStatus: proposal.proposalStatus,
         ipfsHash: proposal.ipfsHash,
         status: proposal.status,
+        title: proposal.title,
       },
     };
   });

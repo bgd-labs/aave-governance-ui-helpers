@@ -267,6 +267,7 @@ export type ReturnFee = {
   proposalStatus: CombineProposalState;
   ipfsHash: string;
   status: ReturnFeeState;
+  title: string;
 };
 
 export interface CachedProposalDataItem {
