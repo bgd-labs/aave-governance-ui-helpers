@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.1.0...v3.1.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* added title to return fees cache ([c45e728](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/c45e7281182adf5c2fc1ccae499e8cd1aebe8361))
+
 ## [3.1.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.0.7...v3.1.0) (2024-03-14)
 
 
