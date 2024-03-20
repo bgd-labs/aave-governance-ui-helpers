@@ -1386,16 +1386,16 @@
     "isFinished": true
   },
   "54": {
-    "state": 1,
+    "state": 7,
     "accessLevel": 1,
     "creationTime": 1704264084,
-    "votingDuration": 0,
-    "votingActivationTime": 0,
+    "votingDuration": 600,
+    "votingActivationTime": 1706849328,
     "queuingTime": 0,
     "cancelTimestamp": 0,
     "creator": "0xAd9A211D227d2D9c1B5573f73CDa0284b758Ac0C",
     "votingPortal": "0x1079bAa48E56065d43b4344866B187a485cb0A92",
-    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "snapshotBlockHash": "0xe17926851a41c62073143cb574215905fe1defc7cd5c492aec8c5bc9fb68ddad",
     "ipfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1",
     "forVotes": "0",
     "againstVotes": "0",
@@ -1408,7 +1408,7 @@
         "payloadId": 50
       }
     ],
-    "isFinished": false
+    "isFinished": true
   },
   "55": {
     "state": 4,
@@ -1461,7 +1461,7 @@
     "isFinished": true
   },
   "57": {
-    "state": 2,
+    "state": 7,
     "accessLevel": 1,
     "creationTime": 1705394232,
     "votingDuration": 600,
@@ -1483,21 +1483,21 @@
         "payloadId": 53
       }
     ],
-    "isFinished": false
+    "isFinished": true
   },
   "58": {
-    "state": 2,
+    "state": 4,
     "accessLevel": 1,
     "creationTime": 1705394256,
     "votingDuration": 600,
     "votingActivationTime": 1705396500,
-    "queuingTime": 0,
+    "queuingTime": 1706874504,
     "cancelTimestamp": 0,
     "creator": "0xAd9A211D227d2D9c1B5573f73CDa0284b758Ac0C",
     "votingPortal": "0x1079bAa48E56065d43b4344866B187a485cb0A92",
     "snapshotBlockHash": "0xd1618d63821a5d2e847a673ef10f9e0eb89cb16969dadf3d3d127342fa34f680",
     "ipfsHash": "0x366f499db7fed9b542e614e587312e417b6d8add2fc83840745781f5a70567b1",
-    "forVotes": "0",
+    "forVotes": "5000000000000000000000",
     "againstVotes": "0",
     "cancellationFee": "50000000000000000",
     "payloads": [
@@ -1508,6 +1508,6 @@
         "payloadId": 22
       }
     ],
-    "isFinished": false
+    "isFinished": true
   }
 }
