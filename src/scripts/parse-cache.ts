@@ -901,20 +901,18 @@ async function parseCache() {
         );
 
         let status = ReturnFeeState.LATER;
-        if (
-          proposalState === CombineProposalState.Executed &&
+        if (proposal.state === ProposalState.Cancelled) {
+          status = ReturnFeeState.NOT_AVAILABLE;
+        } else if (
+          proposal.state >= ProposalState.Executed &&
           proposal.cancellationFee > 0
         ) {
           status = ReturnFeeState.AVAILABLE;
         } else if (
-          proposalState === CombineProposalState.Executed &&
+          proposal.state >= ProposalState.Executed &&
           proposal.cancellationFee <= 0
         ) {
           status = ReturnFeeState.RETURNED;
-        } else if (proposalState > CombineProposalState.Executed) {
-          status = ReturnFeeState.NOT_AVAILABLE;
-        } else {
-          status = ReturnFeeState.LATER;
         }
 
         return {
