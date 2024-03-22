@@ -16,6 +16,8 @@ import {
   checkHash,
   CombineProposalState,
   ContractsConstants,
+  CreationFee,
+  CreationFeeState,
   FinishedProposalForList,
   getDetailedProposalsData,
   getGovCoreConfigs,
@@ -32,8 +34,6 @@ import {
   ProposalMetadata,
   ProposalsCache,
   ProposalState,
-  ReturnFee,
-  ReturnFeeState,
   VMProposalStructOutput,
   VotersData,
   VotingConfig,
@@ -875,24 +875,24 @@ async function parseCache() {
   });
   console.log('Proposals payloads cache updated.');
 
-  // format data for return fees cache
-  const returnFeesCache =
+  // format data for creation fees cache
+  const creationFeesCache =
     readJSONCache<{
-      data: Record<Address, Record<number, ReturnFee>>;
-    }>(`${initDirName}`, `return_fees`) || undefined;
+      data: Record<Address, Record<number, CreationFee>>;
+    }>(`${initDirName}`, `creation_fees`) || undefined;
 
-  const returnFeesData: Record<Address, Record<number, ReturnFee>> = {};
-  const formattedProposalsDataForReturnFeesData = proposalsData.map(
+  const creationFeesData: Record<Address, Record<number, CreationFee>> = {};
+  const formattedProposalsDataForCreationFeesData = proposalsData.map(
     (proposal) => {
       if (
-        !returnFeesCache ||
-        !returnFeesCache.data[proposal.creator as Address] ||
-        (returnFeesCache.data[proposal.creator as Address] &&
-          !returnFeesCache.data[proposal.creator as Address][proposal.id]) ||
-        (returnFeesCache.data[proposal.creator as Address] &&
-          returnFeesCache.data[proposal.creator as Address][proposal.id] &&
-          returnFeesCache.data[proposal.creator as Address][proposal.id]
-            .status < ReturnFeeState.RETURNED)
+        !creationFeesCache ||
+        !creationFeesCache.data[proposal.creator as Address] ||
+        (creationFeesCache.data[proposal.creator as Address] &&
+          !creationFeesCache.data[proposal.creator as Address][proposal.id]) ||
+        (creationFeesCache.data[proposal.creator as Address] &&
+          creationFeesCache.data[proposal.creator as Address][proposal.id] &&
+          creationFeesCache.data[proposal.creator as Address][proposal.id]
+            .status < CreationFeeState.RETURNED)
       ) {
         const { proposalState } = formatProposalsData(
           proposal,
@@ -900,19 +900,19 @@ async function parseCache() {
           contractsConstants,
         );
 
-        let status = ReturnFeeState.LATER;
+        let status = CreationFeeState.LATER;
         if (proposal.state === ProposalState.Cancelled) {
-          status = ReturnFeeState.NOT_AVAILABLE;
+          status = CreationFeeState.NOT_AVAILABLE;
         } else if (
           proposal.state >= ProposalState.Executed &&
           proposal.cancellationFee > 0
         ) {
-          status = ReturnFeeState.AVAILABLE;
+          status = CreationFeeState.AVAILABLE;
         } else if (
           proposal.state >= ProposalState.Executed &&
           proposal.cancellationFee <= 0
         ) {
-          status = ReturnFeeState.RETURNED;
+          status = CreationFeeState.RETURNED;
         }
 
         return {
@@ -927,14 +927,14 @@ async function parseCache() {
       } else {
         return {
           creator: proposal.creator,
-          ...returnFeesCache.data[proposal.creator as Address][proposal.id],
+          ...creationFeesCache.data[proposal.creator as Address][proposal.id],
         };
       }
     },
   );
-  formattedProposalsDataForReturnFeesData.forEach((proposal) => {
-    returnFeesData[proposal.creator as Address] = {
-      ...returnFeesData[proposal.creator as Address],
+  formattedProposalsDataForCreationFeesData.forEach((proposal) => {
+    creationFeesData[proposal.creator as Address] = {
+      ...creationFeesData[proposal.creator as Address],
       [proposal.proposalId]: {
         proposalId: proposal.proposalId,
         proposalStatus: proposal.proposalStatus,
@@ -945,10 +945,10 @@ async function parseCache() {
     };
   });
 
-  writeJSONCache(`${initDirName}`, 'return_fees', {
-    data: returnFeesData,
+  writeJSONCache(`${initDirName}`, 'creation_fees', {
+    data: creationFeesData,
   });
-  console.log('Proposals return fees cache updated.');
+  console.log('Creation fees cache updated.');
 }
 
 parseCache();

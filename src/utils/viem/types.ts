@@ -255,18 +255,18 @@ export interface FinishedProposalForList
   ipfsHash: string;
 }
 
-export enum ReturnFeeState {
+export enum CreationFeeState {
   LATER,
   AVAILABLE,
   RETURNED,
   NOT_AVAILABLE,
 }
 
-export type ReturnFee = {
+export type CreationFee = {
   proposalId: number;
   proposalStatus: CombineProposalState;
   ipfsHash: string;
-  status: ReturnFeeState;
+  status: CreationFeeState;
   title: string;
 };
 
