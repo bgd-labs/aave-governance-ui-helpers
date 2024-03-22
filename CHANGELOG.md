@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.1.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.1.1...v3.1.2) (2024-03-22)
+
+
+### Bug Fixes
+
+* sepolia cache ([0bb570e](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/0bb570eef193a4356d718ebf26fd9f9f7176c59d))
+* update cache ([d40080c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/d40080c24d851f0612303d87cfc33cf9fd9dc61b))
+* update cache for return fee ([d997788](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/d997788f4f8849ebe03b01705b4c3365b4ed4ee9))
+* update cache for sepolia ([62effb2](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/62effb25f0cb321a4b5ffdf7c4be91261e96c24c))
+* update cache for sepolia ([6ca3b2e](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/6ca3b2e531b85ebfab866874576c3d5ab2cd2b18))
+
 ## [3.1.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.1.0...v3.1.1) (2024-03-19)
 
 
