@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1711390676,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1714414676,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x9f6fFf167A24A9E4245b025e1185d8601F6b431f",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 19,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmcVAi5Rpm4KcSrAfFcb4e3oqjYgwi79DKhVVK7xTZijJY",
+    "description": "\n## Summary\n\nThis publication proposes disabling Isolation Mode for ARB on Aave v3 Arbitrum.\n\n## Motivation\n\nSince the ARB airdrop, April 2023, the Arbitrum ecosystem has experienced exponential like growth and the ARB liquidity has improved significantly.\n\nWith the support of the Risk Service providers, this proposal is to disable Isolation Mode and enable ARB to be used in combination with other assets as collateral.\n\n## Specification:\n\nTicker: ARB\nContract Address: [0x912CE59144191C1204E64559FE8253a0e49E6548](https://arbiscan.io/address/0x912CE59144191C1204E64559FE8253a0e49E6548)\n\nThe following parameters are to be updated as follows in Arbitrum market:\n\n| Asset | Debt Ceiling |\n| ----- | ------------ |\n| ARB   | 0            |\n\nThe executor will call the ArbitrumV3 configurator and use the \"setDebtCeiling\" method.\n\n## Disclaimer:\n\nTokenLogic and karpatkey receive no payment for this proposal. TokenLogic and karpatkey are both delegates within the Aave community.\n\n## References\n\n- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/c5a76699bd582b324ffa73c9f8ee5483531fdfc9/src/20240315_AaveV3Arbitrum_ARBRemoveIsolation/AaveV3Arbitrum_ARBRemoveIsolation_20240315)\n- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/c5a76699bd582b324ffa73c9f8ee5483531fdfc9/src/20240315_AaveV3Arbitrum_ARBRemoveIsolation/AaveV3Arbitrum_ARBRemoveIsolation_20240315.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xbc5471496bbc2beda343625cee22c34fc9672785112cc5d19a25ca87c5b422c3)\n- [Discussion](https://governance.aave.com/t/arfc-remove-arb-from-isolation-mode-on-arbitrum-market/16703)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Remove ARB from Isolation Mode on Arbitrum",
+    "author": "karpatkey_TokenLogic_ACI",
+    "discussions": "https://governance.aave.com/t/arfc-remove-arb-from-isolation-mode-on-arbitrum-market/16703",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xbc5471496bbc2beda343625cee22c34fc9672785112cc5d19a25ca87c5b422c3",
+    "originalIpfsHash": "0xd2322f18fbffed420e8edd18efce2309c687820d8730b770b4111557e0850149"
+  },
+  "proposal": {
+    "id": 58,
+    "votingDuration": 259200,
+    "creationTime": 1711390751,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xd2322f18fbffed420e8edd18efce2309c687820d8730b770b4111557e0850149",
+    "initialPayloads": [
+      {
+        "id": 19,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 58,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1711401349,
+    "cancellationFee": 50000000000000000
+  }
+}
