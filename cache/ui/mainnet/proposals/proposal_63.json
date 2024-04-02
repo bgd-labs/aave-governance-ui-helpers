@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1712084207,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1715108207,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xdE406AF1cc0595aB4e3a28C3b9C2e7edE0Fb12BE",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 90,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmVtKBaQ6ivQVpMB14Fr3e8Tn3pnmixhisEUB6793XjJV5",
+    "description": "\n## Simple Summary\n\nThis publication mainly proposes consolidating DAO assets in preparation of foreseeable DAO expenses. It is a continuation of governance proposal 44 which was executed in early March of 2024.\n\n## Motivation\n\nThis proposal combined with the previously executed one aim to:\n\n- Consolidate the DAOs smaller holdings to GHO\n- Swap larger stablecoins holdings for GHO\n- Replenish the stablecoins Reserves in Aave v3\n- Migrate funds from Aave v2 to v3\n- Transfer BAL and CRV to the ALC SAFE\n\n## Specification\n\n- Transer all available BAL in the collector to the ALC [SAFE](https://etherscan.io/address/0x205e795336610f5131Be52F09218AF19f0f3eC60)\n- Transer all available CRV in the collector to the ALC [SAFE](https://etherscan.io/address/0x205e795336610f5131Be52F09218AF19f0f3eC60)\n- Deposit all existing ETH in the collector into WETH, and deposit into Aave V3 Ethereum\n- Deposit all DAI in the collector into Aave V3 Ethereum\n- Withdraw 640,000 USDC aToken from Aave V2 Ethereum\n- Swap withdrawn 640,000 USDC into GHO\n- Swap all available DPI in the collector into GHO (previously a failed swap because of slippage)\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3fe3470367bdd903b6fe91cf061b000fde31590a/src/20240324_AaveV3Ethereum_FundingUpdatePartB/AaveV3Ethereum_FundingUpdatePartB_20240324.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3fe3470367bdd903b6fe91cf061b000fde31590a/src/20240324_AaveV3Ethereum_FundingUpdatePartB/AaveV3Ethereum_FundingUpdatePartB_20240324.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4dd4dff7096bf7ab8c4c071975d40f4cf709c41b4b6b7c60777a6dd50d2ecd09)\n- [Discussion](https://governance.aave.com/t/arfc-funding-update/16675/4)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Funding Update (Part B)",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-funding-update/16675/4",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x4dd4dff7096bf7ab8c4c071975d40f4cf709c41b4b6b7c60777a6dd50d2ecd09",
+    "originalIpfsHash": "0x701e50da130aa5a24c11341bd14d57ab58e61d3691d55bd2edc849c2be9b5170"
+  },
+  "proposal": {
+    "id": 63,
+    "votingDuration": 259200,
+    "creationTime": 1712084279,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x701e50da130aa5a24c11341bd14d57ab58e61d3691d55bd2edc849c2be9b5170",
+    "initialPayloads": [
+      {
+        "id": 90,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 63,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1712091950,
+    "cancellationFee": 50000000000000000
+  }
+}
