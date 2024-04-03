@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1712177591,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1715201591,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x71F2c0Ff83BEC8503a708c0bbDB30a26E83dB6C4",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 92,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmYnmysxbEGVGtgrBhJEMdd7tFtbyT1bPCaAUqBiJM3fae",
+    "description": "\n## Simple Summary\n\nAmend Interest Rate parameters for TUSD and BUSD Aave V2 deprecated markets.\n\n## Motivation\n\nCurrently, the highly aggressive interest rate strategy implemented for TUSD and BUSD markets, with the primary objective of deprecating, poses a challenge due to the distribution of bad debt within these markets.\n\nDue to a significant amount of bad debt in these markets, the anticipated outcome of incentivizing debt repayments may not be realized to the same extent, alternatively resulting in effective virtual debt growth. Although the elevated reserve factor allows the collector to cover a substantial portion of the remaining aToken underlying claims of the respective market as other positions are repaid (provided the collector does not withdraw), this debt growth must be addressed. Otherwise, it could potentially escalate to an arbitrarily high market size, given the magnitude of the current interest rate.\n\n## Specification\n\n| Asset | Parameter | Current | Recommendations |\n| ----- | --------- | ------- | --------------- |\n| BUSD  | Base Rate | 100%    | 10%             |\n| BUSD  | Slope 1   | 70%     | 0%              |\n| BUSD  | Slope 2   | 300%    | 0%              |\n| BUSD  | Uoptimal  | 1%      | No Change       |\n\n| Asset | Parameter | Current | Recommendations |\n| ----- | --------- | ------- | --------------- |\n| TUSD  | Base Rate | 100%    | 10%             |\n| TUSD  | Slope 1   | 70%     | 0%              |\n| TUSD  | Slope 2   | 300%    | 0%              |\n| TUSD  | Uoptimal  | 1%      | No Change       |\n\n## References\n\n- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/64d84923830233364030bbf87f555208e05c78bd/src/20240324_AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments/AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments_20240324.sol)\n- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/64d84923830233364030bbf87f555208e05c78bd/src/20240324_AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments/AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments_20240324.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xcff2253ff9d74193354370fe95ebe0fe2f0b6f34873281d1b9b55b9f51dea011)\n- [Discussion](https://governance.aave.com/t/arfc-tusd-and-busd-aave-v2-rate-amendments/16887)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "TUSD and BUSD Aave V2 Rate Amendments",
+    "author": "Chaos Labs",
+    "discussions": "https://governance.aave.com/t/arfc-tusd-and-busd-aave-v2-rate-amendments/16887",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xcff2253ff9d74193354370fe95ebe0fe2f0b6f34873281d1b9b55b9f51dea011",
+    "originalIpfsHash": "0x9b463155a5aa776cee76c0946a81646c5d254e65ca58771c66de8b1277bab767"
+  },
+  "proposal": {
+    "id": 66,
+    "votingDuration": 259200,
+    "creationTime": 1712177723,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x9b463155a5aa776cee76c0946a81646c5d254e65ca58771c66de8b1277bab767",
+    "initialPayloads": [
+      {
+        "id": 92,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 66,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1712178396,
+    "cancellationFee": 50000000000000000
+  }
+}
