@@ -3,9 +3,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712306963,
-      "queuedAt": 0,
+      "queuedAt": 1712670779,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715330963,
@@ -36,9 +36,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712245907,
-      "queuedAt": 0,
+      "queuedAt": 1712671913,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715269907,
@@ -69,9 +69,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712246748,
-      "queuedAt": 0,
+      "queuedAt": 1712671082,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715270748,
@@ -102,9 +102,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712246829,
-      "queuedAt": 0,
+      "queuedAt": 1712670859,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715270829,
@@ -127,9 +127,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712246972,
-      "queuedAt": 0,
+      "queuedAt": 1712671213,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715270972,
@@ -152,9 +152,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712299713,
-      "queuedAt": 0,
+      "queuedAt": 1712670973,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715323713,
@@ -177,9 +177,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712247265,
-      "queuedAt": 0,
+      "queuedAt": 1712671075,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715271265,
@@ -202,9 +202,9 @@
     {
       "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712265198,
-      "queuedAt": 0,
+      "queuedAt": 1712671707,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715289198,
@@ -227,9 +227,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1712299437,
-      "queuedAt": 0,
+      "queuedAt": 1712671072,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1715323437,
@@ -264,8 +264,8 @@
     "votingDuration": 259200,
     "creationTime": 1712322827,
     "accessLevel": 1,
-    "state": 2,
-    "queuingTime": 0,
+    "state": 4,
+    "queuingTime": 1712670767,
     "ipfsHash": "0xd089b245419090b798da1f8495c44d346b1d08c2d8888c10af9bca40762ea763",
     "initialPayloads": [
       {
@@ -325,11 +325,11 @@
       "againstVotes": "137314310244281916272",
       "startTime": 1712410360,
       "endTime": 1712669560,
-      "votingClosedAndSentBlockNumber": 0,
-      "votingClosedAndSentTimestamp": 0,
+      "votingClosedAndSentBlockNumber": 55628296,
+      "votingClosedAndSentTimestamp": 1712669565,
       "l1BlockHash": "0xa7dfbf39efab7591914a3862308a3d999cd6e75ff8b90393926f4974d5833ec7",
       "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
-      "sentToGovernance": false,
+      "sentToGovernance": true,
       "createdBlock": 55512167,
       "votedInfo": {
         "support": false,
@@ -343,7 +343,7 @@
       "hasRequiredRoots": true
     },
     "isFinished": false,
-    "lastUpdatedTimestamp": 1712664535,
+    "lastUpdatedTimestamp": 1712675157,
     "cancellationFee": 50000000000000000
   }
 }
