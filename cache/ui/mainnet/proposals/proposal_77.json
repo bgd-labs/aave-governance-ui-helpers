@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1713379319,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1716403319,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xbb5a3cE88358e584c0e2d8FbBb25b5062cCCffe2",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 103,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmRjTVLcLehFYdvEg7Q1zE4warstCRMBTyBYHXD8S3ibQz",
+    "description": "\n## Simple Summary\n\nThis AIP proposes to set the Aave Chan Initiative (ACI) wallet as the emission manager for the PYUSD token on Aave V3 Ethereum Market. This will enable the ACI to enact incentive programs funded by ecosystem partners for all PYUSD markets, promoting growth and expanding the user base of Aave.\n\n## Motivation\n\nThe Aave Chan Initiative (ACI) has been in discussion with various parties that have a desire to actively contribute to the growth and development of the Aave V3 on the Ethereum Network.\n\nRecently, governance approved the [addition of PYUSD to Aave V3 Ethereum Market](https://governance.aave.com/t/arfc-add-pyusd-to-aave-v3-ethereum-market/16218). As a result, onboarding PYUSD into Aave has:\n\n- Built synergies between Aave and PYUSD.\n- Offered Aave users an additional stablecoin option.\n- Strengthened the relationship between the PYUSD & the GHO stablecoin.\n\nIn order to facilitate emissions by various stakeholders, ACI proposes becoming the emissions manager for PYUSD on Aave V3 Ethereum Market. Emission incentives will be sent to ACI multisig and distributed as agreed on with partners. By setting the multisig as the emission manager for the PYUSD token, the ACI will be able to directly manage incentive programs that can attract more users to the pool and stimulate activity. This aligns with the broader goals of the Aave community to foster active and engaged markets on the Ethereum Chain.\n\n## Specification\n\nThe Aave Chan Initiative (ACI) multisig address [0xac140648435d03f784879cd789130F22Ef588Fcd](https://app.safe.global/home?safe=eth:0xac140648435d03f784879cd789130F22Ef588Fcd) will be set as Emissions manager.\n\nThe call to the setEmissionAdmin() method in the emission_manager contract will be as follows:\n\n`EMISSION_MANAGER.setEmissionAdmin(pyUSD,0xac140648435d03f784879cd789130F22Ef588Fcd);`\n\nThis method will set the Aave Chan Initiative (ACI) wallet as the emission admin for the PYUSD token on Aave V3 Ethereum Market.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/154a6473412cab8fcd2a0f81f3230ac54cdbbcb2/src/20240312_AaveV3Ethereum_MainnetPYUSDEmissionsAdmin/AaveV3Ethereum_MainnetPYUSDEmissionsAdmin_20240312.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/154a6473412cab8fcd2a0f81f3230ac54cdbbcb2/src/20240312_AaveV3Ethereum_MainnetPYUSDEmissionsAdmin/AaveV3Ethereum_MainnetPYUSDEmissionsAdmin_20240312.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xac80b6d5488c4949e30013d8ed88189ed48b64cb47580bee46921b28e3899bb7)\n- [Discussion](https://governance.aave.com/t/arfc-set-aave-chan-initiative-as-emission-manager-for-pyusd-on-aave-v3-ethereum-market/16837)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Mainnet PYUSD Emissions Admin",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-set-aave-chan-initiative-as-emission-manager-for-pyusd-on-aave-v3-ethereum-market/16837",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xac80b6d5488c4949e30013d8ed88189ed48b64cb47580bee46921b28e3899bb7",
+    "originalIpfsHash": "0x326abb9504b2e2277440be16f89f9f12a17705e4e6a2e098562bf946ff779f1f"
+  },
+  "proposal": {
+    "id": 77,
+    "votingDuration": 259200,
+    "creationTime": 1713379511,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x326abb9504b2e2277440be16f89f9f12a17705e4e6a2e098562bf946ff779f1f",
+    "initialPayloads": [
+      {
+        "id": 103,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 77,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1713388003,
+    "cancellationFee": 50000000000000000
+  }
+}
