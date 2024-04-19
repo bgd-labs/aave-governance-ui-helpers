@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1713506399,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1716530399,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x3e7b6298a8Ff538338d361D2976D0EB196635097",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 108,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmezTDBpQyyUjE6ZpRhsmQLYwxi1zEWAGTdfATcMdAygF9",
+    "description": "\n## Simple Summary\n\nA proposal to reduce Liquidation Thresholds on Aave V2 Ethereum.\n\n## Motivation\n\nIn continuation of the deprecation of Aave V2, Chaos Labs advises implementing the subsequent parameter changes to the frozen assets on Aave v2 Ethereum.\n\nAs Liquidation Threshold reductions may lead to user accounts being eligible for liquidations upon their approval, we want to clarify the full implications to the community at each step. We will publicly communicate the planned amendments and list of affected accounts leading to the on-chain execution.\n\nOur recommendations below suggest an LT configuration that optimizes reductions without significantly increasing the number of accounts eligible for liquidation. The proposed values are set at a margin of ~4-6% from the closest LT figure, which would trigger more substantial liquidations.\n\n## Specification\n\nAave v2 Ethereum\n| Asset | Current LT | Chaos Rec LT | Value Liquidated ($) | Accounts Liquidated |\n|-------|------------|--------------|----------------------|---------------------|\n| CRV | 14% | 0.01% | 1.07k | 6 |\n| LINK | 72% | 68% | 2.82k | 7 |\n| MKR | 14% | 10% | 280 | 4 |\n| UNI | 14% | 0.01% | 1.12k | 12 |\n| ZRX | 8% | 5% | - | - |\n\n|       | Value liquidated | Accounts liquidated |\n| ----- | ---------------- | ------------------- |\n| Total | $5.49k           | 31                  |\n\n## References\n\n- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/93df385bf7640e2113fd1257776eae40a14530f4/src/20240416_AaveV2Ethereum_EthereumV2LTReductions/AaveV2Ethereum_EthereumV2LTReductions_20240416.sol)\n- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/93df385bf7640e2113fd1257776eae40a14530f4/src/20240416_AaveV2Ethereum_EthereumV2LTReductions/AaveV2Ethereum_EthereumV2LTReductions_20240416.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-chaos-labs-ethereum-v2-lt-reductions-04-15-2024/17369)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Ethereum V2 LT Reductions ",
+    "author": "Chaos Labs",
+    "discussions": "https://governance.aave.com/t/arfc-chaos-labs-ethereum-v2-lt-reductions-04-15-2024/17369",
+    "originalIpfsHash": "0xf76a0f5f4db1f1718f9f0bc3116895eaa92b61020af1fc5059f27ee16f390500"
+  },
+  "proposal": {
+    "id": 81,
+    "votingDuration": 259200,
+    "creationTime": 1713506459,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xf76a0f5f4db1f1718f9f0bc3116895eaa92b61020af1fc5059f27ee16f390500",
+    "initialPayloads": [
+      {
+        "id": 108,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 81,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1713506871,
+    "cancellationFee": 50000000000000000
+  }
+}
