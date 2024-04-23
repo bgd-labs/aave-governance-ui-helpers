@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1713872807,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1716896807,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x64c604E483A6E04692B5c87Db9561529feBffC17",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 111,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qme1ns4MJ6jJEguKLaNXS82w5Fe7XqawL2DiTNQjZTgN9i",
+    "description": "\n## Simple Summary\n\nIntroduce a new method `swapToVariable(address asset, address user)` that allows permissionless swapping from stable to variable debt.\n\n## Motivation\n\nOn the 4th of November 2023 10, a report was received via the Aave <> Immunefi bug bounty program about a critical bug related to the stable borrow rate.\n\nOnly certain assets were affected due to their configuration, but given the nature of the bug, together with the progressive deprecation of stable rate that started before (not enabled in Aave v3 Ethereum, the main instance of Aave at the moment, or any other afterwards), the fix involved a full deprecation of minting mechanisms of stable debt: halting new borrowings in that mode and also halting rebalancing and swapping from variable to stable.\n\nEven if with the halting of minting of stable rate we are fully confident that there is no further vector, the current situation is extremely asymmetric, and creating really important technical overhead, for example when doing security evaluations/reviews of the protocol: there are user positions at stable, which factually have fixed rate until they decide to close it, without any kind of rebalancing applicable.\n\nTherefore, after evaluating the scenario for some time, we think the better solution is to progress on the deprecation of stable rate, by migrating all user positions from stable to variable.\n\n## Specification\n\nOn execution this proposal will call:\n\n- `AaveV2Ethereum.POOL_ADDRESSES_PROVIDER.setLendingPoolImpl(LENDING_POOL_IMPL)` to update the pool implementation\n\n## References\n\n- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c897b15496a26fd9f30aff69e3a66b22321a1576/src/20240416_AaveV2Ethereum_V2StableDebtOffboarding/AaveV2Ethereum_V2StableDebtOffboarding_20240416.sol)\n- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c897b15496a26fd9f30aff69e3a66b22321a1576/src/20240416_AaveV2Ethereum_V2StableDebtOffboarding/AaveV2Ethereum_V2StableDebtOffboarding_20240416.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb58ef33b4b7f4c35b7a6834b24f11b282d713b5e9f527f29d782aef04886c189)\n- [Discussion](https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473)\n- [Diff](https://github.com/bgd-labs/v2-stable-debt-offboarding/blob/d9862450d82930a6c9c9fe67e84894c7c467514e/diffs/diff.md)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "V2 Stable Debt Offboarding",
+    "author": "BGD Labs @bgdlabs",
+    "discussions": "https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xb58ef33b4b7f4c35b7a6834b24f11b282d713b5e9f527f29d782aef04886c189",
+    "originalIpfsHash": "0xe8e62cf3cb3fc0fc5686ce63c64f16e14d4bfb58053d74189540f66a607bbea5"
+  },
+  "proposal": {
+    "id": 86,
+    "votingDuration": 259200,
+    "creationTime": 1713877739,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xe8e62cf3cb3fc0fc5686ce63c64f16e14d4bfb58053d74189540f66a607bbea5",
+    "initialPayloads": [
+      {
+        "id": 111,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 86,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1713884759,
+    "cancellationFee": 50000000000000000
+  }
+}
