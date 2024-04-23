@@ -667,9 +667,9 @@
   "25": {
     "creator": "0x5B540d168E2468270a3b5C66DD1A6E4ecE6BE593",
     "maximumAccessLevelRequired": 1,
-    "state": 1,
+    "state": 2,
     "createdAt": 1713442926,
-    "queuedAt": 0,
+    "queuedAt": 1713859514,
     "executedAt": 0,
     "cancelledAt": 0,
     "expirationTime": 1716466926,
@@ -711,6 +711,31 @@
       }
     ],
     "id": 26,
+    "chainId": 43114,
+    "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+  },
+  "27": {
+    "creator": "0xEAF6183bAb3eFD3bF856Ac5C058431C8592394d6",
+    "maximumAccessLevelRequired": 1,
+    "state": 1,
+    "createdAt": 1713862659,
+    "queuedAt": 0,
+    "executedAt": 0,
+    "cancelledAt": 0,
+    "expirationTime": 1716886659,
+    "delay": 86400,
+    "gracePeriod": 604800,
+    "actions": [
+      {
+        "target": "0x0a54a0c111e00cd9D0181b9285591164ba41b6FA",
+        "withDelegateCall": true,
+        "accessLevel": 1,
+        "value": "0",
+        "signature": "execute()",
+        "callData": "0x"
+      }
+    ],
+    "id": 27,
     "chainId": 43114,
     "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
   }
