@@ -35,9 +35,15 @@ async function updateIpfsCache(proposalsCache: ProposalsCache) {
   for (const key of Object.keys(proposalsCache)) {
     const id = Number(key);
     if (!ipfsCache[proposalsCache[id].ipfsHash]) {
-      const metadata = await getProposalMetadata(proposalsCache[id].ipfsHash);
-      if (metadata) {
-        ipfsCache[proposalsCache[id].ipfsHash] = metadata;
+      try {
+        const metadata = await getProposalMetadata(proposalsCache[id].ipfsHash);
+        if (metadata) {
+          ipfsCache[proposalsCache[id].ipfsHash] = metadata;
+        }
+      } catch (e) {
+        console.log(
+          `Error when ipfs data getting, ipfs hash: ${proposalsCache[id].ipfsHash}`,
+        );
       }
     }
   }

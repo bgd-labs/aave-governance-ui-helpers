@@ -142,7 +142,7 @@ function formatProposalsData(
   const formattedProposalData = {
     ...proposal,
     payloads: proposalPayloadsData,
-    title: ipfsCache[proposal.ipfsHash]?.title || '',
+    title: ipfsCache[proposal.ipfsHash]?.title || `Proposal #${proposal.id}`,
     votingMachineState: getVotingMachineProposalState(proposal),
   };
 
@@ -823,7 +823,8 @@ async function parseCache() {
 
         return {
           id: proposal.id,
-          title: ipfsCache[proposal.ipfsHash]?.title || '',
+          title:
+            ipfsCache[proposal.ipfsHash]?.title || `Proposal #${proposal.id}`,
           combineState: proposalState,
           finishedTimestamp: finishedTimestamp,
           ipfsHash: proposal.ipfsHash,
@@ -922,7 +923,7 @@ async function parseCache() {
           ipfsHash: proposal.ipfsHash,
           status: status,
           title:
-            ipfsCache[proposal.ipfsHash].title || `Proposal ${proposal.id}`,
+            ipfsCache[proposal.ipfsHash]?.title || `Proposal #${proposal.id}`,
         };
       } else {
         return {
