@@ -13595,5 +13595,51 @@
     "blockHash": "0x916fbc90889639d3cfba59523cfa2ba167a85de7d4a36286a5df73f1e0efe35f",
     "logIndex": 117,
     "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "102",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0x719cee2cd740d25f0ef3237ab7394bd92bc4e85b8c371fcf9006dd4b0a323d9a"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x0000000000000000000000000000000000000000000000000000000000000066",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x719cee2cd740d25f0ef3237ab7394bd92bc4e85b8c371fcf9006dd4b0a323d9a",
+    "blockNumber": "19819968",
+    "transactionHash": "0x414e22fb5194a9155055c1b0750e7ffec3a9d2b247e94a9650f5361ef0e289db",
+    "transactionIndex": 26,
+    "blockHash": "0xeaebede9487d9a43ee876ed48423bd804f84e659e561a50f740b40e8c473cbb0",
+    "logIndex": 150,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "103",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0xd527226735a84a4847a5096a2d861759ee5a1c33cc9fc6971d13445ab40dcc86"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x0000000000000000000000000000000000000000000000000000000000000067",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0xd527226735a84a4847a5096a2d861759ee5a1c33cc9fc6971d13445ab40dcc86",
+    "blockNumber": "19820696",
+    "transactionHash": "0x2584a9273c599b0d195707a04c40d87b460ad92139f4ef195f68b737d7d39a01",
+    "transactionIndex": 9,
+    "blockHash": "0xefa253d4b11e63b0b7e8ec1b8c99af52b425f467b7a4cd6cba47766f61383392",
+    "logIndex": 82,
+    "removed": false
   }
 ]
