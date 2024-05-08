@@ -13641,5 +13641,46 @@
     "blockHash": "0xefa253d4b11e63b0b7e8ec1b8c99af52b425f467b7a4cd6cba47766f61383392",
     "logIndex": 82,
     "removed": false
+  },
+  {
+    "eventName": "ProposalCanceled",
+    "args": {
+      "proposalId": "101"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x789cf55be980739dad1d0699b93b58e806b51c9d96619bfa8fe0a28abaa7b30c",
+      "0x0000000000000000000000000000000000000000000000000000000000000065"
+    ],
+    "data": "0x",
+    "blockNumber": "19823237",
+    "transactionHash": "0x3b5ff29861aecf9588d86fe1b50eaeb7f07e9f0648f73fcf3764ccdb0fb448e5",
+    "transactionIndex": 122,
+    "blockHash": "0x7644677f52e92f1a145245f9fc1005a402bc98c3635bd009a26e27de8c2a0b4a",
+    "logIndex": 279,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "104",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0x543b2ccf5ce8d534cbbfd1ed90572a717c31eccd518762f65303820dda4d285d"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x0000000000000000000000000000000000000000000000000000000000000068",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x543b2ccf5ce8d534cbbfd1ed90572a717c31eccd518762f65303820dda4d285d",
+    "blockNumber": "19823264",
+    "transactionHash": "0x2766600b053802fc9269dd8040da47fb4e272b29cd8a3e696a6abb82474ddb7b",
+    "transactionIndex": 11,
+    "blockHash": "0xa68a722f4792ff19bfcbf2e1050120475501975e7b2b5529d37be1c2a5845e64",
+    "logIndex": 28,
+    "removed": false
   }
 ]
