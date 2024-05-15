@@ -902,5 +902,13 @@
     "discussions": "https://governance.aave.com/t/arfc-onboard-oseth-to-aave-v3-on-ethereum/16913",
     "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x3dc8b06441d0f1dcd6f4a53d06d62e9bb1ac87ced19020d9c735854bbf68b835",
     "originalIpfsHash": "0x543b2ccf5ce8d534cbbfd1ed90572a717c31eccd518762f65303820dda4d285d"
+  },
+  "0x6c9644b3c657187c2d9d8632de3eaf2ab1d689f328d18d6bc83a65bed945d3d0": {
+    "ipfsHash": "QmVeXe1ris7qtAnXv8cRDhWB9ghvioP7qQfxxtrYTdMcqd",
+    "description": "\n## Simple Summary\n\nA proposal to reduce Liquidation Thresholds on Aave V2 Ethereum.\n\n## Motivation\n\nIn continuation of the deprecation of Aave V2, Chaos Labs advises implementing the subsequent parameter changes to the frozen assets on Aave v2 Ethereum.\n\nAs Liquidation Threshold reductions may lead to user accounts being eligible for liquidations upon their approval, we want to clarify the full implications to the community at each step. We will publicly communicate the planned amendments and list of affected accounts leading to the on-chain execution.\n\nOur recommendations below suggest an LT configuration that optimizes reductions without significantly increasing the number of accounts eligible for liquidation. The proposed values are set at a margin of ~4-6% from the closest LT figure, which would trigger more substantial liquidations.\n\n## Specification\n\n| Asset | Current LT | Recommended LT |\n| ----- | ---------- | -------------- |\n| LINK  | 68%        | 65%            |\n| ZRX   | 5%         | 0_01%          |\n\n|       | Value liquidated | Accounts liquidated |\n| ----- | ---------------- | ------------------- |\n| Total | $688             | 6                   |\n\n## References\n\n- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1fc20756f3dc38186c107838f4928786d231672f/src/20240509_AaveV2Ethereum_ChaosLabsEthereumV2LTReductions/AaveV2Ethereum_ChaosLabsEthereumV2LTReductions_20240509.sol)\n- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1fc20756f3dc38186c107838f4928786d231672f/src/20240509_AaveV2Ethereum_ChaosLabsEthereumV2LTReductions/AaveV2Ethereum_ChaosLabsEthereumV2LTReductions_20240509.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-chaos-labs-ethereum-v2-lt-reductions-05-06-2024/17598)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Chaos Labs Ethereum V2 LT Reductions",
+    "author": "Chaos Labs",
+    "discussions": "https://governance.aave.com/t/arfc-chaos-labs-ethereum-v2-lt-reductions-05-06-2024/17598",
+    "originalIpfsHash": "0x6c9644b3c657187c2d9d8632de3eaf2ab1d689f328d18d6bc83a65bed945d3d0"
   }
 }
