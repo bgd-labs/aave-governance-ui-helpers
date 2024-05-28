@@ -1,7 +1,16 @@
 import {
+  IGovernanceCore_ABI,
   IVotingMachineDataHelper_ABI,
   IVotingPortal_ABI,
 } from '@bgd-labs/aave-address-book';
+import {
+  GetProposalReturnType,
+  githubHybridCacheAdapter,
+  PayloadLogs,
+  // @ts-ignore
+} from '@bgd-labs/aave-v3-governance-cache/githubHybrid';
+// @ts-ignore
+import { localCacheAdapter } from '@bgd-labs/aave-v3-governance-cache/localCache';
 import {
   CHAIN_ID_CLIENT_MAP,
   readJSONCache,
@@ -32,22 +41,31 @@ import {
   PayloadState,
   ProposalHistoryItem,
   ProposalMetadata,
-  ProposalsCache,
   ProposalState,
   VMProposalStructOutput,
   VotersData,
   VotingConfig,
   VotingMachineProposalState,
 } from '..';
-import {
-  getGovernanceEvents,
-  isProposalFinal,
-} from '../utils/viem/events/governance';
-import { getPayloadsControllerEvents } from '../utils/viem/events/payloadsController';
+import { isProposalFinal } from '../utils/viem/events/governance';
 import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
 import { appConfig, coreName } from './config';
 
 const initDirName = `ui/${coreName}`;
+const cachingLayer = githubHybridCacheAdapter(localCacheAdapter);
+
+async function getProposalsId() {
+  // initialize contracts
+  const govCoreClient = CHAIN_ID_CLIENT_MAP[Number(appConfig.govCoreChainId)];
+  const govCore = getContract({
+    address: appConfig.govCoreConfig.contractAddress,
+    abi: IGovernanceCore_ABI,
+    client: govCoreClient,
+  });
+  // check proposals count
+  const proposalsCount = await govCore.read.getProposalsCount();
+  return [...Array(Number(proposalsCount)).keys()];
+}
 
 async function getVotingData(initialProposals: InitialProposal[]) {
   const votingMachineDataHelpers = {
@@ -104,45 +122,57 @@ async function getVotingData(initialProposals: InitialProposal[]) {
   return data.flat();
 }
 
-function getProposalPayloads(proposal: BasicProposal) {
+async function getProposalPayloads(proposal: BasicProposal) {
   // get payloads data for proposal
-  const proposalPayloadsData = proposal.initialPayloads.map((payload) => {
-    const payloadsPath = `${payload.chainId}/payloads`;
-    const payloadsCache =
-      readJSONCache<Record<number, Payload>>(
-        payloadsPath,
-        payload.payloadsController,
-      ) || {};
-
-    return payloadsCache[payload.id];
-  });
+  const proposalPayloadsData = await Promise.all(
+    proposal.initialPayloads.map(async (payload) => {
+      const data = await cachingLayer.getPayload({
+        chainId: payload.chainId,
+        payloadsController: payload.payloadsController as Hex,
+        payloadId: payload.id,
+      });
+      return {
+        logs: data.logs,
+        payload: {
+          ...data.payload,
+          id: payload.id,
+          chainId: payload.chainId,
+          payloadsController: payload.payloadsController,
+        },
+      };
+    }),
+  );
   // maximum delay from all payloads in proposal for finished timestamp
   const executionDelay = Math.max.apply(
     0,
-    proposalPayloadsData.map((payload) => payload?.delay || 0),
+    proposalPayloadsData.map((payload) => payload?.payload.delay || 0),
   );
   return { proposalPayloadsData, executionDelay };
 }
 
-function formatProposalsData(
-  proposal: BasicProposal,
-  configs: VotingConfig[],
-  constants: ContractsConstants,
-) {
-  const ipfsCache: Record<string, ProposalMetadata> =
-    readJSONCache('web3', 'ipfs') || {};
-
+function formatProposalsData({
+  proposalData,
+  proposal,
+  configs,
+  constants,
+  proposalPayloadsData,
+  executionDelay,
+}: {
+  proposalData: GetProposalReturnType;
+  proposal: BasicProposal;
+  configs: VotingConfig[];
+  constants: ContractsConstants;
+  proposalPayloadsData: Payload[];
+  executionDelay: number;
+}) {
   const proposalConfig = configs.filter(
     (config) => config.accessLevel === proposal.accessLevel,
   )[0];
 
-  const { proposalPayloadsData, executionDelay } =
-    getProposalPayloads(proposal);
-
   const formattedProposalData = {
     ...proposal,
     payloads: proposalPayloadsData,
-    title: ipfsCache[proposal.ipfsHash]?.title || `Proposal #${proposal.id}`,
+    title: proposalData.ipfs?.title || `Proposal #${proposal.id}`,
     votingMachineState: getVotingMachineProposalState(proposal),
   };
 
@@ -164,11 +194,28 @@ function formatProposalsData(
   };
 }
 
-async function parseProposalEvents(
-  proposal: BasicProposal,
-  configs: VotingConfig[],
-  contractsConstants: ContractsConstants,
-) {
+async function parseProposalEvents({
+  proposalData,
+  proposal,
+  configs,
+  contractsConstants,
+  proposalPayloadsData,
+  executionDelayBase,
+}: {
+  proposalData: GetProposalReturnType;
+  proposal: BasicProposal;
+  configs: VotingConfig[];
+  contractsConstants: ContractsConstants;
+  proposalPayloadsData: {
+    logs: PayloadLogs;
+    payload: Payload & {
+      id: number;
+      chainId: number;
+      payloadsController: string;
+    };
+  }[];
+  executionDelayBase: number;
+}) {
   const proposalHistoryEvents =
     readJSONCache<Record<string, ProposalHistoryItem>>(
       `${initDirName}/events`,
@@ -222,7 +269,16 @@ async function parseProposalEvents(
       proposalConfig,
       constants,
       proposalState,
-    } = formatProposalsData(proposal, configs, contractsConstants);
+    } = formatProposalsData({
+      proposalData,
+      proposal,
+      configs,
+      constants: contractsConstants,
+      proposalPayloadsData: proposalPayloadsData.map(
+        (payload) => payload.payload,
+      ),
+      executionDelay: executionDelayBase,
+    });
 
     const {
       isVotingFailed,
@@ -238,24 +294,12 @@ async function parseProposalEvents(
       executionDelay,
     });
 
-    const govCoreEventsPath = `${appConfig.govCoreChainId}/events`;
-    const governanceEvents =
-      readJSONCache<Awaited<ReturnType<typeof getGovernanceEvents>>>(
-        govCoreEventsPath,
-        appConfig.govCoreConfig.contractAddress,
-      ) || [];
-
     // PAYLOADS_CREATED
     formattedProposalData.payloads.forEach((payload, index) => {
       const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_CREATED}_${payload.id}_${payload.chainId}`;
-
-      const eventsPath = `${payload.chainId}/events`;
-      const eventsCache =
-        readJSONCache<Awaited<ReturnType<typeof getPayloadsControllerEvents>>>(
-          eventsPath,
-          payload.payloadsController,
-        ) || [];
-
+      const proposalPayload = proposalPayloadsData.filter(
+        (p) => p.payload.id === payload.id,
+      )[0];
       setEvent({
         historyId,
         type: HistoryItemType.PAYLOADS_CREATED,
@@ -263,11 +307,7 @@ async function parseProposalEvents(
         chainId: payload.chainId,
         timestamp: payload.createdAt,
         addresses: payload.actions.map((action) => action.target),
-        hash: eventsCache.find(
-          (event) =>
-            event.eventName === 'PayloadCreated' &&
-            event.args.payloadId === payload.id,
-        )?.transactionHash,
+        hash: proposalPayload.logs.createdLog.transactionHash,
       });
     });
 
@@ -279,11 +319,7 @@ async function parseProposalEvents(
       id: formattedProposalData.id,
       chainId: appConfig.govCoreChainId,
       timestamp: formattedProposalData.creationTime,
-      hash: governanceEvents.find(
-        (event) =>
-          event.eventName === 'ProposalCreated' &&
-          Number(event.args.proposalId) === formattedProposalData.id,
-      )?.transactionHash,
+      hash: proposalData.logs.createdLog.transactionHash,
     });
 
     // PROPOSAL_ACTIVATE
@@ -295,11 +331,7 @@ async function parseProposalEvents(
         id: formattedProposalData.id,
         chainId: appConfig.govCoreChainId,
         timestamp: formattedProposalData.votingActivationTime,
-        hash: governanceEvents.find(
-          (event) =>
-            event.eventName === 'VotingActivated' &&
-            Number(event.args.proposalId) === formattedProposalData.id,
-        )?.transactionHash,
+        hash: proposalData.logs.votingActivatedLog?.transactionHash,
       });
     }
 
@@ -367,11 +399,7 @@ async function parseProposalEvents(
         id: formattedProposalData.id,
         chainId: appConfig.govCoreChainId,
         timestamp: formattedProposalData.queuingTime,
-        hash: governanceEvents.find(
-          (event) =>
-            event.eventName === 'ProposalQueued' &&
-            Number(event.args.proposalId) === formattedProposalData.id,
-        )?.transactionHash,
+        hash: proposalData.logs.queuedLog?.transactionHash,
       });
     }
 
@@ -380,11 +408,7 @@ async function parseProposalEvents(
       const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXECUTED}`;
       const executedTimestamp = (
         await getBlock(CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId], {
-          blockHash: governanceEvents.find(
-            (event) =>
-              event.eventName === 'ProposalExecuted' &&
-              Number(event.args.proposalId) === formattedProposalData.id,
-          )?.blockHash,
+          blockHash: proposalData.logs.executedLog?.transactionHash,
         })
       ).timestamp;
 
@@ -394,11 +418,7 @@ async function parseProposalEvents(
         id: formattedProposalData.id,
         chainId: appConfig.govCoreChainId,
         timestamp: Number(executedTimestamp),
-        hash: governanceEvents.find(
-          (event) =>
-            event.eventName === 'ProposalExecuted' &&
-            Number(event.args.proposalId) === formattedProposalData.id,
-        )?.transactionHash,
+        hash: proposalData.logs.executedLog?.transactionHash,
       });
     }
 
@@ -408,27 +428,19 @@ async function parseProposalEvents(
         (payload) => payload?.queuedAt > 0 && !isVotingFailed,
       )
     ) {
-      formattedProposalData.payloads.forEach((payload) => {
+      formattedProposalData.payloads.map(async (payload) => {
         if (payload?.queuedAt > 0) {
           const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_QUEUED}_${payload.id}_${payload.chainId}`;
-
-          const eventsPath = `${payload.chainId}/events`;
-          const eventsCache =
-            readJSONCache<
-              Awaited<ReturnType<typeof getPayloadsControllerEvents>>
-            >(eventsPath, payload.payloadsController) || [];
-
+          const proposalPayload = proposalPayloadsData.filter(
+            (p) => p.payload.id === payload.id,
+          )[0];
           setEvent({
             historyId,
             type: HistoryItemType.PAYLOADS_QUEUED,
             id: payload.id,
             chainId: payload.chainId,
             timestamp: payload.queuedAt,
-            hash: eventsCache.find(
-              (event) =>
-                event.eventName === 'PayloadQueued' &&
-                event.args.payloadId === payload.id,
-            )?.transactionHash,
+            hash: proposalPayload.logs.queuedLog?.transactionHash,
           });
         }
       });
@@ -440,27 +452,19 @@ async function parseProposalEvents(
         (payload) => payload?.executedAt > 0 && !isVotingFailed,
       )
     ) {
-      formattedProposalData.payloads.forEach((payload, index) => {
+      formattedProposalData.payloads.map(async (payload) => {
         if (payload?.executedAt > 0) {
           const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXECUTED}_${payload.id}_${payload.chainId}`;
-
-          const eventsPath = `${payload.chainId}/events`;
-          const eventsCache =
-            readJSONCache<
-              Awaited<ReturnType<typeof getPayloadsControllerEvents>>
-            >(eventsPath, payload.payloadsController) || [];
-
+          const proposalPayload = proposalPayloadsData.filter(
+            (p) => p.payload.id === payload.id,
+          )[0];
           setEvent({
             historyId,
             type: HistoryItemType.PAYLOADS_EXECUTED,
             id: payload.id,
             chainId: payload.chainId,
             timestamp: payload.executedAt,
-            hash: eventsCache.find(
-              (event) =>
-                event.eventName === 'PayloadExecuted' &&
-                event.args.payloadId === payload.id,
-            )?.transactionHash,
+            hash: proposalPayload.logs.executedLog?.transactionHash,
           });
         }
       });
@@ -478,11 +482,7 @@ async function parseProposalEvents(
           lastPayloadCanceledAt > formattedProposalData.canceledAt
             ? lastPayloadCanceledAt
             : formattedProposalData.canceledAt,
-        hash: governanceEvents.find(
-          (event) =>
-            event.eventName === 'ProposalCanceled' &&
-            Number(event.args.proposalId) === formattedProposalData.id,
-        )?.transactionHash,
+        hash: proposalData.logs.canceledLog?.transactionHash,
       });
     }
 
@@ -536,18 +536,6 @@ async function parseProposalEvents(
 }
 
 async function parseCache() {
-  // get ipfs cache
-  const ipfsCache: Record<string, ProposalMetadata> =
-    readJSONCache('web3', 'ipfs') || {};
-
-  // get proposals cache
-  const proposalsPath = `${appConfig.govCoreChainId}/proposals`;
-  const proposalsCache =
-    readJSONCache<ProposalsCache>(
-      proposalsPath,
-      appConfig.govCoreConfig.contractAddress,
-    ) || {};
-
   // get gov core configs
   const { contractsConstants, configs } = await getGovCoreConfigs({
     govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
@@ -556,22 +544,42 @@ async function parseCache() {
     client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
   });
 
-  // get voting chain for all proposals
-  const formattedProposalCache = await Promise.all(
-    Object.entries(proposalsCache).map(async (proposal) => {
-      const portalContract = getContract({
-        abi: IVotingPortal_ABI,
-        client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
-        address: proposal[1].votingPortal,
+  // get gov core proposal ids
+  const proposalIdsFromContract = await getProposalsId();
+  // get proposals core cache
+  const proposalsCache = await Promise.all(
+    proposalIdsFromContract.map(async (id) => {
+      const cache = await cachingLayer.getProposal({
+        chainId: appConfig.govCoreChainId,
+        governance: appConfig.govCoreConfig.contractAddress,
+        proposalId: BigInt(id),
       });
-      const votingChainId = await portalContract.read.VOTING_MACHINE_CHAIN_ID();
       return {
-        id: BigInt(proposal[0]),
-        votingChainId: votingChainId,
-        proposalData: proposal[1],
+        proposalId: id,
+        cache,
       };
     }),
   );
+  console.log('proposalsCache', proposalsCache);
+
+  // get voting chain for all proposals
+  const formattedProposalCache = await Promise.all(
+    proposalsCache.map(async (item) => {
+      console.log(item.cache.proposal.votingPortal);
+      const portalContract = getContract({
+        abi: IVotingPortal_ABI,
+        client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
+        address: item.cache.proposal.votingPortal,
+      });
+      const votingChainId = await portalContract.read.VOTING_MACHINE_CHAIN_ID();
+      return {
+        id: BigInt(item.proposalId),
+        votingChainId: votingChainId,
+        proposalData: item.cache.proposal,
+      };
+    }),
+  );
+  console.log('formattedProposalCache', formattedProposalCache);
 
   // get VM data and combine proposals cache with voting machines data
   const initialProposals = await Promise.all(
@@ -588,36 +596,58 @@ async function parseCache() {
     configs,
     formattedProposalCache,
     votingMachineDataHelperData as VMProposalStructOutput[],
-    formattedProposalCache.map((proposal) => Number(proposal.id)),
+    proposalIdsFromContract,
     false,
   );
-  const proposalsData = proposalsDataInitial.map((proposal) => {
-    return {
-      ...proposal,
-      isFinished: formattedProposalCache.filter(
-        (p) => Number(p.id) === proposal.id,
-      )[0].proposalData.isFinished,
-    };
-  });
+
+  const proposalsData = await Promise.all(
+    proposalsDataInitial.map(async (proposal) => {
+      const { proposalPayloadsData, executionDelay } =
+        await getProposalPayloads(proposal);
+
+      const isProposalPayloadsFinished = proposalPayloadsData.every(
+        (payload) => payload && payload?.payload.state > PayloadState.Queued,
+      );
+      const isFinished =
+        proposal.state === ProposalState.Executed
+          ? isProposalPayloadsFinished
+          : proposal.state > ProposalState.Executed;
+
+      const proposalData = {
+        ...proposal,
+        isFinished: isFinished && Number(proposal.cancellationFee) > 0,
+      };
+
+      const cacheData = proposalsCache.filter(
+        (item) => item.proposalId === proposal.id,
+      )[0];
+
+      return {
+        proposal: proposalData,
+        proposalPayloadsData,
+        executionDelay,
+        cacheData,
+      };
+    }),
+  );
 
   // start parsing
   await Promise.allSettled(
-    proposalsData.map(async (proposal) => {
-      const proposalIpfsData = ipfsCache[proposal.ipfsHash];
-
-      const path = `${proposal.votingChainId}/events`;
+    proposalsData.map(async (data) => {
+      const path = `${data.proposal.votingChainId}/events`;
       const votesCache =
         readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
           path,
-          appConfig.votingMachineConfig[proposal.votingChainId].contractAddress,
+          appConfig.votingMachineConfig[data.proposal.votingChainId]
+            .contractAddress,
         ) || [];
 
       // format VoteEmitted events to UI data format
       const proposalVoters: VotersData[] = votesCache
         .filter(
-          (data) =>
-            data.eventName === 'VoteEmitted' &&
-            Number(data.args.proposalId) === proposal.id,
+          (event) =>
+            event.eventName === 'VoteEmitted' &&
+            Number(event.args.proposalId) === data.proposal.id,
         )
         .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
         .map((event) => ({
@@ -637,7 +667,7 @@ async function parseCache() {
           ).toNumber(),
           transactionHash: event.transactionHash,
           blockNumber: Number(event.blockNumber),
-          chainId: proposal.votingChainId,
+          chainId: data.proposal.votingChainId,
         }));
 
       // get ens name for voters
@@ -661,13 +691,10 @@ async function parseCache() {
         }),
       );
 
-      // get payloads data for proposal
-      const { proposalPayloadsData } = getProposalPayloads(proposal);
-
       const dataToWrite = {
         payloads: proposalPayloadsData,
-        ipfs: proposalIpfsData,
-        proposal: proposal,
+        ipfs: data.cacheData?.cache.ipfs,
+        proposal: data.proposal,
       };
 
       const proposalCache =
@@ -675,7 +702,8 @@ async function parseCache() {
           payloads: Payload[];
           ipfs: ProposalMetadata;
           proposal: BasicProposal;
-        }>(`${initDirName}/proposals`, `proposal_${proposal.id}`) || undefined;
+        }>(`${initDirName}/proposals`, `proposal_${data.proposal.id}`) ||
+        undefined;
       if (
         !proposalCache ||
         !proposalCache?.proposal.isFinished ||
@@ -683,16 +711,16 @@ async function parseCache() {
       ) {
         writeJSONCache(
           `${initDirName}/proposals`,
-          `proposal_${proposal.id}`,
+          `proposal_${data.proposal.id}`,
           dataToWrite,
         );
-        console.log(`Proposal ${proposal.id} data cached.`);
+        console.log(`Proposal ${data.proposal.id} data cached.`);
       }
 
       const proposalVotersCache =
         readJSONCache<{
           votes: VotersData[];
-        }>(`${initDirName}/votes`, `vote_for_proposal_${proposal.id}`) ||
+        }>(`${initDirName}/votes`, `vote_for_proposal_${data.proposal.id}`) ||
         undefined;
       if (
         !proposalVotersCache ||
@@ -700,21 +728,28 @@ async function parseCache() {
       ) {
         writeJSONCache(
           `${initDirName}/votes`,
-          `vote_for_proposal_${proposal.id}`,
+          `vote_for_proposal_${data.proposal.id}`,
           {
             votes: proposalVotersWithEnsName,
           },
         );
-        console.log(`Proposal ${proposal.id} voters data cached.`);
+        console.log(`Proposal ${data.proposal.id} voters data cached.`);
       }
 
-      await parseProposalEvents(proposal, configs, contractsConstants);
+      await parseProposalEvents({
+        proposalPayloadsData: data.proposalPayloadsData,
+        proposalData: data.cacheData.cache,
+        proposal: data.proposal,
+        configs,
+        contractsConstants,
+        executionDelayBase: data.executionDelay,
+      });
     }),
   );
 
   const proposalIds = proposalsData
-    .filter((proposal) => proposal.isFinished)
-    .map((proposal) => proposal.id);
+    .filter((proposal) => proposal.proposal.isFinished)
+    .map((proposal) => proposal.proposal.id);
   writeJSONCache(`${initDirName}`, 'cached_proposals_ids', {
     cachedProposalsIds: proposalIds,
   });
@@ -726,115 +761,132 @@ async function parseCache() {
       totalProposalCount: number;
       proposals: FinishedProposalForList[];
     }>(`${initDirName}`, `list_view_proposals`) || undefined;
-  const formattedProposalsDataForList: FinishedProposalForList[] = proposalsData
-    .filter((proposal) => proposal.isFinished)
-    .map((proposal) => {
-      if (
-        !proposalsListCache ||
-        !proposalsListCache.proposals.find((prop) => prop.id === proposal.id)
-      ) {
-        const {
-          formattedProposalData,
-          proposalState,
-          proposalConfig,
-          executionDelay,
-        } = formatProposalsData(proposal, configs, contractsConstants);
+  const formattedProposalsDataForList: FinishedProposalForList[] =
+    await Promise.all(
+      proposalsData
+        .filter((proposal) => proposal.proposal.isFinished)
+        .map(async (proposal) => {
+          if (
+            !proposalsListCache ||
+            !proposalsListCache.proposals.find(
+              (prop) => prop.id === proposal.proposal.id,
+            )
+          ) {
+            const {
+              formattedProposalData,
+              proposalState,
+              proposalConfig,
+              executionDelay,
+            } = formatProposalsData({
+              proposalData: proposal.cacheData.cache,
+              proposal: proposal.proposal,
+              configs,
+              constants: contractsConstants,
+              proposalPayloadsData: proposal.proposalPayloadsData.map(
+                (payload) => payload.payload,
+              ),
+              executionDelay: proposal.executionDelay,
+            });
 
-        let finishedTimestamp = formattedProposalData.creationTime;
+            let finishedTimestamp = formattedProposalData.creationTime;
 
-        const {
-          isVotingEnded,
-          isVotingStarted,
-          isExpired,
-          lastPayloadExecutedAt,
-          lastPayloadCanceledAt,
-          lastPayloadExpiredAt,
-          allPayloadsExpired,
-          isCanceled,
-        } = getProposalStepsAndAmounts({
-          proposalData: formattedProposalData,
-          quorum: proposalConfig.quorum,
-          differential: proposalConfig.differential,
-          precisionDivider: contractsConstants.precisionDivider,
-          cooldownPeriod: contractsConstants.cooldownPeriod,
-          executionDelay,
-        });
+            const {
+              isVotingEnded,
+              isVotingStarted,
+              isExpired,
+              lastPayloadExecutedAt,
+              lastPayloadCanceledAt,
+              lastPayloadExpiredAt,
+              allPayloadsExpired,
+              isCanceled,
+            } = getProposalStepsAndAmounts({
+              proposalData: formattedProposalData,
+              quorum: proposalConfig.quorum,
+              differential: proposalConfig.differential,
+              precisionDivider: contractsConstants.precisionDivider,
+              cooldownPeriod: contractsConstants.cooldownPeriod,
+              executionDelay,
+            });
 
-        if (
-          proposalState === CombineProposalState.Created &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp = formattedProposalData.creationTime;
-        } else if (
-          formattedProposalData.votingMachineState ===
-            VotingMachineProposalState.NotCreated &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp =
-            formattedProposalData.creationTime +
-            proposalConfig.coolDownBeforeVotingStart;
-        } else if (
-          checkHash(formattedProposalData.snapshotBlockHash).notZero &&
-          !isVotingStarted &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp = formattedProposalData.votingActivationTime;
-        } else if (
-          !isVotingEnded &&
-          isVotingStarted &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp = formattedProposalData.votingMachineData.startTime;
-        } else if (
-          isVotingStarted &&
-          isVotingEnded &&
-          proposalState !== CombineProposalState.Executed &&
-          !isExpired &&
-          !isCanceled
-        ) {
-          finishedTimestamp =
-            formattedProposalData.votingMachineData.endTime > 0
-              ? formattedProposalData.votingMachineData.endTime
-              : formattedProposalData.creationTime +
+            if (
+              proposalState === CombineProposalState.Created &&
+              !isExpired &&
+              !isCanceled
+            ) {
+              finishedTimestamp = formattedProposalData.creationTime;
+            } else if (
+              formattedProposalData.votingMachineState ===
+                VotingMachineProposalState.NotCreated &&
+              !isExpired &&
+              !isCanceled
+            ) {
+              finishedTimestamp =
+                formattedProposalData.creationTime +
                 proposalConfig.coolDownBeforeVotingStart;
-        } else if (proposalState === CombineProposalState.Failed) {
-          finishedTimestamp = formattedProposalData.votingMachineData.endTime;
-        } else if (proposalState === CombineProposalState.Executed) {
-          finishedTimestamp = lastPayloadExecutedAt;
-        } else if (proposalState === CombineProposalState.Canceled) {
-          finishedTimestamp =
-            lastPayloadCanceledAt > formattedProposalData.canceledAt
-              ? lastPayloadCanceledAt
-              : formattedProposalData.canceledAt;
-        } else if (
-          formattedProposalData.state === ProposalState.Executed &&
-          allPayloadsExpired
-        ) {
-          finishedTimestamp = lastPayloadExpiredAt;
-        } else {
-          finishedTimestamp =
-            formattedProposalData.creationTime +
-            contractsConstants.expirationTime;
-        }
+            } else if (
+              checkHash(formattedProposalData.snapshotBlockHash).notZero &&
+              !isVotingStarted &&
+              !isExpired &&
+              !isCanceled
+            ) {
+              finishedTimestamp = formattedProposalData.votingActivationTime;
+            } else if (
+              !isVotingEnded &&
+              isVotingStarted &&
+              !isExpired &&
+              !isCanceled
+            ) {
+              finishedTimestamp =
+                formattedProposalData.votingMachineData.startTime;
+            } else if (
+              isVotingStarted &&
+              isVotingEnded &&
+              proposalState !== CombineProposalState.Executed &&
+              !isExpired &&
+              !isCanceled
+            ) {
+              finishedTimestamp =
+                formattedProposalData.votingMachineData.endTime > 0
+                  ? formattedProposalData.votingMachineData.endTime
+                  : formattedProposalData.creationTime +
+                    proposalConfig.coolDownBeforeVotingStart;
+            } else if (proposalState === CombineProposalState.Failed) {
+              finishedTimestamp =
+                formattedProposalData.votingMachineData.endTime;
+            } else if (proposalState === CombineProposalState.Executed) {
+              finishedTimestamp = lastPayloadExecutedAt;
+            } else if (proposalState === CombineProposalState.Canceled) {
+              finishedTimestamp =
+                lastPayloadCanceledAt > formattedProposalData.canceledAt
+                  ? lastPayloadCanceledAt
+                  : formattedProposalData.canceledAt;
+            } else if (
+              formattedProposalData.state === ProposalState.Executed &&
+              allPayloadsExpired
+            ) {
+              finishedTimestamp = lastPayloadExpiredAt;
+            } else {
+              finishedTimestamp =
+                formattedProposalData.creationTime +
+                contractsConstants.expirationTime;
+            }
 
-        return {
-          id: proposal.id,
-          title:
-            ipfsCache[proposal.ipfsHash]?.title || `Proposal #${proposal.id}`,
-          combineState: proposalState,
-          finishedTimestamp: finishedTimestamp,
-          ipfsHash: proposal.ipfsHash,
-        };
-      } else {
-        return proposalsListCache.proposals.filter(
-          (prop) => prop.id === proposal.id,
-        )[0];
-      }
-    });
+            return {
+              id: proposal.proposal.id,
+              title:
+                proposal.cacheData.cache.ipfs?.title ||
+                `Proposal #${proposal.proposal.id}`,
+              combineState: proposalState,
+              finishedTimestamp: finishedTimestamp,
+              ipfsHash: proposal.proposal.ipfsHash,
+            };
+          } else {
+            return proposalsListCache.proposals.filter(
+              (prop) => prop.id === proposal.proposal.id,
+            )[0];
+          }
+        }),
+    );
 
   writeJSONCache(`${initDirName}`, 'list_view_proposals', {
     totalProposalCount: Object.keys(proposalsCache).length,
@@ -853,16 +905,16 @@ async function parseCache() {
     (proposal) => {
       if (
         !proposalsPayloadsCache ||
-        !proposalsPayloadsCache.data[proposal.id]
+        !proposalsPayloadsCache.data[proposal.proposal.id]
       ) {
         return {
-          id: proposal.id,
-          payloads: proposal.initialPayloads,
+          id: proposal.proposal.id,
+          payloads: proposal.proposal.initialPayloads,
         };
       } else {
         return {
-          id: proposal.id,
-          payloads: proposalsPayloadsCache.data[proposal.id],
+          id: proposal.proposal.id,
+          payloads: proposalsPayloadsCache.data[proposal.proposal.id],
         };
       }
     },
@@ -883,56 +935,70 @@ async function parseCache() {
     }>(`${initDirName}`, `creation_fees`) || undefined;
 
   const creationFeesData: Record<Address, Record<number, CreationFee>> = {};
-  const formattedProposalsDataForCreationFeesData = proposalsData.map(
-    (proposal) => {
+  const formattedProposalsDataForCreationFeesData = await Promise.all(
+    proposalsData.map(async (proposal) => {
       if (
         !creationFeesCache ||
-        !creationFeesCache.data[proposal.creator as Address] ||
-        (creationFeesCache.data[proposal.creator as Address] &&
-          !creationFeesCache.data[proposal.creator as Address][proposal.id]) ||
-        (creationFeesCache.data[proposal.creator as Address] &&
-          creationFeesCache.data[proposal.creator as Address][proposal.id] &&
-          creationFeesCache.data[proposal.creator as Address][proposal.id]
-            .status < CreationFeeState.RETURNED)
+        !creationFeesCache.data[proposal.proposal.creator as Address] ||
+        (creationFeesCache.data[proposal.proposal.creator as Address] &&
+          !creationFeesCache.data[proposal.proposal.creator as Address][
+            proposal.proposal.id
+          ]) ||
+        (creationFeesCache.data[proposal.proposal.creator as Address] &&
+          creationFeesCache.data[proposal.proposal.creator as Address][
+            proposal.proposal.id
+          ] &&
+          creationFeesCache.data[proposal.proposal.creator as Address][
+            proposal.proposal.id
+          ].status < CreationFeeState.RETURNED)
       ) {
-        const { proposalState } = formatProposalsData(
-          proposal,
+        const { proposalState } = formatProposalsData({
+          proposalData: proposal.cacheData.cache,
+          proposal: proposal.proposal,
           configs,
-          contractsConstants,
-        );
+          constants: contractsConstants,
+          proposalPayloadsData: proposal.proposalPayloadsData.map(
+            (payload) => payload.payload,
+          ),
+          executionDelay: proposal.executionDelay,
+        });
 
         let status = CreationFeeState.LATER;
-        if (proposal.state === ProposalState.Cancelled) {
+        if (proposal.proposal.state === ProposalState.Cancelled) {
           status = CreationFeeState.NOT_AVAILABLE;
         } else if (
-          proposal.state >= ProposalState.Executed &&
-          proposal.cancellationFee > 0
+          proposal.proposal.state >= ProposalState.Executed &&
+          proposal.proposal.cancellationFee > 0
         ) {
           status = CreationFeeState.AVAILABLE;
         } else if (
-          proposal.state >= ProposalState.Executed &&
-          proposal.cancellationFee <= 0
+          proposal.proposal.state >= ProposalState.Executed &&
+          proposal.proposal.cancellationFee <= 0
         ) {
           status = CreationFeeState.RETURNED;
         }
 
         return {
-          proposalId: proposal.id,
-          creator: proposal.creator,
+          proposalId: proposal.proposal.id,
+          creator: proposal.proposal.creator,
           proposalStatus: proposalState,
-          ipfsHash: proposal.ipfsHash,
+          ipfsHash: proposal.proposal.ipfsHash,
           status: status,
           title:
-            ipfsCache[proposal.ipfsHash]?.title || `Proposal #${proposal.id}`,
+            proposal.cacheData.cache.ipfs?.title ||
+            `Proposal #${proposal.proposal.id}`,
         };
       } else {
         return {
-          creator: proposal.creator,
-          ...creationFeesCache.data[proposal.creator as Address][proposal.id],
+          creator: proposal.proposal.creator,
+          ...creationFeesCache.data[proposal.proposal.creator as Address][
+            proposal.proposal.id
+          ],
         };
       }
-    },
+    }),
   );
+
   formattedProposalsDataForCreationFeesData.forEach((proposal) => {
     creationFeesData[proposal.creator as Address] = {
       ...creationFeesData[proposal.creator as Address],
