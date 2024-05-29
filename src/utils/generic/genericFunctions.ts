@@ -74,27 +74,29 @@ export async function getProposalMetadataInit(
     if (!!fallbackGateways?.length) {
       await Promise.all(
         fallbackGateways.map(async (gatewayInside) => {
-          const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
+          setTimeout(async () => {
+            const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
 
-          if (!isRequestSuccess) {
-            try {
-              const ipfsResponseInside = await fetch(ipfsInsidePath, {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              });
-              if (!ipfsResponseInside.ok)
-                console.error(`IPFS: error fetching ${ipfsInsidePath}`);
-              isRequestSuccess = true;
+            if (!isRequestSuccess) {
+              try {
+                const ipfsResponseInside = await fetch(ipfsInsidePath, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                });
+                if (!ipfsResponseInside.ok)
+                  console.error(`IPFS: error fetching ${ipfsInsidePath}`);
+                isRequestSuccess = true;
 
-              return await getProposalMetadataBase({
-                ipfsHash,
-                ipfsResponse: ipfsResponseInside,
-              });
-            } catch (e) {
-              console.error(`IPFS: error fetching ${ipfsPath}`);
+                return await getProposalMetadataBase({
+                  ipfsHash,
+                  ipfsResponse: ipfsResponseInside,
+                });
+              } catch (e) {
+                console.error(`IPFS: error fetching ${ipfsPath}`);
+              }
             }
-          }
+          }, 1000);
         }),
       );
     }
