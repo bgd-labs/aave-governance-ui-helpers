@@ -17,19 +17,14 @@ export function getLink(hash: string, gateway: string): string {
   return `${gateway}/${hash}`;
 }
 
-export async function getProposalMetadataInit(
-  hash: string,
-  gateway: string = 'https://cloudflare-ipfs.com/ipfs',
-): Promise<Omit<ProposalMetadata, 'originalIpfsHash'>> {
-  const ipfsHash = hash.startsWith('0x') ? baseToCidv0(hash) : hash;
-  const ipfsPath = getLink(ipfsHash, gateway);
-  const ipfsResponse = await fetch(ipfsPath, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!ipfsResponse.ok) throw Error(`IPFS: error fetching ${ipfsPath}`);
-  const clone = await ipfsResponse.clone();
+export async function getProposalMetadataBase({
+  ipfsHash,
+  ipfsResponse,
+}: {
+  ipfsHash: string;
+  ipfsResponse: Response;
+}) {
+  const clone = ipfsResponse.clone();
 
   try {
     const response = await ipfsResponse.json();
@@ -40,25 +35,85 @@ export async function getProposalMetadataInit(
       description: content,
       ...data,
     };
-    // matter will error in case the proposal is not valid yaml (like on proposal 0)
-    // therefore in the case of an error we just inline the complete ipfs content
   } catch (e) {
     const data = matter(await clone.text());
     return {
       ...ipfsResponse,
       ipfsHash,
       description: data.content,
-      ...(data.data as { title: string; discussions: string; author: string }),
+      ...(data.data as {
+        title: string;
+        discussions: string;
+        author: string;
+      }),
     };
   }
 }
 
-export async function getProposalMetadata(
+export async function getProposalMetadataInit(
   hash: string,
-  gateway?: string,
-  setIpfsError?: (hash: string, text?: string) => void,
-  errorText?: string,
-): Promise<ProposalMetadata | undefined> {
+  gateway: string = 'https://cloudflare-ipfs.com/ipfs',
+  fallbackGateways?: string[],
+): Promise<Omit<ProposalMetadata, 'originalIpfsHash'> | undefined> {
+  const ipfsHash = hash.startsWith('0x') ? baseToCidv0(hash) : hash;
+  const ipfsPath = getLink(ipfsHash, gateway);
+  let isRequestSuccess = false;
+
+  try {
+    const ipfsResponse = await fetch(ipfsPath, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!ipfsResponse.ok) console.error(`IPFS: error fetching ${ipfsPath}`);
+    isRequestSuccess = true;
+
+    return await getProposalMetadataBase({ ipfsHash, ipfsResponse });
+  } catch (e) {
+    console.log(`Fallbacks on`);
+    if (!!fallbackGateways?.length) {
+      await Promise.all(
+        fallbackGateways.map(async (gatewayInside) => {
+          const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
+
+          if (!isRequestSuccess) {
+            try {
+              const ipfsResponseInside = await fetch(ipfsInsidePath, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+              if (!ipfsResponseInside.ok)
+                console.error(`IPFS: error fetching ${ipfsInsidePath}`);
+              isRequestSuccess = true;
+
+              return await getProposalMetadataBase({
+                ipfsHash,
+                ipfsResponse: ipfsResponseInside,
+              });
+            } catch (e) {
+              console.error(`IPFS: error fetching ${ipfsPath}`);
+            }
+          }
+        }),
+      );
+    }
+  }
+}
+
+export async function getProposalMetadata({
+  hash,
+  gateway,
+  setIpfsError,
+  errorText,
+  fallbackGateways,
+}: {
+  hash: string;
+  gateway?: string;
+  setIpfsError?: (hash: string, text?: string) => void;
+  errorText?: string;
+  fallbackGateways?: string[];
+}): Promise<ProposalMetadata | undefined> {
   const incorectedHashses = [
     '0x0000000000000000000000000000000000000000000000000000000000000020',
     zeroHash,
@@ -73,12 +128,18 @@ export async function getProposalMetadata(
     }
   } else {
     try {
-      const metadata: Omit<ProposalMetadata, 'originalIpfsHash'> =
-        await getProposalMetadataInit(hash, gateway);
-      return {
-        ...metadata,
-        originalIpfsHash: hash,
-      };
+      const metadata = await getProposalMetadataInit(
+        hash,
+        gateway,
+        fallbackGateways,
+      );
+
+      return !!metadata
+        ? {
+            ...metadata,
+            originalIpfsHash: hash,
+          }
+        : undefined;
     } catch (e) {
       if (!!setIpfsError) {
         setIpfsError(hash);
