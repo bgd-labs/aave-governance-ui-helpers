@@ -73,7 +73,7 @@ export async function getProposalMetadataInit(
     console.log(`Fallbacks on`);
     if (!!fallbackGateways?.length) {
       await Promise.all(
-        fallbackGateways.map(async (gatewayInside) => {
+        fallbackGateways.map(async (gatewayInside, index) => {
           setTimeout(async () => {
             const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
 
@@ -96,7 +96,7 @@ export async function getProposalMetadataInit(
                 console.error(`IPFS: error fetching ${ipfsPath}`);
               }
             }
-          }, 1000);
+          }, index * 1000);
         }),
       );
     }
