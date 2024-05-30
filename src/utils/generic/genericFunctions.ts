@@ -63,6 +63,7 @@ export async function getProposalMetadataInit(
     const ipfsResponse = await fetch(ipfsPath, {
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     });
     if (!ipfsResponse.ok) console.error(`IPFS: error fetching ${ipfsPath}`);
@@ -80,6 +81,7 @@ export async function getProposalMetadataInit(
           const ipfsResponseInside = await fetch(ipfsInsidePath, {
             headers: {
               'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
             },
           });
           if (!ipfsResponseInside.ok)
