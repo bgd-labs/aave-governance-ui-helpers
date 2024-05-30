@@ -72,31 +72,30 @@ export async function getProposalMetadataInit(
   } catch (e) {
     console.log(`Fallbacks on`);
     if (!!fallbackGateways?.length) {
-      fallbackGateways.map(async (gatewayInside, index) => {
+      for (let i = 0; i < fallbackGateways.length && !isRequestSuccess; i++) {
+        // eslint-disable-next-line no-loop-func
         setTimeout(async () => {
+          const gatewayInside = fallbackGateways[i];
           const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
+          try {
+            const ipfsResponseInside = await fetch(ipfsInsidePath, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+            if (!ipfsResponseInside.ok)
+              console.error(`IPFS: error fetching ${ipfsInsidePath}`);
+            isRequestSuccess = true;
 
-          if (!isRequestSuccess) {
-            try {
-              const ipfsResponseInside = await fetch(ipfsInsidePath, {
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              });
-              if (!ipfsResponseInside.ok)
-                console.error(`IPFS: error fetching ${ipfsInsidePath}`);
-              isRequestSuccess = true;
-
-              return await getProposalMetadataBase({
-                ipfsHash,
-                ipfsResponse: ipfsResponseInside,
-              });
-            } catch (e) {
-              console.error(`IPFS: error fetching ${ipfsPath}`);
-            }
+            return await getProposalMetadataBase({
+              ipfsHash,
+              ipfsResponse: ipfsResponseInside,
+            });
+          } catch (e) {
+            console.error(`IPFS: error fetching ${ipfsPath}`);
           }
-        }, index * 1000);
-      });
+        }, i * 1000);
+      }
     }
   }
 }
