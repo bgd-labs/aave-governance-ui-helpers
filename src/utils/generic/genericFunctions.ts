@@ -73,28 +73,26 @@ export async function getProposalMetadataInit(
     console.log(`Fallbacks on`);
     if (!!fallbackGateways?.length) {
       for (let i = 0; i < fallbackGateways.length && !isRequestSuccess; i++) {
-        // eslint-disable-next-line no-loop-func
-        setTimeout(async () => {
-          const gatewayInside = fallbackGateways[i];
-          const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
-          try {
-            const ipfsResponseInside = await fetch(ipfsInsidePath, {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-            if (!ipfsResponseInside.ok)
-              console.error(`IPFS: error fetching ${ipfsInsidePath}`);
-            isRequestSuccess = true;
+        const gatewayInside = fallbackGateways[i];
+        const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        try {
+          const ipfsResponseInside = await fetch(ipfsInsidePath, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          if (!ipfsResponseInside.ok)
+            console.error(`IPFS: error fetching ${ipfsInsidePath}`);
+          isRequestSuccess = true;
 
-            return await getProposalMetadataBase({
-              ipfsHash,
-              ipfsResponse: ipfsResponseInside,
-            });
-          } catch (e) {
-            console.error(`IPFS: error fetching ${ipfsPath}`);
-          }
-        }, i * 1000);
+          return await getProposalMetadataBase({
+            ipfsHash,
+            ipfsResponse: ipfsResponseInside,
+          });
+        } catch (e) {
+          console.error(`IPFS: error fetching ${ipfsPath}`);
+        }
       }
     }
   }
