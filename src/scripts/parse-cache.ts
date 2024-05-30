@@ -950,6 +950,18 @@ async function parseCache() {
     data: creationFeesData,
   });
   console.log('Creation fees cache updated.');
+
+  // parse ipfs cache to separate files
+  Object.values(ipfsCache).forEach((data) => {
+    const ipfsFileCache =
+      readJSONCache<{
+        data: ProposalMetadata;
+      }>(`${initDirName}/ipfs`, `${data.originalIpfsHash}`) || undefined;
+    if (!ipfsFileCache) {
+      writeJSONCache(`${initDirName}/ipfs`, `${data.originalIpfsHash}`, data);
+      console.log(`Ipfs hash: ${data.originalIpfsHash} data cached.`);
+    }
+  });
 }
 
 parseCache();

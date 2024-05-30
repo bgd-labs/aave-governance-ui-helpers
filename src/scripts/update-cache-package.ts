@@ -36,7 +36,9 @@ async function updateIpfsCache(proposalsCache: ProposalsCache) {
     const id = Number(key);
     if (!ipfsCache[proposalsCache[id].ipfsHash]) {
       try {
-        const metadata = await getProposalMetadata(proposalsCache[id].ipfsHash);
+        const metadata = await getProposalMetadata({
+          hash: proposalsCache[id].ipfsHash,
+        });
         if (metadata) {
           ipfsCache[proposalsCache[id].ipfsHash] = metadata;
         }
