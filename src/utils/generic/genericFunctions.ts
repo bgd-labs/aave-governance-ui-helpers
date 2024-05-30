@@ -75,7 +75,7 @@ export async function getProposalMetadataInit(
       for (let i = 0; i < fallbackGateways.length && !isRequestSuccess; i++) {
         const gatewayInside = fallbackGateways[i];
         const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 5000));
         try {
           const ipfsResponseInside = await fetch(ipfsInsidePath, {
             headers: {
