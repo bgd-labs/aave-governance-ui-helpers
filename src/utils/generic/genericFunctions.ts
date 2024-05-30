@@ -65,18 +65,16 @@ export async function getProposalMetadataInit(
     isRequestSuccess = true;
     return await getProposalMetadataBase({ ipfsHash, ipfsResponse });
   } catch (e) {
-    console.log(`Fallbacks on`);
     if (!!fallbackGateways?.length) {
       for (let i = 0; i < fallbackGateways.length && !isRequestSuccess; i++) {
         const gatewayInside = fallbackGateways[i];
         const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         try {
           const ipfsResponseInside = await fetch(ipfsInsidePath);
           if (!ipfsResponseInside.ok)
             console.error(`IPFS: error fetching ${ipfsInsidePath}`);
           isRequestSuccess = true;
-
           return await getProposalMetadataBase({
             ipfsHash,
             ipfsResponse: ipfsResponseInside,
