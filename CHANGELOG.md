@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.1.5](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v3.1.5) (2024-05-30)
+
+
+### Bug Fixes
+
+* added fallback provider to ipfs getting func ([#70](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/70)) ([c626179](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/c626179d339c689c4c55818c51bc8695bc2df5f0))
+* cache ([dd46a94](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/dd46a945a3fc7e6b2823df25d89ba081b0560f91))
+* update cache ([9f5ce3c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/9f5ce3c456bbf878b0f2bee43371bcf02e3dc6f7))
+* update sepolia cache ([68f239f](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/68f239fd02a1547bca09d2aef7d8a1e20f3cb04c))
+* version ([92220b2](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/92220b21727f56b59dbfc1b4ab7cb41cb1510097))
+
+
+### Miscellaneous Chores
+
+* release 3.1.5 ([c208dc1](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/c208dc1e49dc402cc09c6976ed2047581283a97b))
+
 ## 1.0.0 (2024-05-30)
 
 
