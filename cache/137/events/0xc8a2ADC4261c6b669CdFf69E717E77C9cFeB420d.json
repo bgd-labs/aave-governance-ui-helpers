@@ -99455,5 +99455,28 @@
     "blockHash": "0x9379e9aa2c0362f1ebcdd670e170037241461919ba2ef2e4cbc80b4b207d733b",
     "logIndex": 161,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "112",
+      "voter": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "support": true,
+      "votingPower": "152443539003661831441438"
+    },
+    "address": "0xc8a2adc4261c6b669cdff69e717e77c9cfeb420d",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000070",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000002047fb1643585d250c1e",
+    "blockNumber": "57619372",
+    "transactionHash": "0xeafcfaf171b5350e5f86dd4ed5ccf31df8d5a2348178a34559090e52e504eca6",
+    "transactionIndex": 78,
+    "blockHash": "0x9744af8c71c2c3679c32d451329636b2fac74f4d1c40783017dc372cb0970a34",
+    "logIndex": 558,
+    "removed": false
   }
 ]
