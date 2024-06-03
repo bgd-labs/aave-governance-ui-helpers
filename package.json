@@ -25,8 +25,8 @@
   "scripts": {
     "start": "tsup src/index.ts --watch",
     "build": "tsup",
-    "cache:update": "RPC_FUJI=https://avalanche-fuji-c-chain.publicnode.com RPC_SEPOLIA=https://sepolia.drpc.org RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/scripts/update-cache.ts",
-    "cache:parse": "RPC_FUJI=https://avalanche-fuji-c-chain.publicnode.com RPC_SEPOLIA=https://sepolia.drpc.org RPC_MAINNET=https://blissful-purple-sky.quiknode.pro VERBOSE=true tsx src/scripts/parse-cache.ts",
+    "cache:update": "VERBOSE=true tsx src/scripts/update-cache.ts",
+    "cache:parse": "VERBOSE=true tsx src/scripts/parse-cache.ts",
     "ci:publish": "npm run build && npm publish --access=public"
   },
   "files": [

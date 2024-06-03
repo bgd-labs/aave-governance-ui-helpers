@@ -33,14 +33,15 @@ jobs:
         run: yarn cache:update
         env:
           CORE_NETWORK: ${{ matrix.network }}
-          RPC_AVALANCHE: https://divine-newest-road.avalanche-mainnet.quiknode.pro/d39b02462a1cdff3ad0aca029b97b90507429d4d/ext/bc/C/rpc
-          RPC_OPTIMISM: https://prettiest-long-smoke.optimism.quiknode.pro/f7efa165f24da74b1e33acd799978312274180b6
-          RPC_POLYGON: https://spring-wispy-morning.matic.quiknode.pro/9aadd7876209c3a7d7866f8d47faebb060e6d347
-          RPC_ARBITRUM: https://convincing-nameless-tent.arbitrum-mainnet.quiknode.pro/6b8156f3ff3836de21e29ac26a0f8c7e6cdd2f84
-          RPC_BASE: https://black-white-scion.base-mainnet.quiknode.pro/147ca4d0e6a08d8e57719f01e5b9aaf86916b2bd
-          RPC_GNOSIS: https://rpc.eu-central-2.gateway.fm/v4/gnosis/archival/mainnet?apiKey=IE1RhI8UemTtTVh0EQVJgR5SuSMF11Xo.DzFedcmPup_k7AAS
-          RPC_SCROLL: https://ancient-summer-diamond.scroll-mainnet.quiknode.pro/1836b5aa299eeab88852ae684d5e448890edc896
-          RPC_BNB: https://holy-delicate-shadow.bsc.quiknode.pro/8e6d5b9fd548bf023ee73427b6c785a7a039203e
+          RPC_MAINNET: ${{ secrets.RPC_MAINNET }}
+          RPC_POLYGON: ${{ secrets.RPC_POLYGON }}
+          RPC_AVALANCHE: ${{ secrets.RPC_AVALANCHE }}
+          RPC_OPTIMISM: ${{ secrets.RPC_OPTIMISM }}
+          RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
+          RPC_BASE: ${{ secrets.RPC_BASE }}
+          RPC_GNOSIS: ${{ secrets.RPC_GNOSIS }}
+          RPC_BNB: ${{ secrets.RPC_BNB }}
+          RPC_METIS: ${{ secrets.RPC_METIS }}
 
       - name: Parse cache to separate files
         shell: sh
