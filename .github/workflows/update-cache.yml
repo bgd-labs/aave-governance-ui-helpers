@@ -42,6 +42,13 @@ jobs:
       - name: Parse cache to separate files
         shell: sh
         run: yarn cache:parse
+        env:
+          CORE_NETWORK: ${{ matrix.network }}
+          RPC_POLYGON: ${{ secrets.RPC_POLYGON }}
+          RPC_OPTIMISM: ${{ secrets.RPC_OPTIMISM }}
+          RPC_MAINNET: ${{ secrets.RPC_MAINNET }}
+          RPC_BASE: ${{ secrets.RPC_BASE }}
+          RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
 
       - name: Check code diff and push
         run: |
