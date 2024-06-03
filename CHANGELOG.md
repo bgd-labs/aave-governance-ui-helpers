@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.6](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.1.5...v3.1.6) (2024-06-03)
+
+
+### Bug Fixes
+
+* RPC's list ([2018b07](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/2018b07fbdadd34e858a0207ab19a902e652ac50))
+* RPC's urls ([01eed98](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/01eed98ffa7471dfb425583bf089be154c295deb))
+* RPC's urls ([a252d0f](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/a252d0fe71fbf3febf1e4681809706ec5cafb700))
+* update RPC's urls ([20bd157](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/20bd15796e49772b9f47a67b68e929924365c5a6))
+
 ## [3.1.5](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v3.1.5) (2024-05-30)
 
 
