@@ -995,5 +995,13 @@
     "author": "@karpatkey_TokenLogic",
     "discussions": "https://governance.aave.com/t/arfc-april-finance-update/17390",
     "originalIpfsHash": "0xe3183b06212ae8d1c10b61a2f22d6aba7f4490ae909caafbe81d3d0daaff2086"
+  },
+  "0x685d3dd3b1e9e81a3f9df5739b0a8d742c32c781eda70a75f3916c1ddd4b5920": {
+    "ipfsHash": "QmVN3aD56Tb2Rb4F1N5AP898PhALETmN7QsaBQ9Fe1dTrX",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to update the GHO steward to an more efficient version, allowing more granular control over GHO to increase it’s efficiency\n\n## Motivation\n\nThe GHO peg is strong, and supply is growing. As GHO matures, new strategies can now be implemented to make it more liquid, resilient and help it grow larger. For example, a strong GSM is expected to allow larger cap increases, allowing faster growth of the supply. Also, in dynamic markets, tighter control on borrow rates is expected to improve asset efficiency.\n\n## Specification\n\nThe upgraded Gho Steward can be found on the [gho-core github](https://github.com/aave/gho-core/blob/main/src/contracts/misc/GhoStewardV2.sol)\n\nChanges:\n\n- GSM fee strategy can now be updated by 50 bps both ways\n- GHO Borrow cap can now be updated both ways\n- GHO exposure cap can now be updated both ways\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a39a86866b72f8f8edb187b8ec453fc895faf9c3/src/20240602_AaveV3Ethereum_GhoStewardUpdate/AaveV3Ethereum_GhoStewardUpdate_20240602.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a39a86866b72f8f8edb187b8ec453fc895faf9c3/src/20240602_AaveV3Ethereum_GhoStewardUpdate/AaveV3Ethereum_GhoStewardUpdate_20240602.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-gho-stewards/16466/11)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Gho Steward Update",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-gho-stewards/16466/11",
+    "originalIpfsHash": "0x685d3dd3b1e9e81a3f9df5739b0a8d742c32c781eda70a75f3916c1ddd4b5920"
   }
 }
