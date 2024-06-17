@@ -1,0 +1,115 @@
+{
+  "payloads": [
+    {
+      "creator": "0x717c26C3571830ff75e7CCa027AC432318D11837",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1718640719,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1721664719,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xa6D18e52ACc597de5E58e47586E6a3984B1Af749",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 137,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x717c26C3571830ff75e7CCa027AC432318D11837",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1718640993,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1721664993,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xD2C06Cabc9E9734ECE5fBA04717346298eaa893f",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 32,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmVcA9i64ePR5iQchTgtRajTySuya7URZjmpfTC39CmUCf",
+    "description": "\n## Simple Summary\n\nThis AIP proposes the cross-chain implementation for the GHO stablecoin, the native asset of the Aave Protocol, beginning with the initial expansion to the Arbitrum network utilizing the Chainlink Cross-Chain Interoperability Protocol (CCIP).\n\nThe smart contracts have been refined through multiple stages of design, development, testing, and implementation. For security validations, collaborations with DAO service providers Certora and BGD Labs were established to conduct code reviews.\n\nFollowing extensive community discussion, this AIP proposes the deployment of cross-chain GHO. This proposal was split into two separate AIPs, whereby, subject to approval of this proposal by the DAO, there will be a second AIP (“Part 2”) for configuration of GHO on Arbitrum Aave Pool adopting risk parameters formulated by Chaos Labs.\n\n## Motivation\n\nTransitioning to a cross-chain model beyond Ethereum Mainnet enhances GHO's accessibility and the overall user experience with faster transactions and reduced costs. This shift also presents new opportunities within the ecosystem of each network, allowing access to a wide array of integrations with other protocols and tools, enriching GHO's utility potential.\n\n## Specification\n\nThis AIP addresses the implementation of the GHO cross-chain strategy. The following smart contracts have been developed:\n\n- Upgradable GHO Token: This contract version allows the DAO to adjust the logic of the token.\n- Modified CCIP Contracts: Tailored versions of the Chainlink Cross-Chain Interoperability Protocol (CCIP) contracts, designed to support the GHO cross-chain implementation.\n\nAll smart contracts, including the code for this AIP, have been reviewed by BGD Labs for alignment with the Aave Protocol and by Certora for security aspects, including both manual and formal verification.\n\nProposed implementation actions are the following:\n\nEthereum:\n\n- Deployment of CCIP LockReleaseTokenPool Contract: GHO reserve contract backs up liquidity across different chains. A \"bridge limit\" control enables the DAO to regulate the outflow of GHO liquidity to other networks. The limit is set at the minimum bucket capacity of the bridges across networks to ensure proper validation of GHO transfers on the source chain to facilitate transfers between chains.\n- Transfer of ownership of the CCIP LockReleaseTokenPool contract to the DAO: The DAO controls and owns the contract logic and configuration parameters, including the outbound/inbound rate limit and the bridge limit.\n- Configuration of CCIP LockReleaseTokenPool contract: token pool rate limit will be disabled.\n\nArbitrum:\n\n- Deployment of UpgradeableGHO: The contract is configured to be deployed by the DAO upon passing of this AIP.\n- Deployment of CCIP BurnMintTokenPool contract: The contract handles the minting and burning processes, based on the liquidity backed from Ethereum.\n- Transfer of ownership of the CCIP BurnMintTokenPool contract to the DAO: The DAO will take control of the contract logic and configuration of outbound/inbound rate limit.\n- Configuration of CCIP BurnMintTokenPool contract: token pool rate limit will be disabled.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Ethereum_GHOCrossChainLaunch_20240528.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Ethereum_GHOCrossChainLaunch_20240528.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Arbitrum_GHOCrossChainLaunch_20240528.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a)\n- [Discussion](https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO Cross-Chain - Part 1",
+    "author": "Aave Labs",
+    "discussions": "https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a",
+    "originalIpfsHash": "0x6bfacf65a23e1f55bb84672797c83aa265f061be5a27f55f74d6fa34cd63b300"
+  },
+  "proposal": {
+    "id": 120,
+    "votingDuration": 259200,
+    "creationTime": 1718644259,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x6bfacf65a23e1f55bb84672797c83aa265f061be5a27f55f74d6fa34cd63b300",
+    "initialPayloads": [
+      {
+        "id": 137,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 32,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x66a28531E6f390A8CD44aB0C57a0F1aeb7E673FF",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 120,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1718647633,
+    "cancellationFee": 50000000000000000
+  }
+}
