@@ -1,0 +1,115 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1718902499,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1721926499,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xBb615C054A50D73aA60F1C5b9aB1Ffc0CD03c506",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 139,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1718908575,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1721932575,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x443Cf2c974c5b63f8173296431207996010841D9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 34,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmbXgauWLVKaQPt73s5EoMYWtmZX4CWHCxyVZrmeDEYtpc",
+    "description": "\n## Simple Summary\n\nThe current ARFC proposes to appoint the Aave Chan Initiative (ACI) as the Emission Manager for liquidity mining programs across Aave instances. This will enable ACI to manage incentive programs funded by different partners, with the purpose of stimulating market activity and growth.\n\n## Motivation\n\nLiquidity mining programs are essential for attracting liquidity providers by offering rewards for their participation. Effective management of these programs is crucial for the sustained growth of the Aave Ecosystem. Therefore, ACI, with its extensive experience and strategic partnerships, is well-positioned to manage these emissions effectively.\n\nA recent example is the [Long Term Incentive Program (LTIPP)](https://forum.arbitrum.foundation/t/aave-ltipp-application-final/21741) from Arbitrum DAO, where Aave DAO will receive 750,000 ARB tokens, illustrating the benefits of coordinated emission management.\n\n## Specification\n\n- Appointment of ACI as Emission Manager for Liquidity Mining Programs\n\n1. ACI will be authorized to manage Emission Programs for Liquidity Mining across Aave Markets.\n2. ACI’s multisig address will be the one receiving and distributing emissions on behalf of the DAO.\n\n- Appointment of ACI as coordinator with ecosystem partners, to define and implement emission strategies, managing the distribution of rewards to liquidity providers, and monitor & adjust emissions based on market performance.\n- Integration of Liquidity mining program as part of “Dolce Vita” service of the ACI at no extra cost for the DAO.\n- Make the ACI multisig the emission manager for ARB on Arbitrum\n- Make the ACI multisig the emission manager for SD on Ethereum\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x364de11d3a298f2c76721a8926cb32823cc29d0a95eadecbc0a98c628a38194b)\n- [Discussion](https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898#arfc-set-aci-as-emission-manager-for-liquidity-mining-programs-1)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Set ACI as Emission Manager for Aave Liquidity Mining programs",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898#arfc-set-aci-as-emission-manager-for-liquidity-mining-programs-1",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x364de11d3a298f2c76721a8926cb32823cc29d0a95eadecbc0a98c628a38194b",
+    "originalIpfsHash": "0xc3fb70a23e9e6e2654fb3119fe3315859e590f3f9115ee56a3b22c68804da75d"
+  },
+  "proposal": {
+    "id": 122,
+    "votingDuration": 259200,
+    "creationTime": 1718908631,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xc3fb70a23e9e6e2654fb3119fe3315859e590f3f9115ee56a3b22c68804da75d",
+    "initialPayloads": [
+      {
+        "id": 139,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 34,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 122,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1718917568,
+    "cancellationFee": 50000000000000000
+  }
+}
