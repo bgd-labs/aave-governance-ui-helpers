@@ -1,0 +1,175 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1717605167,
+      "queuedAt": 1718212533,
+      "executedAt": 1718298970,
+      "cancelledAt": 0,
+      "expirationTime": 1720629167,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xDF188c8d176Bc3549e9A53005FF8BCc68Eef22A3",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 67,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1717605277,
+      "queuedAt": 1718211481,
+      "executedAt": 1718297889,
+      "cancelledAt": 0,
+      "expirationTime": 1720629277,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xd41DE48545494C57A682EF4cdb0e960E19303bb9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 34,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1717605421,
+      "queuedAt": 1718211939,
+      "executedAt": 1718298344,
+      "cancelledAt": 0,
+      "expirationTime": 1720629421,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x348dF1A44E6B862434714e9A45A1cd88Cb0e670c",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 31,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1717606175,
+      "queuedAt": 1718211605,
+      "executedAt": 1718336460,
+      "cancelledAt": 0,
+      "expirationTime": 1720630175,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x88CFACDe9c3684AB205567B8228cD49D460Fe4A7",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 20,
+      "chainId": 100,
+      "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmPPGv9p211wUtB9sXvWP3pwkb3dXDCmJ7ecACac4SQTbM",
+    "description": "\n## Simple Summary\n\nA proposal to adjust ten (10) total risk parameters, including Loan-to-Value and Liquidation Threshold, across five (5) Aave V3 assets.\n\n## Motivation\n\nIncreasing the liquidation threshold and LTV for assets allows Aave to enhance users’ capital efficiency. However, this must be balanced with proper risk management to ensure that there is a sufficient buffer in the event of large drawdowns and/or liquidations. The analyses below were conducted utilizing our LT simulations, which showed either minimal or no increases in VaR at the recommended LT levels, while also considering user distribution and on-chain liquidity.\n\n## Specification\n\n### Gnosis\n\n| Asset | Current LTV | Recommended LTV | Current LT | Recommended LT |\n| ----- | ----------- | --------------- | ---------- | -------------- |\n| GNO   | 45%         | 48%             | 50%        | 53%            |\n\n### Optimism\n\n| Asset | Current LTV | Recommended LTV | Current LT | Recommended LT |\n| ----- | ----------- | --------------- | ---------- | -------------- |\n| OP    | 50%         | 58%             | 60%        | 63%            |\n\n### Arbitrum\n\n| Asset | Current LTV | Recommended LTV | Current LT | Recommended LT |\n| ----- | ----------- | --------------- | ---------- | -------------- |\n| ARB   | 50%         | 58%             | 60%        | 63%            |\n\n### Polygon\n\n| Asset   | Current LTV | Recommended LTV | Current LT | Recommended LT |\n| ------- | ----------- | --------------- | ---------- | -------------- |\n| stMATIC | 45%         | 48%             | 56%        | 58%            |\n| MaticX  | 45%         | 50%             | 58%        | 60%            |\n\n## References\n\n- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Polygon_ChaosLabsRiskParameterUpdatesAaveV3_20240530.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Optimism_ChaosLabsRiskParameterUpdatesAaveV3_20240530.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Arbitrum_ChaosLabsRiskParameterUpdatesAaveV3_20240530.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Gnosis_ChaosLabsRiskParameterUpdatesAaveV3_20240530.sol)\n- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Polygon_ChaosLabsRiskParameterUpdatesAaveV3_20240530.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Optimism_ChaosLabsRiskParameterUpdatesAaveV3_20240530.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Arbitrum_ChaosLabsRiskParameterUpdatesAaveV3_20240530.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/01b5c682c53933de29d4fa9f41efc53497c69850/src/20240530_Multi_ChaosLabsRiskParameterUpdatesAaveV3/AaveV3Gnosis_ChaosLabsRiskParameterUpdatesAaveV3_20240530.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9674191acdb3cae244e010069df7637d6b7b3e30849f91570f0349323c5330d9)\n- [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-aave-v3-05-24-2024/17788)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Chaos Labs Risk Parameter Updates AaveV3",
+    "author": "Chaos Labs",
+    "discussions": "https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-aave-v3-05-24-2024/17788",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x9674191acdb3cae244e010069df7637d6b7b3e30849f91570f0349323c5330d9",
+    "originalIpfsHash": "0x0f87c9e8fca1a544a44d37f7d5d0b37d7fbf86f4d8b30695090b077b81bb7cb8"
+  },
+  "proposal": {
+    "id": 118,
+    "votingDuration": 259200,
+    "creationTime": 1717863083,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1718211335,
+    "ipfsHash": "0x0f87c9e8fca1a544a44d37f7d5d0b37d7fbf86f4d8b30695090b077b81bb7cb8",
+    "initialPayloads": [
+      {
+        "id": 67,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 34,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 31,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      },
+      {
+        "id": 20,
+        "chainId": 100,
+        "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+      }
+    ],
+    "snapshotBlockHash": "0x9455eb2f427c539e37d013bad59d15c8e83d992d693d7047b90316871e4c8301",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1717949531,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 118,
+      "forVotes": "632948747461617968345622",
+      "againstVotes": "0",
+      "startTime": 1717950830,
+      "endTime": 1718210030,
+      "votingClosedAndSentBlockNumber": 58077083,
+      "votingClosedAndSentTimestamp": 1718210039,
+      "l1BlockHash": "0x9455eb2f427c539e37d013bad59d15c8e83d992d693d7047b90316871e4c8301",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": true,
+      "createdBlock": 57957522,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1719295659,
+    "cancellationFee": 50000000000000000
+  }
+}

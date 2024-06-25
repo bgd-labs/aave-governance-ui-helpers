@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1717595346,
+      "queuedAt": 1717943916,
+      "executedAt": 1718030322,
+      "cancelledAt": 0,
+      "expirationTime": 1720619346,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x1d57887F9FE787cD1a843Bd539922e9DFEb2Ba35",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 30,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmWxxJ77r75T14Q4CRNj26Sng5VkkqeGnD2L62U7WgZLEM",
+    "description": "\n## Simple Summary\n\nThe current proposal suggests adjusting the Interest Rate Curve for weETH on Arbitrum network to align with the mainnet, so Risk Parameters will be the same for weETH on Mainnet, Arbitrum, and Base networks.\n\nThe aim is to optimize the utilization rates and improve revenue for the DAO.\n\n## Motivation\n\nBy adjusting the Interest Rate Curve and updating the RF, we aim to encourage Increase efficiency and optimize DAO revenue for the weETH asset.\n\n## Specification\n\nChange Arbitrum Risk Parameters for weETH to align with Mainnet & Base.\n\n**Proposed Changes:**\n\n| Parameter      | Value  |\n| -------------- | ------ |\n| Uoptimal       | 35.00% |\n| Reserve Factor | 45.00% |\n\n## References\n\n- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/15298f4d41cd6165cc15d9c03d49c9affa7bbb4b/src/20240603_AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum/AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603.sol)\n- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/15298f4d41cd6165cc15d9c03d49c9affa7bbb4b/src/20240603_AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum/AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xed2fd3dfee1f29f04b6cda4a5c4629fcca32a5c961b1b3e2a49ba6842367ce31)\n- [Discussion](https://governance.aave.com/t/arfc-adjusting-interest-rate-curve-for-weeth-on-arbitrum/17804)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": " Adjusting Interest Rate Curve for weETH on Arbitrum",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-adjusting-interest-rate-curve-for-weeth-on-arbitrum/17804",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xed2fd3dfee1f29f04b6cda4a5c4629fcca32a5c961b1b3e2a49ba6842367ce31",
+    "originalIpfsHash": "0x802a4a10c5927a267eabe8f57cc85f6f240293399d08473ce283a4c960460a42"
+  },
+  "proposal": {
+    "id": 117,
+    "votingDuration": 259200,
+    "creationTime": 1717595423,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1717943555,
+    "ipfsHash": "0x802a4a10c5927a267eabe8f57cc85f6f240293399d08473ce283a4c960460a42",
+    "initialPayloads": [
+      {
+        "id": 30,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0xb5ad4ea9000823a64bdf73eae88f607a47025a0aa1f248c3043d2c9155070b7b",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1717681847,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 117,
+      "forVotes": "664777738257904966074659",
+      "againstVotes": "0",
+      "startTime": 1717683043,
+      "endTime": 1717942243,
+      "votingClosedAndSentBlockNumber": 57953628,
+      "votingClosedAndSentTimestamp": 1717942265,
+      "l1BlockHash": "0xb5ad4ea9000823a64bdf73eae88f607a47025a0aa1f248c3043d2c9155070b7b",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": true,
+      "createdBlock": 57837463,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1719295659,
+    "cancellationFee": 50000000000000000
+  }
+}

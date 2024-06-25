@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1716883255,
+      "queuedAt": 1717231389,
+      "executedAt": 1717393447,
+      "cancelledAt": 0,
+      "expirationTime": 1719907255,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x0EB0410d11F7163d679E62942DD881476F9D05c4",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 20,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmU3pYmKcL8nLdJ5JLgkNFwKrf3g5HDpvKf1s4ViWnznwz",
+    "description": "\n## Simple Summary\n\nThis ARFC seeks to add [Ether.fi](http://ether.fi/) Liquid Restaking Token weETH to Aave V3 on Base.\n\nAfter the successful onboarding of both weETH to [Aave v3 Ethereum](https://vote.onaave.com/proposal/?proposalId=74&ipfsHash=0x227ef8b0f49775f64100ec697bc4e67b0739bd1ff08788b1f6b48a66e1d57bf7) and [Arbitrum](https://vote.onaave.com/proposal/?proposalId=76&ipfsHash=0x78778591515790b337fcdcc2a02d49dc58e98cad614c33d61e1173bc6194729d), and latest ARFC to Increase Supply and Borrow Caps for weETH on both networks due to huge demand, this proposal will go direct-to-AIP following the asset onboarding framework.\n\n## Motivation\n\neETH is an LRT that allows users to stake their ETH, accrue staking rewards, and receive additional rewards through native restaking on EigenLayer.\n\n[Ether.fi](http://ether.fi/) has also launched eETH on Arbitrum, allowing users on the L2 to get exposure to the LRT yield and points. As weETH has already been approved for onboarding to Aave v3 Ethereum and Arbitrum by the DAO, this proposal aims to extend the onboarding of weETH to Aave v3 on Base.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **weETH**\n\nthe Reserve Factor & UOptimal parameters have been aligned with the mainnet parameters to optimize Aave DAO revenue.\n\n| Parameter                          |                                      Value |\n| ---------------------------------- | -----------------------------------------: |\n| Isolation Mode                     |                                      False |\n| Borrowable                         |                                    ENABLED |\n| Collateral Enabled                 |                                       true |\n| Supply Cap (weETH)                 |                                        150 |\n| Borrow Cap (weETH)                 |                                         30 |\n| Debt Ceiling                       |                                      USD 0 |\n| LTV                                |                                     72.5 % |\n| LT                                 |                                       75 % |\n| Liquidation Bonus                  |                                      7.5 % |\n| Liquidation Protocol Fee           |                                       10 % |\n| Reserve Factor                     |                                       45 % |\n| Base Variable Borrow Rate          |                                        0 % |\n| Variable Slope 1                   |                                        7 % |\n| Variable Slope 2                   |                                      300 % |\n| Uoptimal                           |                                       35 % |\n| Stable Borrowing                   |                                   DISABLED |\n| Stable Slope1                      |                                        7 % |\n| Stable Slope2                      |                                      300 % |\n| Base Stable Rate Offset            |                                        0 % |\n| Stable Rate Excess Offset          |                                        0 % |\n| Optimal Stable To Total Debt Ratio |                                        0 % |\n| Flashloanable                      |                                    ENABLED |\n| Siloed Borrowing                   |                                   DISABLED |\n| Borrowable in Isolation            |                                   DISABLED |\n| Oracle                             | 0xFc4d1d7a8FD1E6719e361e16044b460737F12C44 |\n\n## References\n\n- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/b935abe107023ccb346699df696279935d0b94e2/src/20240527_AaveV3Base_WeETHAaveV3BaseOnboarding/AaveV3Base_WeETHAaveV3BaseOnboarding_20240527.sol)\n- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/b935abe107023ccb346699df696279935d0b94e2/src/20240527_AaveV3Base_WeETHAaveV3BaseOnboarding/AaveV3Base_WeETHAaveV3BaseOnboarding_20240527.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-onboarding-of-weeth-to-aave-v3-on-base/17691)\n- [Updated parameters Discussion](https://governance.aave.com/t/arfc-adjusting-interest-rate-curve-for-weeth-on-arbitrum-and-base/17804)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "weETH Aave V3 Base Onboarding",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-onboarding-of-weeth-to-aave-v3-on-base/17691",
+    "originalIpfsHash": "0x54d65f6ae8620fe173a28130e99d96315d574c380f84b37665dbc9f69232fae1"
+  },
+  "proposal": {
+    "id": 110,
+    "votingDuration": 259200,
+    "creationTime": 1716883367,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1717231199,
+    "ipfsHash": "0x54d65f6ae8620fe173a28130e99d96315d574c380f84b37665dbc9f69232fae1",
+    "initialPayloads": [
+      {
+        "id": 20,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      }
+    ],
+    "snapshotBlockHash": "0xa11e13158aacb6e2c6cc3be738f8891a5e2d8c31b276f2deec315f393429eadd",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1716969791,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 110,
+      "forVotes": "666279936937606079557223",
+      "againstVotes": "0",
+      "startTime": 1716970704,
+      "endTime": 1717229904,
+      "votingClosedAndSentBlockNumber": 57636096,
+      "votingClosedAndSentTimestamp": 1717229913,
+      "l1BlockHash": "0xa11e13158aacb6e2c6cc3be738f8891a5e2d8c31b276f2deec315f393429eadd",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": true,
+      "createdBlock": 57521359,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1717546951,
+    "cancellationFee": 0
+  }
+}
