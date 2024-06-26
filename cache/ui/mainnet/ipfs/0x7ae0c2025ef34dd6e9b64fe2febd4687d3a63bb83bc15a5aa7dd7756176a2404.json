@@ -1,8 +1,0 @@
-{
-  "ipfsHash": "QmWcKE3KnPb8Y1sp1SqWuu3J8uVkf1ZJB6vv1Mui9WmANF",
-  "description": "\n## Simple Summary\n\nThis proposal is to update the risk parameters of the SUSD asset on Aave V3 Optimism.\n\n## Motivation\n\nThe SUSD asset has been experiencing a depegging issue. This proposal aims to update the risk parameters of the SUSD asset to mitigate risk for the Aave protocol.\n\n## Specification\n\nContract address: [0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9](https://optimistic.etherscan.io/address/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9)\n\n| Chain       | Asset | Current LTV | Rec. LTV |\n| ----------- | ----- | ----------- | -------- |\n| Optimism V3 | sUSD  | 60.00%      | 0%       |\n\n## References\n\n- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/eff7796bef947bc12c65d1b282057315961c8fbe/src/20240517_AaveV3Optimism_SUSDRiskParametersUpdate/AaveV3Optimism_SUSDRiskParametersUpdate_20240517.sol)\n- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/eff7796bef947bc12c65d1b282057315961c8fbe/src/20240517_AaveV3Optimism_SUSDRiskParametersUpdate/AaveV3Optimism_SUSDRiskParametersUpdate_20240517.t.sol)\n- [Discussion](https://governance.aave.com/t/susd-depeg-update-05-16-2024/17719)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
-  "title": "SUSD risk parameters update",
-  "author": "Chaos Labs, ACI",
-  "discussions": "https://governance.aave.com/t/susd-depeg-update-05-16-2024/17719",
-  "originalIpfsHash": "0x7ae0c2025ef34dd6e9b64fe2febd4687d3a63bb83bc15a5aa7dd7756176a2404"
-}

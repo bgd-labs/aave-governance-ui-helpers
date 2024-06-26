@@ -1,18 +1,23 @@
-// TODO: WIP
+// TODO: need add rpc provider as fallback
 
 import {
   IGovernanceCore_ABI,
   IVotingMachineDataHelper_ABI,
   IVotingPortal_ABI,
 } from '@bgd-labs/aave-address-book';
+// @ts-ignore
+import { customStorageProvider } from '@bgd-labs/aave-v3-governance-cache/customStorageProvider';
+// @ts-ignore
+import { fallbackProvider } from '@bgd-labs/aave-v3-governance-cache/fallbackProvider';
+// @ts-ignore
+import { fileSystemStorageAdapter } from '@bgd-labs/aave-v3-governance-cache/fileSystemStorageAdapter';
+// @ts-ignore
+import { githubPagesProvider } from '@bgd-labs/aave-v3-governance-cache/githubPagesProvider';
 import {
   GetProposalReturnType,
-  githubHybridCacheAdapter,
   PayloadLogs,
   // @ts-ignore
-} from '@bgd-labs/aave-v3-governance-cache/githubHybrid';
-// @ts-ignore
-import { localCacheAdapter } from '@bgd-labs/aave-v3-governance-cache/localCache';
+} from '@bgd-labs/aave-v3-governance-cache/localCache';
 import {
   CHAIN_ID_CLIENT_MAP,
   readJSONCache,
@@ -49,12 +54,23 @@ import {
   VotingConfig,
   VotingMachineProposalState,
 } from '..';
-import { isProposalFinal } from '../utils/viem/events/governance';
 import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
 import { appConfig, coreName } from './config';
 
+function isProposalFinal(state: ProposalState) {
+  return [
+    ProposalState.Executed,
+    ProposalState.Failed,
+    ProposalState.Cancelled,
+    ProposalState.Expired,
+  ].includes(state);
+}
+
 const initDirName = `ui/${coreName}`;
-const cachingLayer = githubHybridCacheAdapter(localCacheAdapter);
+const cachingLayer = fallbackProvider(
+  githubPagesProvider,
+  customStorageProvider(fileSystemStorageAdapter),
+);
 
 async function getProposalsId() {
   // initialize contracts

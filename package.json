@@ -25,8 +25,7 @@
   "scripts": {
     "start": "tsup src/index.ts --watch",
     "build": "tsup",
-    "cache:update": "VERBOSE=true tsx src/scripts/update-cache.ts",
-    "cache:parse": "VERBOSE=true tsx src/scripts/parse-cache.ts",
+    "cache:update": "VERBOSE=true RPC_MAINNET=https://eth-mainnet.g.alchemy.com/v2/Ny9smnCUeGs637_B_EBPrRQX2BmHzTBa RPC_AVALANCHE=https://divine-newest-road.avalanche-mainnet.quiknode.pro/d39b02462a1cdff3ad0aca029b97b90507429d4d/ext/bc/C/rpc RPC_OPTIMISM=https://opt-mainnet.g.alchemy.com/v2/zUTfNI04W4CngoyR37JkjI91erihM3bn RPC_POLYGON=https://polygon-mainnet.g.alchemy.com/v2/ujl4YK7o-HkcTghNuRuSmiba8Ze47NI8 RPC_ARBITRUM=https://arb-mainnet.g.alchemy.com/v2/2Udz2KT12GS5CTs7NFi0dQhUO86Q-aNW RPC_BASE=https://base-mainnet.g.alchemy.com/v2/JnhoWzQbzSXaXkuQdnpJF0dea867WNFf RPC_GNOSIS=https://powerful-serene-voice.xdai.quiknode.pro/7d2bd3e6335ce2c14ca61f7cc32207b611027680 RPC_SCROLL=https://ancient-summer-diamond.scroll-mainnet.quiknode.pro/1836b5aa299eeab88852ae684d5e448890edc896 RPC_BNB=https://holy-delicate-shadow.bsc.quiknode.pro/8e6d5b9fd548bf023ee73427b6c785a7a039203e tsx src/scripts/update-cache.ts",
     "ci:publish": "npm run build && npm publish --access=public"
   },
   "files": [
@@ -46,7 +45,7 @@
   },
   "devDependencies": {
     "@bgd-labs/aave-address-book": "^2.25.0",
-    "@bgd-labs/aave-v3-governance-cache": "latest",
+    "@bgd-labs/aave-v3-governance-cache": "^1.0.5",
     "@bgd-labs/js-utils": "1.3.0",
     "@size-limit/preset-small-lib": "^11.1.2",
     "@types/lodash": "^4.17.0",
