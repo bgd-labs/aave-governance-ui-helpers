@@ -1109,5 +1109,14 @@
     "author": "BGD Labs @bgdlabs",
     "discussions": "https://governance.aave.com/t/bgd-request-for-bounty-payout-june-2024/18119",
     "originalIpfsHash": "0xbc7f448d432e8e43bca5e0738c59aeb796c1f7e7e3c000ad46e39b9e77ccac92"
+  },
+  "0x67a32937b865a4946846cd9a264ce83992e74ca4b60d32263b5195d38214a747": {
+    "ipfsHash": "QmVKD17mX6BW6cZsasJxnFQ9iQACSye7De2DhiMSw9rqZY",
+    "description": "\n## Simple Summary\n\nThis is a Direct-to-AIP proposal to raise the supply caps for weETH on Base to accommodate growing demand and participate in Superchain rewards programs.\n\n## Motivation\n\nweETH has been consistently hitting its current supply cap across networks, often immediately after risk steward raises caps.\n\nWe propose this ARFC to increase the supply caps, which will bring in in line with market demand and allow new depositors to participate in [OP rewards ](https://jumper.exchange/superfest/rewards-from-aave-on-base/) from Optimism’s Superfest program.\n\n## Specification\n\nSupply cap for weETH on Aave V3 Base will be increased to 20,000 weETH. The borrow cap will be increased to 9,000 weETH.\n\n## References\n\n- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/0f12242e6f91659b8c2cf8cd7560c7eeb1b607aa/src/20240714_AaveV3Base_IncreaseWeETHCapsOnBase/AaveV3Base_IncreaseWeETHCapsOnBase_20240714.sol)\n- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/0f12242e6f91659b8c2cf8cd7560c7eeb1b607aa/src/20240714_AaveV3Base_IncreaseWeETHCapsOnBase/AaveV3Base_IncreaseWeETHCapsOnBase_20240714.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-increase-supply-and-borrow-caps-for-weeth-on-base/18248)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Increase weETH Caps on Base",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-increase-supply-and-borrow-caps-for-weeth-on-base/18248",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x67a32937b865a4946846cd9a264ce83992e74ca4b60d32263b5195d38214a747"
   }
 }
