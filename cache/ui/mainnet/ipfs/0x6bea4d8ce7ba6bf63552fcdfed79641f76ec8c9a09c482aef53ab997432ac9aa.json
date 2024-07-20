@@ -1,0 +1,9 @@
+{
+  "ipfsHash": "QmVbuYxqfYaHUqQtkc2BvevaULg3sSvYQUeSH6HTj4d85w",
+  "description": "\n## Simple Summary\n\nThis publication proposes increasing the CCIP Facilitator Capacity on Arbitrum from 1M units to 2.5M units via the Direct-to-AIP process.\n\n## Motivation\n\nGHO was successfully launched on Arbitrum and the CCIP GHO Facilitator Bucket Capacity is 100% utilized. With $3.41M of liquidity and a solid peg during launch, there is sufficient depth to facilitate increasing the CCIP GHO Facilitator Bucket Capacity from 1M to 2.5M in line with the initial risk parameters proposed prior to launch.\n\n## Specification\n\nThis proposal will increase the CCIP GHO Facilitator Bucket Capacity from 1M units to 2.5M units via the Direct-to-AIP process.\nThe equivalent bridgeLimit is also being increased on Ethereum Mainnet to 2.5M units.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/72deb3b4f6bce185788f5a702833d9bd73a720c7/src/20240707_AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity/AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/72deb3b4f6bce185788f5a702833d9bd73a720c7/src/20240707_AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity/AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18169)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+  "title": "Increase CCIP Facilitator Capacity",
+  "author": "@karpatkey_TokenLogic",
+  "discussions": "https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18169",
+  "snapshot": "Direct-to-AIP",
+  "originalIpfsHash": "0x6bea4d8ce7ba6bf63552fcdfed79641f76ec8c9a09c482aef53ab997432ac9aa"
+}
