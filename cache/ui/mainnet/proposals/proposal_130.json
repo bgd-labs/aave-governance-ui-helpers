@@ -3,9 +3,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721401823,
-      "queuedAt": 0,
+      "queuedAt": 1721752127,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724425823,
@@ -36,9 +36,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721402016,
-      "queuedAt": 0,
+      "queuedAt": 1721753016,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724426016,
@@ -61,9 +61,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721402155,
-      "queuedAt": 0,
+      "queuedAt": 1721752367,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724426155,
@@ -86,9 +86,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721402359,
-      "queuedAt": 0,
+      "queuedAt": 1721752263,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724426359,
@@ -111,9 +111,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721402695,
-      "queuedAt": 0,
+      "queuedAt": 1721752423,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724426695,
@@ -136,9 +136,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721402757,
-      "queuedAt": 0,
+      "queuedAt": 1721752311,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724426757,
@@ -161,9 +161,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721404000,
-      "queuedAt": 0,
+      "queuedAt": 1721752385,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724428000,
@@ -186,9 +186,9 @@
     {
       "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721403021,
-      "queuedAt": 0,
+      "queuedAt": 1721752925,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724427021,
@@ -211,9 +211,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1721403815,
-      "queuedAt": 0,
+      "queuedAt": 1721752371,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1724427815,
@@ -248,8 +248,8 @@
     "votingDuration": 259200,
     "creationTime": 1721404091,
     "accessLevel": 1,
-    "state": 2,
-    "queuingTime": 0,
+    "state": 4,
+    "queuingTime": 1721752115,
     "ipfsHash": "0x2e8cee15c55cf4031ba0bc234478cfb0a9ced14e6b7d3967c32a9fbe0626178e",
     "initialPayloads": [
       {
@@ -305,15 +305,15 @@
     "votingChainId": 137,
     "votingMachineData": {
       "id": 130,
-      "forVotes": "677302119481123475201252",
+      "forVotes": "698895551358973475201252",
       "againstVotes": "0",
       "startTime": 1721491612,
       "endTime": 1721750812,
-      "votingClosedAndSentBlockNumber": 0,
-      "votingClosedAndSentTimestamp": 0,
+      "votingClosedAndSentBlockNumber": 59716823,
+      "votingClosedAndSentTimestamp": 1721750826,
       "l1BlockHash": "0x504dc33b0bbcd5e51e275dbf16052b55f075c026a021998bb951087e80d283d6",
       "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
-      "sentToGovernance": false,
+      "sentToGovernance": true,
       "createdBlock": 59596674,
       "votedInfo": {
         "support": false,
@@ -327,7 +327,7 @@
       "hasRequiredRoots": true
     },
     "isFinished": false,
-    "lastUpdatedTimestamp": 1721747209,
+    "lastUpdatedTimestamp": 1721758052,
     "cancellationFee": 50000000000000000
   }
 }
