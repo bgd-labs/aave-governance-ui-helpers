@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1722267707,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1725291707,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x065DF1F9d0aeDEa11E6d059ce29e91d2Abed59fA",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 149,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmSJCCwbRTuGM8m8nV6jbJQSgfFTLDCTwSwcTPmwR1M4U3",
+    "description": "\n# Summary\n\nThis AIP grants payment to TokenLogic for 12,430 GHO for delivery of three asset bridging contracts.\n\n# Motivation\n\nFor the Aave DAO to move assets between networks, intermediary contracts are required to link each Treasury to a preferred bridge, enabling assets to move between Treasury addresses. TokenLogic was engaged by Aave DAO to provide these intermediary bridging contracts, connecting Arbitrum, Optimism, and Avalanche to Ethereum.\n\nDue to technical considerations relating to the Avalanche bridge itself, the Avalanche-related scope was substituted with Polygon's Plasma bridge. The contracts developed by TokenLogic have been peer-reviewed and are in the process of being used for various funding proposals.\n\nThe internal Aave asset bridging contracts are linked below:\n\n- [Optimism Bridge](https://github.com/bgd-labs/aave-helpers/pull/304)\n- [Arbitrum Bridge](https://github.com/bgd-labs/aave-helpers/pull/209)\n- [Plasma Bridge](https://github.com/bgd-labs/aave-helpers/pull/261)\n\nThe Plasma contract was used within the [April Funding Update](https://app.aave.com/governance/v3/proposal/?proposalId=103) and both the Optimism and Arbitrum contracts within the [May Funding Update](https://github.com/bgd-labs/aave-proposals-v3/pull/370) proposal.\n\n# Specification\n\nCreate an Allowance for 12,430 GHO to the following address.\n\nTokenLogic: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`\n\n# References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ca87247401e8c2a38cf03f751ac197869c63daaf/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ca87247401e8c2a38cf03f751ac197869c63daaf/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x461571b38365b12ebe39b80d4d9663daa9c7e574cd4bf190ec6fb48dec96371f)\n- [Discussion](https://governance.aave.com/t/arfc-treasury-management-tooling-upgrade/15201)\n\n# Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Treasury Tooling Payment",
+    "author": "TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-treasury-management-tooling-upgrade/15201",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x461571b38365b12ebe39b80d4d9663daa9c7e574cd4bf190ec6fb48dec96371f",
+    "originalIpfsHash": "0x3acd9e8619c0ec0c78c5df5aa4d02aaf1ceeef9b3e5946b65e3cc471227a852c"
+  },
+  "proposal": {
+    "id": 135,
+    "votingDuration": 259200,
+    "creationTime": 1722267731,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x3acd9e8619c0ec0c78c5df5aa4d02aaf1ceeef9b3e5946b65e3cc471227a852c",
+    "initialPayloads": [
+      {
+        "id": 149,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 135,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1722276437,
+    "cancellationFee": 50000000000000000
+  }
+}
