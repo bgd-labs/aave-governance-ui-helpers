@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1722365627,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1725389627,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x216fAe9De67299D7792890b51F5aB7F37cDc62c1",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 151,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmSENy2nr2g88VpALMfsnXfQPcvhTD4ySb3FrY2BRwo9ho",
+    "description": "\n## Simple Summary\n\nThis AIP proposes to update the recently deployed Lido Aave v3 instance by setting the wETH LTV to zero, shifting focus to the instance's intended main use case of leveraged staking.\n\n## Motivation\n\nFollowing discussions with service providers, the Lido Aave v3 instance was initially launched with wETH as collateral to allow quick growth of the wETH reserve, preparing the grounds for third-party integrations such as DefiSaver to bring wstETH liquidity and usage.\n\nThis kickstart strategy was highly successful, attracting $121 million in deposits within 24 hours, surpassing our projections. Now, it's time to adjust the strategy by cutting the wETH LTV to zero and focusing on the instance's primary intended use case: leveraged staking.\n\nThe motivation for this change includes:\n\n1. Refocusing the instance on its primary use case of leveraged staking with wstETH.\n2. Reducing potential risks associated with using wETH as collateral in this specialized instance.\n3. Encouraging users to migrate towards wstETH for collateral, aligning with the Lido ecosystem focus.\n\nThis AIP proposes the following changes to the Lido Aave v3 instance for wETH:\n\n- Set wETH LTV (Loan-to-Value) from 82% to 0%\n\nAll other parameters for wETH will remain unchanged:\n\n| Parameter | Current Value | Proposed Value |\n| --------- | ------------- | -------------- |\n| LTV       | 82%           | 0%             |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/56b9cd738e58467d4299ce17a7c29360bddd8468/src/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/56b9cd738e58467d4299ce17a7c29360bddd8468/src/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-deploy-a-lido-aave-v3-instance/18047/18)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "wETH LTV0 Aave V3 Lido Instance ",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-deploy-a-lido-aave-v3-instance/18047/18",
+    "originalIpfsHash": "0x39d3766a07eaacdbbd38e2b759e37f02ff453180574b52efcaa25334c42177ee"
+  },
+  "proposal": {
+    "id": 137,
+    "votingDuration": 259200,
+    "creationTime": 1722365675,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x39d3766a07eaacdbbd38e2b759e37f02ff453180574b52efcaa25334c42177ee",
+    "initialPayloads": [
+      {
+        "id": 151,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 137,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1722373615,
+    "cancellationFee": 50000000000000000
+  }
+}

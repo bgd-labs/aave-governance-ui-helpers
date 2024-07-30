@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1722365889,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1725389889,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x564Dfd09eBB63F7e468401AffE2d8c2cDD08D68D",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 43,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmZhRjQv9M59FnWz5YoU5mnbRAFQcrQp7GSntH3CHztdQB",
+    "description": "\n## Simple Summary\n\nA proposal to adjust sAVAX’s LT and LTV on Aave V3 Avalanche.\n\n## Motivation\n\nIncreasing the liquidation threshold and LTV for assets allows Aave to enhance users’ capital efficiency. However, this must be balanced with proper risk management to ensure that there is a sufficient buffer in the event of large drawdowns and/or liquidations. The analysis below was conducted utilizing our LT simulations, which showed either minimal or no increases in VaR at the recommended LT levels while also considering user distribution and on-chain liquidity.\n\n### sAVAX\n\nsAVAX’s LTV and LT are currently set to 30% and 40%, respectively (its E-Mode parameters are 92.5% and 95%). The top suppliers are primarily looping sAVAX and WAVAX, reducing the risk of large-scale liquidations in this market.\nHowever, there is a small amount of non-WAVAX borrows against sAVAX, primarily WETH.e and stablecoins.\nMoreover, sAVAX maintains strong liquidity against AVAX, meaning that potential liquidations of sAVAX collateralized debt are likely to be completed efficiently.\nGiven user distribution and liquidity, we recommend increasing LTV to 40% and LT to 45%.\n\n## Specification\n\nGiven these observations, we recommend making the following changes:\n\n| Chain     | Asset | Parameter             | Current | Recommended |\n| --------- | ----- | --------------------- | ------- | ----------- |\n| Avalanche | sAVAX | LTV                   | 30%     | 40%         |\n| Avalanche | sAVAX | Liquidation Threshold | 40%     | 45%         |\n\n## References\n\n- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1391ea39052a0d35fbd843bd49edaf6ea7eb1c73/src/20240724_AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche/AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724.sol)\n- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1391ea39052a0d35fbd843bd49edaf6ea7eb1c73/src/20240724_AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche/AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x471ab55b0091043963c744f228befd842aeb354b0d04c76da3c9eb2b401934a4)\n- [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-savax-on-aave-v3-avalanche-07-16-2024/18277)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Risk Parameter Updates - sAVAX on Aave V3 Avalanche",
+    "author": "Chaos Labs",
+    "discussions": "https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-savax-on-aave-v3-avalanche-07-16-2024/18277",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x471ab55b0091043963c744f228befd842aeb354b0d04c76da3c9eb2b401934a4",
+    "originalIpfsHash": "0xa8c3145a62879685b5569daf860b7d65dd1c9affc796c90c26498f95646b9a98"
+  },
+  "proposal": {
+    "id": 138,
+    "votingDuration": 259200,
+    "creationTime": 1722365951,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xa8c3145a62879685b5569daf860b7d65dd1c9affc796c90c26498f95646b9a98",
+    "initialPayloads": [
+      {
+        "id": 43,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 138,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1722373615,
+    "cancellationFee": 50000000000000000
+  }
+}
