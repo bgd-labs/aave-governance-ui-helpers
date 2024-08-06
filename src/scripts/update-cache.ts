@@ -21,6 +21,7 @@ import {
   FinishedProposalForList,
   getDetailedProposalsData,
   getGovCoreConfigs,
+  getProposalMetadata,
   getProposalState,
   getProposalStepsAndAmounts,
   getVotingMachineProposalState,
@@ -695,51 +696,57 @@ async function updateCache() {
     ...cachedProposals,
   ];
 
-  const dataForUpdate = proposalsDataInitial.map((proposal) => {
-    const dataFromAPI = notCachedDataFromAPI.data.filter(
-      (data) => Number(data?.proposal.id) === proposal.id,
-    )[0];
+  const dataForUpdate = await Promise.all(
+    proposalsDataInitial.map(async (proposal) => {
+      const dataFromAPI = notCachedDataFromAPI.data.filter(
+        (data) => Number(data?.proposal.id) === proposal.id,
+      )[0];
 
-    if (typeof dataFromAPI.proposal.id === 'number') {
-      const data = dataFromAPI as CachedProposalData;
+      if (typeof dataFromAPI.proposal.id === 'number') {
+        const data = dataFromAPI as CachedProposalData;
 
-      const payloadsExecutionDelay = Math.max.apply(
-        0,
-        data.payloads.map((payload) => payload.delay || 0),
-      );
+        const payloadsExecutionDelay = Math.max.apply(
+          0,
+          data.payloads.map((payload) => payload.delay || 0),
+        );
 
-      return {
-        type: 'cached',
-        payloads: data.payloads,
-        executionDelay: payloadsExecutionDelay,
-        decodedIpfs: data.ipfs,
-        proposal: data.proposal,
-        events: [],
-      };
-    } else {
-      const data = dataFromAPI as RequestedProposalData;
-      return {
-        type: 'requested',
-        payloads: data.proposalPayloadsData,
-        executionDelay: data.payloadsExecutionDelay,
-        decodedIpfs: data.proposalDataFromAPI.proposal.decodedIpfs,
-        proposal: {
-          ...proposal,
-          isFinished:
-            proposal.state === ProposalState.Executed
-              ? !!data?.isProposalPayloadsFinished
-              : proposal.state > ProposalState.Executed,
-        },
-        events: [
-          ...data.proposalDataFromAPI.events,
-          ...data.proposalPayloadsDataFromAPI
-            .map((payload) => payload.events)
-            .flat(),
-          ...data.proposalDataFromAPI.votes,
-        ],
-      };
-    }
-  });
+        return {
+          type: 'cached',
+          payloads: data.payloads,
+          executionDelay: payloadsExecutionDelay,
+          decodedIpfs: data.ipfs,
+          proposal: data.proposal,
+          events: [],
+        };
+      } else {
+        const data = dataFromAPI as RequestedProposalData;
+        return {
+          type: 'requested',
+          payloads: data.proposalPayloadsData,
+          executionDelay: data.payloadsExecutionDelay,
+          decodedIpfs: !!data.proposalDataFromAPI.proposal.decodedIpfs
+            ? data.proposalDataFromAPI.proposal.decodedIpfs
+            : await getProposalMetadata({
+                hash: data.proposal.proposalData.ipfsHash,
+              }),
+          proposal: {
+            ...proposal,
+            isFinished:
+              proposal.state === ProposalState.Executed
+                ? !!data?.isProposalPayloadsFinished
+                : proposal.state > ProposalState.Executed,
+          },
+          events: [
+            ...data.proposalDataFromAPI.events,
+            ...data.proposalPayloadsDataFromAPI
+              .map((payload) => payload.events)
+              .flat(),
+            ...data.proposalDataFromAPI.votes,
+          ],
+        };
+      }
+    }),
+  );
 
   // start cache update
   await Promise.allSettled(
@@ -847,7 +854,7 @@ async function updateCache() {
         proposal: data.proposal,
         configs,
         constants: contractsConstants,
-        ipfsTitle: data.decodedIpfs.title,
+        ipfsTitle: data.decodedIpfs?.title,
         proposalPayloadsData: data.payloads,
         executionDelay: data.executionDelay,
         events: data.events,
@@ -868,7 +875,7 @@ async function updateCache() {
     readJSONCache<{
       totalProposalCount: number;
       proposals: FinishedProposalForList[];
-    }>(`${initDirName}`, `list_view_proposals`) || undefined;
+    }>(`${initDirName}`, `list_view_proposals`) ?? undefined;
   const formattedProposalsDataForList: FinishedProposalForList[] =
     dataForUpdate.map((data) => {
       if (
@@ -886,7 +893,7 @@ async function updateCache() {
           proposal: data.proposal,
           configs,
           constants: contractsConstants,
-          ipfsTitle: data.decodedIpfs.title,
+          ipfsTitle: data.decodedIpfs?.title,
           proposalPayloadsData: data.payloads,
           executionDelay: data.executionDelay,
         });
@@ -974,7 +981,7 @@ async function updateCache() {
 
         return {
           id: data.proposal.id,
-          title: data.decodedIpfs.title || `Proposal #${data.proposal.id}`,
+          title: data.decodedIpfs?.title ?? `Proposal #${data.proposal.id}`,
           combineState: proposalState,
           finishedTimestamp: finishedTimestamp,
           ipfsHash: data.proposal.ipfsHash,
@@ -1042,7 +1049,7 @@ async function updateCache() {
           proposal: data.proposal,
           configs,
           constants: contractsConstants,
-          ipfsTitle: data.decodedIpfs.title,
+          ipfsTitle: data.decodedIpfs?.title,
           proposalPayloadsData: data.payloads,
           executionDelay: data.executionDelay,
         });
@@ -1068,7 +1075,7 @@ async function updateCache() {
           proposalStatus: proposalState,
           ipfsHash: data.proposal.ipfsHash,
           status: status,
-          title: data.decodedIpfs.title || `Proposal #${data.proposal.id}`,
+          title: data.decodedIpfs?.title ?? `Proposal #${data.proposal.id}`,
         };
       } else {
         return {
