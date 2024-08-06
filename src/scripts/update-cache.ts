@@ -45,8 +45,9 @@ import {
   APIEvent,
   APIPayloadData,
   APIProposalData,
-  DecodedIPFSFromAPI,
+  CachedProposalData,
   FormatProposalParams,
+  RequestedProposalData,
 } from './types';
 
 const initDirName = `ui/${coreName}`;
@@ -73,12 +74,11 @@ async function getNotCachedDataFromAPI({
   // check and return not finished proposals
   const data = await Promise.all(
     proposalsIds.map(async (id) => {
-      const proposalCache =
-        readJSONCache<{
-          payloads: Payload[];
-          ipfs: ProposalMetadata;
-          proposal: BasicProposal;
-        }>(`${initDirName}/proposals`, `proposal_${id}`) || undefined;
+      const proposalCache = readJSONCache<{
+        payloads: Payload[];
+        ipfs: ProposalMetadata;
+        proposal: BasicProposal;
+      }>(`${initDirName}/proposals`, `proposal_${id}`);
 
       if (
         !proposalCache ||
@@ -115,9 +115,7 @@ async function getNotCachedDataFromAPI({
               const payloadsDataFromAPIResponse = await fetch(
                 `https://api.onaave.com/governance/payload/?payloadId=${payload.payloadId}&chainId=${Number(payload.chain)}&payloadsController=${payload.payloadsController}`,
               );
-              if (payloadsDataFromAPIResponse.ok) {
-                return (await payloadsDataFromAPIResponse.json()) as APIPayloadData;
-              }
+              return (await payloadsDataFromAPIResponse.json()) as APIPayloadData;
             }),
           );
 
@@ -141,7 +139,7 @@ async function getNotCachedDataFromAPI({
                 chainId: payload?.proposal.chainId,
                 payloadsController: payload?.proposal.payloadsControllerAddress,
                 ...payload?.proposal.args,
-              } as Payload;
+              };
             },
           );
 
@@ -152,15 +150,17 @@ async function getNotCachedDataFromAPI({
             payloadsExecutionDelay,
             proposalPayloadsData,
             isProposalPayloadsFinished,
-          };
+          } as RequestedProposalData;
         }
       }
+
+      return proposalCache as CachedProposalData;
     }),
   );
 
   return {
     totalProposalCount: proposalsCount,
-    data: data.filter((d) => d !== undefined),
+    data,
   };
 }
 
@@ -639,60 +639,106 @@ async function updateCache() {
     govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
   });
 
-  console.log('notCachedDataFromAPI', notCachedDataFromAPI);
-
   const ipfsData = notCachedDataFromAPI.data.map((data) => {
-    if (!data) return undefined;
-    return {
-      ...data.proposalDataFromAPI.proposal.decodedIpfs,
-      originalIpfsHash: data.proposal.proposalData.ipfsHash,
-    };
+    if (typeof data.proposal.id === 'number') {
+      const typedData = data as CachedProposalData;
+      return typedData.ipfs;
+    } else {
+      const typedData = data as RequestedProposalData;
+      return {
+        ...typedData.proposalDataFromAPI.proposal.decodedIpfs,
+        originalIpfsHash: typedData.proposal.proposalData.ipfsHash,
+      };
+    }
   });
 
-  // get VM data and combine proposals data from API with voting machines data
-  const initialProposalsData = notCachedDataFromAPI.data.map(
-    (data) => data?.proposal as ProposalStructOutput,
-  ) as Readonly<ProposalStructOutput[]>;
+  const initialProposalsDataForRequest: ProposalStructOutput[] =
+    notCachedDataFromAPI.data
+      .map((data) => {
+        if (typeof data.proposal.id === 'number') {
+          return {} as ProposalStructOutput;
+        } else {
+          const typedData = data as RequestedProposalData;
+          return typedData.proposal;
+        }
+      })
+      .filter((data) => Object.keys(data).length > 0);
 
   const votingMachineDataHelperData = await getVotingData(
-    initialProposalsData.map((proposal) => ({
+    initialProposalsDataForRequest.map((proposal) => ({
       id: proposal.id,
       votingChainId: Number(proposal.votingChainId),
       snapshotBlockHash: proposal.proposalData.snapshotBlockHash,
     })),
   );
-  const proposalsDataInitial = getDetailedProposalsData(
+  const proposalsDataFromRequest = getDetailedProposalsData(
     configs,
-    initialProposalsData,
+    initialProposalsDataForRequest,
     votingMachineDataHelperData as VMProposalStructOutput[],
     notCachedDataFromAPI.data.map((proposal) => Number(proposal?.proposal.id)),
     false,
   );
+
+  const cachedProposals: BasicProposal[] = notCachedDataFromAPI.data
+    .map((data) => {
+      if (typeof data.proposal.id === 'number') {
+        const typedData = data as CachedProposalData;
+        return typedData.proposal;
+      } else {
+        return {} as BasicProposal;
+      }
+    })
+    .filter((data) => Object.keys(data).length > 0);
+
+  const proposalsDataInitial = [
+    ...proposalsDataFromRequest,
+    ...cachedProposals,
+  ];
 
   const dataForUpdate = proposalsDataInitial.map((proposal) => {
     const dataFromAPI = notCachedDataFromAPI.data.filter(
       (data) => Number(data?.proposal.id) === proposal.id,
     )[0];
 
-    return {
-      payloads: dataFromAPI?.proposalPayloadsData as Payload[],
-      executionDelay: dataFromAPI?.payloadsExecutionDelay as number,
-      decodedIpfs: dataFromAPI?.proposalDataFromAPI.proposal
-        .decodedIpfs as DecodedIPFSFromAPI,
-      proposal: {
-        ...proposal,
-        isFinished:
-          proposal.state === ProposalState.Executed
-            ? !!dataFromAPI?.isProposalPayloadsFinished
-            : proposal.state > ProposalState.Executed,
-      },
-      events: [
-        ...(dataFromAPI?.proposalDataFromAPI.events as APIEvent[]),
-        ...(dataFromAPI?.proposalPayloadsDataFromAPI
-          .map((payload) => payload?.events)
-          .flat() as APIEvent[]),
-      ],
-    };
+    if (typeof dataFromAPI.proposal.id === 'number') {
+      const data = dataFromAPI as CachedProposalData;
+
+      const payloadsExecutionDelay = Math.max.apply(
+        0,
+        data.payloads.map((payload) => payload.delay || 0),
+      );
+
+      return {
+        type: 'cached',
+        payloads: data.payloads,
+        executionDelay: payloadsExecutionDelay,
+        decodedIpfs: data.ipfs,
+        proposal: data.proposal,
+        events: [],
+      };
+    } else {
+      const data = dataFromAPI as RequestedProposalData;
+      return {
+        type: 'requested',
+        payloads: data.proposalPayloadsData,
+        executionDelay: data.payloadsExecutionDelay,
+        decodedIpfs: data.proposalDataFromAPI.proposal.decodedIpfs,
+        proposal: {
+          ...proposal,
+          isFinished:
+            proposal.state === ProposalState.Executed
+              ? !!data?.isProposalPayloadsFinished
+              : proposal.state > ProposalState.Executed,
+        },
+        events: [
+          ...data.proposalDataFromAPI.events,
+          ...data.proposalPayloadsDataFromAPI
+            .map((payload) => payload.events)
+            .flat(),
+          ...data.proposalDataFromAPI.votes,
+        ],
+      };
+    }
   });
 
   // start cache update
@@ -702,8 +748,6 @@ async function updateCache() {
         ...data.decodedIpfs,
         originalIpfsHash: data.proposal.ipfsHash,
       };
-
-      console.log(data.events);
 
       // format VoteEmitted events to UI data format
       const proposalVoters: VotersData[] = data.events
@@ -732,8 +776,6 @@ async function updateCache() {
           blockNumber: Number(event.blockNumber),
           chainId: data.proposal.votingChainId,
         }));
-
-      console.log('proposalVoters', proposalVoters);
 
       // get ens name for voters
       const proposalVotersWithEnsName = await Promise.all(
@@ -944,7 +986,7 @@ async function updateCache() {
       }
     });
   writeJSONCache(`${initDirName}`, 'list_view_proposals', {
-    totalProposalCount: notCachedDataFromAPI.totalProposalCount,
+    totalProposalCount: Number(notCachedDataFromAPI.totalProposalCount),
     proposals: formattedProposalsDataForList,
   });
   console.log('Proposals list cache updated.');

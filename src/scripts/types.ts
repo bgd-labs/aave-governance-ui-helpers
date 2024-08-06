@@ -1,11 +1,13 @@
 import { Address, Hex } from 'viem';
 
+import { ProposalMetadata } from '../utils/generic';
 import {
   BasicProposal,
   ContractsConstants,
   Payload,
   PayloadInitialStruct,
   ProposalInitialStruct,
+  ProposalStructOutput,
   VotingConfig,
 } from '../utils/viem';
 
@@ -29,6 +31,7 @@ export type DecodedIPFSFromAPI = {
 
 export type APIProposalData = {
   events: APIEvent[];
+  votes: APIEvent[];
   proposal: {
     chainId: number;
     governanceAddress: Address;
@@ -55,4 +58,19 @@ export type FormatProposalParams = {
   ipfsTitle?: string;
   proposalPayloadsData: Payload[];
   executionDelay: number;
+};
+
+export type CachedProposalData = {
+  payloads: Payload[];
+  ipfs: ProposalMetadata;
+  proposal: BasicProposal;
+};
+
+export type RequestedProposalData = {
+  proposal: ProposalStructOutput;
+  proposalDataFromAPI: APIProposalData;
+  proposalPayloadsDataFromAPI: APIPayloadData[];
+  payloadsExecutionDelay: number;
+  proposalPayloadsData: Payload[];
+  isProposalPayloadsFinished: boolean;
 };
