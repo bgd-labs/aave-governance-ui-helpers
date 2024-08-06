@@ -25,6 +25,7 @@ import {
   getProposalState,
   getProposalStepsAndAmounts,
   getVotingMachineProposalState,
+  InitialPayload,
   InitialProposal,
   Payload,
   ProposalHistoryItem,
@@ -41,6 +42,29 @@ import {
 } from './types';
 
 export const initDirName = `ui/${coreName}`;
+
+export async function getPayloadDataFromRPC({
+  chainId,
+  payloadsController,
+  id,
+}: InitialPayload) {
+  const client = CHAIN_ID_CLIENT_MAP[Number(chainId)];
+  const contract = getContract({
+    abi: IPayloadsControllerCore_ABI,
+    client,
+    address: payloadsController as Address,
+  });
+  const dataFromContract = await contract.read.getPayloadById([id]);
+  return {
+    events: [],
+    proposal: {
+      chainId: Number(chainId),
+      payloadsControllerAddress: payloadsController,
+      payloadId: id,
+      args: dataFromContract,
+    },
+  } as APIPayloadData;
+}
 
 /**
  * Function for getting initial data for update cache and request data from API when data not in the cache
@@ -111,26 +135,21 @@ export async function getNotCachedDataFromAPI({
               const payloadsDataFromAPIResponse = await fetch(
                 `https://api.onaave.com/governance/payload/?payloadId=${payload.payloadId}&chainId=${Number(payload.chain)}&payloadsController=${payload.payloadsController}`,
               );
-              return (await payloadsDataFromAPIResponse.json()) as APIPayloadData;
-            } catch (e) {
-              const client = CHAIN_ID_CLIENT_MAP[Number(payload.chain)];
-              const contract = getContract({
-                abi: IPayloadsControllerCore_ABI,
-                client,
-                address: payload.payloadsController,
-              });
-              const dataFromContract = await contract.read.getPayloadById([
-                payload.payloadId,
-              ]);
-              return {
-                events: [],
-                proposal: {
+              if (payloadsDataFromAPIResponse.ok) {
+                return (await payloadsDataFromAPIResponse.json()) as APIPayloadData;
+              } else {
+                return await getPayloadDataFromRPC({
                   chainId: Number(payload.chain),
-                  payloadsControllerAddress: payload.payloadsController,
-                  payloadId: payload.payloadId,
-                  args: dataFromContract,
-                },
-              } as APIPayloadData;
+                  id: payload.payloadId,
+                  payloadsController: payload.payloadsController,
+                });
+              }
+            } catch (e) {
+              return await getPayloadDataFromRPC({
+                chainId: Number(payload.chain),
+                id: payload.payloadId,
+                payloadsController: payload.payloadsController,
+              });
             }
           }),
         );
