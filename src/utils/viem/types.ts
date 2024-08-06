@@ -18,37 +18,23 @@ import {
   VotingMachineProposalState,
 } from '../generic';
 
-// types for cache system
-/**
- * simple cache mapping:
- * filename:blockNumber with the last used block for caching
- */
-export type BookKeepingCache = Record<string, string>;
-
-type ProposalInitialStruct = ContractFunctionReturnType<
+// generic
+export type ProposalInitialStruct = ContractFunctionReturnType<
   typeof IGovernanceCore_ABI,
   AbiStateMutability,
   'getProposal'
 >;
-export type ProposalsCache = Record<
-  number,
-  ProposalInitialStruct & {
-    isFinished: boolean; // state when all payloads inside proposal in final state
-  }
->;
-
-export type Payload = ContractFunctionReturnType<
+export type PayloadInitialStruct = ContractFunctionReturnType<
   typeof IPayloadsControllerCore_ABI,
   AbiStateMutability,
   'getPayloadById'
-> & {
+>;
+export type Payload = PayloadInitialStruct & {
   id: number;
   chainId: number;
   payloadsController: Address | string;
 };
-export type PayloadsCache = Record<number, Payload>;
 
-// generic
 export type ClientsRecord = Record<number, Client>;
 
 export type InitContract = {
