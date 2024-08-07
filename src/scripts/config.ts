@@ -1,4 +1,4 @@
-// only for internal usage, for generating cache
+// only for internal usage, for update cache
 
 import { appConfigInit, CoreNetworkName } from '..';
 

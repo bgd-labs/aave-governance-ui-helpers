@@ -1,4 +1,5 @@
 export * from './appConfig';
+export * from './events';
 export * from './formatProposal';
 export * from './getBlockNumberByTimestamp';
 export * from './getGovCoreConfigs';

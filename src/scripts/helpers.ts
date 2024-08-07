@@ -13,15 +13,16 @@ import { Address, getContract, Hex, zeroAddress, zeroHash } from 'viem';
 import { getBlock } from 'viem/actions';
 
 import {
-  checkHash,
   CombineProposalState,
   HistoryItemType,
+  isHashNotZero,
   PayloadState,
   ProposalMetadata,
   ProposalState,
 } from '../utils/generic';
 import {
   BasicProposal,
+  getPayloadsControllerEvents,
   getProposalState,
   getProposalStepsAndAmounts,
   getVotingMachineProposalState,
@@ -30,7 +31,6 @@ import {
   Payload,
   ProposalHistoryItem,
 } from '../utils/viem';
-import { getPayloadsControllerEvents } from '../utils/viem/events/payloadsController';
 import { appConfig, coreName } from './config';
 import {
   APIEvent,
@@ -43,6 +43,9 @@ import {
 
 export const initDirName = `ui/${coreName}`;
 
+/**
+ * Function for getting payload data from RPC
+ */
 export async function getPayloadDataFromRPC({
   chainId,
   payloadsController,
@@ -98,12 +101,7 @@ export async function getNotCachedDataFromAPI({
       proposal: BasicProposal;
     }>(`${initDirName}/proposals`, `proposal_${id}`);
 
-    if (
-      !proposalCache ||
-      !proposalCache?.proposal.isFinished ||
-      Number(proposalCache.proposal.cancellationFee) > 0
-    ) {
-      console.log('data from API for proposal', id);
+    if (!proposalCache || !proposalCache?.proposal.isFinished) {
       const proposalDataFromAPIResponse = await fetch(
         `https://api.onaave.com/governance/proposal/?proposalId=${id}&chainId=${govCoreChainId}&governance=${govCoreContractAddress}`,
       );
@@ -188,8 +186,35 @@ export async function getNotCachedDataFromAPI({
         } as RequestedProposalData;
         data.push(requestedProposalData);
       }
+    } else if (
+      proposalCache &&
+      proposalCache?.proposal.isFinished &&
+      Number(proposalCache.proposal.cancellationFee) > 0
+    ) {
+      console.log(
+        'Data from local file for payloads and from API for proposal',
+        id,
+      );
+      const cachedProposalData = proposalCache as CachedProposalData;
+      const proposalDataFromAPIResponse = await fetch(
+        `https://api.onaave.com/governance/proposal/?proposalId=${id}&chainId=${govCoreChainId}&governance=${govCoreContractAddress}`,
+      );
+      if (proposalDataFromAPIResponse.ok) {
+        const proposalDataFromAPI =
+          (await proposalDataFromAPIResponse.json()) as APIProposalData;
+        data.push({
+          ...cachedProposalData,
+          proposal: {
+            ...cachedProposalData.proposal,
+            cancellationFee:
+              +proposalDataFromAPI.proposal.args.cancellationFee.toString(),
+          },
+        });
+      } else {
+        data.push(cachedProposalData);
+      }
     } else {
-      console.log('data from Cache for proposal', id);
+      console.log('Data from local file for proposal', id);
       const cachedProposalData = proposalCache as CachedProposalData;
       data.push(cachedProposalData);
     }
@@ -418,7 +443,7 @@ export async function parseProposalEvents({
     });
 
     // PROPOSAL_ACTIVATE
-    if (checkHash(formattedProposalData.snapshotBlockHash).notZero) {
+    if (isHashNotZero(formattedProposalData.snapshotBlockHash)) {
       const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_ACTIVATE}`;
       setEvent({
         historyId,

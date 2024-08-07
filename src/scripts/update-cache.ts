@@ -5,13 +5,12 @@ import {
   readJSONCache,
   writeJSONCache,
 } from '@bgd-labs/js-utils';
-import { Address, Hex } from 'viem';
+import { Address, formatUnits, Hex } from 'viem';
 import { getEnsName } from 'viem/actions';
 import { mainnet } from 'viem/chains';
 
 import {
   BasicProposal,
-  checkHash,
   CombineProposalState,
   CreationFee,
   CreationFeeState,
@@ -21,7 +20,8 @@ import {
   getProposalMetadata,
   getProposalStepsAndAmounts,
   InitialPayload,
-  normalizeBN,
+  isHashNotZero,
+  isProposalFinal,
   Payload,
   ProposalMetadata,
   ProposalState,
@@ -30,7 +30,6 @@ import {
   VotersData,
   VotingMachineProposalState,
 } from '..';
-import { isProposalFinal } from '../utils/viem/events/governance';
 import { appConfig, coreName } from './config';
 import {
   formatProposalsData,
@@ -190,13 +189,13 @@ async function updateCache() {
           ).toString() as Hex,
           support:
             (event.eventName === 'VoteEmitted' && event.args.support) || false,
-          votingPower: normalizeBN(
+          votingPower: +formatUnits(
             (
               (event.eventName === 'VoteEmitted' && event.args.votingPower) ||
               ''
             ).toString(),
             18,
-          ).toNumber(),
+          ),
           transactionHash: event.transactionHash,
           blockNumber: Number(event.blockNumber),
           chainId: data.proposal.votingChainId,
@@ -352,7 +351,7 @@ async function updateCache() {
             formattedProposalData.creationTime +
             proposalConfig.coolDownBeforeVotingStart;
         } else if (
-          checkHash(formattedProposalData.snapshotBlockHash).notZero &&
+          isHashNotZero(formattedProposalData.snapshotBlockHash) &&
           !isVotingStarted &&
           !isExpired &&
           !isCanceled

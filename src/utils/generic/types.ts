@@ -1,6 +1,3 @@
-// enums
-import { BigNumber } from 'bignumber.js';
-
 export enum Asset {
   AAVE = 'AAVE',
   STKAAVE = 'stkAAVE',
@@ -116,5 +113,3 @@ export type ProposalMetadata = {
   author: string;
   snapshot?: string;
 };
-
-export type BigNumberValue = string | number | BigNumber;

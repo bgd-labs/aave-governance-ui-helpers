@@ -1,23 +1,47 @@
-import { BigNumber } from 'bignumber.js';
 import dayjs from 'dayjs';
+import { formatUnits } from 'viem';
 
 import {
-  checkHash,
   CombineProposalState,
-  normalizeBN,
+  isHashNotZero,
   PayloadState,
   ProposalEstimatedState,
   ProposalState,
   ProposalWaitForState,
-  valueToBigNumber,
   VotingMachineProposalState,
 } from '../generic';
 import { Proposal, ProposalData as BasicProposal } from './types';
 
-export function normalizeVotes(forVotes: string, againstVotes: string) {
-  const forVotesN = normalizeBN(forVotes, 18).toNumber();
-  const againstVotesN = normalizeBN(againstVotes, 18).toNumber();
+export const HUMAN_READABLE_PAYLOAD_STATE = {
+  [PayloadState.None]: 'None',
+  [PayloadState.Created]: 'Created',
+  [PayloadState.Queued]: 'Queued',
+  [PayloadState.Executed]: 'Executed',
+  [PayloadState.Cancelled]: 'Cancelled',
+  [PayloadState.Expired]: 'Expired',
+};
 
+export function isProposalFinal(state: ProposalState) {
+  return [
+    ProposalState.Executed,
+    ProposalState.Failed,
+    ProposalState.Cancelled,
+    ProposalState.Expired,
+  ].includes(state);
+}
+
+export function isPayloadFinal(state: number) {
+  return [
+    PayloadState.Cancelled,
+    PayloadState.Executed,
+    PayloadState.Expired,
+    // -1, // error
+  ].includes(state);
+}
+
+export function normalizeVotes(forVotes: string, againstVotes: string) {
+  const forVotesN = +formatUnits(BigInt(forVotes), 18);
+  const againstVotesN = +formatUnits(BigInt(againstVotes), 18);
   return { forVotes: forVotesN, againstVotes: againstVotesN };
 }
 
@@ -26,15 +50,14 @@ export function formatQuorum(
   quorum: number,
   precisionDivider: string,
 ) {
-  const minQuorumVotes =
-    valueToBigNumber(quorum).multipliedBy(precisionDivider);
-  const normalizeMinQuorumVotes = normalizeBN(minQuorumVotes, 18).toNumber();
-
+  const minQuorumVotes = +(
+    BigInt(quorum) * BigInt(precisionDivider)
+  ).toString();
+  const normalizeMinQuorumVotes = +formatUnits(BigInt(minQuorumVotes), 18);
   let quorumReached = false;
-  if (valueToBigNumber(forVotes).gte(minQuorumVotes)) {
+  if (BigInt(forVotes) >= BigInt(minQuorumVotes)) {
     quorumReached = true;
   }
-
   return {
     minQuorumVotes,
     normalizeMinQuorumVotes,
@@ -48,11 +71,11 @@ export function formatDiff(
   differential: number,
   precisionDivider: string,
 ) {
-  const diff = valueToBigNumber(forVotes).minus(againstVotes);
-  const requiredDiff =
-    valueToBigNumber(differential).multipliedBy(precisionDivider);
-  const normalizeRequiredDiff = normalizeBN(requiredDiff, 18).toNumber();
-
+  const diff = +(BigInt(forVotes) - BigInt(againstVotes)).toString();
+  const requiredDiff = +(
+    BigInt(differential) * BigInt(precisionDivider)
+  ).toString();
+  const normalizeRequiredDiff = +formatUnits(BigInt(requiredDiff), 18);
   return { diff, requiredDiff, normalizeRequiredDiff };
 }
 
@@ -272,7 +295,7 @@ export function getProposalState({ ...data }: BasicProposalWithConfigsData) {
     return CombineProposalState.Created;
   } else if (
     isVotingActive &&
-    checkHash(data.proposalData.snapshotBlockHash).notZero
+    isHashNotZero(data.proposalData.snapshotBlockHash)
   ) {
     return CombineProposalState.Active;
   } else if (
@@ -330,7 +353,7 @@ function getStateTimestamp(proposal: Proposal) {
       proposal.data.creationTime + proposal.config.coolDownBeforeVotingStart
     );
   } else if (
-    checkHash(proposal.data.snapshotBlockHash).notZero &&
+    isHashNotZero(proposal.data.snapshotBlockHash) &&
     !isVotingStarted &&
     !isExpired &&
     !isCanceled
@@ -552,16 +575,15 @@ export function formatProposal(proposal: Proposal) {
   );
   const waitForState = getWaitForState(proposal);
 
-  const allVotes = new BigNumber(proposal.data.votingMachineData.forVotes).plus(
-    proposal.data.votingMachineData.againstVotes,
-  );
-
+  const allVotes = +(
+    BigInt(proposal.data.votingMachineData.forVotes) +
+    BigInt(proposal.data.votingMachineData.againstVotes)
+  ).toString();
   const votingPowerBasic = proposal.balances
-    .map((balance) => valueToBigNumber(balance.basicValue).toNumber())
+    .map((balance) => +balance.basicValue)
     .reduce((sum, value) => sum + value, 0);
-
   const votingPower = proposal.balances
-    .map((balance) => valueToBigNumber(balance.value).toNumber())
+    .map((balance) => +balance.value)
     .reduce((sum, value) => sum + value, 0);
 
   const votingTokens = proposal.balances;
@@ -577,18 +599,21 @@ export function formatProposal(proposal: Proposal) {
       ? normalizeMinQuorumVotes
       : forVotes - normalizeRequiredDiff;
 
-  const forPercent = allVotes.gt(0)
-    ? new BigNumber(forVotes)
-        .dividedBy(requiredForVotes)
-        .multipliedBy(100)
-        .toNumber()
-    : 0;
-  const againstPercent = allVotes.gt(0)
-    ? new BigNumber(againstVotes)
-        .dividedBy(requiredAgainstVotes > 0 ? requiredAgainstVotes : 1)
-        .multipliedBy(100)
-        .toNumber()
-    : 0;
+  const forPercent =
+    allVotes > 0
+      ? +(
+          (BigInt(forVotes) / BigInt(requiredForVotes)) *
+          BigInt(100)
+        ).toString()
+      : 0;
+  const againstPercent =
+    allVotes > 0
+      ? +(
+          (BigInt(againstVotes) /
+            BigInt(requiredAgainstVotes > 0 ? requiredAgainstVotes : 1)) *
+          BigInt(100)
+        ).toString()
+      : 0;
 
   return {
     forPercent,
@@ -605,10 +630,10 @@ export function formatProposal(proposal: Proposal) {
     waitForState,
     votingPowerBasic,
     votingPower,
-    votedPower: normalizeBN(
-      proposal.data.votingMachineData.votedInfo.votingPower,
+    votedPower: +formatUnits(
+      BigInt(proposal.data.votingMachineData.votedInfo.votingPower),
       18,
-    ).toNumber(),
+    ),
     votingTokens,
   };
 }
