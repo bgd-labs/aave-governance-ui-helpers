@@ -1,0 +1,175 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1723026671,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1726050671,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x2875727803B66688A7B6103A6b947CA9AE1f13d9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 158,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1723026844,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1726050844,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x8d33D1f1b15ABfb2Ab462B57bC44FD2599a3a11c",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 76,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1723026953,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1726050953,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xD1b75626c95dBf0e591C83e988452467e6641357",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 43,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1723027074,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1726051074,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xa2A221e456a1b95eC5baA7E1e8Ee39fb8Cf61d62",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 45,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmYJRsXamq8hMpvNVUFAjhJNpoWBo92SdMNnhAE5tMkZeL",
+    "description": "\n## Simple Summary\n\nThis proposal presents May’s funding update, including the following key activities:\n\n- Migrating holdings from v2 to v3 (Polygon and Ethereum)\n- Extending the DAO’s GHO runway to cover upcoming expenses\n- Create Allowances for Frontier Program funding\n\n## Motivation\n\nThis proposal seeks to enhance the financial sustainability of the DAO and will follow the Direct-To-AIP as outlined in this [proposal](https://governance.aave.com/t/arfc-funding-update/16675).\n\n## Specification\n\n### Consolidate GHO Funding and Migrate funds from V2 to V3\n\nPerform the following Swaps and migration of assets from Aave v2 to v3. Assets are to be swapped for GHO.\n\n| Withdraw & Swap to GHO | Migrate Eth v2 to v3 | Migrate Pol v2 to v3 |\n| :--------------------: | :------------------: | :------------------: |\n|    aEthDAI (All-1)     |    awETH (All-1)     |    amUSDT (All-1)    |\n|      aDAI (All-1)      |                      |    amwETH (All-1)    |\n|    aEthLUSD (All-1)    |                      |    amDAI (All-1)     |\n|   aEthPYUSD (All-1)    |                      |                      |\n|     aUSDC (All-1)      |                      |                      |\n|       DPI (All)        |                      |                      |\n|     aEthUSDT (2M)      |                      |                      |\n|    aEthUSDC (1.5M)     |                      |                      |\n\nTransfer the following assets to Ethereum.\n\n|     Polygon      |     Arbitrum     |     Optimism     |\n| :--------------: | :--------------: | :--------------: |\n|   USDC.e (All)   |   USDC.e (All)   |   USDC.e (All)   |\n| aPolUSDC (All-1) | aArbUSDC (All-1) | aOptUSDC (All-1) |\n|  amUSDC (All-1)  |                  |                  |\n\nDeposit the following small holdings into the respective v3 deployment:\n\n| Deposit into Eth v3 |\n| :-----------------: |\n|        LINK         |\n\n### Frontier Funding\n\nThe following LSTs are to be unstaked for ETH in order to fund the [Frontier initiative](https://snapshot.org/#/aave.eth/proposal/0x17da8b848323ed88b9c3ab391057c45a5737635dfe995ad66a84b389821b0867).\n\n| Unwrap Asset | Quantity | Methodology |\n| :----------: | :------: | :---------: |\n|     rETH     |   All    |   Cowswap   |\n|    wstETH    |   350    |  Use Lido   |\n\nNote that Cowswap solvers will use the underlying rETH redemptions mechanisms if required.\n\nA description of how the ETH is to be deployed has been outlined by ACI [here](https://governance.aave.com/t/arfc-expansion-of-frontier/17749).\n\n| Quantity Deployed |  Provider  |\n| :---------------: | :--------: |\n|      248 ETH      |   Stader   |\n|     2,085 ETH     | RocketPool |\n|      160 ETH      | StakeWise  |\n\nThe Frontier SAFE `0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642` will be able to use the allowance function on `0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c` to claim the equivalent to 2,493 ETH.\n\nAny residual ETH will be deposited into Aave v3.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Ethereum_MayFundingUpdate_20240603.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Polygon_MayFundingUpdate_20240603.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Optimism_MayFundingUpdate_20240603.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Arbitrum_MayFundingUpdate_20240603.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Ethereum_MayFundingUpdate_20240603.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Polygon_MayFundingUpdate_20240603.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Optimism_MayFundingUpdate_20240603.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/d6bafd5d8fb0b842a9b725af445259e129940b74/src/20240603_Multi_MayFundingUpdate/AaveV3Arbitrum_MayFundingUpdate_20240603.t.sol)\n- [Snapshot](Direct-to-AIP)\n- [Discussion](https://governance.aave.com/t/arfc-may-funding-update/17768)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "May Funding Update",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-may-funding-update/17768",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x94033131f9158cfc102cbc37a63245c05b9c9c475bfe22b3ecdc288f1a637c4d"
+  },
+  "proposal": {
+    "id": 146,
+    "votingDuration": 259200,
+    "creationTime": 1723027139,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x94033131f9158cfc102cbc37a63245c05b9c9c475bfe22b3ecdc288f1a637c4d",
+    "initialPayloads": [
+      {
+        "id": 158,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 76,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 43,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 45,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 146,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1723032615,
+    "cancellationFee": 50000000000000000
+  }
+}
