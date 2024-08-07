@@ -1,4 +1,3 @@
-export * from '../../scripts/events';
 export * from './appConfig';
 export * from './formatProposal';
 export * from './getBlockNumberByTimestamp';
