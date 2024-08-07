@@ -1,8 +1,8 @@
 import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book';
-import { Hex, zeroAddress, zeroHash } from 'viem';
+import { formatUnits, Hex, zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 
-import { getEventsBySteps, normalizeBN } from '../generic';
+import { getEventsBySteps } from '../generic';
 import { InitEventWithChainId } from './types';
 
 async function getVoteEvents({
@@ -26,10 +26,7 @@ async function getVoteEvents({
       proposalId: Number(event.args.proposalId),
       address: (event.args.voter || '').toString() as Hex,
       support: event.args.support || false,
-      votingPower: normalizeBN(
-        (event.args.votingPower || '').toString(),
-        18,
-      ).toNumber(),
+      votingPower: +formatUnits(BigInt(event.args.votingPower || ''), 18),
       transactionHash: event.transactionHash as Hex,
       blockNumber: Number(event.blockNumber),
       chainId,

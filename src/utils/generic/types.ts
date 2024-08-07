@@ -1,4 +1,3 @@
-// enums
 import { BigNumber } from 'bignumber.js';
 
 export enum Asset {

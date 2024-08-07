@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
+import { zeroHash } from 'viem';
 
-import { VotingMachineProposalState, zeroHash } from '../generic';
+import { VotingMachineProposalState } from '../generic';
 import {
   BasicProposal,
   ProposalData,
@@ -37,7 +38,7 @@ export function formatVotingMachineData(
     ),
     votingClosedAndSentTimestamp:
       votingMachineData.proposalData.votingClosedAndSentTimestamp,
-    l1BlockHash: votingMachineData?.voteConfig.l1ProposalBlockHash || zeroHash,
+    l1BlockHash: votingMachineData?.voteConfig.l1ProposalBlockHash ?? zeroHash,
     strategy: votingMachineData.strategy,
     sentToGovernance: votingMachineData.proposalData.sentToGovernance,
     createdBlock: Number(votingMachineData.proposalData.creationBlockNumber),

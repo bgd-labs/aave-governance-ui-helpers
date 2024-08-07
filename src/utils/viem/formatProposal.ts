@@ -2,8 +2,8 @@ import { BigNumber } from 'bignumber.js';
 import dayjs from 'dayjs';
 
 import {
-  checkHash,
   CombineProposalState,
+  isHashNotZero,
   normalizeBN,
   PayloadState,
   ProposalEstimatedState,
@@ -13,6 +13,33 @@ import {
   VotingMachineProposalState,
 } from '../generic';
 import { Proposal, ProposalData as BasicProposal } from './types';
+
+export const HUMAN_READABLE_PAYLOAD_STATE = {
+  [PayloadState.None]: 'None',
+  [PayloadState.Created]: 'Created',
+  [PayloadState.Queued]: 'Queued',
+  [PayloadState.Executed]: 'Executed',
+  [PayloadState.Cancelled]: 'Cancelled',
+  [PayloadState.Expired]: 'Expired',
+};
+
+export function isProposalFinal(state: ProposalState) {
+  return [
+    ProposalState.Executed,
+    ProposalState.Failed,
+    ProposalState.Cancelled,
+    ProposalState.Expired,
+  ].includes(state);
+}
+
+export function isPayloadFinal(state: number) {
+  return [
+    PayloadState.Cancelled,
+    PayloadState.Executed,
+    PayloadState.Expired,
+    // -1, // error
+  ].includes(state);
+}
 
 export function normalizeVotes(forVotes: string, againstVotes: string) {
   const forVotesN = normalizeBN(forVotes, 18).toNumber();
@@ -272,7 +299,7 @@ export function getProposalState({ ...data }: BasicProposalWithConfigsData) {
     return CombineProposalState.Created;
   } else if (
     isVotingActive &&
-    checkHash(data.proposalData.snapshotBlockHash).notZero
+    isHashNotZero(data.proposalData.snapshotBlockHash)
   ) {
     return CombineProposalState.Active;
   } else if (
@@ -330,7 +357,7 @@ function getStateTimestamp(proposal: Proposal) {
       proposal.data.creationTime + proposal.config.coolDownBeforeVotingStart
     );
   } else if (
-    checkHash(proposal.data.snapshotBlockHash).notZero &&
+    isHashNotZero(proposal.data.snapshotBlockHash) &&
     !isVotingStarted &&
     !isExpired &&
     !isCanceled

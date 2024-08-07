@@ -1,4 +1,4 @@
-# Repository with cache and helpers for aave governance v3
+# Repository with cache and helpers for aave governance v3 UI
 
 This repository saves and updates the cache for Aave governance, also includes helper functions connected to Aave governance UI.
 
@@ -11,16 +11,6 @@ This repository saves and updates the cache for Aave governance, also includes h
 <code>yarn add @bgd-labs/aave-governance-ui-helpers</code>
 
 ## Usage examples
-### Cache generator
-```typescript
-    import { updateCache } from '@bgd-labs/aave-governance-ui-helpers/dist/scripts/update-cache-package.ts';
-
-    updateCache({
-      govCoreChainId: govCoreChainId,
-      govCoreContractAddress: govCoreContractAddress,
-    });
-```
-
 ### Gov core configs
 ```typescript
     import { getGovCoreConfigs } from '@bgd-labs/aave-governance-ui-helpers';
@@ -98,7 +88,7 @@ The cache is updated automatically every 3 hours, but you can do this locally:
 after
 
 ```sh
-yarn cache:update && yarn cache:parse
+yarn cache:update
 ```
 
 ## License

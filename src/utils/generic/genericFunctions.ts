@@ -1,13 +1,9 @@
 import { BigNumber } from 'bignumber.js';
 import bs58 from 'bs58';
 import matter from 'gray-matter';
+import { zeroHash } from 'viem';
 
-import {
-  BigNumberValue,
-  blockLimit,
-  ProposalMetadata,
-  zeroHash,
-} from './index';
+import { BigNumberValue, blockLimit, ProposalMetadata } from './index';
 import { AssetsBalanceSlots } from './types';
 
 export function baseToCidv0(hash: string) {
@@ -219,11 +215,8 @@ export async function getEventsBySteps<T>(
 }
 
 // universal
-export function checkHash(hash: string) {
-  return {
-    notZero: hash !== zeroHash,
-    zero: hash === zeroHash,
-  };
+export function isHashNotZero(hash: string) {
+  return hash !== zeroHash;
 }
 
 export function valueToBigNumber(amount: BigNumberValue): BigNumber {
