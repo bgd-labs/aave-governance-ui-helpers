@@ -1,4 +1,4 @@
-# Repository with cache and helpers for aave governance v3
+# Repository with cache and helpers for aave governance v3 UI
 
 This repository saves and updates the cache for Aave governance, also includes helper functions connected to Aave governance UI.
 

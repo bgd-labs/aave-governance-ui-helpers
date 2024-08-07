@@ -4,61 +4,7 @@ import {
   IVotingMachineWithProofs_ABI,
 } from '@bgd-labs/aave-address-book';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
-import type { ExtractAbiEvent } from 'abitype';
 import { Address, Client, getAbiItem } from 'viem';
-
-export type ProposalCreatedEvent = ExtractAbiEvent<
-  typeof IGovernanceCore_ABI,
-  'ProposalCreated'
->;
-export type ProposalQueuedEvent = ExtractAbiEvent<
-  typeof IGovernanceCore_ABI,
-  'ProposalQueued'
->;
-export type ProposalCanceledEvent = ExtractAbiEvent<
-  typeof IGovernanceCore_ABI,
-  'ProposalCanceled'
->;
-export type ProposalExecutedEvent = ExtractAbiEvent<
-  typeof IGovernanceCore_ABI,
-  'ProposalExecuted'
->;
-export type ProposalPayloadSentEvent = ExtractAbiEvent<
-  typeof IGovernanceCore_ABI,
-  'PayloadSent'
->;
-export type ProposalVotingActivatedEvent = ExtractAbiEvent<
-  typeof IGovernanceCore_ABI,
-  'VotingActivated'
->;
-export type ProposalResultsSentEvent = ExtractAbiEvent<
-  typeof IVotingMachineWithProofs_ABI,
-  'ProposalResultsSent'
->;
-export type VoteEmittedEvent = ExtractAbiEvent<
-  typeof IVotingMachineWithProofs_ABI,
-  'VoteEmitted'
->;
-export type ProposalVoteConfigurationBridgedEvent = ExtractAbiEvent<
-  typeof IVotingMachineWithProofs_ABI,
-  'ProposalVoteConfigurationBridged'
->;
-export type ProposalVoteStartedEvent = ExtractAbiEvent<
-  typeof IVotingMachineWithProofs_ABI,
-  'ProposalVoteStarted'
->;
-export type PayloadCreatedEvent = ExtractAbiEvent<
-  typeof IPayloadsControllerCore_ABI,
-  'PayloadCreated'
->;
-export type PayloadQueuedEvent = ExtractAbiEvent<
-  typeof IPayloadsControllerCore_ABI,
-  'PayloadQueued'
->;
-export type PayloadExecutedEvent = ExtractAbiEvent<
-  typeof IPayloadsControllerCore_ABI,
-  'PayloadExecuted'
->;
 
 export async function getGovernanceEvents(
   governanceAddress: Address,
