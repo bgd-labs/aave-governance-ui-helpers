@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.1.6 (2024-08-16)
+
+
+### Bug Fixes
+
+* added zksync to app config ([1c4b29c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1c4b29c8aa0be6fd2c1930be8678318c59a520ec))
+* peer deeps ([f6bcc72](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f6bcc72536796def300cb9690da44f6f78a58950))
+* update release please workflow ([a29fa61](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/a29fa61c12f82ad0e41a1b3b9f436c8355d56f55))
+
+
+### Miscellaneous Chores
+
+* release 3.1.6 ([527c883](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/527c8837356f5b01ac013995d5606849fbc59198))
+
 ## [3.1.5](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v3.1.5) (2024-05-30)
 
 
