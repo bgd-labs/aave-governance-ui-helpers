@@ -38,6 +38,8 @@ jobs:
           RPC_MAINNET: ${{ secrets.RPC_MAINNET }}
           RPC_BASE: ${{ secrets.RPC_BASE }}
           RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
+          RPC_ZKEVM: ${{ secrets.RPC_ZKEVM }}
+          RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
 
       - name: Parse cache to separate files
         shell: sh
@@ -49,6 +51,8 @@ jobs:
           RPC_MAINNET: ${{ secrets.RPC_MAINNET }}
           RPC_BASE: ${{ secrets.RPC_BASE }}
           RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
+          RPC_ZKEVM: ${{ secrets.RPC_ZKEVM }}
+          RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
 
       - name: Check code diff and push
         run: |
