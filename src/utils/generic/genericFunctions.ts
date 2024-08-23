@@ -61,7 +61,7 @@ export async function getProposalMetadataInit(
 
   try {
     const ipfsResponse = await fetch(ipfsPath);
-    if (!ipfsResponse.ok) console.error(`IPFS: error fetching ${ipfsPath}`);
+    if (!ipfsResponse.ok) throw new Error(`IPFS: error fetching ${ipfsPath}`);
     isRequestSuccess = true;
     return await getProposalMetadataBase({ ipfsHash, ipfsResponse });
   } catch (e) {
@@ -92,7 +92,7 @@ export async function getProposalMetadata({
   gateway,
   setIpfsError,
   errorText,
-  fallbackGateways,
+  fallbackGateways = ['https://dweb.link/ipfs', 'https://ipfs.io/ipfs'],
 }: {
   hash: string;
   gateway?: string;
