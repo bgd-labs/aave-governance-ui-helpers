@@ -29,6 +29,11 @@ import {
 } from '../utils/viem/events/payloadsController';
 import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
 
+require('dotenv').config();
+
+export const ipfsPrivateGateway: string =
+  process.env.IPFS_GATEWAY || 'https://dweb.link/ipfs';
+
 async function updateIpfsCache(proposalsCache: ProposalsCache) {
   const ipfsCache: Record<string, ProposalMetadata> =
     readJSONCache('web3', 'ipfs') || {};
@@ -38,12 +43,16 @@ async function updateIpfsCache(proposalsCache: ProposalsCache) {
       try {
         const metadata = await getProposalMetadata({
           hash: proposalsCache[id].ipfsHash,
+          gateway: ipfsPrivateGateway,
         });
         if (metadata) {
           ipfsCache[proposalsCache[id].ipfsHash] = metadata;
         }
       } catch (e) {
         console.log(
+          `Error when ipfs data getting, ipfs hash: ${proposalsCache[id].ipfsHash}`,
+        );
+        throw new Error(
           `Error when ipfs data getting, ipfs hash: ${proposalsCache[id].ipfsHash}`,
         );
       }
