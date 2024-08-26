@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.7](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.1.6...v3.1.7) (2024-08-26)
+
+
+### Bug Fixes
+
+* implement fallback ([8fa858b](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/8fa858bc2406d41d5ebd1edb44c8e06df813702a))
+* patch cache ([1008be7](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1008be750895928af40c3abc4633f403682cbabe))
+* update cache at other places as well ([44d0630](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/44d0630b78b1209c9fea154684dc3ae6ea1ad3be))
+* update ipfs fetching (error, env gateway) ([#76](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/76)) ([4863d2e](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/4863d2e8703b77dd43295347f786eadec0959a42))
+
 ## 3.1.6 (2024-08-16)
 
 
