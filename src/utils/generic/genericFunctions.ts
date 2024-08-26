@@ -61,9 +61,13 @@ export async function getProposalMetadataInit(
 
   try {
     const ipfsResponse = await fetch(ipfsPath);
-    if (!ipfsResponse.ok) throw new Error(`IPFS: error fetching ${ipfsPath}`);
-    isRequestSuccess = true;
-    return await getProposalMetadataBase({ ipfsHash, ipfsResponse });
+    if (!ipfsResponse.ok) {
+      console.error(`IPFS: error fetching ${ipfsPath}`);
+      throw new Error(`IPFS: error fetching ${ipfsPath}`);
+    } else {
+      isRequestSuccess = true;
+      return await getProposalMetadataBase({ ipfsHash, ipfsResponse });
+    }
   } catch (e) {
     if (!!fallbackGateways?.length) {
       for (let i = 0; i < fallbackGateways.length && !isRequestSuccess; i++) {
@@ -72,13 +76,16 @@ export async function getProposalMetadataInit(
         await new Promise((resolve) => setTimeout(resolve, 1000));
         try {
           const ipfsResponseInside = await fetch(ipfsInsidePath);
-          if (!ipfsResponseInside.ok)
+          if (!ipfsResponseInside.ok) {
             console.error(`IPFS: error fetching ${ipfsInsidePath}`);
-          isRequestSuccess = true;
-          return await getProposalMetadataBase({
-            ipfsHash,
-            ipfsResponse: ipfsResponseInside,
-          });
+            throw new Error(`IPFS: error fetching ${ipfsInsidePath}`);
+          } else {
+            isRequestSuccess = true;
+            return await getProposalMetadataBase({
+              ipfsHash,
+              ipfsResponse: ipfsResponseInside,
+            });
+          }
         } catch (e) {
           console.error(`IPFS: error fetching ${ipfsPath}`);
         }

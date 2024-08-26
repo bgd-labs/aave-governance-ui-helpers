@@ -40,6 +40,7 @@ jobs:
           RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
           RPC_ZKEVM: ${{ secrets.RPC_ZKEVM }}
           RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
+          IPFS_GATEWAY: ${{ secrets.IPFS_GATEWAY }}
 
       - name: Parse cache to separate files
         shell: sh
@@ -53,6 +54,7 @@ jobs:
           RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
           RPC_ZKEVM: ${{ secrets.RPC_ZKEVM }}
           RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
+          IPFS_GATEWAY: ${{ secrets.IPFS_GATEWAY }}
 
       - name: Check code diff and push
         run: |
