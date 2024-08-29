@@ -1347,5 +1347,14 @@
     "discussions": "https://governance.aave.com/t/arfc-increase-weth-optimal-ratio-to-90-on-all-aave-markets/18556",
     "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x2930599cae3cec0a16bd0aef13524347e0c5e85cff7dd66ae9b2bed90fc5d1fe",
     "originalIpfsHash": "0xfe61618aec99c1250f1fe4e33b033c4893e7d44079f139f79f67fb676eedfb31"
+  },
+  "0xd46124e556c224e5e9a5b4d202548931ea58f9dee5bb517929166ce0f068813c": {
+    "ipfsHash": "Qmcdh4DNiFzHoyjKD5SLHsNGdXCCHXDLosNPnCgGQiCDWK",
+    "description": "\n## Simple Summary\n\nThis publication proposes swapping assets held in the Treasury for GHO and funding Phase III of the Merit and Ahab programs.\n\n## Motivation\n\nWith Phase III of the Merit and Ahab program about to start, August 9th, this publication proposes creating two new Allowances to fund the @ACI led growth programs.\n\nThe budget for these programs is the same as the Phase II, 645 ETH, and 3M GHO. The ETH is expected to be claimed and deposited into the Lido's instance of Aave v3 and the GHO claimed periodically ahead of each subsequent Merit rewards round.\n\nIn addition, this proposal also swaps approximately 640k of Stablecoin assets held in the Treasury to GHO. In combination with the May Funding Part A and Part B, these swaps are enough to offset the GHO spend of the Merit program.\n\n## Specification\n\n### Merit + Ahab Programs\n\nCreate allowances to the Merit and Ahab, 3M GHO and 645 ETH from Aave v3 Ethereum:\n\nSAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`\n\n### Runway Updates\n\nSwap the following asset for GHO via the Aave Swapper.\n\n| Withdraw & Swap to GHO |\n| :--------------------: |\n|    aEthUSDe (All-1)    |\n|      aUSDT (0.5M)      |\n|     aFRAX (All-1)      |\n|    aEthFRAX (All-1)    |\n|      aDPI (All-1)      |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fce3898d3aefb9c7e965177381c393f03877dd13/src/20240729_AaveV3Ethereum_JulyFundingUpdate/AaveV3Ethereum_JulyFundingUpdate_20240729.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fce3898d3aefb9c7e965177381c393f03877dd13/src/20240729_AaveV3Ethereum_JulyFundingUpdate/AaveV3Ethereum_JulyFundingUpdate_20240729.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-july-funding-update/18447)\n\n# Disclosure\n\nTokenLogic and karpatkey receive no payment for this proposal. TokenLogic and karpatkey are both delegates within the Aave community.\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "July Funding Update",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-july-funding-update/18447",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0xd46124e556c224e5e9a5b4d202548931ea58f9dee5bb517929166ce0f068813c"
   }
 }
