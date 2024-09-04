@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x020E4359255f907DF480EbFfc8a7b7beac0c0216",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1725438947,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1728462947,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xee5BC1F738e8100279d293a376bF5ffE60BCDa36",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 166,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmThgnBvQi8WnUPW6RcaCU5nYxeLdVqG881hxMMrasoR3u",
+    "description": "\n## Simple Summary\n\nThis AIP activates an Aave v3 EtherFi instance in the Ethereum network, following [ARFQ request](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440), focused on weETH holders borrowing stablecoins.\n\n## Motivation\n\nThe demand for borrowing wETH on Aave using weETH as collateral is extremely high, with caps being filled within minutes each week.\n\nWhile this $2B growth is welcomed and responsible for ~$12.5M yearly revenue (at current ETH prices) for the DAO, it has created some frustration for significant users looking to borrow stablecoins using their weETH as collateral.\n\nWith this asset being constantly at cap, users are wary of leveraging Aave for this use case as they have legitimate concerns about their ability to add more collateral/debt to (de)leverage following market conditions.\n\nTo provide weETH holders with more suitable options, we propose creating a dedicated weETH/stablecoin Aave v3 Instance.\n\nThis market also lays the groundwork for future integrations & synergies with EtherFi’s Cash product.\n\n## Specification\n\nThe Etherfi/Stables Aave v3 instance activation payload implements the following:\n\n- Pre-execution:\n  - Register Ethereum EtherFi instance in Ethereum V3 PoolAddressesProviderRegistry with ID 45.\n- Execution:\n  - Listing of weETH, USDC, PYUSD, and FRAX tokens.\n- Post execution:\n  - Add PROTOCOL_GUARDIAN as POOL_ADMIN role\n  - Add CAPS_PLUS_RISK_STEWARD as RISK_ADMIN role\n  - Seed amounts\n  - Pay Catapulta service fee\n\nThe table below illustrates the configured risk parameters\\* for Aave v3 EtherFi Ethereum instance:\n\n| Parameter                 |                                      weETH |                                       USDC |                                      PYUSD |                                       FRAX |\n| ------------------------- | -----------------------------------------: | -----------------------------------------: | -----------------------------------------: | -----------------------------------------: |\n| Isolation Mode            |                                      false |                                      false |                                      false |                                      false |\n| Borrowable                |                                   DISABLED |                                    ENABLED |                                    ENABLED |                                    ENABLED |\n| Collateral Enabled        |                                       true |                                      false |                                      false |                                      false |\n| Supply Cap                |                                     50,000 |                                140,000,000 |                                 60,000,000 |                                 15,000,000 |\n| Borrow Cap                |                                          0 |                                135,000,000 |                                 54,000,000 |                                 12,000,000 |\n| Debt Ceiling              |                                      USD 0 |                                      USD 0 |                                      USD 0 |                                      USD 0 |\n| LTV                       |                                       78 % |                                        0 % |                                        0 % |                                        0 % |\n| LT                        |                                       81 % |                                        0 % |                                        0 % |                                        0 % |\n| Liquidation Bonus         |                                        6 % |                                        0 % |                                        0 % |                                        0 % |\n| Liquidation Protocol Fee  |                                       10 % |                                \\*\\*\\* 10 % |                                       10 % |                                       10 % |\n| Reserve Factor            |                                  \\*\\* 45 % |                                       10 % |                                       20 % |                                       20 % |\n| Base Variable Borrow Rate |                                        0 % |                                        0 % |                                        0 % |                                        0 % |\n| Variable Slope 1          |                                   \\*\\* 7 % |                                      6.5 % |                                      5.5 % |                                      5.5 % |\n| Variable Slope 2          |                                 \\*\\* 300 % |                                       60 % |                                       80 % |                                       80 % |\n| Uoptimal                  |                                  \\*\\* 35 % |                                       90 % |                                       90 % |                                       90 % |\n| Stable Borrowing          |                                   DISABLED |                                   DISABLED |                                   DISABLED |                                   DISABLED |\n| Flashloanable             |                                    ENABLED |                                    ENABLED |                                    ENABLED |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |                                   DISABLED |                                   DISABLED |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |                                   DISABLED |                                   DISABLED |                                   DISABLED |\n| Oracle                    | 0xf112aF6F0A332B815fbEf3Ff932c057E570b62d3 | 0x736bF902680e68989886e9807CD7Db4B3E015d3C | 0x150bAe7Ce224555D39AfdBc6Cb4B8204E594E022 | 0x45D270263BBee500CF8adcf2AbC0aC227097b036 |\n\n\\* The risk parameters follows latest [Chaos Labs recommendation](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440/10).\n\n\\*\\* Deviation of risk params for `weETH` from original ARFQ due \"0\" is not a valid value for `RESERVE_FACTOR, Uoptimal, Variable Slope 1, Variable Slope 2` and causes payload to fail due validation errors. The updates values are from Aave V3 Ethereum Mainnet market and this does NOT enable the token as borrowable.\n\n\\*\\*\\* Deviation of risk param \"Liquidation Protocol Fee\" for `USDC`, set to \"10%\" to keep constistency from the rest of tokens. This change does not affect due USDC token will not have collateral enabled.\n\n## References\n\n- Implementation: [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/3190d5b947d8e5185260a1d2ed93049a81fa3d26/src/20240902_AaveV3EthereumEtherFi_EtherFiEthereumActivation/AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.sol)\n- Tests: [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/3190d5b947d8e5185260a1d2ed93049a81fa3d26/src/20240902_AaveV3EthereumEtherFi_EtherFiEthereumActivation/AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.t.sol)\n- [Catapulta deployment report](https://catapulta.sh/report/719c68e7-9829-455d-a580-b5c93b25812a)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4acd11c6100a6b85a553e21359f3720fa5cd4783a76c77857436ace134f88c05)\n- [Discussion](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440)\n- [Code diff between EtherFi and Lido Aave V3 instances](https://diffy.org/diff/499d8ea81137d)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Aave v3 EtherFi Ethereum Activation",
+    "author": "Catapulta",
+    "discussions": "https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x4acd11c6100a6b85a553e21359f3720fa5cd4783a76c77857436ace134f88c05",
+    "originalIpfsHash": "0x4fadf8fd69d0a3438ed48d6c69173bee13ab0789ef29bfd931c30adce38b8438"
+  },
+  "proposal": {
+    "id": 157,
+    "votingDuration": 259200,
+    "creationTime": 1725460799,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x4fadf8fd69d0a3438ed48d6c69173bee13ab0789ef29bfd931c30adce38b8438",
+    "initialPayloads": [
+      {
+        "id": 166,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 157,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1725462399,
+    "cancellationFee": 50000000000000000
+  }
+}
