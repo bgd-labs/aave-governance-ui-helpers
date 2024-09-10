@@ -1,0 +1,145 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1725966839,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1728990839,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xBbb09Ad48364E1E7aA55B6c2b21644f158a6bA9C",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 169,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1725966947,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1728990947,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xC0812D60C47e5485baf1Bc1C51bC9962D68C03f9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 48,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1725967085,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1728991085,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x10335D5af1180545A739c994c525c42De9322E16",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 21,
+      "chainId": 56,
+      "payloadsController": "0xE5EF2Dd06755A97e975f7E282f828224F2C3e627"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmcQxYs9gM1UVdcyRX4Qeoqco951FyUvWZkGTV7BUsCY2x",
+    "description": "\n## Simple Summary\n\nDecrease supply and borrow caps for underutilized stablecoins on Aave V3.\n\n## Motivation\n\nAs part of our ongoing strategy to optimize risk management on Aave, this proposal aims to address the low utilization of certain stablecoins by significantly reducing their supply cap and borrow cap values.\n\nWe recommend reducing the caps for various stablecoins that have consistently shown low supply and borrow demand over an extended period. All targeted stablecoins have demonstrated an average supply and borrow cap utilization below 15% for the last month. By keeping tighter caps relative to current demand, we aim to protect the protocol from potential risks associated with abnormal or unexpected events. These risks include significant stablecoin depegging and major hacks, which could result in an unexpected surge of risk in the protocol.\n\nShould demand for these stablecoins increase, we can adjust the caps accordingly based on our established supply and borrow cap methodology.\n\nThis approach seeks to enhance the protocol’s resilience and stability in fluctuating market conditions, protecting the interests of Aave users and stakeholders.\n\n### Notable Low Utilization Stablecoins (crvUSD, LUSD)\n\nThere is currently low demand and utilization for crvUSD and LUSD across multiple Aave markets, highlighting a need for reassessment of borrow caps to match the reduced activity:\n\n- crvUSD on Ethereum has a current supply utilization of only 0.85%, which saw spikes up to only 4% in the last six months.\n- LUSD on Optimism also continues to experience low utilization rates, with just 7.83% supply utilization.\n\n### Ethena sUSDe\n\nThe supply utilization of Ethena sUSDe spiked to 4% during the listing and later stabilized around 1%. Maintaining a supply cap so high exposes the protocol to unnecessary risk.\n\n### Highly Liquid Stablecoins (DAI, USDC)\n\nWhile DAI on AAVE V3 Optimism and USDC on AAVE V3 BNB Chain are highly liquid safe assets, the high supply cap causes the markets to be underutilized.\n\n## Specification\n\nThe target recommendations are calculated as twice the highest demand observed over the past six months or as 75% of the on-chain supply, whichever is lower. We suggest lowering the supply and borrow caps for the following assets, as outlined below.\n\n| Market   | Asset  | Current Supply Cap | Current Supply Utilization | Recommended Supply Cap | Current Borrow Cap | Current Borrow Utilization | Recommended Borrow Cap |\n| -------- | ------ | ------------------ | -------------------------- | ---------------------- | ------------------ | -------------------------- | ---------------------- |\n| Ethereum | crvUSD | 60,000,000         | 0.85%                      | 5,000,000              | 50,000,000         | 0.80%                      | 2,500,000              |\n| Optimism | LUSD   | 3,000,000          | 7.83%                      | 2,000,000              | 1,210,000          | 11.33%                     | 500,000                |\n| Ethereum | sUSDe  | 85,000,000         | 1.14%                      | 4,000,000              | -                  | -                          | -                      |\n| Optimism | DAI    | 25,000,000         | 12.17%                     | 10,000,000             | 16,000,000         | 17.00%                     | 7,000,000              |\n| BNB      | USDC   | 50,000,000         | 6.02%                      | 15,000,000             | 45,000,000         | 5.39%                      | 10,000,000             |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9dbd107913e29000daa587dcb3ee48048c9bbeb5/src/20240906_Multi_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3/AaveV3Ethereum_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3_20240906.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/9dbd107913e29000daa587dcb3ee48048c9bbeb5/src/20240906_Multi_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3/AaveV3Optimism_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3_20240906.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/9dbd107913e29000daa587dcb3ee48048c9bbeb5/src/20240906_Multi_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3/AaveV3BNB_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3_20240906.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9dbd107913e29000daa587dcb3ee48048c9bbeb5/src/20240906_Multi_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3/AaveV3Ethereum_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3_20240906.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/9dbd107913e29000daa587dcb3ee48048c9bbeb5/src/20240906_Multi_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3/AaveV3Optimism_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3_20240906.t.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/9dbd107913e29000daa587dcb3ee48048c9bbeb5/src/20240906_Multi_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3/AaveV3BNB_ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3_20240906.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x1ea388307b70d30c040f63e8a09d49276c5c8c9ef2fd809809f253654e5f5f06)\n- [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-decrease-supply-and-borrow-caps-on-aave-v3-08-28-2024/18793)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Chaos Labs Risk Parameter Updates - Decrease Supply and Borrow Caps on Aave V3 ",
+    "author": "Chaos Labs",
+    "discussions": "https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-decrease-supply-and-borrow-caps-on-aave-v3-08-28-2024/18793",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x1ea388307b70d30c040f63e8a09d49276c5c8c9ef2fd809809f253654e5f5f06",
+    "originalIpfsHash": "0xd11e1cdada4dcc3b4da302aefd45121753a2ef053a7f835157a3b3c831e07e05"
+  },
+  "proposal": {
+    "id": 161,
+    "votingDuration": 259200,
+    "creationTime": 1725968291,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xd11e1cdada4dcc3b4da302aefd45121753a2ef053a7f835157a3b3c831e07e05",
+    "initialPayloads": [
+      {
+        "id": 169,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 48,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 21,
+        "chainId": 56,
+        "payloadsController": "0xE5EF2Dd06755A97e975f7E282f828224F2C3e627"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 161,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1725970248,
+    "cancellationFee": 50000000000000000
+  }
+}
