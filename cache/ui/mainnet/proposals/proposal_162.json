@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1725984059,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1729008059,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x8d85e42BB8dE496ef63D28C58b54b1d9580d8564",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 170,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmbRhULEC3jGKhAuyxd4jXsLX2imG1gtPow8dbWRKgtJHH",
+    "description": "\n## Simple Summary\n\nProposing the renewal of the Orbit program for recognized delegates, compensating them with GHO and ETH reimbursement of Gas costs , associated with their governance activity during part of Q3 2024 ( From 2024-05-13 to 2024-08-30).\n\nTo compensate the missed compensation between the previous round of Orbit and the current one, a one-off compensation of 2200 GHO (worth 13 days of stream) is implemented.\n\n## Motivation\n\nOrbit recognizes the added value of the Delegates in the decentralization & diversity of the Aave DAO. This compensation allows them to focus on aave and keep their contribution efforts to our governance. The ACI proposes the extension of Orbit for a new quarter, Q3 2024, from 2024-05-13 to 2024-08-30.\nAn additional compensation is provided to account for the gap in distribution.\n\n**Gas Rebate:**\n\nInitially meant to reimburse gas cost associated with governance voting, the gas rebate has been entirely focused on service provider gas reimbursement since the launch of Aave governance V3, we propose to segregate these payments after this proposal to keep focus and consistency in the Orbit program.\n\nGas reimbursements from service providers activity are proposed to be managed by Aave Finance service providers in their monthly treasury management update.\n\n## Specification\n\n- **Period Coverage:** Blocks 19860032 (May 13th 2024) to Block 20639896 (August 30th 2024)\n- **Eligible Platforms:**\n  - EzR3al\n  - StableNode\n  - Saucy Block\n  - Areta\n- **Gas Rebate:** Last service provider gas rebate using orbit:\n  - ACI : 2.91 ETH\n  - Catapulta: 0.67 ETH\n  - TokenLogic: 0.72 ETH\n- **Budget:** 68800 GHO and 4.3 ETH\n- **Relevant Links:**\n  - [Script output ](https://www.notion.so/Gov-V3-August-2024-script-Output-55c7ee78d48a4126a295f74a0dbf883c?pvs=21)\n  - [ACI’s Orbit tracker ](https://dapps.aavechan.com/orbit-tracker)\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fb4a864dbc7d3048fa2c22437ab082e77bf4552a/src/20240905_AaveV3Ethereum_OrbitProgramRenewalQ32024/AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fb4a864dbc7d3048fa2c22437ab082e77bf4552a/src/20240905_AaveV3Ethereum_OrbitProgramRenewalQ32024/AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xea325542397fce607755f6c14be407f60a71a81f3a23c6b3a67e298b9dd8c091)\n- [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-2024/18834)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Orbit Program Renewal - Q3 2024",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-orbit-program-renewal-q3-2024/18834",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xea325542397fce607755f6c14be407f60a71a81f3a23c6b3a67e298b9dd8c091",
+    "originalIpfsHash": "0xc272f529dc38017c4880f8af0ec5fc13ca3f6c5de9be35e457ff5862fce1183c"
+  },
+  "proposal": {
+    "id": 162,
+    "votingDuration": 259200,
+    "creationTime": 1725984119,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xc272f529dc38017c4880f8af0ec5fc13ca3f6c5de9be35e457ff5862fce1183c",
+    "initialPayloads": [
+      {
+        "id": 170,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 162,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1725991660,
+    "cancellationFee": 50000000000000000
+  }
+}
