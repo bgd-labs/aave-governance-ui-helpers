@@ -1,0 +1,175 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1726162331,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1729186331,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x1cd2d6D7851Cb7D6E636AD13315d4B1712b63728",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 171,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1726162443,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1729186443,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xaC9d46d728FF4b8E61ce32110BbaDE37989DBcd7",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 50,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1726162571,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1729186571,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x7204d840eafF1b9E1621A90Eb4251396FE50320A",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 35,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1726162732,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1729186732,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x6949Ef84C8541Df2bE3a532a3DA6666C56e30e5b",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 22,
+      "chainId": 534352,
+      "payloadsController": "0x6b6B41c0f8C223715f712BE83ceC3c37bbfDC3fE"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmNcrwSvdFKVME9ZXfCGEiYi4MzmiLd8brMJSpXy36sUab",
+    "description": "\n## Simple Summary\n\nThis proposal aims to harmonize weETH parameters across all networks where it is supported.\n\n## Motivation\n\nThis proposal aims to harmonize weETH parameters across all networks where it is supported.\n\nThe key changes include:\n\nSetting the base variable borrow rate for weETH to 1%\nAdjusting the Reserve Factor (RF) to 45% on all networks\nSetting the optimal utilization ratio to 30%\nThe primary motivations for these parameter adjustments are:\n\n**Increased Revenue for the DAO**: By harmonizing these parameters, particularly the increase in the Reserve Factor, we can generate additional revenue for the Aave DAO.\n\n**Improved External Liquidity**: The proposed changes, especially the adjustment of the optimal utilization ratio, are expected to enhance the external liquidity of weETH. This improvement in liquidity can lead to more efficient liquidity and better capital utilization within the Aave ecosystem.\n\n**Consistency Across Networks**: By standardizing these parameters across all networks where weETH is supported, we create a more uniform and predictable environment for users and integrators. This consistency will lead to improved user experience and easier management of the asset across different networks.\n\nThese changes represent a balanced approach to optimizing the performance of weETH within the Aave protocol, benefiting both the DAO and its users while maintaining weETH’s attractiveness and utility\n\n## Specification\n\nOn all networks, change weETH parameters to:\n\n- Base variable borrow rate for weETH to 1%\n- Adjusting the Reserve Factor (RF) to 45%\n- Setting the optimal utilization ratio to 30%\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Ethereum_HarmonizeWeETHParameters_20240911.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Arbitrum_HarmonizeWeETHParameters_20240911.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Base_HarmonizeWeETHParameters_20240911.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Scroll_HarmonizeWeETHParameters_20240911.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Ethereum_HarmonizeWeETHParameters_20240911.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Arbitrum_HarmonizeWeETHParameters_20240911.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Base_HarmonizeWeETHParameters_20240911.t.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/0dc19277b2a0817c3e90f718ab688f400b4b2318/src/20240911_Multi_HarmonizeWeETHParameters/AaveV3Scroll_HarmonizeWeETHParameters_20240911.t.sol)\n- [Snapshot](Direct-To-AIP)\n- [Discussion](https://governance.aave.com/t/arfc-harmonize-weeth-parameters/19012)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Harmonize weETH Parameters",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-harmonize-weeth-parameters/19012",
+    "snapshot": "Direct-To-AIP",
+    "originalIpfsHash": "0x04271f18d6488ac110ba7d0faa32b0c9dbb68828585a85a5f52c2da055dcf8c8"
+  },
+  "proposal": {
+    "id": 163,
+    "votingDuration": 259200,
+    "creationTime": 1726162787,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x04271f18d6488ac110ba7d0faa32b0c9dbb68828585a85a5f52c2da055dcf8c8",
+    "initialPayloads": [
+      {
+        "id": 171,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 50,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      },
+      {
+        "id": 35,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      },
+      {
+        "id": 22,
+        "chainId": 534352,
+        "payloadsController": "0x6b6B41c0f8C223715f712BE83ceC3c37bbfDC3fE"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 163,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1726164476,
+    "cancellationFee": 50000000000000000
+  }
+}
