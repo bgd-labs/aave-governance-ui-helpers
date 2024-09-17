@@ -1444,5 +1444,14 @@
     "discussions": "https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937",
     "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xb74537a0528f484e9cc76d8c7931eedef7b6290e7d2dc725b2c98e623a214f95",
     "originalIpfsHash": "0x93d05154849d2134ec4599cfc4e9da9755b3a47d30d9db27d2f2ea2a1b3d98b6"
+  },
+  "0x8f48e7201b581c5b1398cc1fc113ad7441e1c349cb80d29b84034a6dc039d2c6": {
+    "ipfsHash": "QmXyyV8zyeTC3nQ39iQbufXoWqWTCnBaqj67XppFZucgGm",
+    "description": "\n## Simple Summary\n\nThis AIP aims to decrease the GHO borrow rate from its current level to 4.25% to enhance its competitiveness in the current market conditions.\n\n## Motivation\n\nThe DeFi landscape is constantly evolving, and stablecoin protocols must adapt to remain competitive. Recent market analysis indicates:\n\n- A general decrease in borrowing demand for stablecoins across DeFi platforms.\n- Competing stablecoins offering more attractive rates, potentially drawing users away from GHO.\n- An opportunity to increase GHO's market share by offering more competitive rates.\n\nBy reducing the borrow rate, we aim to:\n\n- Increase the attractiveness of GHO for borrowers\n- Stimulate the growth of GHO's total supply\n- Enhance GHO's position in the stablecoin market\n\n## Specification\n\nThe GHO borrow rate is to be revised as follows:\n\n| Description | Current | Proposed | Reduction |\n| ----------- | ------- | -------- | --------- |\n| Borrow Rate | 5.00%   | 4.25%    | 0.75%     |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0a6aaa91659019ea1b6b025bbf1b4315fdd65d45/src/20240912_AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024/AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024_20240912.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0a6aaa91659019ea1b6b025bbf1b4315fdd65d45/src/20240912_AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024/AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024_20240912.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Gho Borrow Rate Update September 2024",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x8f48e7201b581c5b1398cc1fc113ad7441e1c349cb80d29b84034a6dc039d2c6"
   }
 }
