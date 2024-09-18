@@ -1,0 +1,115 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1726657307,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1729681307,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x9edaC3Ce0Fc919f792d3B72D767d22FD382Faf21",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 176,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1726657855,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1729681855,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x8C97eC66De2A0167fF1048E4D9A77E90067c98eb",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 36,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmX4k77z4eQw6F9CRFwBCTHtaskXwFr1eNRYV4LENUG1bk",
+    "description": "\n## Simple Summary\n\nThe proposal aims to onboard Coinbase’s cbBTC, to the Aave v3 protocol on Mainnet main instance & Base.\n\n## Motivation\n\ncbBTC, a new Bitcoin wrapper offering from Coinbase, is marking Coinbase’s entry into the wrapped Bitcoin market with cbBTC brings a unique value proposition to the Aave ecosystem.\n\nThis new asset will diversify the options available for Bitcoin holders looking to participate in DeFi activities on Aave v3.\n\nFurthermore, cbBTC’s integration aligns with Aave’s commitment to offering a wide range of high-quality assets. It will enable users to tap into Coinbase’s liquidity and reputation while benefiting from Aave’s established lending and borrowing functionalities. This synergy between a major centralized exchange and a leading DeFi protocol could attract more mainstream users to Aave, contributing to the overall growth and adoption of the platform.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **cbBTC** on Ethereum main pool and Base pool:\n\n| Parameter                 | Ethereum Main Pool                         | Base Pool                                  |\n| ------------------------- | ------------------------------------------ | ------------------------------------------ |\n| Isolation Mode            | false                                      | false                                      |\n| Borrowable                | ENABLED                                    | ENABLED                                    |\n| Collateral Enabled        | true                                       | true                                       |\n| Supply Cap (cbBTC)        | 450                                        | 200                                        |\n| Borrow Cap (cbBTC)        | 45                                         | 20                                         |\n| Debt Ceiling              | USD 0                                      | USD 0                                      |\n| LTV                       | 73 %                                       | 73 %                                       |\n| LT                        | 78 %                                       | 78 %                                       |\n| Liquidation Bonus         | 7.5 %                                      | 7.5 %                                      |\n| Liquidation Protocol Fee  | 10 %                                       | 10 %                                       |\n| Reserve Factor            | 20 %                                       | 20 %                                       |\n| Base Variable Borrow Rate | 0 %                                        | 0 %                                        |\n| Variable Slope 1          | 4 %                                        | 4 %                                        |\n| Variable Slope 2          | 300 %                                      | 300 %                                      |\n| Uoptimal                  | 45 %                                       | 45 %                                       |\n| Stable Borrowing          | DISABLED                                   | DISABLED                                   |\n| Flashloanable             | ENABLED                                    | ENABLED                                    |\n| Siloed Borrowing          | DISABLED                                   | DISABLED                                   |\n| Borrowable in Isolation   | DISABLED                                   | DISABLED                                   |\n| Oracle                    | 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c | 0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Ethereum_OnboardCbBTCOnMainnetAndBase_20240917.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Base_OnboardCbBTCOnMainnetAndBase_20240917.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Ethereum_OnboardCbBTCOnMainnetAndBase_20240917.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Base_OnboardCbBTCOnMainnetAndBase_20240917.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x7dd65a983a069e9e4def961e116b78acef6965ecb63aebfb26e34a1dcd97b060)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-cbbtc-to-aave-v3-on-base-and-mainnet/18988)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard CbBTC on Mainnet and Base",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-cbbtc-to-aave-v3-on-base-and-mainnet/18988",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x7dd65a983a069e9e4def961e116b78acef6965ecb63aebfb26e34a1dcd97b060",
+    "originalIpfsHash": "0x81a5fdd7fab7ee5b45231af1b8934dea3a93ce530575bcce16dc7bb74691b6c7"
+  },
+  "proposal": {
+    "id": 169,
+    "votingDuration": 259200,
+    "creationTime": 1726658027,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x81a5fdd7fab7ee5b45231af1b8934dea3a93ce530575bcce16dc7bb74691b6c7",
+    "initialPayloads": [
+      {
+        "id": 176,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 36,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 169,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1726661407,
+    "cancellationFee": 50000000000000000
+  }
+}
