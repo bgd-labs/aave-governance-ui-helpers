@@ -1,0 +1,161 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1727346395,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1730370395,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x1b8874622C5C848dA78CA8e16EF29068EFc17c82",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        },
+        {
+          "target": "0x14eFcD9fE00dda2F3e0553ca031bbE1a5Ce19777",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        },
+        {
+          "target": "0x13756E835C05dA2a10C810A94c00cE8EF499f4cB",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 181,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1727346541,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1730370541,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x926FA1ED0B687b443b6f7fE614e04F9F7CeAe9f5",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 51,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1727346903,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1730370903,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x926FA1ED0B687b443b6f7fE614e04F9F7CeAe9f5",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 53,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmRdjKAkPp52pnRoDJM1CxsieNZLZL1KB2uHbGzG7eZGSw",
+    "description": "\n## Simple Summary\n\nThis AIP updates whitelisted flashBorrowers addresses across various instances of Aave v3.\n\n## Motivation\n\nUpon execution, this AIP will implement will waiver flash loan fees for the following:\n\n- A new address associated with CIAN Protocol across all instances of Aave v3 on Ethereum, Optimism and Arbitrum; and,\n- Existing addresses associated with Index Coop and Contango on the Lido and EtherFi instances only.\n\nEach of the mentioned team has expressed interest in integrating with these new instances of Aave v3.\n\n## Specification\n\nThis AIP, will call addFlashBorrower() on the ACL_MANAGER contract to whitelist the addresses as outlined below:\n\n| Network  | Instance                   | Protocol      | Address                                                                                                                            | Contract Name           |\n| -------- | -------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |\n| Ethereum | Main Market, Lido, EtherFi | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)            | FlashloanHelper         |\n| Arbitrum | Main Market                | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://arbiscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)             | FlashloanHelper         |\n| Optimism | Main Market                | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://optimistic.etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b) | FlashloanHelper         |\n| Ethereum | Lido, EtherFi              | Index Coop    | [`0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0`](https://etherscan.io/address/0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0)            | FlashMintLeveraged      |\n| Ethereum | Lido, EtherFi              | Contango      | [`0xab515542d621574f9b5212d50593cD0C07e641bD`](https://etherscan.io/address/0xab515542d621574f9b5212d50593cD0C07e641bD)            | PermissionedAaveWrapper |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3Ethereum_AddFlashBorrowers_20240906.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3EthereumLido_AddFlashBorrowers_20240906.sol), [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3EthereumEtherFi_AddFlashBorrowers_20240906.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3Optimism_AddFlashBorrowers_20240906.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3Arbitrum_AddFlashBorrowers_20240906.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3Ethereum_AddFlashBorrowers_20240906.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3EthereumLido_AddFlashBorrowers_20240906.t.sol), [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3EthereumEtherFi_AddFlashBorrowers_20240906.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3Optimism_AddFlashBorrowers_20240906.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/b966b2e0da664a57b16c38609b980ac4f9478fa0/src/20240906_Multi_AddFlashBorrowers/AaveV3Arbitrum_AddFlashBorrowers_20240906.t.sol)\n- [Snapshot](Direct-to-AIP)\n- [Discussion](https://governance.aave.com/t/arfc-add-cian-protocol-to-flashborrowers/18731)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Update flashBorrowers",
+    "author": "Karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-add-cian-protocol-to-flashborrowers/18731",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x30f32410de932d82dece0524b7dc1b731b7f140b43b7525715b839b7e4a35c4c"
+  },
+  "proposal": {
+    "id": 174,
+    "votingDuration": 259200,
+    "creationTime": 1727346971,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x30f32410de932d82dece0524b7dc1b731b7f140b43b7525715b839b7e4a35c4c",
+    "initialPayloads": [
+      {
+        "id": 181,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 51,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 53,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 174,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1727354607,
+    "cancellationFee": 50000000000000000
+  }
+}
