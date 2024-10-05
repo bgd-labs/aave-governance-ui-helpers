@@ -1559,5 +1559,13 @@
     "author": "@karpatkey_TokenLogic",
     "discussions": "https://governance.aave.com/t/arfc-aave-liquidity-committee-funding-phase-iv/19188",
     "originalIpfsHash": "0x533f3e36e9407910de9501e672099ca132cf37410ac6f475f940b2c0536687aa"
+  },
+  "0x6c08584ec488b99df6c6ddb9bcc156779bd8517f4a7f8f5a68955eca6d63a329": {
+    "ipfsHash": "QmVcN7z1v5gqNWrPraup8pDD5wFn9V5KZgbVcJMxNzfAGY",
+    "description": "\n## Simple Summary\n\nThis AIP will deposit idle assets and migrate v2 treasury holdings to Aave v3 on Ethereum. This AIP also executes the [Request for Bounty Payout - September 2024](https://governance.aave.com/t/bgd-request-for-bounty-payout-september-2024/19256).\n\n## Motivation\n\nThis AIP furthers the ongoing migration of Aave DAO Treasury assets from v2 to v3. Additionally, it proposes depositing assets currently not generating yield, which are held in the Treasury from previous funding proposals, into Aave v3 on Ethereum.\n\n## Specification\n\nThis AIP will implement the following when executes:\n\n- Deposit idle assets into Aave v3:\n  - USDC\n  - DAI\n  - USDT\n  - wETH\n- Migrate the following assets from v2 to v3 main market:\n  - All aUSDT excluding 200k\n  - All aDAI excluding 1\n  - All aUSDC excluding 1\n  - All awETH excluding 1\n- Pay the following bug bounties:\n  - $500 to 0x1770776deB0A5CA58439759FAdb5cAA014501241\n  - $1’000 to 0x7dF98A6e1895fd247aD4e75B8EDa59889fa7310b\n  - $150 to 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18 (immunefi.eth). This is the fee corresponding to the 10% of the previous bounties.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6b9228328a9aee78b9a1706862c01a593ca80cc6/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6b9228328a9aee78b9a1706862c01a593ca80cc6/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-may-funding-update/17768/5)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "May Funding Update Part B",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-may-funding-update/17768/5",
+    "originalIpfsHash": "0x6c08584ec488b99df6c6ddb9bcc156779bd8517f4a7f8f5a68955eca6d63a329"
   }
 }

@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1728124031,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1731148031,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x1fd1d93223Cce5248638023E1F387FF540d6EbEc",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 188,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmVcN7z1v5gqNWrPraup8pDD5wFn9V5KZgbVcJMxNzfAGY",
+    "description": "\n## Simple Summary\n\nThis AIP will deposit idle assets and migrate v2 treasury holdings to Aave v3 on Ethereum. This AIP also executes the [Request for Bounty Payout - September 2024](https://governance.aave.com/t/bgd-request-for-bounty-payout-september-2024/19256).\n\n## Motivation\n\nThis AIP furthers the ongoing migration of Aave DAO Treasury assets from v2 to v3. Additionally, it proposes depositing assets currently not generating yield, which are held in the Treasury from previous funding proposals, into Aave v3 on Ethereum.\n\n## Specification\n\nThis AIP will implement the following when executes:\n\n- Deposit idle assets into Aave v3:\n  - USDC\n  - DAI\n  - USDT\n  - wETH\n- Migrate the following assets from v2 to v3 main market:\n  - All aUSDT excluding 200k\n  - All aDAI excluding 1\n  - All aUSDC excluding 1\n  - All awETH excluding 1\n- Pay the following bug bounties:\n  - $500 to 0x1770776deB0A5CA58439759FAdb5cAA014501241\n  - $1’000 to 0x7dF98A6e1895fd247aD4e75B8EDa59889fa7310b\n  - $150 to 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18 (immunefi.eth). This is the fee corresponding to the 10% of the previous bounties.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6b9228328a9aee78b9a1706862c01a593ca80cc6/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6b9228328a9aee78b9a1706862c01a593ca80cc6/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.t.sol)\n- [Discussion](https://governance.aave.com/t/arfc-may-funding-update/17768/5)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "May Funding Update Part B",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-may-funding-update/17768/5",
+    "originalIpfsHash": "0x6c08584ec488b99df6c6ddb9bcc156779bd8517f4a7f8f5a68955eca6d63a329"
+  },
+  "proposal": {
+    "id": 180,
+    "votingDuration": 259200,
+    "creationTime": 1728124139,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x6c08584ec488b99df6c6ddb9bcc156779bd8517f4a7f8f5a68955eca6d63a329",
+    "initialPayloads": [
+      {
+        "id": 188,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 180,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1728130186,
+    "cancellationFee": 50000000000000000
+  }
+}
