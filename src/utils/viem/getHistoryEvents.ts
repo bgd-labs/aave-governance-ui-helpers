@@ -2,7 +2,9 @@ import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
   IVotingMachineWithProofs_ABI,
-} from '@bgd-labs/aave-address-book';
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+} from '@bgd-labs/aave-address-book/abis';
 import { zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 

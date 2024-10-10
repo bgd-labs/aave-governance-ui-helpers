@@ -1,7 +1,9 @@
 import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
-} from '@bgd-labs/aave-address-book';
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+} from '@bgd-labs/aave-address-book/abis';
 import {
   AbiStateMutability,
   Address,

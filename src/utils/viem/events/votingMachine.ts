@@ -1,4 +1,6 @@
-import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book/abis';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
 import { Address, Client, getAbiItem } from 'viem';
 

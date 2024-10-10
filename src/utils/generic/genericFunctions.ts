@@ -35,6 +35,7 @@ export async function getProposalMetadataBase({
       description: content,
       ...data,
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     const data = matter(await clone.text());
     return {
@@ -68,8 +69,9 @@ export async function getProposalMetadataInit(
       isRequestSuccess = true;
       return await getProposalMetadataBase({ ipfsHash, ipfsResponse });
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
-    if (!!fallbackGateways?.length) {
+    if (fallbackGateways?.length) {
       for (let i = 0; i < fallbackGateways.length && !isRequestSuccess; i++) {
         const gatewayInside = fallbackGateways[i];
         const ipfsInsidePath = getLink(ipfsHash, gatewayInside);
@@ -86,6 +88,7 @@ export async function getProposalMetadataInit(
               ipfsResponse: ipfsResponseInside,
             });
           }
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (e) {
           console.error(`IPFS: error fetching ${ipfsPath}`);
         }
@@ -113,7 +116,7 @@ export async function getProposalMetadata({
   ];
 
   if (incorectedHashses.some((h) => hash === h)) {
-    if (!!setIpfsError) {
+    if (setIpfsError) {
       setIpfsError(hash, errorText);
     } else {
       console.error('Fetch metadata from ipfs error:', 'incorrect ipfs hash');
@@ -127,14 +130,14 @@ export async function getProposalMetadata({
         fallbackGateways,
       );
 
-      return !!metadata
+      return metadata
         ? {
             ...metadata,
             originalIpfsHash: hash,
           }
         : undefined;
     } catch (e) {
-      if (!!setIpfsError) {
+      if (setIpfsError) {
         setIpfsError(hash);
       } else {
         console.error('Fetch metadata from ipfs error:', e);

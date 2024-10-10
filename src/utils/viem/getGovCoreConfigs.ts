@@ -1,4 +1,6 @@
-import { IGovernanceDataHelper_ABI } from '@bgd-labs/aave-address-book';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import { IGovernanceDataHelper_ABI } from '@bgd-labs/aave-address-book/abis';
 import { Client, Hex } from 'viem';
 import { readContract } from 'viem/actions';
 
