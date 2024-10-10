@@ -1,4 +1,6 @@
-import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import { IVotingMachineWithProofs_ABI } from '@bgd-labs/aave-address-book/abis';
 import { Hex, zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 

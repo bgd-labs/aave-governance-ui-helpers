@@ -139,7 +139,7 @@ export function getDetailedProposalsData(
           state: +govData.proposalData.state,
           queuingTime: +govData.proposalData.queuingTime,
           ipfsHash: govData.proposalData.ipfsHash,
-          initialPayloads: govData.proposalData.payloads.map((payload) => {
+          initialPayloads: govData.proposalData.payloads.map((payload: any) => {
             return {
               id: payload.payloadId,
               chainId: Number(payload.chain),

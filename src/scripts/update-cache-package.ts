@@ -2,7 +2,7 @@ import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
   IVotingPortal_ABI,
-} from '@bgd-labs/aave-address-book';
+} from '@bgd-labs/aave-address-book/abis';
 import {
   CHAIN_ID_CLIENT_MAP,
   getBlockAtTimestamp,
@@ -158,7 +158,7 @@ async function updatePayloadsData(
 }
 
 async function updateGovCoreEvents(
-  govCoreChainId: BigInt | number,
+  govCoreChainId: bigint | number,
   govCoreContractAddress: Address,
   proposalsCache: ProposalsCache,
   bookKeepingCache: BookKeepingCache,
@@ -210,7 +210,7 @@ async function updateGovCoreEvents(
 }
 
 async function updateVMEvents(
-  govCoreChainId: BigInt | number,
+  govCoreChainId: bigint | number,
   votingPortals: Set<Address>,
   bookKeepingCache: BookKeepingCache,
 ) {
@@ -278,7 +278,7 @@ export async function updateCache({
   govCoreChainId,
   govCoreContractAddress,
 }: {
-  govCoreChainId: BigInt | number;
+  govCoreChainId: bigint | number;
   govCoreContractAddress: Address;
 }) {
   /**
@@ -382,7 +382,7 @@ export async function updateCache({
   // update payloads data for payloads that not in proposals and all payloads events
   const controllers = new Map<Address, number>();
   Object.values(proposalsCache).forEach((proposal) => {
-    proposal.payloads.map((payload) =>
+    proposal.payloads.map((payload: any) =>
       controllers.set(payload.payloadsController, Number(payload.chain)),
     );
   });
