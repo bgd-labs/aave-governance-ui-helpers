@@ -33,8 +33,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
-        args: [--frozen-lockfile]
+        run: pnpm install --frozen-lockfile
 
       - name: Update cache
         run: pnpm run cache:update
