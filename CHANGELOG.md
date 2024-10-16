@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.1.8 (2024-10-16)
+
+
+### Bug Fixes
+
+* added zksync to app config ([1c4b29c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1c4b29c8aa0be6fd2c1930be8678318c59a520ec))
+* implement fallback ([8fa858b](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/8fa858bc2406d41d5ebd1edb44c8e06df813702a))
+* patch cache ([1008be7](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1008be750895928af40c3abc4633f403682cbabe))
+* peer deeps ([f6bcc72](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f6bcc72536796def300cb9690da44f6f78a58950))
+* update cache at other places as well ([44d0630](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/44d0630b78b1209c9fea154684dc3ae6ea1ad3be))
+* update ipfs fetching (error, env gateway) ([#76](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/76)) ([4863d2e](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/4863d2e8703b77dd43295347f786eadec0959a42))
+* update packages ([#77](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/77)) ([960ef75](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/960ef753f5511e75cae506468685f93d4b3eaac9))
+* update release please workflow ([a29fa61](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/a29fa61c12f82ad0e41a1b3b9f436c8355d56f55))
+
+
+### Miscellaneous Chores
+
+* release 3.1.6 ([527c883](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/527c8837356f5b01ac013995d5606849fbc59198))
+* release 3.1.8 ([2f0db4d](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/2f0db4dbcf36195f3e9820ca47883f72abd6d8d0))
+
 ## [3.1.7](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.1.6...v3.1.7) (2024-08-26)
 
 
