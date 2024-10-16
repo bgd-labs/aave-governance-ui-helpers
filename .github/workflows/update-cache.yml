@@ -16,27 +16,21 @@ jobs:
       matrix:
         # Only mainnet for now
         network: [mainnet]
-
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
-        with:
-          version: 9
-          run_install: false
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          cache: 'yarn'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Packages install
+        shell: sh
+        run: yarn --frozen-lockfile --prefer-offline
 
       - name: Update cache
-        run: pnpm run cache:update
+        shell: sh
+        run: yarn cache:update
         env:
           CORE_NETWORK: ${{ matrix.network }}
           RPC_POLYGON: ${{ secrets.RPC_POLYGON }}
@@ -49,7 +43,8 @@ jobs:
           IPFS_GATEWAY: ${{ secrets.IPFS_GATEWAY }}
 
       - name: Parse cache to separate files
-        run: pnpm run cache:parse
+        shell: sh
+        run: yarn cache:parse
         env:
           CORE_NETWORK: ${{ matrix.network }}
           RPC_POLYGON: ${{ secrets.RPC_POLYGON }}
