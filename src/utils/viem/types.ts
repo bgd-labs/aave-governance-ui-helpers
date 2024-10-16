@@ -1,7 +1,7 @@
 import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
-} from '@bgd-labs/aave-address-book';
+} from '@bgd-labs/aave-address-book/abis';
 import {
   AbiStateMutability,
   Address,

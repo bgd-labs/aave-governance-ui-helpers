@@ -1,4 +1,4 @@
-import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book';
+import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book/abis';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
 import type { ExtractAbiEvent } from 'abitype';
 import { Address, Client, getAbiItem } from 'viem';

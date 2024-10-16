@@ -1,7 +1,7 @@
 import {
   IVotingMachineDataHelper_ABI,
   IVotingPortal_ABI,
-} from '@bgd-labs/aave-address-book';
+} from '@bgd-labs/aave-address-book/abis';
 import {
   CHAIN_ID_CLIENT_MAP,
   readJSONCache,
@@ -246,7 +246,7 @@ async function parseProposalEvents(
       ) || [];
 
     // PAYLOADS_CREATED
-    formattedProposalData.payloads.forEach((payload, index) => {
+    formattedProposalData.payloads.forEach((payload) => {
       const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_CREATED}_${payload.id}_${payload.chainId}`;
 
       const eventsPath = `${payload.chainId}/events`;
@@ -440,7 +440,7 @@ async function parseProposalEvents(
         (payload) => payload?.executedAt > 0 && !isVotingFailed,
       )
     ) {
-      formattedProposalData.payloads.forEach((payload, index) => {
+      formattedProposalData.payloads.forEach((payload) => {
         if (payload?.executedAt > 0) {
           const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXECUTED}_${payload.id}_${payload.chainId}`;
 
@@ -492,7 +492,7 @@ async function parseProposalEvents(
         (payload) => payload?.state === PayloadState.Expired && !isVotingFailed,
       )
     ) {
-      formattedProposalData.payloads.forEach((payload, index) => {
+      formattedProposalData.payloads.forEach((payload) => {
         if (payload.state === PayloadState.Expired) {
           const historyId = `${formattedProposalData.id}_${HistoryItemType.PAYLOADS_EXPIRED}_${payload.id}_${payload.chainId}`;
           setEvent({
@@ -650,7 +650,7 @@ async function parseCache() {
 
             return {
               ...vote,
-              ensName: !!name ? name : undefined,
+              ensName: name ? name : undefined,
             };
           } catch {
             return {

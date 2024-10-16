@@ -2,7 +2,7 @@ import {
   IGovernanceCore_ABI,
   IPayloadsControllerCore_ABI,
   IVotingPortal_ABI,
-} from '@bgd-labs/aave-address-book';
+} from '@bgd-labs/aave-address-book/abis';
 import {
   CHAIN_ID_CLIENT_MAP,
   getBlockAtTimestamp,
@@ -48,6 +48,7 @@ async function updateIpfsCache(proposalsCache: ProposalsCache) {
         if (metadata) {
           ipfsCache[proposalsCache[id].ipfsHash] = metadata;
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (e) {
         console.log(
           `Error when ipfs data getting, ipfs hash: ${proposalsCache[id].ipfsHash}`,
@@ -158,7 +159,7 @@ async function updatePayloadsData(
 }
 
 async function updateGovCoreEvents(
-  govCoreChainId: BigInt | number,
+  govCoreChainId: bigint | number,
   govCoreContractAddress: Address,
   proposalsCache: ProposalsCache,
   bookKeepingCache: BookKeepingCache,
@@ -210,7 +211,7 @@ async function updateGovCoreEvents(
 }
 
 async function updateVMEvents(
-  govCoreChainId: BigInt | number,
+  govCoreChainId: bigint | number,
   votingPortals: Set<Address>,
   bookKeepingCache: BookKeepingCache,
 ) {
@@ -278,7 +279,7 @@ export async function updateCache({
   govCoreChainId,
   govCoreContractAddress,
 }: {
-  govCoreChainId: BigInt | number;
+  govCoreChainId: bigint | number;
   govCoreContractAddress: Address;
 }) {
   /**
