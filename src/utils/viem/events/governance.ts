@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book/abis';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
 import type { ExtractAbiEvent } from 'abitype';

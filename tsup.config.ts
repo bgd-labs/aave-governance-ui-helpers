@@ -6,7 +6,7 @@ const config: Options = {
   format: ['iife', 'cjs', 'esm'],
   dts: {
     compilerOptions: {
-      moduleResolution: 'node',
+      moduleResolution: 'bundler',
       allowSyntheticDefaultImports: true,
       strict: true,
     },

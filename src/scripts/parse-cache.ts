@@ -262,7 +262,7 @@ async function parseProposalEvents(
         id: payload.id,
         chainId: payload.chainId,
         timestamp: payload.createdAt,
-        addresses: payload.actions.map((action: any) => action.target),
+        addresses: payload.actions.map((action) => action.target),
         hash: eventsCache.find(
           (event) =>
             event.eventName === 'PayloadCreated' &&
