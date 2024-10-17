@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1729160495,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1732184495,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x39A47E6fe022529776bD48D47B26fa80aDfce3fb",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 192,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmXx6wkMwfpuRFMTpBvwZuoRUUjWZPDhbnQKvoSKmGJABw",
+    "description": "\n## Simple Summary\n\nThis ARFC proposes a Direct-To-AIP adjustment to the USDS borrow rate on the Aave protocol, increasing it to align with the Sky Savings Rate.\n\n## Motivation\n\nThe Sky Savings Rate has recently outpaced the USDS borrow rate on Aave. To correct this and ensure the protocol is directing incentives to true depositors instead of USDS loopers, we propose raising the USDS borrow rate to match the Sky Savings Rate.\n\n## Specification\n\nUSDS Borrow Rate will be adjusted as follows on the main market on Ethereum\n\n- Base Variable Rate: 6.25%\n\nAll other parameters remain unchanged.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/22dd4067af320e6cdce9b6fcaad937bb41e98472/src/20241016_AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate_20241016.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/22dd4067af320e6cdce9b6fcaad937bb41e98472/src/20241016_AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate_20241016.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Increase USDS Borrow Rate to Match Sky Savings Rate",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x8ece2cc5d2a006f83bc7d5a1cc8b889842390f7bb96b40963e68d1143a5d27d6"
+  },
+  "proposal": {
+    "id": 183,
+    "votingDuration": 259200,
+    "creationTime": 1729160615,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x8ece2cc5d2a006f83bc7d5a1cc8b889842390f7bb96b40963e68d1143a5d27d6",
+    "initialPayloads": [
+      {
+        "id": 192,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 183,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1729167053,
+    "cancellationFee": 50000000000000000
+  }
+}
