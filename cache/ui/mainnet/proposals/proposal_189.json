@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1729261139,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1732285139,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x0c8eD72f00ABAA98D4E980e4f4c3464ce8d6737b",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 196,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmSFNYqxvj8HNibijCHNU7k6MkY4WvAskSp57hHeD2xJgh",
+    "description": "\n## Simple Summary\n\nThis publication proposes improving the capital efficiency of the wstETH Reserve on the Lido instance of Aave v3 on Ethereum by increasing Uoptimal from 45.00% to 80.00% and reducing the Slope1 from 3.50% to 2.25%.\n\n## Motivation\n\nThis proposal recommends revising the wstETH borrow rate ahead of the introduction of Liquid Restaking Tokens (LRTs) and the creation of several new eModes on the Lido instance of Aave v3 on Ethereum.\n\nThe upcoming Liquid eModes upgrade will allow a single asset to be included in multiple eModes. As we onboard various LRTs, our goal is to promote the use of wstETH as a debt asset to enhance the returns of the wstETH/wETH yield strategy.\n\nBy increasing the Uoptimal of the wstETH reserve, we can significantly improve its capital efficiency. Strategists using LRTs as collateral and borrowing wstETH to generate yield will be able to borrow a larger portion of the wstETH that in turn generates a wstETH deposit yield.\n\nThe wstETH deposit yield will offset the wETH borrowing costs. Depending on market conditions, this could lead to a future proposal that fine-tunes the wETH and wstETH Slope1 parameters to balance the wETH deposit yield, revenue, and the performance of the wstETH/ETH yield strategy. Optimizing these parameters is expected to significantly reduce the payback period on the Lido instance and improve the DAO’s overall return on investment.\n\nA separate proposal will provide details on the new eMode configurations being introduced to the Lido instance of Aave v3. This publication focuses specifically on optimizing the wstETH Uoptimal to improve capital efficiency in preparation for LRT onboarding.\n\nWhilst several teams are expected to offer incentives for strategies involving LRT collateral and wstETH debt, general market conditions are not sufficiently buoyant to support retaining the current 3.50% Slope1 parameter.\n\nWhilst we expect strong demand for wstETH debt from users wanting to leverage farm LRT point incentives. Our research indicates sufficient demand emerges when the Slope1 is within the 2.00% to 2.50% range. As a result, this publication proposes reducing the Slope1 from 3.50% to 2.25%.\n\nBy revising the Slope1 and Uoptimal configuration for the wstETH reserve, we expect LRT deposits to drive significant AUM growth for the Lido instance.\n\n## Specification\n\nThe Lido instance wstETH Slope1 and Uoptimal are to be revised as follows:\n\n| Description | Current | Proposed | Change |\n| ----------- | ------- | -------- | ------ |\n| Slope1      | 3.50%   | 2.25%    | -1.25% |\n| Uopitimal   | 45.00%  | 80.00%   | 35.00% |\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ec1290f171a1159708fc9be059f669f5231dc835/src/20241001_AaveV3EthereumLido_WstETHSlope1UoptimalUpdate/AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ec1290f171a1159708fc9be059f669f5231dc835/src/20241001_AaveV3EthereumLido_WstETHSlope1UoptimalUpdate/AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x80a2e4e23afa0536c198acc18bb90f2cbb9a28d06e5ab9f2999eb49503232c5f)\n- [Discussion](https://governance.aave.com/t/arfc-lido-instance-wsteth-slope1-uoptimal-update/19069)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "wstETH Slope1 & Uoptimal Update",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-lido-instance-wsteth-slope1-uoptimal-update/19069",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x80a2e4e23afa0536c198acc18bb90f2cbb9a28d06e5ab9f2999eb49503232c5f",
+    "originalIpfsHash": "0x3a149264a56d0860bce568f8f75e4054bf24bfcbd73dc0d663bb0662528162ca"
+  },
+  "proposal": {
+    "id": 189,
+    "votingDuration": 259200,
+    "creationTime": 1729261223,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x3a149264a56d0860bce568f8f75e4054bf24bfcbd73dc0d663bb0662528162ca",
+    "initialPayloads": [
+      {
+        "id": 196,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 189,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1729264012,
+    "cancellationFee": 50000000000000000
+  }
+}
