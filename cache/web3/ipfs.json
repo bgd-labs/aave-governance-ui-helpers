@@ -1654,5 +1654,14 @@
     "discussions": "https://governance.aave.com/t/arfc-onboard-ezeth-to-aave-v3-lido-instance/18504/11",
     "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x7ef22a28cb6729ea4a978b02332ff1af8ed924a726915f9a6debf835d8bf8048",
     "originalIpfsHash": "0x29e6523f02dbee892a4c9258f2b3b7992859c9ad758d5117813321e66c51486e"
+  },
+  "0x3fda4736d4b519e9b9a6ef75799e21b68028c8f663914bc64b5fad98730a0b8c": {
+    "ipfsHash": "QmSduSXC6ynwCpkegmXfjfam6BYepMRDDkvW97BA3msoTZ",
+    "description": "\n## Simple Summary\n\nProposal to update the USDS Slope1 to .75%\n\n## Motivation\n\nWhile the latest AIP for USDS borrow rate has the intended effect of disincentivizing USDS borrows and looping on Main instance, the current slope1 is too aggressive compared to other stables. A new AIP to address the unnecessarily high borrow rate for USDS has been created with an updated slope1 at 0.75%.\n\n## Specification\n\nUSDS Slope1 will be adjusted as follows\n\nNew Slope1 .75%\nAll other parameters remain unchanged.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e63fc7d6052ae90eac55d373b52c1cf343acb9e9/src/20241022_AaveV3Ethereum_FixUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_FixUSDSBorrowRateToMatchSkySavingsRate_20241022.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e63fc7d6052ae90eac55d373b52c1cf343acb9e9/src/20241022_AaveV3Ethereum_FixUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_FixUSDSBorrowRateToMatchSkySavingsRate_20241022.t.sol)\n- [Snapshot](Direct-to-AIP)\n- [Discussion](https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494/2)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Fix USDS Borrow Rate to Match Sky Savings Rate",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494/2",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x3fda4736d4b519e9b9a6ef75799e21b68028c8f663914bc64b5fad98730a0b8c"
   }
 }
