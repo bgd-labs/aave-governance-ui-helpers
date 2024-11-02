@@ -1,0 +1,115 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1730425583,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1733449583,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x18F74428230cB84c6FFF694614a453b9cE5aeb20",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 202,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1730425737,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1733449737,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x3C916e95C3E882daBD983396D27d0a2AC1fBdf7e",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 58,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmeqsyjWXijJMos75VkqcqmZPppW2vAejt6Ao14zTQTuaL",
+    "description": "\n## Simple Summary\n\nThis publication proposes upgrading the GHO Steward Role to incorporate additional functionality to accomodate the current and future growth of GHO.\n\n## Motivation\n\nIn response to the expanding GHO ecosystem, GhoSteward v2 incorporates several different stewards to avoid the need to redeploy the entire steward contract whenever an upgrade or change is proposed.\n\n- GhoBucketSteward\n- GhoAaveSteward\n- GhoCcipSteward\n- GhoGsmSteward\n\nAny future change to the GHO Steward functionality will require only the corresponding steward to be updated. This reduces the complexity and streamlines future amendments to the GHO Steward role.\n\nIn addition, some new features have been added to allow for controlling parameters related to CCIP.\n\n## Specification\n\nThe following contracts must be granted these roles by the DAO:\n\n- GhoAaveSteward\n  1. RiskAdmin in Aave V3 Ethereum Pool\n- GhoBucketSteward (both on Ethereum and Arbitrum)\n  1. GhoTokenBucketManagerRole on GhoToken\n- GhoCcipSteward\n  1. RateLimitAdmin and BridgeLimitAdmin roles on GhoTokenPool (just rateLimitAdmin on Arbitrum)\n- GhoGsmSteward\n  1. Configurator in every GSM asset that the DAO wants the risk council to manage\n\nTo facilitate the CCIP Steward, a new CCIP token pool implementation will be implemented on Arbitrum to allow setting of rateLimitAdmin.\n\nList of new addresses:\n\n| Contract            | Arbitrum                                   | Ethereum                                   |\n| ------------------- | ------------------------------------------ | ------------------------------------------ |\n| New CCIP Token Pool | 0xb78eDA33EB5493d56f14a81023CE69438a562A2c |                                            |\n| Gho Bucket Steward  | 0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2 | 0x46Aa1063e5265b43663E81329333B47c517A5409 |\n| Gho Aave Steward    | 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA | 0xFEb4e54591660F42288312AE8eB59e9f2B746b66 |\n| Gho CCIP Steward    | 0xb329CEFF2c362F315900d245eC88afd24C4949D5 | 0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4 |\n| Gho GSM Steward     |                                            | 0xD1E856a947CdF56b4f000ee29d34F5808E0A6848 |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/603758edd1814e074b1c7a08c7da140df4338351/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Ethereum_GHOStewardV2Upgrade_20241007.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/603758edd1814e074b1c7a08c7da140df4338351/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Arbitrum_GHOStewardV2Upgrade_20241007.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/603758edd1814e074b1c7a08c7da140df4338351/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Ethereum_GHOStewardV2Upgrade_20241007.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/603758edd1814e074b1c7a08c7da140df4338351/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Arbitrum_GHOStewardV2Upgrade_20241007.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xc5e7df1536ef9fc71a7d2e2f6fee6e4e20e37a50b4e0f1646616d066b8697da5)\n- [Discussion](https://governance.aave.com/t/arfc-gho-steward-v2-upgrade/19116)\n- The GHO Stewards implementations can be found [here](https://github.com/aave/gho-core/tree/main/src/contracts/misc)\n- The original PR introducing the Stewards to GHO-CORE can be found [here](https://github.com/aave/gho-core/pull/414/files)\n- The Certora review of the Stewards can be found [here](https://github.com/aave/gho-core/pull/423)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO Steward v2 Upgrade",
+    "author": "@karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-gho-steward-v2-upgrade/19116",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xc5e7df1536ef9fc71a7d2e2f6fee6e4e20e37a50b4e0f1646616d066b8697da5",
+    "originalIpfsHash": "0xf537d68c6b1b19b3fc6dc6ed5b73e2479fb8daabac2e275ebb787012a353455d"
+  },
+  "proposal": {
+    "id": 196,
+    "votingDuration": 259200,
+    "creationTime": 1730501051,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xf537d68c6b1b19b3fc6dc6ed5b73e2479fb8daabac2e275ebb787012a353455d",
+    "initialPayloads": [
+      {
+        "id": 202,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 58,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 196,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1730507223,
+    "cancellationFee": 50000000000000000
+  }
+}
