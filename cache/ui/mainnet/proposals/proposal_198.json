@@ -1,0 +1,114 @@
+{
+  "payloads": [
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1730976503,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1734000503,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x375eDb6F983995a95f8d781A194A1A7903CF18A0",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 204,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1730976638,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1734000638,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x03549418Cb18108bA365563d7394f7a3D851014f",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 60,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmeLzMs4qZ2wGKS6iK7ryxej6vuDurE6RiBQecLdpjNSYG",
+    "description": "\n## Simple Summary\n\nProposal to update GHO CCIP Token Pools to ensure GHO’s CCIP integration remains functional during and after the upcoming migration to CCIP version 1.5.\n\n## Motivation\n\nThe Chainlink Cross-Chain Interoperability Protocol (CCIP) is upgrading to version 1.5 in Q4 2024, introducing several new features and enhancements. We are expecting that a detailed description of this new version will be announced by Chainlink soon.\nCurrently, GHO CCIP Token Pools are based on version 1.4, and they are not compatible in their current form with CCIP 1.5. The Chainlink CCIP team cannot migrate the GHO CCIP Token Pools as part of the system-wide upgrade, as these are fully controlled by the Aave DAO.\nAave Labs will provide technical support to ensure that GHO CCIP Token Pools remain functional, secure, and aligned with the latest updates, enabling GHO to expand to other networks if needed.\n\n## Specification\n\nBelow actions are taken in order to make GHO token pools work with the new CCIP 1.5 protocol by allowing the \"Intermediary Contract\" (proxyPool) to translate the interface between 1.4 & 1.5 OnRamps and OffRamps:\n\n- Configure an Intermediary Contract: This contract translates execution calls between the new OnRamp and the existing GHO Token Pools. It was developed and deployed by the Chainlink CCIP team on behalf of the Aave DAO.\n- Upgrade the Existing GHO Token Pools: The existing Token Pools are adjusted to allow calls from both the old and new versions of the OnRamp and OffRamp, through the intermediary contract.\n- Setup a Token Rate Limit: A token rate limit of 300,000 GHO as limit capacity and 60 GHO per second as refill rate is set for both directions of Ethereum <> Arbitrum lane. This is a temporary security measure that can be lifted later via AIP or by GHO Stewards.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c016f11d2d921748459bb0aaca37f462b2639e1a/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Ethereum_GHOCCIP150Upgrade_20241021.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/c016f11d2d921748459bb0aaca37f462b2639e1a/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c016f11d2d921748459bb0aaca37f462b2639e1a/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Ethereum_GHOCCIP150Upgrade_20241021.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/c016f11d2d921748459bb0aaca37f462b2639e1a/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.t.sol)\n- Snapshot - Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51)\n- Token Pool Contracts - [UpgradeableLockReleaseTokenPool](https://github.com/aave/ccip/blob/bc0561e6a9615f410086d4766839eaf3ca9b9f49/contracts/src/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol), [UpgradeableBurnMintTokenPool](https://github.com/aave/ccip/blob/bc0561e6a9615f410086d4766839eaf3ca9b9f49/contracts/src/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO CCIP Integration Maintenance (CCIP v1.5 upgrade)",
+    "author": "Aave Labs",
+    "discussions": "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51",
+    "originalIpfsHash": "0xedd135d40170a5acedfecf4294588144ac8d35dd4e5a6cae1975ded3537b5b61"
+  },
+  "proposal": {
+    "id": 198,
+    "votingDuration": 259200,
+    "creationTime": 1730979983,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xedd135d40170a5acedfecf4294588144ac8d35dd4e5a6cae1975ded3537b5b61",
+    "initialPayloads": [
+      {
+        "id": 204,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 60,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x66a28531E6f390A8CD44aB0C57a0F1aeb7E673FF",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 198,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1730981436,
+    "cancellationFee": 50000000000000000
+  }
+}
