@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1731394343,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1734418343,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x4927022149AAfE0B199722869b9Eb96d1c1799cf",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 207,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmUs8kZkuQaZtZCz8sjmWEWkBwURf6mpcHFggEmjX3Vbgc",
+    "description": "\n## Simple Summary\n\nThis publication proposes amendments to the PYUSD Reserve in preparation for an upcoming incentive campaign.\n\nAdditionally, a co-incentive campaign is to be implemented to improve the PYUSD and GHO liquidity.\n\n## Motivation\n\nTrident Digital with support from PayPal, presents the Aave DAO with an opportunity to promote the adoption of PYUSD on Aave Protocol and PYUSD/GHO liquidity on Balancer for an initial 6 month period.\n\nEligible Aave Protocol users are expected to receive up to 4.00% APR in Liquidity Mining (LM) rewards made available by Trident Digital on behalf of PayPal. The PYUSD reserve on Aave v3 is to be adjusted to align with the objectives of the PYUSD incentive campaign. Further details can be found on the governance forum.\n\n### PYUSD/GHO Liquidity\n\nAs part of the PYUSD growth iniative, a 8M PYUSD/GHO Elliptic Liquidity Pool (ECLP) with an asymmetric concentrated liquidity profile will be used on Balancer.\n\nThe pool will be funded and supported for an initial 6 month period with an additional 300k GHO made available to the ALC.\n\n## Specification\n\nThe following PYUSD Reserve parameters are to be updated:\n\n| Parameter                | PYUSD  |\n| ------------------------ | ------ |\n| Borrowable               | Yes    |\n| Collateral               | Yes    |\n| Borrow Cap               | 15M    |\n| LTV                      | 75.00% |\n| LT                       | 78.00% |\n| Liquidation Penalty      | 7.50%  |\n| Liquidation Protocol Fee | 10.00% |\n\nCreate 300k GHO Allowance for the ALC SAFE.\n\nALC SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`\nGHO: `0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f`\n\nWhilst not expected to be needed, in case aEthPYUSD Liquidity Mining rewards are to be distributed across Aave v3, the ACI is to be granted sufficient permission to do so.\n\nEMISSION_MANAGER.setEmissionAdmin(`PYUSD`,`ACI Treasury`)\nEMISSION_MANAGER.setEmissionAdmin(`aEthPYUSD`,`ACI Treasury`)\n\nPYUSD: `0x6c3ea9036406852006290770BEdFcAbA0e23A0e8`\naEthPYUSD: `0x0C0d01AbF3e6aDfcA0989eBbA9d6e85dD58EaB1E`\nACI Treasury: `0xac140648435d03f784879cd789130F22Ef588Fcd`\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b1d68042df145fd28071478bad0c980a835af5d4/src/20241031_AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign/AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_20241031.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b1d68042df145fd28071478bad0c980a835af5d4/src/20241031_AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign/AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_20241031.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xcd73f17361c7757cd94ec758b4d9f160b7cecefa7f4cb23b0b4ee49b5eb1b8b2)\n- [Discussion](https://governance.aave.com/t/arfc-pyusd-reserve-configuration-update-incentive-campaign/19573)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "PYUSD Reserve Configuration Update & Incentive Campaign",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-pyusd-reserve-configuration-update-incentive-campaign/19573",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xcd73f17361c7757cd94ec758b4d9f160b7cecefa7f4cb23b0b4ee49b5eb1b8b2",
+    "originalIpfsHash": "0x60f540e34c1b586a245dc16025098ca382fde4d9cb104a8c04a39745f3a7ea81"
+  },
+  "proposal": {
+    "id": 201,
+    "votingDuration": 259200,
+    "creationTime": 1731394523,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x60f540e34c1b586a245dc16025098ca382fde4d9cb104a8c04a39745f3a7ea81",
+    "initialPayloads": [
+      {
+        "id": 207,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 201,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1731402417,
+    "cancellationFee": 50000000000000000
+  }
+}
