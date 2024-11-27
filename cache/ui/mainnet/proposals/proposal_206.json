@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1732698023,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1735722023,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xdc8CbF6976330B913ae0F430523555569B0C0aE0",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 211,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmUXRbgBJuaKTWmBGkH6XHSishocJkF8DTNguqbd3DnU2n",
+    "description": "\n## Simple Summary\n\nThis proposal aims to enable sUSDe/USDT liquid E-Mode for the Core Instance. By implementing this change, we seek to enhance capital efficiency for borrowers using sUSDe as collateral, specifically for borrowing USDT. This is a Direct to AIP Proposal.\n\n## Motivation\n\nsUSDe has demonstrated significant usage as collateral for borrowing stablecoins and to increase borrowing options we now look to enable E-Mode for USDT borrows against sUSDe.\n\nBy implementing this proposal, we aim to optimize the use of sUSDe within the Aave ecosystem, attracting more liquidity and providing more options for both borrowers and lenders.\n\n## Specification\n\nUSDT on the Core instance will be added to the sUSDe stablecoin E-Mode\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/573248b67bdb04edb811598f463edce077d03a4b/src/20241125_AaveV3Ethereum_EnableSUSDeUSDTLiquid/AaveV3Ethereum_EnableSUSDeUSDTLiquid_20241125.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/573248b67bdb04edb811598f463edce077d03a4b/src/20241125_AaveV3Ethereum_EnableSUSDeUSDTLiquid/AaveV3Ethereum_EnableSUSDeUSDTLiquid_20241125.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-enable-susde-usdt-liquid-e-mode-on-core-instance/19939)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Enable sUSDe/USDT Liquid E-Mode on Core Instance",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-enable-susde-usdt-liquid-e-mode-on-core-instance/19939",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x5be8af9a90310435783626b0cf4cee0ec70d4c83781a73cb4da14bcfe0ac063b"
+  },
+  "proposal": {
+    "id": 206,
+    "votingDuration": 259200,
+    "creationTime": 1732698083,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x5be8af9a90310435783626b0cf4cee0ec70d4c83781a73cb4da14bcfe0ac063b",
+    "initialPayloads": [
+      {
+        "id": 211,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 206,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1732698449,
+    "cancellationFee": 50000000000000000
+  }
+}
