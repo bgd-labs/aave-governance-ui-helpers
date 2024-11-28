@@ -1,0 +1,174 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1732820052,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1735844052,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x7ee9d11837269D8DC300e09E17066a0591E7dcbD",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 90,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1732820133,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1735844133,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x5Adb12a121cD50670A7E18744275A008387be21e",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 58,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1732820199,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1735844199,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x772e2A90a97D05692214463A3AeB1038436B8dB7",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 62,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1732820271,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1735844271,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x03Ca803F0598da57739a0D96aD39c9e1d5a0393F",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 45,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmWrt8Wm6BSRzAr995QPjEaos2J8V3wsyGs2oZ4t1MAP3s",
+    "description": "\n## Simple Summary\n\nThe following proposal plans to add dHEDGE Protocol as a whitelisted actor of the Flashborrowers of Aave V3 on Base, Polygon, Arbitrum, and Optimism liquidity pools.\n\n## Motivation\n\nIf this proposal is implemented, all flashLoan fees for dHEGDE Protocol using Aave would be waived.\n\ndHEDGE is a tokenized vault protocol that allows users to build, manage, and automate vault strategies. dHEDGE has many vaults that currently use AAVE V3, most notably Toros Finance Leverge tokens.\n\n[dHEDGE Protocol](https://dhedge.org/)[Toros Finance](https://toros.finance/)\n\nGiven [[ARFC] Add Contango Protocol, CIAN Protocol and Index Coop to flashBorrowers on Aave v3](https://governance.aave.com/t/arfc-add-contango-protocol-cian-protocol-and-index-coop-to-flashborrowers-on-aave-v3/16478) passed [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x09bb9e7cffc974d330d82ce7a0b0502b573d6f3b4f839ea15d6629613901e96d) with 595k votes in favour, this proposal intends to utilize the Direct-to-AIP proposes to whitelisted permissions on dHEDGE Protocol.\n\n## Specification\n\nWhitelist dHEDGE Protocol as part of FlashBorrowers of Aave V3 on Base, Polygon, Arbitrum & Optimism liquidity pools.\n\nThis proposal aims to implement a single AIP, utilizing four similar payloads (one for each network), which will call addFlashBorrower() on the ACL_MANAGER contract for the followings addresses.\n\n**Optimism**\n\n- [0x83d1fa384ec44c2769a3562ede372484f26e141b](https://optimistic.etherscan.io/address/0x83d1fa384ec44c2769a3562ede372484f26e141b)\n- [0x32ad28356ef70adc3ec051d8aacdeeaa10135296](https://optimistic.etherscan.io/address/0x32ad28356ef70adc3ec051d8aacdeeaa10135296)\n- [0xb03818de4992388260b62259361778cf98485dfe](https://optimistic.etherscan.io/address/0xb03818de4992388260b62259361778cf98485dfe)\n- [0x11b55966527ff030ca9c7b1c548b4be5e7eaee6d](https://optimistic.etherscan.io/address/0x11b55966527ff030ca9c7b1c548b4be5e7eaee6d)\n- [0xcacb5a722a36cff6baeb359e21c098a4acbffdfa](https://optimistic.etherscan.io/address/0xcacb5a722a36cff6baeb359e21c098a4acbffdfa)\n- [0x9573c7b691cdcebbfa9d655181f291799dfb7cf5](https://optimistic.etherscan.io/address/0x9573c7b691cdcebbfa9d655181f291799dfb7cf5)\n- [0x32b1d1bfd4b3b0cb9ff2dcd9dac757aa64d4cb69](https://optimistic.etherscan.io/address/0x32b1d1bfd4b3b0cb9ff2dcd9dac757aa64d4cb69)\n- [0x7d3c9c6566375d7ad6e89169ca5c01b5edc15364](https://optimistic.etherscan.io/address/0x7d3c9c6566375d7ad6e89169ca5c01b5edc15364)\n- [0xcc7d6ed524760539311ed0cdb41d0852b4eb77eb](https://optimistic.etherscan.io/address/0xcc7d6ed524760539311ed0cdb41d0852b4eb77eb)\n- [0xb9243c495117343981ec9f8aa2abffee54396fc0](https://optimistic.etherscan.io/address/0xb9243c495117343981ec9f8aa2abffee54396fc0)\n- [0x1ec50880101022c11530a069690f5446d1464592](https://optimistic.etherscan.io/address/0x1ec50880101022c11530a069690f5446d1464592)\n- [0x49bf093277bf4dde49c48c6aa55a3bda3eedef68](https://optimistic.etherscan.io/address/0x49bf093277bf4dde49c48c6aa55a3bda3eedef68)\n- [0xb2cfb909e8657c0ec44d3dd898c1053b87804755](https://optimistic.etherscan.io/address/0xb2cfb909e8657c0ec44d3dd898c1053b87804755)\n- [0x59babc14dd73761e38e5bda171b2298dc14da92d](https://optimistic.etherscan.io/address/0x59babc14dd73761e38e5bda171b2298dc14da92d)\n\n**Arbitrum**\n\n- [0x27d8fdb0251b48d8edd1ad7bedf553cf99abe7b0](https://arbiscan.io/address/0x27d8fdb0251b48d8edd1ad7bedf553cf99abe7b0)\n- [0xe3254397f5d9c0b69917ebb49b49e103367b406f](https://arbiscan.io/address/0xe3254397f5d9c0b69917ebb49b49e103367b406f)\n- [0xad38255febd566809ae387d5be66ecd287947cb9](https://arbiscan.io/address/0xad38255febd566809ae387d5be66ecd287947cb9)\n- [0x40d30b13666c55b1f41ee11645b5ea3ea2ca31f8](https://arbiscan.io/address/0x40d30b13666c55b1f41ee11645b5ea3ea2ca31f8)\n- [0x696f6d66c2da2aa4a400a4317eec8da88f7a378c](https://arbiscan.io/address/0x696f6d66c2da2aa4a400a4317eec8da88f7a378c)\n- [0xf715724abba480d4d45f4cb52bef5ce5e3513ccc](https://arbiscan.io/address/0xf715724abba480d4d45f4cb52bef5ce5e3513ccc)\n- [0xe9b5260d99d283ff887859c569baf8ad1bd12aac](https://arbiscan.io/address/0xe9b5260d99d283ff887859c569baf8ad1bd12aac)\n- [0x43da9b0ab53242c55a9ff9c722ffc2a373d639c7](https://arbiscan.io/address/0x43da9b0ab53242c55a9ff9c722ffc2a373d639c7)\n- [0x678569fc403ea2ba46b549a4d0e15e883d7cadf5](https://arbiscan.io/address/0x678569fc403ea2ba46b549a4d0e15e883d7cadf5)\n- [0xc3198eb5102fb3335c0e911ef1da4bc07e403dd1](https://arbiscan.io/address/0xc3198eb5102fb3335c0e911ef1da4bc07e403dd1)\n- [0xddd6b1f34e12c0230ab23cbd4514560b24438514](https://arbiscan.io/address/0xddd6b1f34e12c0230ab23cbd4514560b24438514)\n\n**Base**\n\n- [0xa672e882acbb96486393d43e0efdab5ebebddc1d](https://basescan.io/address/0xa672e882acbb96486393d43e0efdab5ebebddc1d)\n- [0x15e2f06138aed58ca2a6afb5a1333bbc5f728f80](https://basescan.io/address/0x15e2f06138aed58ca2a6afb5a1333bbc5f728f80)\n- [0xba5f6a0d2ac21a3fec7a6c40facd23407aa84663](https://basescan.io/address/0xba5f6a0d2ac21a3fec7a6c40facd23407aa84663)\n- [0xc1e02884af4a283ca25ab63c45360d220d69da52](https://basescan.io/address/0xc1e02884af4a283ca25ab63c45360d220d69da52)\n- [0x1c980456751ae40315ff73caac0843be643321be](https://basescan.io/address/0x1c980456751ae40315ff73caac0843be643321be)\n- [0xede61eefa4850b459e3b09fe6d8d371480d6ff00](https://basescan.io/address/0xede61eefa4850b459e3b09fe6d8d371480d6ff00)\n- [0x53a4716a8f7dbc9543ebf9cd711952033cc64d43](https://basescan.io/address/0x53a4716a8f7dbc9543ebf9cd711952033cc64d43)\n- [0xd2f23773bf5e2d59f6bb925c2232f6e83f3f79e0](https://basescan.io/address/0xd2f23773bf5e2d59f6bb925c2232f6e83f3f79e0)\n- [0x9e0501537723c71250307f5b1a8ee60e167d21c9](https://basescan.io/address/0x9e0501537723c71250307f5b1a8ee60e167d21c9)\n- [0xcaf08bf08d0c87e2c74dd9ebec9c776037bd7e8e](https://basescan.io/address/0xcaf08bf08d0c87e2c74dd9ebec9c776037bd7e8e)\n\n**Polygon**\n\n- [0x86c3dd18baf4370495d9228b58fd959771285c55](https://polygonscan.io/address/0x86c3dd18baf4370495d9228b58fd959771285c55)\n- [0xdb88ab5b485b38edbeef866314f9e49d095bce39](https://polygonscan.io/address/0xdb88ab5b485b38edbeef866314f9e49d095bce39)\n- [0x79d2aefe6a21b26b024d9341a51f6b7897852499](https://polygonscan.io/address/0x79d2aefe6a21b26b024d9341a51f6b7897852499)\n- [0x460b60565cb73845d56564384ab84bf84c13e47d](https://polygonscan.io/address/0x460b60565cb73845d56564384ab84bf84c13e47d)\n\nThis AIP grants permission to whitelist any dHEDGE Protocol contract for all use cases, such as leveraged positions, EMODE, debt and collateral swaps, with one exception: no smart-contract that migrates a position outside of the Aave ecosystem is eligible for whitelisting.\n\n## References\n\n- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Polygon_AddDHEDGEProtocolToFlashBorrowers_20241118.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Optimism_AddDHEDGEProtocolToFlashBorrowers_20241118.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Arbitrum_AddDHEDGEProtocolToFlashBorrowers_20241118.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Base_AddDHEDGEProtocolToFlashBorrowers_20241118.sol)\n- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Polygon_AddDHEDGEProtocolToFlashBorrowers_20241118.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Optimism_AddDHEDGEProtocolToFlashBorrowers_20241118.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Arbitrum_AddDHEDGEProtocolToFlashBorrowers_20241118.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/b537d861c6636003e985d83f1f622346ea62c1ac/src/20241118_Multi_AddDHEDGEProtocolToFlashBorrowers/AaveV3Base_AddDHEDGEProtocolToFlashBorrowers_20241118.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-add-dhedge-protocol-to-flashborrowers/19547)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Add dHEDGE Protocol to flashBorrowers",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-add-dhedge-protocol-to-flashborrowers/19547",
+    "originalIpfsHash": "0x7e9c183accaccede6def81bd44fd829bec4b43814516bfe8dfef0b27f7f300a6"
+  },
+  "proposal": {
+    "id": 208,
+    "votingDuration": 259200,
+    "creationTime": 1732820423,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x7e9c183accaccede6def81bd44fd829bec4b43814516bfe8dfef0b27f7f300a6",
+    "initialPayloads": [
+      {
+        "id": 90,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 58,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 62,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      },
+      {
+        "id": 45,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 208,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1732827976,
+    "cancellationFee": 50000000000000000
+  }
+}
