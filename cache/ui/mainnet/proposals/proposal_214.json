@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1733848343,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1736872343,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xF733CD0D599c8316792Ff3740b3A2ceB286FA8De",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 218,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qmcm2wmokR39DyB1EYAnRRg9DLaUnfSWpdN4f8wi175b3C",
+    "description": "\n## Simple Summary\n\nThis publication proposes the following:\n\n- Onboarding GHO to the Prime instance of Aave v3 with 3M seed from Collector;\n- Acquire 3M GHO from spot market and send to the Collector\n- Migrate Merit allowance\n- Cancel AGD GHO allowance\n\n## Motivation\n\n### Onboard GHO Prime Instance with 3M seed from Collector\n\nWith the circulating supply nearing 180M and nearly 50M in DEX liquidity on Ethereum, this publication proposes adding GHO to the Prime instance of Aave v3.\n\nAdding GHO to the Prime instance of Aave v3 would provide the DAO with several opportunities:\n\n- Mint GHO through a Facilitator and deposit it into the Reserve to generate revenue;\n- Enable Aave DAO to earn yield on existing GHO holdings; and,\n- Establish a GHO reserve that provides an organic deposit yield.\n\nEach of these options offers clear advantages for the Aave DAO and GHO users. GHO is to be onboarded as a borrow-only asset, similar to the current configurations of USDC and USDS.\n\nThe seeded 3M GHO should be sufficient to sustain two months of Merit, with a sufficient buffer to ensure timely fund withdrawals. Allowance will be migrated from Core to Prime market.\n\n### Acquire GHO from spot market and send to the collector\n\n3M GHO is to be acquired from spot market and sent to the Collector.\n\nWithin this publication, the Aave Grants DAO GHO Allowance is to be cancelled.\n\n## Specification\n\nThe below details the parameter configuration of the GHO Reserve on the Prime instance of Aave v3.\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                    ENABLED |\n| Collateral Enabled        |                                      false |\n| Supply Cap (GHO)          |                                 20,000,000 |\n| Borrow Cap (GHO)          |                                  2,500,000 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                        0 % |\n| LT                        |                                        0 % |\n| Liquidation Bonus         |                                        0 % |\n| Liquidation Protocol Fee  |                                        0 % |\n| Reserve Factor            |                                       10 % |\n| Base Variable Borrow Rate |                                    10.50 % |\n| Variable Slope 1          |                                     3.00 % |\n| Variable Slope 2          |                                       50 % |\n| Uoptimal                  |                                       92 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0xD110cac5d8682A3b045D5524a9903E031d70FCCd |\n\nGHO is to be included in the sUSDe and ezETH eMode as shown below:\n\n**sUSDe eMode**\n\n|       Parameter       | Value | Value | Value | Value |\n| :-------------------: | :---: | :---: | :---: | :---: |\n|         Asset         | sUSDe | USDS  | USDC  |  GHO  |\n|      Collateral       |  Yes  |  No   |  No   |  No   |\n|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |\n|        Max LTV        |  90%  |   -   |   -   |   -   |\n| Liquidation Threshold |  92%  |   -   |   -   |   -   |\n|   Liquidation Bonus   | 3.0%  |   -   |   -   |   -   |\n\n**ezETH eMode**\n\n|       Parameter       | Value | Value | Value | Value |\n| :-------------------: | :---: | :---: | :---: | :---: |\n|         Asset         | ezETH | USDS  | USDC  |  GHO  |\n|      Collateral       |  Yes  |  No   |  No   |  No   |\n|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |\n|        Max LTV        |  75%  |   -   |   -   |   -   |\n| Liquidation Threshold |  80%  |   -   |   -   |   -   |\n|   Liquidation Bonus   | 7.5%  |   -   |   -   |   -   |\n\nThis proposal includes swap the following asset for GHO:\n\n|  Asset Holding  |\n| :-------------: |\n|  aUSDT (1.5M)   |\n| aEthUSDT (0.5M) |\n| aEthUSDC (1.0M) |\n\nCancel Aave Grants DAO GHO [Allowance](https://governance.aave.com/t/update-from-aave-grants-winding-down-agd-1-0-and-what-s-next/18707).\n\nMigrate Merit allowance from Core to Prime market.\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/2ccea23f34b42c480651aa629f810783e273b83f/src/20241104_AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance/AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/2ccea23f34b42c480651aa629f810783e273b83f/src/20241104_AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance/AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e4c1666a5617a36f8f81c09df2b0ea184a90290)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-gho-and-migrate-streams-to-lido-instance/19686)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard GHO and Migrate Streams to Prime Instance",
+    "author": "karpatkey_TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-gho-and-migrate-streams-to-lido-instance/19686",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e4c1666a5617a36f8f81c09df2b0ea184a90290",
+    "originalIpfsHash": "0xd642b2c392ecefe426be16546afc7be5028ff77ca75b2c9362f79a79ab4de487"
+  },
+  "proposal": {
+    "id": 214,
+    "votingDuration": 259200,
+    "creationTime": 1733848391,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xd642b2c392ecefe426be16546afc7be5028ff77ca75b2c9362f79a79ab4de487",
+    "initialPayloads": [
+      {
+        "id": 218,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 214,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1733854154,
+    "cancellationFee": 50000000000000000
+  }
+}
