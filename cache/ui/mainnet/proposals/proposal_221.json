@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1734953290,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1737977290,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x39FA6a2BC5Ca93fa2508C02202eC265F50Ed0c36",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 63,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmQLCzQ8XxssaB1mDrD32QH7bTamBmfT5MoEQNurhcJxca",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to onboard AUSD, a secure digital dollar backed 1:1 by USD fiat, to Aave V3 on Avalanche. AUSD, issued by Agora, serves as a stable and liquid alternative to USDT and USDC. With a growing AUM and robust liquidity, AUSD will enhance Aave’s liquidity pool, offering users a reliable and efficient stablecoin option with strong institutional backing.\n\n## Motivation\n\nAgora offers AUSD, a digital dollar minted 1:1 with USD fiat. AUSD is designed to be a secure digital currency, utilizing one of the world’s largest custodian banks to safeguard assets. AUSD enables users to participate in trading, lending and payments. It is the most cost-efficient stablecoin to transact with due to its gas-optimized smart contract, making it ideal for traders and payments.\n\nAgora operates an open partnership model, allowing collaboration with a diverse range of customers who meet KYB (Know Your Business) requirements and operate in jurisdictions we can serve. This approach contrasts with single partnership models (eg. Exchange-Backed Stables), ensuring that AUSD can be widely adopted across different ecosystems, providing liquidity and stability without conflicts of interest.\n\nAUSD is currently available on Ethereum, Avalanche, Sui and Mantle, garnering $70+ million in TVL and $12+ million in daily DEX volume since contract deployment. The reserve assets are managed by VanEck ($100B+ asset manager) and custodied with one of the largest global banks, ensuring security and safety. AUSD’s unique value proposition also includes zero-fee minting and redemption facilities, making it an attractive asset for all ecosystem participants.\n\nBy integrating AUSD into Aave, users will gain access to a stable, liquid asset that supports trading, lending, and other decentralized finance activities. This integration aligns with Aave’s mission to decentralize finance while offering secure and reliable stablecoin options.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **AUSD**\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                    ENABLED |\n| Collateral Enabled        |                                      false |\n| Supply Cap (AUSD)         |                                 19,000,000 |\n| Borrow Cap (AUSD)         |                                 17,400,000 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                        0 % |\n| LT                        |                                        0 % |\n| Liquidation Bonus         |                                        0 % |\n| Liquidation Protocol Fee  |                                        0 % |\n| Reserve Factor            |                                       10 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                      5.5 % |\n| Variable Slope 2          |                                       75 % |\n| Uoptimal                  |                                       90 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0x83f32c0882B12Ef16214c417efF11FD9e764bf34 |\n\nAdditionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowtrace.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for AUSD and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/b368d236cc385cba56cee2009278e67145e10325/src/20241125_AaveV3Avalanche_OnboardAUSD/AaveV3Avalanche_OnboardAUSD_20241125.sol)\n- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/b368d236cc385cba56cee2009278e67145e10325/src/20241125_AaveV3Avalanche_OnboardAUSD/AaveV3Avalanche_OnboardAUSD_20241125.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x021b40c7042ce770c0ce1ee5ff63591c132a9f0f12e3a1cb92fa209299793dec)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-ausd-to-aave-v3-on-avalanche/19689)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard AUSD",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-ausd-to-aave-v3-on-avalanche/19689",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x021b40c7042ce770c0ce1ee5ff63591c132a9f0f12e3a1cb92fa209299793dec",
+    "originalIpfsHash": "0x1d9a4b0e68334ee6c1f867d2bddc9eeafce96702d24f3a4280abbeb4c21164e3"
+  },
+  "proposal": {
+    "id": 221,
+    "votingDuration": 259200,
+    "creationTime": 1734953387,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x1d9a4b0e68334ee6c1f867d2bddc9eeafce96702d24f3a4280abbeb4c21164e3",
+    "initialPayloads": [
+      {
+        "id": 63,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 221,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1734955859,
+    "cancellationFee": 50000000000000000
+  }
+}
