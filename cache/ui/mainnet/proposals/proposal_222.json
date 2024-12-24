@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1735032143,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1738056143,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xcD4912f3EbE0961f753a7D573EeE2a0052aab120",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 225,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmaAPCLomuYxCUUEL13GmXBhvRUUy5ufswac597v8GgT2w",
+    "description": "\n## Simple Summary\n\nTokenLogic proposes to renew its engagement with the Aave DAO for one year, starting on December 15, 2024, upon the conclusion of the current stream.\n\nTokenLogic is to provide the following services to the DAO.\n\n- Treasury and Runway Management;\n- Analytics and Performance Metrics;\n- GHO's growth across DeFi and CeFi; and,\n- Support Aave protocol parameter optimizations.\n\n## Motivation\n\n### Treasury and Runway Management\n\n**Asset Management & Financial Security**\n\nA central area of focus for the Finance Services Provider is to ensure that the DAO’s expenses and strategic initiatives are funded efficiently and without delay. Through the Steward role, or the standard governance process when required, TokenLogic will prioritize maintaining the DAO’s financial stability by ensuring a runway that exceeds six months of its burn rate while optimizing capital efficiency.\n\nKey components of this objective include:\n\n- Bridging Aave funds across networks;\n- Allocating assets for capital efficiency, integrating yield bearing assets to the treasury;\n- Migrating funds from Aave v2 to Aave v3, and between Aave v3 markets;\n- Swapping assets to align expenses with holdings.\n\n### Analytics and Performance Metrics\n\nTokenLogic is establishing itself as the definitive hub for all Aave Protocol and GHO-related data via the [Aave Portal](https://aave.tokenlogic.xyz/). This initiative will be continuously developed and expanded throughout the year, providing access to key metrics on protocol performance, health, GHO dynamics, and market analysis.\n\nTransparency, analytics, and reporting are at the core of this effort, ensuring a clear understanding of the protocol’s financial status and overall performance. The Aave Portal will serve as an important tool for informed decision-making and in-depth analysis of the Aave ecosystem.\n\nTo further engage and educate the community, this initiative will be complemented by detailed threads/articles released throughout the mandate, promoting awareness and understanding of the platform’s developments.\n\n### GHO Adoption\n\n**Oversight**\n\nThe year 2025 will mark the second year of GHO, solidifying its strength and utility within the ecosystem. This milestone year is set to be a pivotal period of expansion for GHO, as it continues to expand to other networks and remains a cornerstone of the protocol’s revenue model.\n\nAs GHO Stewards, TokenLogic will oversee critical configurations, including the Borrow Rate, GSM Caps and Fees, ensuring optimal functionality and sustainability. In our role as Treasury Managers, we will strategically manage GHO swaps to maintain a robust and stable peg, reinforcing GHO’s position as a key asset within the Aave ecosystem.\n\n**Liquidity**\n\nWe will continue to spearhead the operations of the Aave Liquidity Committee (ALC), with a primary focus on managing liquidity and driving integrations across diverse protocols.\n\nOur key responsibilities include:\n\n- Strategically adjusting liquidity incentives to ensure robust market depth;\n- Designing and implementing direct liquidity incentive programs;\n- Leading initiatives to enhance GHO’s utility and adoption;\n- Optimizing the deployment of the DAO’s strategic voting assets;\n- Supporting future GHO facilitator programs, and Protocol-Owned Liquidity (POL) initiatives;\n- Facilitating GHO integration into centralized exchanges, fund management platforms, and the broader DeFi ecosystem; and,\n- Support teams seeking to attain a line of credit within the upcoming Emergence instance.\n\n**Parameter Configuration**\n\nTokenLogic will continue to provide detailed insights into GHO's performance and provide parameter recommendations that prioritise price stability whilst balancing the DAO's growth ambitions.\n\nStrategic focus will be placed on managing the borrow rate and peg relationship to maintain the resilience of the peg by retaining funds within the GSMs, whilst promoting the ongoing use of GHO within evolving market dynamics.\n\nThe Aave Portal will provide insights into the impact of the parameter adjustments to curate an environment that promotes sustainable growth, adoption and aligns with Aave's broader financial goals.\n\nThe TokenLogic team will collaborate closely with other service providers to create balanced, effective solutions that benefit the protocol as a whole.\n\n### Aave Protocol\n\nThe evolution of the Aave protocol, including updates to Aave V4, the deployment of Umbrella, and the launch of new Aave markets, will bring transformative changes to the protocol’s operations. Our proposal focuses on providing the financial planning and management essential for navigating these developments and ensuring smooth integration within the broader ecosystem.\n\nIn addition, we will support the adaptation of Aave’s tokenomics to meet the requirements of Umbrella and the introduction of new staking pools. Through proactive collaboration, strategic guidance, and consultation, we are committed to ensuring these updates are implemented seamlessly and positioned for long-term success.\n\n## Terms\n\n- 12-month engagement, December 15th 2024 to December 15th 2025;\n- $1M, streamed linearly throughout the engagement;\n- $1,000,000 is to be withdrawn in aEthLidoGHO (Aave V3 Lido GHO)\n\n## Specification\n\nTo support funding the streams, the following is to be performed:\n\n- 0.75M GHO from the Collector deposited into the Lido Prime instance;\n- 0.75M aEthUSDC withdrawn from Aave V3 Mainnet and swapped for GHO; and,\n- GHO from above swap is to be sent to Collector (Treasury).\n\nCreate the following stream allowing TokenLogic to withdraw aEthLidoGHO from the Prime instance.\n\n- Recipient: TokenLogic\n- Stream: 1M aEthLidoGHO over 365 days\n- Address: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`\n\nThe stream shall commence the next block from when the previous stream finishes.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8894f1b6ebc87f5e81d8e7cc196e7c43ea5855dc/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8894f1b6ebc87f5e81d8e7cc196e7c43ea5855dc/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.t.sol)\n  [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d62a812ab1a1ff72f85d671c417b5ff8fb2bd0a7c)\n- [Discussion](https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Funding Proposal: TokenLogic Financial Service Provider",
+    "author": "TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182",
+    "snapshot": "https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d62a812ab1a1ff72f85d671c417b5ff8fb2bd0a7c",
+    "originalIpfsHash": "0xafaae4eb897ce4607b1a14855b69fc9adec481136d06a48cfe565b67ef189bc0"
+  },
+  "proposal": {
+    "id": 222,
+    "votingDuration": 259200,
+    "creationTime": 1735032431,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xafaae4eb897ce4607b1a14855b69fc9adec481136d06a48cfe565b67ef189bc0",
+    "initialPayloads": [
+      {
+        "id": 225,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 222,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1735042239,
+    "cancellationFee": 50000000000000000
+  }
+}
