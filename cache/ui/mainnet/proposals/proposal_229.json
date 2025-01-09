@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1736431583,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1739455583,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x0a2A9a20F42e663f4fdC94eE7dA1B0E245D87C1D",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 231,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmYk6SZFrAxrvTxZ71hEFmqcsCb6n4aPrjB4DKVS4AZBKb",
+    "description": "\n## Simple Summary\n\nThe AIP proposes appointing karpatkey as a service provider dedicated to drive the growth of GHO for the following 6 months, with an initial focus on opportunities within the Gnosis Chain while also expanding efforts to other chains.\n\n## Motivation\n\nOver the past 12 months, karpatkey has been pleased to have supported the AaveDAO in improving treasury management practices and GHO adoption (see Phase 1 and Phase 2 for more details). These efforts have been a significant success, and will continue, with the deployment of the Finance Steward upcoming features. That said, by focusing on increasing GHO’s adoption, we believe karpatkey can provide more value to the Aave ecosystem.\n\nThe stablecoin ecosystem is one of the most dynamic and competitive sectors in the DeFi landscape, and the accelerating adoption of GHO represents a unique opportunity for Aave DAO to solidify its position as a leader in this space. Since its deployment over a year ago, GHO achieved a notable milestone of a 180M supply across mainnet and Arbitrum, market depth in most reputable DEXes with total liquidity ranging between $30M and $50M. This success is a testament to the strength of Aave’s products, user base and brand.\n\nWhile GHO’s initial growth has been remarkable, the stablecoin market is evolving rapidly. The demand for reliable, decentralised stablecoins continues to grow, and GHO is well-positioned to capture this market—provided we continue to expand its utility, adoption, and ecosystem integrations proactively.\n\nkarpatkey has the tools and resources to capitalise on the range of opportunities GHO presents. With a proven track record in DeFi innovation and strong partnerships with other DAOs, we are excited to present our new 6-month proposal to Aave DAO, focused on the areas where we can contribute most.\n\nTo drive proactive growth and expansion of GHO across multiple blockchains, we are proposing a phased mandate that includes tailored strategies for each ecosystem, with the initial phase prioritizing the deployment and adoption of GHO on the Gnosis Chain. With an Aave instance holding $100M, Gnosis Chain currently has a total value locked of $410M and a thriving environment of stablecoins, which includes Gnosis Pay, Monerium’s e-money EURe and other RWAs. We plan to focus primarily on opportunities where both AaveDAO and GnosisDAO can mutually benefit from a vibrant GHO ecosystem on Gnosis Chain, taking advantage of karpatkey’s unique position supporting both the DeFi ecosystems of both DAOs.\n\n## Terms\n\n- 6-month engagement, December 23th 2024 to June 21th 2025;\n- $250k, streamed linearly throughout the engagement;\n\n## Specification\n\nCreate the following stream allowing TokenLogic to withdraw aEthLidoGHO from the Prime instance.\n\n- Recipient: karpatkey\n- Stream: 250K aEthLidoGHO over 180 days\n- Address: `0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c`\n\nThe stream shall commence the next block from when the previous stream finishes.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/57aaaa1bfa341a98ac5fbb549aa16941eef69ed7/src/20241231_AaveV3Ethereum_karpatkeyGhoGrowth/AaveV3Ethereum_karpatkeyGhoGrowth_20241231.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/57aaaa1bfa341a98ac5fbb549aa16941eef69ed7/src/20241231_AaveV3Ethereum_karpatkeyGhoGrowth/AaveV3Ethereum_karpatkeyGhoGrowth_20241231.t.sol)\n  [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x87585d9dcb104d2946ca2def6bcf57708480fafc5e310de4850dc2fbe1820893)\n- [Discussion](https://governance.aave.com/t/arfc-karpatkey-as-gho-growth-service-provider/20206)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Funding Proposal: karpatkey as GHO Growth Service Provider",
+    "author": "karpatkey",
+    "discussions": "https://governance.aave.com/t/arfc-karpatkey-as-gho-growth-service-provider/20206",
+    "snapshot": "https://snapshot.box/#/s:aave.eth/proposal/0x87585d9dcb104d2946ca2def6bcf57708480fafc5e310de4850dc2fbe1820893",
+    "originalIpfsHash": "0x9a9652b1de57a9e14c6897ffa831333f6f22889ebe18381ddcadc66b5b34ab4e"
+  },
+  "proposal": {
+    "id": 229,
+    "votingDuration": 259200,
+    "creationTime": 1736431727,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x9a9652b1de57a9e14c6897ffa831333f6f22889ebe18381ddcadc66b5b34ab4e",
+    "initialPayloads": [
+      {
+        "id": 231,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 229,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1736435215,
+    "cancellationFee": 50000000000000000
+  }
+}
