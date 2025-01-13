@@ -3,9 +3,9 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1736431583,
-      "queuedAt": 0,
+      "queuedAt": 1736780519,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1739455583,
@@ -40,8 +40,8 @@
     "votingDuration": 259200,
     "creationTime": 1736431727,
     "accessLevel": 1,
-    "state": 2,
-    "queuingTime": 0,
+    "state": 4,
+    "queuingTime": 1736780507,
     "ipfsHash": "0x9a9652b1de57a9e14c6897ffa831333f6f22889ebe18381ddcadc66b5b34ab4e",
     "initialPayloads": [
       {
@@ -61,11 +61,11 @@
       "againstVotes": "0",
       "startTime": 1736519545,
       "endTime": 1736778745,
-      "votingClosedAndSentBlockNumber": 0,
-      "votingClosedAndSentTimestamp": 0,
+      "votingClosedAndSentBlockNumber": 66651683,
+      "votingClosedAndSentTimestamp": 1736778778,
       "l1BlockHash": "0x0fcc285346f3913518d411db83c6f2a533361fa6818b1ec5f719849b1c7abaf5",
       "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
-      "sentToGovernance": false,
+      "sentToGovernance": true,
       "createdBlock": 66532995,
       "votedInfo": {
         "support": false,
@@ -79,7 +79,7 @@
       "hasRequiredRoots": true
     },
     "isFinished": false,
-    "lastUpdatedTimestamp": 1736770295,
+    "lastUpdatedTimestamp": 1736780823,
     "cancellationFee": 50000000000000000
   }
 }
