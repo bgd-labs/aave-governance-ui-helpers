@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1737537539,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1740561539,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x88be0A1D8F72e2b361Ec370bD487eD3F8B03AA9F",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 235,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmWizELUheWN7gsBoPbDvXJn3pPKCv3P9KqoB9WLXeZZdY",
+    "description": "\n## Simple Summary\n\nThis publication proposes reducing the base borrow rate Parameter for the GHO Reserve on Prime instance by 2.00%.\n\n## Motivation\n\nAt launch, the GHO Borrow Rate was configured to suit the more buoyant market conditions of the time. Since then, market conditions have cooled and to date, the GHO reserve on Prime has experienced limited borrowing activity. Utilization is 2.30% with less than 120k GHO borrowed.\n\nThe Borrow Rate for USDS on Prime is trending slightly above 10% which is slightly lower than USDT on Core instance after recent deposits has reduced utilization.\n\nStaked USDe is currently at capacity on Prime and is shown to be generating 12.50% on the Ethena dashboard. When the sUSDe supply cap is lifted, we expect demand for GHO debt to emerge, and if not initially, then when perpetual funding rates improve.\n\nAdditionally, the GHO Stewards lowered the Borrow Rate on the Core instance to 12.50% which is 1% less than the GHO Borrow Rate on Prime at the Uoptimal. Amending the GHO Borrow Rate at the Uoptimal on Prime to be less than the GHO Borrow Rate on Core encourages users to borrow GHO from Prime.\n\nWhen demand for GHO on Prime emerges, providing the peg permits, the Borrow Cap shall be increased improving the overall efficiency of the GHO reserve, resulting in a higher deposit rate.\n\n## Specification\n\nThe GHO base borrow rate Parameter on Prime instance of Aave v3 is to be revised as follows:\n\n| Description | Current | Proposed | Change |\n| ----------- | ------- | -------- | ------ |\n| Borrow Rate | 10.50%  | 8.50%    | -2.00% |\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/051dd6743951609879d6358022e6521528046b7d/src/20250121_AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate/AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate_20250121.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/051dd6743951609879d6358022e6521528046b7d/src/20250121_AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate/AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate_20250121.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-risk-stewards-reduce-gho-borrow-rate-prime-instance/20501)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Update Lido GHO base borrow rate",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-risk-stewards-reduce-gho-borrow-rate-prime-instance/20501",
+    "snapshot": "Direct-to-AIP",
+    "originalIpfsHash": "0x7c96588d84f5188e19ccbe659c40030e238e76e0fa1785af02d77ce733f4c917"
+  },
+  "proposal": {
+    "id": 234,
+    "votingDuration": 259200,
+    "creationTime": 1737537599,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x7c96588d84f5188e19ccbe659c40030e238e76e0fa1785af02d77ce733f4c917",
+    "initialPayloads": [
+      {
+        "id": 235,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 234,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1737547831,
+    "cancellationFee": 50000000000000000
+  }
+}
