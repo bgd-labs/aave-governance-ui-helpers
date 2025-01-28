@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.6](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.2.5...v3.2.6) (2025-01-28)
+
+
+### Bug Fixes
+
+* added linea support ([#82](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/82)) ([ea31fa6](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/ea31fa68c85549a1ec1f16442778af3b5eaa940b))
+
 ## [3.2.5](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.2.1...v3.2.5) (2025-01-28)
 
 
