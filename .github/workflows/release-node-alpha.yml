@@ -1,0 +1,30 @@
+# creates a new npm release
+name: release
+
+on:
+  workflow_call:
+    secrets:
+      NODE_AUTH_TOKEN:
+        required: true
+
+jobs:
+  release-alpha:
+    if: |
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: bgd-labs/github-workflows/.github/actions/setup-node@main
+
+      - name: install standard
+        run: npm i -g standard-version
+
+      - name: release
+        run: |
+          standard-version --prerelease ${{ github.sha }} --skip.changelog --skip.commit --skip.tag
+
+      - name: Publish
+        run: npm run ci:publish:beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
