@@ -22,7 +22,7 @@ jobs:
           pull-request-header: "I have created a release"
 
   release-node:
-    uses: bgd-labs/github-workflows/.github/workflows/release-node.yml@main
+    uses: bgd-labs/aave-governance-ui-helpers/.github/workflows/release-node.yml@main
     if: ${{ needs.release-please.outputs.releaseCreated }}
     needs:
       - release-please

@@ -9,6 +9,6 @@ on:
 
 jobs:
   release-node-alpha:
-    uses: bgd-labs/github-workflows/.github/workflows/release-node-alpha.yml@main
+    uses: bgd-labs/aave-governance-ui-helpers/.github/workflows/release-node-alpha.yml@main
     secrets:
       NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
