@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.2.1 (2025-01-28)
+
+
+### Bug Fixes
+
+* added linea payloads support ([2dfd87e](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/2dfd87ec31b6d8ea090ab5b414fd438e70575c92))
+
+
+### Miscellaneous Chores
+
+* release 3.2.1 ([d933ed6](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/d933ed62001746c91b3afa8c62390f8d000e759c))
+
 ## 3.1.8 (2024-10-16)
 
 
