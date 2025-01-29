@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1738151219,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1741175219,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x1D750858e8203a553b2368fb0d461Aa9d511Caa9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 238,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmQo3BMGaTF8VxJNaETPQaMGbGgBkNuTuuvdgYHwkKYnU7",
+    "description": "\n## Simple Summary\n\nThis publication proposes reducing the wstETH Slope1 and increasing the rsETH Supply Cap.\n\n## Motivation\n\nThe Prime instance of Aave v3 on Ethereum has experienced significant growth since its launch in Q3 2024, attracting over $2 billion in user deposits.\n\nTo support continued growth, this proposal suggests lowering the wstETH Slope1 parameter to align the borrow rate with market conditions. Based on feedback from the Renzo and Kelp teams, this adjustment is expected to drive an additional $300 million in user deposits to the Prime instance.\n\nExpected Benefits of Reducing the Slope1 Parameter:\n\n- ~72% increase in LRT deposits.\n- ~50% increase in the wstETH Deposit Rate to 60 bps.\n- ~50% increase in wstETH Borrow Rate fee generation.\n- ~35% increase in the native wETH Deposit Rate.\n\nLowering the Slope1 parameter will encourage new LRT deposits, boosting the LRT/LST yield-generating strategy, which is projected to outperform the LST/wETH strategy. With LRT deposit incentives, this strategy further enhances Prime’s appeal.\n\nAs utilisation of wETH reserves across Core, Spark, and Prime approaches Uoptimal, the Prime instance of Aave v3 offers the highest native yield for LST/wETH yield strategies. The improved wstETH deposit rate solidifies Prime’s competitive position in the market.\n\n### rsETH Supply Cap\n\nrsETH has shown strong growth on the Core instance of Aave v3, while the Prime market has yet to attract rsETH deposits due to the lower wstETH Borrow Rate on Core and a small supply cap.\n\nLowering the wstETH Borrow Rate on Prime would make borrowing wstETH more attractive. Feedback from the Kelp team suggests strong demand for rsETH beyond the current supply cap’s capacity.\n\nTo support leveraged LRT/LST yield strategies, this proposal recommends a significant increase to the rsETH supply cap, enabling larger deposits to scale effectively, optimize returns, and reduce reliance on incentives.\n\n## Specification\n\n#### wstETH Reserve\n\n| Parameter | Current Value | Proposed Value |\n| --------- | ------------- | -------------- |\n| Uoptimal  | 90.00%        | 90.00%         |\n| Base      | 0.00%         | 0.00%          |\n| Slope1    | 1.75%         | 0.75%          |\n| Slope2    | 85.00%        | 85.00%         |\n\n#### rsETH Supply Cap\n\n| Parameter  | Current Value | Proposed Value |\n| ---------- | ------------- | -------------- |\n| Supply Cap | 10,000        | 65,000         |\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ad47735f95ca24d2b65d7ffaca0b0a05f7397121/src/20250122_AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate/AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate_20250122.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ad47735f95ca24d2b65d7ffaca0b0a05f7397121/src/20250122_AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate/AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate_20250122.t.sol)\n- [Snapshot](https://snapshot.org/#/s:aave.eth/proposal/0xfc21203137ea8753ab8903fe4edd568bcaa7ea084586a7acb2c3b361d3dae9c8)\n- [Discussion](https://governance.aave.com/t/arfc-prime-instance-wsteth-borrow-rate-rseth-supply-cap-update/20644)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Prime Instance - wstETH Borrow Rate + rsETH Supply Cap Update",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-prime-instance-wsteth-borrow-rate-rseth-supply-cap-update/20644",
+    "snapshot": "https://snapshot.org/#/s:aave.eth/proposal/0xfc21203137ea8753ab8903fe4edd568bcaa7ea084586a7acb2c3b361d3dae9c8",
+    "originalIpfsHash": "0x2479e1a8a5b3e4d8023d061ade4a187ee9da5e17d7c91b8ed0a3e71522dd33d0"
+  },
+  "proposal": {
+    "id": 238,
+    "votingDuration": 259200,
+    "creationTime": 1738151351,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x2479e1a8a5b3e4d8023d061ade4a187ee9da5e17d7c91b8ed0a3e71522dd33d0",
+    "initialPayloads": [
+      {
+        "id": 238,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 238,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1738152635,
+    "cancellationFee": 50000000000000000
+  }
+}
