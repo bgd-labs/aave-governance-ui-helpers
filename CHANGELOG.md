@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.2.7](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.2.6...v3.2.7) (2025-01-29)
+
+
+### Bug Fixes
+
+* cache update script ([bbb4af0](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/bbb4af0219f4c95e5caa61d62cd4d4f439c67c22))
+* update cache script ([193171d](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/193171dd1a1e109449296a72dd1d0742e7cc24d9))
+
 ## [3.2.6](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.2.5...v3.2.6) (2025-01-28)
 
 
