@@ -2,14 +2,17 @@ import {
   IVotingMachineDataHelper_ABI,
   IVotingPortal_ABI,
 } from '@bgd-labs/aave-address-book/abis';
+import { readJSONCache, writeJSONCache } from '@bgd-labs/js-utils';
 import {
-  CHAIN_ID_CLIENT_MAP,
-  readJSONCache,
-  writeJSONCache,
-} from '@bgd-labs/js-utils';
+  ChainId,
+  ChainList,
+  getRPCUrl,
+  SupportedChainIds,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+} from '@bgd-labs/rpc-env';
 import { Address, getContract, Hex, zeroAddress, zeroHash } from 'viem';
 import { getBlock, getEnsName } from 'viem/actions';
-import { mainnet } from 'viem/chains';
 
 import {
   BasicProposal,
@@ -46,6 +49,7 @@ import {
 import { getPayloadsControllerEvents } from '../utils/viem/events/payloadsController';
 import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
 import { appConfig, coreName } from './config';
+import { createViemClient } from './createClient';
 
 const initDirName = `ui/${coreName}`;
 
@@ -56,7 +60,13 @@ async function getVotingData(initialProposals: InitialProposal[]) {
         appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]]
           .dataHelperContractAddress,
       abi: IVotingMachineDataHelper_ABI,
-      client: CHAIN_ID_CLIENT_MAP[appConfig.votingMachineChainIds[0]],
+      client: createViemClient({
+        chain:
+          ChainList[appConfig.votingMachineChainIds[0] as SupportedChainIds],
+        rpcUrl: getRPCUrl(
+          appConfig.votingMachineChainIds[0] as SupportedChainIds,
+        ),
+      }),
     }),
   };
   if (appConfig.votingMachineChainIds.length > 1) {
@@ -65,7 +75,10 @@ async function getVotingData(initialProposals: InitialProposal[]) {
       votingMachineDataHelpers[chainId] = getContract({
         address: votingMachineConfig.dataHelperContractAddress,
         abi: IVotingMachineDataHelper_ABI,
-        client: CHAIN_ID_CLIENT_MAP[chainId],
+        client: createViemClient({
+          chain: ChainList[chainId as SupportedChainIds],
+          rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+        }),
       });
     });
   }
@@ -379,13 +392,19 @@ async function parseProposalEvents(
     if (formattedProposalData.state === ProposalState.Executed) {
       const historyId = `${formattedProposalData.id}_${HistoryItemType.PROPOSAL_EXECUTED}`;
       const executedTimestamp = (
-        await getBlock(CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId], {
-          blockHash: governanceEvents.find(
-            (event) =>
-              event.eventName === 'ProposalExecuted' &&
-              Number(event.args.proposalId) === formattedProposalData.id,
-          )?.blockHash,
-        })
+        await getBlock(
+          createViemClient({
+            chain: ChainList[appConfig.govCoreChainId as SupportedChainIds],
+            rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds),
+          }),
+          {
+            blockHash: governanceEvents.find(
+              (event) =>
+                event.eventName === 'ProposalExecuted' &&
+                Number(event.args.proposalId) === formattedProposalData.id,
+            )?.blockHash,
+          },
+        )
       ).timestamp;
 
       setEvent({
@@ -553,7 +572,10 @@ async function parseCache() {
     govCoreContractAddress: appConfig.govCoreConfig.contractAddress,
     govCoreDataHelperContractAddress:
       appConfig.govCoreConfig.dataHelperContractAddress,
-    client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
+    client: createViemClient({
+      chain: ChainList[appConfig.govCoreChainId as SupportedChainIds],
+      rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds),
+    }),
   });
 
   // get voting chain for all proposals
@@ -561,7 +583,10 @@ async function parseCache() {
     Object.entries(proposalsCache).map(async (proposal) => {
       const portalContract = getContract({
         abi: IVotingPortal_ABI,
-        client: CHAIN_ID_CLIENT_MAP[appConfig.govCoreChainId],
+        client: createViemClient({
+          chain: ChainList[appConfig.govCoreChainId as SupportedChainIds],
+          rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds),
+        }),
         address: proposal[1].votingPortal,
       });
       const votingChainId = await portalContract.read.VOTING_MACHINE_CHAIN_ID();
@@ -644,9 +669,15 @@ async function parseCache() {
       const proposalVotersWithEnsName = await Promise.all(
         proposalVoters.map(async (vote) => {
           try {
-            const name = await getEnsName(CHAIN_ID_CLIENT_MAP[mainnet.id], {
-              address: vote.address,
-            });
+            const name = await getEnsName(
+              createViemClient({
+                chain: ChainList[ChainId.mainnet],
+                rpcUrl: getRPCUrl(ChainId.mainnet),
+              }),
+              {
+                address: vote.address,
+              },
+            );
 
             return {
               ...vote,

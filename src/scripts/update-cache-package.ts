@@ -4,12 +4,14 @@ import {
   IVotingPortal_ABI,
 } from '@bgd-labs/aave-address-book/abis';
 import {
-  CHAIN_ID_CLIENT_MAP,
   getBlockAtTimestamp,
   getContractDeploymentBlock,
   readJSONCache,
   writeJSONCache,
 } from '@bgd-labs/js-utils';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import { ChainList, getRPCUrl, SupportedChainIds } from '@bgd-labs/rpc-env';
 import { Address, getContract, Hex } from 'viem';
 import { getBlock, getBlockNumber } from 'viem/actions';
 
@@ -28,6 +30,7 @@ import {
   isPayloadFinal,
 } from '../utils/viem/events/payloadsController';
 import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
+import { createViemClient } from './createClient';
 
 require('dotenv').config();
 
@@ -70,7 +73,10 @@ async function updatePayloadsEvents(
   payloadsCache: PayloadsCache,
   bookKeepingCache: BookKeepingCache,
 ) {
-  const client = CHAIN_ID_CLIENT_MAP[chainId];
+  const client = createViemClient({
+    chain: ChainList[chainId as SupportedChainIds],
+    rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+  });
   const payloadsPath = `${chainId}/payloads`;
 
   const currentBlockOnPayloadsControllerChain = await getBlock(client);
@@ -120,7 +126,10 @@ async function updatePayloadsData(
       const payloadsCache =
         readJSONCache<PayloadsCache>(payloadsPath, controller) || {};
 
-      const client = CHAIN_ID_CLIENT_MAP[chainId];
+      const client = createViemClient({
+        chain: ChainList[chainId as SupportedChainIds],
+        rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+      });
       const contract = getContract({
         abi: IPayloadsControllerCore_ABI,
         client,
@@ -167,7 +176,10 @@ async function updateGovCoreEvents(
   const bookKeepingCacheId = `${Number(govCoreChainId)}/governance`;
   const eventsPath = `${Number(govCoreChainId)}/events`;
 
-  const client = CHAIN_ID_CLIENT_MAP[Number(govCoreChainId)];
+  const client = createViemClient({
+    chain: ChainList[govCoreChainId as SupportedChainIds],
+    rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
+  });
   const currentBlockOnGovernanceChain = await getBlockNumber(client);
   const contract = getContract({
     abi: IGovernanceCore_ABI,
@@ -219,7 +231,10 @@ async function updateVMEvents(
     Array.from(votingPortals).map(async (portal) => {
       const portalContract = getContract({
         abi: IVotingPortal_ABI,
-        client: CHAIN_ID_CLIENT_MAP[Number(govCoreChainId)],
+        client: createViemClient({
+          chain: ChainList[govCoreChainId as SupportedChainIds],
+          rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
+        }),
         address: portal,
       });
       return {
@@ -233,7 +248,10 @@ async function updateVMEvents(
     votingMachines.map(async ({ chainId, machine }) => {
       const path = `${chainId}/events`;
       const address = machine;
-      const client = CHAIN_ID_CLIENT_MAP[chainId];
+      const client = createViemClient({
+        chain: ChainList[chainId as SupportedChainIds],
+        rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+      });
       const currentBlockOnVotingMachineChain = await getBlockNumber(client);
       const votesCache =
         readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
@@ -289,7 +307,10 @@ export async function updateCache({
     readJSONCache<Record<string, string>>('bookKeeping', 'lastFetchedBlocks') ||
     {};
   // initialize contracts
-  const govCoreClient = CHAIN_ID_CLIENT_MAP[Number(govCoreChainId)];
+  const govCoreClient = createViemClient({
+    chain: ChainList[govCoreChainId as SupportedChainIds],
+    rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
+  });
   const govCore = getContract({
     address: govCoreContractAddress,
     abi: IGovernanceCore_ABI,
