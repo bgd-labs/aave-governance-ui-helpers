@@ -1,0 +1,174 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1738792331,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1741816331,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x16ca87FA9A0B8Cf1aAaf37E8f0ee1D627065372A",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 241,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1738792519,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1741816519,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xD2C6E2f1AfA520e423EE51862A4337e536570889",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 97,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1738792695,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1741816695,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x591d0dDAD0A033db9e4e608E1AEA15C3ec66e74a",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 64,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1738793319,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1741817319,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x9139a46161F2C6F9025Ca6C30DfBFE9daf13261e",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 66,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmdYQ527BUrTf4HM16Vv9yvbu3vPXJHmkDrCK2Vsi7GouV",
+    "description": "\n## Simple Summary\n\nThis publication presents the February funding update, which consists of performing the following key activities:\n\n- Funding FLUID incentive campaign;\n- Migrating funds from Aave Protocol v2 to v3;\n- Transferring BAL & CRV to ALC;\n- Acquiring GHO for Merit Phase V;\n- Reimbursing EURA Bad Debt Expense; and,\n- Reimbursing Gas & Merkl deployment Costs.\n\n## Motivation\n\nAs part of our ongoing Treasury asset rebalancing strategy, this proposal when implemented will continue to:\n\n- Fund upcoming GHO incentive campaigns with FLUID;\n  - Follow up action to this proposal;\n- Fund Merit Phase V;\n  - Swap USDC and USDT to GHO;\n- Reimburse ACI of costs incurred from;\n  - Repaying EURA bad debt;\n  - Administering the PYUSD incentives;\n  - Gas costs related to AIP submissions;\n- Deposit passively held assets into Aave v3;\n  - Optimising capital efficiency;\n- Migrating assets from Aave v2 to v3;\n  - Ensuring improved capital efficiency and enhanced risk management;\n\nAdditionally, to further consolidate and mitigate risk, certain assets will be reallocated to the Core market from various Layer 2 instances. This adjustment aims to progressively consolidate liquidity into the latest instance of Aave, where it can continue to generate returns.\n\nTo promote capital efficiency, some passive assets held idle are to be deployed into Aave to earn yield.\n\nSeveral smaller asset holdings are be converted to aEthETH to reduce the DAO’s exposure to thinly traded long tail assets (or products being sunset) to ensure a more resilient treasury structure.\n\nFinally, as part of the revamping of SKY, certain DAI-correlated assets will be swapped into aEthUSDS.\n\n## Specification\n\n### Transfer FLUID\n\nTransfer an initial 25% of the 1/3 FLUID holdings assigned to support GHO's growth and adoption on Fluid.\n\nSpecifically, Transfer 95,417 $FLUID to Merit SAFE `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`\n\nReference this prior [proposal](https://governance.aave.com/t/arfc-fluid-alignment-with-inst-purchase/19921) for more information.\n\n### Gas Reimbursement and EURA Bad Debt Clearing Reimbursement\n\nTransfer 26,500 USDC, 3.404 ETH and 149 PYUSD to ACI to reimburse expenses incurred.\n\nThis reimburses associated expenses with clearing EURA bad debt, gas costs linked to AIP submissions and administering the PYUSD rewards program respectively.\n\nACI Receiving Address: `0xac140648435d03f784879cd789130F22Ef588Fcd`\n\n### Migrate funds from Aave v2 to v3\n\nMigrate the following assets from Aave v2 to v3 on the respective network.\n\nWhere it says All-1, it refers to all available liquidity minus 1 unit as to not drain the pool where possible. In other pools, it will be as much as is available to withdraw.\n\n|   Ethereum    |    Avalanche    |     Polygon      |\n| :-----------: | :-------------: | :--------------: |\n| aWETH (All-1) | avWETH (All-1)  | amWMATIC (All-1) |\n| aWBTC (All-1) |  avDAI (All-1)  |  amUSDT (All-1)  |\n| aLINK (All-1) | avWAVAX (All-1) |                  |\n| aMKR (All-1)  |                 |                  |\n| aUSDC (1.5M)  |                 |                  |\n| aUSDT (2.0M)  |                 |                  |\n\nFunds are to be deposited into the Core deployment on Ethereum and Aave v3 on the respective networks.\n\nNote: Not all USDC and USDT on v2 Ethereum can be migrated due to high utilisation. This publication proposes a partial migration of 1.5M and 2.0M respectively.\n\n### Deposit Passively Held Assets into Aave\n\nDeposit the following assets into their respective V3 Pools.\n\n| Ethereum v3 (Core) | Optimism v3 | Avalanche v3 | Polygon v3 |\n| :----------------: | :---------: | :----------: | :--------: |\n|        USDC        |    USDC     |     USDC     |   wMATIC   |\n|        USDT        |    wETH     |     USDT     |    wBTC    |\n|                    |    USDT     |    wAVAX     |    USDT    |\n|                    |             |    wETH.e    |    LINK    |\n|                    |             |    BTC.d     |            |\n\n### Acquire ETH and deposit into Aave v3 (Core)\n\nWithdraw and swap the following assets to ETH. ETH to be deposited into Aave in a follow up proposal.\n\n|     Ethereum     |\n| :--------------: |\n| aEthLUSD (All-1) |\n|   aDPI (All-1)   |\n\n### Acquire GHO and deposit into Aave v3 (Prime)\n\nBoth withdrawn above from Aave V2 Ethereum. GHO to be deposited into Aave in a follow up proposal.\n\n|   Ethereum   |\n| :----------: |\n| USDT (1.50M) |\n| USDC (1.50M) |\n\n### Acquire USDS and deposit into Aave V3 (Core)\n\nWithdraw and swap the following assets to USDS. USDS to be deposited into Aave in a follow up proposal.\n\n|    Ethereum     |\n| :-------------: |\n|    DAI (All)    |\n|  aDAI (All-1)   |\n| aEthDAI (All-1) |\n\nUSDS deposits on Core benefit from USDS liquidity mining and SPK airdrop rewards.\n\n### Transfer Assets to Aave Liquidity Committee (ALC)\n\nWithdraw and transfer the following assets to the ALC.\n\n|    Ethereum     |\n| :-------------: |\n|    BAL (All)    |\n|  aBAL (All-1)   |\n| aEthBAL (All-1) |\n|    CRV (All)    |\n|  aCRV (All-1)   |\n| aEthCRV (All-1) |\n\nALC SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-february-funding-update/20712)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "February Funding Update (Part 1)",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-february-funding-update/20712",
+    "originalIpfsHash": "0xe1e1b8832f234472aedd79163b2ea94b98fc5d884d69a6241e517ba3ed755d34"
+  },
+  "proposal": {
+    "id": 246,
+    "votingDuration": 259200,
+    "creationTime": 1738838171,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xe1e1b8832f234472aedd79163b2ea94b98fc5d884d69a6241e517ba3ed755d34",
+    "initialPayloads": [
+      {
+        "id": 241,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 97,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 64,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 66,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 246,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1738843856,
+    "cancellationFee": 50000000000000000
+  }
+}
