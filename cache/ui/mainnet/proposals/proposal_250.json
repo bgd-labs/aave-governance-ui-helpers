@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1739372855,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1742396855,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xDfef791F616AB780f4492E8b8B555BB09BbB1325",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 247,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmVVdwfC3mUcjpvvMQR4emMMLdkTkzLWeJyvydircd5sLX",
+    "description": "\n## Simple Summary\n\nRe-enable stkBPT incentives emissions for 180 days after previous period ended.\n\n## Motivation\n\nWith the conclusion of the recent reward cycle, this proposal aims to renew $AAVE emissions for stkBPT holders. The stkBPT module has proven to be a crucial mechanism as an AAVE supply sink, currently holding a TVL of $1.6B. It is recommended to maintain these emissions in anticipation of upcoming Umbrella developments, with adjustments to be made following the outcomes of the Umbrella upgrade.\n\nMore information on stkBPT can be found in the following dashboard, [here](https://dune.com/xmc2/aave-safety-module).\n\n## Specification\n\n- Set new allowance to 360 AAVE per day for 180 days\n- Include prior remaining allowance of ~21,000\n- Include days between distribution end and execution date\n- Set distribution end for 180 days from execution date\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2099b900e5a755cd7f69eaf0a9e4d8f6711b33ab/src/20250210_AaveV3Ethereum_StkBPTIncentives/AaveV3Ethereum_StkBPTIncentives_20250210.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2099b900e5a755cd7f69eaf0a9e4d8f6711b33ab/src/20250210_AaveV3Ethereum_StkBPTIncentives/AaveV3Ethereum_StkBPTIncentives_20250210.t.sol)\n  [Snapshot](Direct-to-AIP)\n- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/13)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "stkBPT Incentives",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/13",
+    "originalIpfsHash": "0x6a4f2b5540e736107c7ea76d935c9d02edff631359a1785c2f281ee1b046c1f4"
+  },
+  "proposal": {
+    "id": 250,
+    "votingDuration": 259200,
+    "creationTime": 1739484443,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x6a4f2b5540e736107c7ea76d935c9d02edff631359a1785c2f281ee1b046c1f4",
+    "initialPayloads": [
+      {
+        "id": 247,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 250,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1739492872,
+    "cancellationFee": 50000000000000000
+  }
+}
