@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.3.0...v3.4.0) (2025-02-19)
+
+
+### Features
+
+* add Celo support ([#87](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/87)) ([eabcd81](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/eabcd81b67f80972d71e0435a773d7469e96204b))
+
 ## [3.3.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.2.7...v3.3.0) (2025-02-19)
 
 
