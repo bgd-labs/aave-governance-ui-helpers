@@ -423,5 +423,30 @@
     "id": 16,
     "chainId": 324,
     "payloadsController": "0x2E79349c3F5e4751E87b966812C9E65E805996F1"
+  },
+  "17": {
+    "creator": "0x02fEb744cA516FD6E41D940Ae2d0F7Cb6FCB1ac3",
+    "maximumAccessLevelRequired": 1,
+    "state": 1,
+    "createdAt": 1739917263,
+    "queuedAt": 0,
+    "executedAt": 0,
+    "cancelledAt": 0,
+    "expirationTime": 1742941263,
+    "delay": 86400,
+    "gracePeriod": 604800,
+    "actions": [
+      {
+        "target": "0xfA8e984fD1Ffd8DD8580d0f955a26A8901F89B72",
+        "withDelegateCall": true,
+        "accessLevel": 1,
+        "value": "0",
+        "signature": "execute()",
+        "callData": "0x"
+      }
+    ],
+    "id": 17,
+    "chainId": 324,
+    "payloadsController": "0x2E79349c3F5e4751E87b966812C9E65E805996F1"
   }
 }
