@@ -5,6 +5,7 @@ import {
   GovernanceV3Avalanche,
   GovernanceV3Base,
   GovernanceV3BNB,
+  GovernanceV3Celo,
   GovernanceV3Ethereum,
   GovernanceV3Gnosis,
   GovernanceV3Linea,
@@ -22,6 +23,7 @@ import {
   avalancheFuji,
   base,
   bsc,
+  celo,
   gnosis,
   linea,
   mainnet,
@@ -128,6 +130,10 @@ export const payloadsControllerConfig: Record<
       dataHelperContractAddress: GovernanceV3Sonic.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3Sonic.PAYLOADS_CONTROLLER],
     },
+    [celo.id]: {
+      dataHelperContractAddress: GovernanceV3Celo.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Celo.PAYLOADS_CONTROLLER],
+    },
   },
   // testnets
   sepolia: {
@@ -218,6 +224,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     zksync.id,
     linea.id,
     sonic.id,
+    celo.id,
   ],
   sepolia: [sepolia.id, avalancheFuji.id],
 };
