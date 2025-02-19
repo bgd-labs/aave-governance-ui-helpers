@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.2.7...v3.3.0) (2025-02-19)
+
+
+### Features
+
+* add sonic support ([#85](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/85)) ([1df5886](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1df58865d95b8bbfcd9c0476f933ee65d7b1b027))
+
 ## [3.2.7](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.2.6...v3.2.7) (2025-01-29)
 
 
