@@ -1,0 +1,174 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1740740627,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1743764627,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x33c0B2efBF3Df1F99187cE93C144b9F725619396",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 252,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1740740753,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1743764753,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xfF1FCC6a61910fE28D5Abd94C732a1E1E14f5d6E",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 101,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1740740885,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1743764885,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x677dC488e7F9024673DC0006d6D226585919D85B",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 68,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1740741001,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1743765001,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x89e9e4059af2a8f3D181265BE6916Dd1246A791a",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 77,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmYmA9WfAkESmzqE4231ujPFUYRi8iNAkBkMjGhEUkXYiN",
+    "description": "\n## Simple Summary\n\nThis publication presents the February Funding Update - Part B, which consists of performing the following key activities:\n\n- Bridging funds to Ethereum;\n- Create Merit & Ahab Allowances;\n- Deposit previously swapped assets on [Part A](https://github.com/bgd-labs/aave-proposals-v3/pull/595)\n\n## Motivation\n\nThis proposal is a continuation of [February Funding Update Part A](https://github.com/bgd-labs/aave-proposals-v3/pull/595) and as part of our ongoing Treasury asset rebalancing strategy, this proposal when implemented will continue to:\n\n- Bridging assets from Polygon, Arbitrum and Optimism to Ethereum;\n  - Continue reducing bridged USDC exposure in support of Native USDC adoption;\n  - Convert DAI to USDS;\n  - Prepare to unstake wstMATIC;\n  - Transfer BAL and CRV to ALC.\n\n## Specification\n\n### Bridge Assets to Ethereum Mainnet\n\nWithdraw from respective Aave Protocol and bridge the following assets to Ethereum mainnet.\n\n| Polygon v2 & Passive |      Polygon v3      |    Arbitrum v3     |    Optimism v3     |\n| :------------------: | :------------------: | :----------------: | :----------------: |\n|  amUSDC.e (All-100)  |   aPolDAI (All-1)    |  aArbLUSD (All-1)  |  aOptLUSD (All-1)  |\n|    amBAL (All-1)     |   aPolWETH (All-1)   | aArbUSDC (All-100) | aOptUSDC (All-100) |\n|      BAL (All)       |   aPolBAL (All-1)    |   aEthDai(All-1)   |                    |\n|     USDC.e (All)     | aPolUSDC.e (All-100) |      Dai(All)      |                    |\n|      AAVE (All)      |   aPolAAVE (All-1)   |                    |                    |\n|    amWETH (All-1)    | aPolstMATIC (All-1)  |                    |                    |\n|    amDAI (All-1)     |   aPolDPI (All-1)    |                    |                    |\n|      wETH (All)      |  aPolwstETH (All-1)  |                    |                    |\n|      CRV (All)       |   aPolCRV (All-1)    |                    |                    |\n|     wstETH (All)     |                      |                    |                    |\n\n### Deposit into Aave V3\n\n|      Instance       | Asset | Amount |\n| :-----------------: | :---: | :----: |\n| AaveV3EthereumCore  |  ETH  |  All   |\n| AaveV3EthereumPrime |  GHO  |   3M   |\n| AaveV3EthereumCore  | USDS  |  All   |\n\n### Withdraw and burn 3M GHO on Prime instance\n\nAs per Chaos Labs' recommendation, withdraw and burn 3 Million GHO from Prime instance that had been previously been minted and supplied via the GhoDirectMinter Facilitator. Read more [here](https://governance.aave.com/t/arfc-update-usds-gho-borrow-rate/20892/5).\n\n### Merit + Ahab Programs\n\nCreate allowances to the Merit_Ahab Safe, 3M GHO aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core instances respectively:\n\nSAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Polygon_FebruaryFundingUpdatePartB_20250207.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Optimism_FebruaryFundingUpdatePartB_20250207.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Polygon_FebruaryFundingUpdatePartB_20250207.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Optimism_FebruaryFundingUpdatePartB_20250207.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/8aaeab3030190b8b8f89bdb907883af4fa7308f3/src/20250207_Multi_FebruaryFundingUpdatePartB/AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-february-funding-update/20712)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "February Funding Update - Part B",
+    "author": "TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-february-funding-update/20712",
+    "originalIpfsHash": "0x9adc1828386ca02dba7c1a492c4448348addde4551e5bc81968bf49920517b3b"
+  },
+  "proposal": {
+    "id": 259,
+    "votingDuration": 259200,
+    "creationTime": 1740741155,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x9adc1828386ca02dba7c1a492c4448348addde4551e5bc81968bf49920517b3b",
+    "initialPayloads": [
+      {
+        "id": 252,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 101,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 68,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 77,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 259,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1740744651,
+    "cancellationFee": 50000000000000000
+  }
+}
