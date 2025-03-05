@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1741179877,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1744203877,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xCAD96AF06E01817b62A46B6343691a98e114Fa43",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 57,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmVrnWDKohnJvoUp23BDMefV59KbDWN2monnjBWK9mrswD",
+    "description": "\n## Simple Summary\n\nThis is an AIP to onboard rsETH to the Aave V3 Base Instance allowing Aave users to supply wrsETH as collateral. This proposal will be under Direct to AIP, as rsETH is already listed on other Aave instances.\n\n## Motivation\n\nrsETH has seen continued growth across networks, and is currently the only of the onboarded LRT not available on Base. We expect further growth of this asset with onboarding to this networks.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **wrsETH**\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                   DISABLED |\n| Collateral Enabled        |                                       true |\n| Supply Cap (wrsETH)       |                                        400 |\n| Borrow Cap (wrsETH)       |                                          1 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                     0.05 % |\n| LT                        |                                      0.1 % |\n| Liquidation Bonus         |                                      7.5 % |\n| Liquidation Protocol Fee  |                                       10 % |\n| Reserve Factor            |                                       20 % |\n| Base Variable Borrow Rate |                                        1 % |\n| Variable Slope 1          |                                        7 % |\n| Variable Slope 2          |                                      300 % |\n| Uoptimal                  |                                       45 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0x567E7f3DB2CD4C81872F829C8ab6556616818580 |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for wrsETH and the corresponding aToken.\n\nMoreover the following e-mode will be added:\n\n| Parameter           | Value  | Value  |\n| ------------------- | ------ | ------ |\n| Asset               | wrsETH | wstETH |\n| Collateral          | Yes    | No     |\n| Borrowable          | No     | Yes    |\n| LTV                 | 92.50% | -      |\n| LT                  | 94.50% | -      |\n| Liquidation Penalty | 1.00%  | -      |\n\n## References\n\n- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/bb48eee02aa92f638e5f38e187696c885f231b59/src/20250226_AaveV3Base_WrsETHBaseOnboarding/AaveV3Base_WrsETHBaseOnboarding_20250226.sol)\n- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/bb48eee02aa92f638e5f38e187696c885f231b59/src/20250226_AaveV3Base_WrsETHBaseOnboarding/AaveV3Base_WrsETHBaseOnboarding_20250226.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x598f7057f445813d75404fae68f3501d76c90064f52ca4b9afb6f20859fa2658)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-rseth-to-arbitrum-and-base-v3-instances/20741)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "wrsETH Base Onboarding",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-rseth-to-arbitrum-and-base-v3-instances/20741",
+    "snapshot": "https://snapshot.box/#/s:aave.eth/proposal/0x598f7057f445813d75404fae68f3501d76c90064f52ca4b9afb6f20859fa2658",
+    "originalIpfsHash": "0x6fba0be9251581b6628c378a8cfef6bba51a0a902528bfc4b0eff92ed14635b8"
+  },
+  "proposal": {
+    "id": 263,
+    "votingDuration": 259200,
+    "creationTime": 1741179959,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x6fba0be9251581b6628c378a8cfef6bba51a0a902528bfc4b0eff92ed14635b8",
+    "initialPayloads": [
+      {
+        "id": 57,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 263,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1741187229,
+    "cancellationFee": 50000000000000000
+  }
+}
