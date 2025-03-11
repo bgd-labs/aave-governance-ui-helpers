@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1741694091,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1744718091,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xb894ca17da54242094f523E4Cd6357C2807e509c",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 70,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmZdgwZsGtiS83F4wLgeZar3RxH8p7XQUEUS8AjJaBVVwV",
+    "description": "\n## Simple Summary\n\nChaos Labs recommends making AUSD into a collateral asset on Aave V3’s Avalanche Deployment.\n\n## Motivation\n\nAUSD is a stablecoin native to Avalanche; in November 2024, we [provided](https://www.notion.so/AUSD-Collateral-1a457ab37ebf8011bb76e35244988b6e?pvs=21) a detailed recommendation for listing for the asset. At the time, we stated that, because “stablecoins on Aave typically show little demand as collateral due to their primary role as borrowable assets, we recommend setting AUSD as non-collateral. This aligns with AUSD’s relatively volatile liquidity profile and limited operational history.”\n\nWe now have a greater historical record on which to judge the asset and its suitability as collateral, especially its liquidity profile. The asset’s liquidity has been steadily growing since October 2024, currently pooled against about $10M worth of USDC and USDT.\n\nAdditionally, AUSD’s peg stability has improved, with just 1.56% daily annualized volatility over the last 30 days.\n\n### AUSD Usage on Aave\n\nThe AUSD market is currently slightly underutilized, with a utilization rate of 61.29%.\n\nBorrows of the asset have fallen slightly from their peak, while the supply has remained relatively stable. Supplying is currently incentivized, with an 8.24% asAVAX APR.\n\nBTC.b has consistently been the most popular collateral asset for AUSD debt, followed by USDC.\n\nElsewhere on Avalanche, borrow rates for stablecoins have been following. Given the current incentives, allowing AUSD as collateral could increase borrowing of other stablecoins, as users seek to arbitrage their rates.\n\nWhile AUSD-AUSD looping is possible and has been observed on other protocols, the implementation of [Merit](https://governance.aave.com/t/arfc-merit-a-new-aave-alignment-user-reward-system/16646) provides the protocol with more granular control over rewards, allowing the DAO to limit the incentives that can be obtained through looping.\n\n### LB, LTV, and LT\n\nWe recommend a Liquidation Bonus of 6.00% for AUSD, aligning with other, smaller stablecoins like FRAX on Arbitrum. Taking this larger LB into account, we recommend an LT of 72.00% and an LTV of 69.00%.\n\n## Specification\n\n| Parameter             | Value  |\n| --------------------- | ------ |\n| Asset                 | AUSD   |\n| Liquidation Bonus     | 6.00%  |\n| LTV                   | 69.00% |\n| Liquidation Threshold | 72.00% |\n\n## References\n\n- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a82b6a6b3b4c67766d4cd48ce6a2003e07303f00/src/20250303_AaveV3Avalanche_AUSDOnV3Avalanche/AaveV3Avalanche_AUSDOnV3Avalanche_20250303.sol)\n- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a82b6a6b3b4c67766d4cd48ce6a2003e07303f00/src/20250303_AaveV3Avalanche_AUSDOnV3Avalanche/AaveV3Avalanche_AUSDOnV3Avalanche_20250303.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameters-update-ausd-on-v3-avalanche/21201)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "AUSD on V3 Avalanche",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-chaos-labs-risk-parameters-update-ausd-on-v3-avalanche/21201",
+    "originalIpfsHash": "0xa7cdf42a355a552ebb1e0a7fc43191b85d87c14faff922448d9ad364a78bb328"
+  },
+  "proposal": {
+    "id": 266,
+    "votingDuration": 259200,
+    "creationTime": 1741694183,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xa7cdf42a355a552ebb1e0a7fc43191b85d87c14faff922448d9ad364a78bb328",
+    "initialPayloads": [
+      {
+        "id": 70,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 266,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x59e6CAD5d7E7b9A26a45a1d1E74C7aF008170042",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1741695079,
+    "cancellationFee": 50000000000000000
+  }
+}
