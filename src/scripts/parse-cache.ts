@@ -53,6 +53,39 @@ import { createViemClient } from './createClient';
 
 const initDirName = `ui/${coreName}`;
 
+export const PROPOSAL_ID_THRESHOLD = 272;
+
+const VOTING_MACHINE_ADDRESSES: Record<
+  number,
+  { oldAddress: Address; newAddress: Address }
+> = {
+  1: {
+    oldAddress: '0x617332a777780F546261247F621051d0b98975Eb' as Address,
+    newAddress: '0x06a1795a88b82700896583e123F46BE43877bFb6' as Address,
+  },
+  137: {
+    oldAddress: '0xc8a2ADC4261c6b669CdFf69E717E77C9cFeB420d' as Address,
+    newAddress: '0x44c8b753229006A8047A05b90379A7e92185E97C' as Address,
+  },
+  43114: {
+    oldAddress: '0x9b6f5ef589A3DD08670Dd146C11C4Fb33E04494F' as Address,
+    newAddress: '0x4D1863d22D0ED8579f8999388BCC833CB057C2d6' as Address,
+  },
+};
+
+export function getVotingMachineAddress(
+  chainId: number,
+  proposalId: number,
+): Address {
+  const addresses = VOTING_MACHINE_ADDRESSES[chainId];
+  if (!addresses) {
+    throw new Error(`No voting machine addresses found for chain ${chainId}`);
+  }
+  return proposalId > PROPOSAL_ID_THRESHOLD
+    ? addresses.newAddress
+    : addresses.oldAddress;
+}
+
 async function getVotingData(initialProposals: InitialProposal[]) {
   const votingMachineDataHelpers = {
     [appConfig.votingMachineChainIds[0]]: getContract({
@@ -87,30 +120,50 @@ async function getVotingData(initialProposals: InitialProposal[]) {
     .map((data) => data.votingChainId)
     .filter((value, index, self) => self.indexOf(value) === index);
 
-  const votingMachines: Record<number, Hex> = {};
   const data = await Promise.all(
     votingMachineChainIds.map(async (chainId) => {
       const votingMachineDataHelper = votingMachineDataHelpers[chainId];
 
-      const formattedInitialProposals = initialProposals
-        .filter((proposal) => proposal.votingChainId === chainId)
-        .map((proposal) => {
-          return {
-            id: proposal.id,
-            snapshotBlockHash: proposal.snapshotBlockHash,
-          };
-        });
+      const { oldFormattedInitialProposals, newFormattedInitialProposals } =
+        initialProposals
+          .filter((proposal) => proposal.votingChainId === chainId)
+          .map(({ id, snapshotBlockHash }) => ({ id, snapshotBlockHash }))
+          .reduce(
+            (acc, proposal) => {
+              if (proposal.id <= PROPOSAL_ID_THRESHOLD) {
+                acc.oldFormattedInitialProposals.push(proposal);
+              } else {
+                acc.newFormattedInitialProposals.push(proposal);
+              }
+              return acc;
+            },
+            {
+              oldFormattedInitialProposals: [] as {
+                id: bigint;
+                snapshotBlockHash: `0x${string}`;
+              }[],
+              newFormattedInitialProposals: [] as {
+                id: bigint;
+                snapshotBlockHash: `0x${string}`;
+              }[],
+            },
+          );
 
-      votingMachines[chainId] =
-        appConfig.votingMachineConfig[chainId].contractAddress;
-
-      return (
-        (await votingMachineDataHelper.read.getProposalsData([
-          appConfig.votingMachineConfig[chainId].contractAddress,
-          formattedInitialProposals,
+      const firstNewProposalId = newFormattedInitialProposals[0].id;
+      const [oldProposalsData, newProposalsData] = await Promise.all([
+        votingMachineDataHelper.read.getProposalsData([
+          getVotingMachineAddress(chainId, 0),
+          oldFormattedInitialProposals,
           zeroAddress,
-        ])) || []
-      );
+        ]),
+        votingMachineDataHelper.read.getProposalsData([
+          getVotingMachineAddress(chainId, Number(firstNewProposalId)),
+          newFormattedInitialProposals,
+          zeroAddress,
+        ]),
+      ]);
+
+      return [...oldProposalsData, ...newProposalsData];
     }),
   );
 
@@ -631,10 +684,14 @@ async function parseCache() {
       const proposalIpfsData = ipfsCache[proposal.ipfsHash];
 
       const path = `${proposal.votingChainId}/events`;
+      const votingMachineAddress = getVotingMachineAddress(
+        proposal.votingChainId,
+        proposal.id,
+      );
       const votesCache =
         readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
           path,
-          appConfig.votingMachineConfig[proposal.votingChainId].contractAddress,
+          votingMachineAddress,
         ) || [];
 
       // format VoteEmitted events to UI data format
