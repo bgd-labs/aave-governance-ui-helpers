@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.4.0...v3.5.0) (2025-03-28)
+
+
+### Features
+
+* Voting machine address depends on proposal ([#89](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/89)) ([93e2408](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/93e240825048f0fc13f0576527ccaa5720bd6aeb))
+
 ## [3.4.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.3.0...v3.4.0) (2025-02-19)
 
 
