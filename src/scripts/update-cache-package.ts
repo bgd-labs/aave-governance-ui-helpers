@@ -75,7 +75,9 @@ async function updatePayloadsEvents(
 ) {
   const client = createViemClient({
     chain: ChainList[chainId as SupportedChainIds],
-    rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+    rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
+      alchemyKey: process.env.ALCHEMY_API_KEY,
+    }),
   });
   const payloadsPath = `${chainId}/payloads`;
 
@@ -128,7 +130,9 @@ async function updatePayloadsData(
 
       const client = createViemClient({
         chain: ChainList[chainId as SupportedChainIds],
-        rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+        rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
+          alchemyKey: process.env.ALCHEMY_API_KEY,
+        }),
       });
       const contract = getContract({
         abi: IPayloadsControllerCore_ABI,
@@ -178,7 +182,9 @@ async function updateGovCoreEvents(
 
   const client = createViemClient({
     chain: ChainList[govCoreChainId as SupportedChainIds],
-    rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
+    rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds, {
+      alchemyKey: process.env.ALCHEMY_API_KEY,
+    }),
   });
   const currentBlockOnGovernanceChain = await getBlockNumber(client);
   const contract = getContract({
@@ -250,7 +256,9 @@ async function updateVMEvents(
       const address = machine;
       const client = createViemClient({
         chain: ChainList[chainId as SupportedChainIds],
-        rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+        rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
+          alchemyKey: process.env.ALCHEMY_API_KEY,
+        }),
       });
       const currentBlockOnVotingMachineChain = await getBlockNumber(client);
       const votesCache =
@@ -309,7 +317,9 @@ export async function updateCache({
   // initialize contracts
   const govCoreClient = createViemClient({
     chain: ChainList[govCoreChainId as SupportedChainIds],
-    rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
+    rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds, {
+      alchemyKey: process.env.ALCHEMY_API_KEY,
+    }),
   });
   const govCore = getContract({
     address: govCoreContractAddress,
