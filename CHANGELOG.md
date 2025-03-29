@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.5.0...v3.5.1) (2025-03-29)
+
+
+### Bug Fixes
+
+* add correct proposal threshold ([#91](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/91)) ([fa6de04](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/fa6de04d575df81008f07d4489b0a3e59ab7a615))
+
 ## [3.5.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.4.0...v3.5.0) (2025-03-28)
 
 
