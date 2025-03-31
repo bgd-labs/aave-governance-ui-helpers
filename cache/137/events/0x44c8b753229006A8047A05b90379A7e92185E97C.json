@@ -2915,5 +2915,97 @@
     ],
     "transactionHash": "0x64bc0d36b9d7fb7f8ee988d1b775c8403ed9cb6e692dda49f199f1e1c949136f",
     "transactionIndex": 44
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "279",
+      "voter": "0x76947FFd22b45536476EcCe0aA9fF670E36164fE",
+      "support": true,
+      "votingPower": "21561777819942747"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x35df7b7f4709b952177ef63ef4d2a243572876ec495c2d550b6c9b5049b83d33",
+    "blockNumber": "69737364",
+    "data": "0x000000000000000000000000000000000000000000000000004c9a529baeff5b",
+    "logIndex": 42,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000117",
+      "0x00000000000000000000000076947ffd22b45536476ecce0aa9ff670e36164fe",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x3d51750bf73a854f69064e8c7cd7611c1b1f191388dc28b827c11dca57de8e6d",
+    "transactionIndex": 13
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "282",
+      "voter": "0x76947FFd22b45536476EcCe0aA9fF670E36164fE",
+      "support": true,
+      "votingPower": "21561777819942747"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0xc9bfcd1dde4d4ec58302ee9534020789299b2551c5be0a317730fa8b6b88d17f",
+    "blockNumber": "69737379",
+    "data": "0x000000000000000000000000000000000000000000000000004c9a529baeff5b",
+    "logIndex": 105,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x000000000000000000000000000000000000000000000000000000000000011a",
+      "0x00000000000000000000000076947ffd22b45536476ecce0aa9ff670e36164fe",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x01a04b2898478ff70f3b5f46b65059c20b96cbc06d8bf8c8710b97dbebb301bf",
+    "transactionIndex": 35
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "281",
+      "voter": "0x76947FFd22b45536476EcCe0aA9fF670E36164fE",
+      "support": true,
+      "votingPower": "21561777819942747"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x3437c64260c64dbf2d3afcfe57e74848825b6ab13281e4b66b68ba12653aafd1",
+    "blockNumber": "69737384",
+    "data": "0x000000000000000000000000000000000000000000000000004c9a529baeff5b",
+    "logIndex": 124,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000119",
+      "0x00000000000000000000000076947ffd22b45536476ecce0aa9ff670e36164fe",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xf30ef1a3c18f0358e823bd916a2a45c6989b805fc99861fdde30717c1ef7e9dc",
+    "transactionIndex": 36
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "280",
+      "voter": "0x76947FFd22b45536476EcCe0aA9fF670E36164fE",
+      "support": true,
+      "votingPower": "21561777819942747"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0xac052c987ff261c455b0ff1c9fa1efef89856af2949d1bcd574e7273e66d790b",
+    "blockNumber": "69737388",
+    "data": "0x000000000000000000000000000000000000000000000000004c9a529baeff5b",
+    "logIndex": 66,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000118",
+      "0x00000000000000000000000076947ffd22b45536476ecce0aa9ff670e36164fe",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x5978a0f9c19d3ccb2339366131549aa947e0aa6033ea531d470fa0d8e482e368",
+    "transactionIndex": 17
   }
 ]
