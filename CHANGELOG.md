@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.5.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.5.1...v3.5.2) (2025-03-29)
+
+
+### Bug Fixes
+
+* pass alchemy key ([#94](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/94)) ([6ee5924](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/6ee59241d506c746f9a429446b16e97897273683))
+* update workflow ([#96](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/96)) ([10cdcf7](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/10cdcf76345c21871bec2478d6635e93061e66e1))
+
 ## [3.5.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.5.0...v3.5.1) (2025-03-29)
 
 
