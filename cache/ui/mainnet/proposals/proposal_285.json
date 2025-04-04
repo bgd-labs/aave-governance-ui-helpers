@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1743750590,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1746774590,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xc1553D740398f3f1E89d521d37305A8156aF55DA",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 50,
+      "chainId": 100,
+      "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmXEdMGpguPRmX97yTejjimdqYfkJuFvJjEwE11dETNzKL",
+    "description": "\n## Simple Summary\n\nThis publication proposes changes in the Gnosis Chain instance to improve the capital efficiency of USDC.e and sDAI assets by promoting changes on its parametrisation.\n\n## Motivation\n\nThe Gnosis Chain’s DeFi landscape has evolved considerably since these assets were first introduced. With a vibrant ecosystem now in place, it’s time to enhance capital efficiency, reduce capital fragmentation, and create useful debt vs no risk looping within the Aave GC instance to attract more capital and increase utilisation.\n\n**USDC to USDC.e Transition:**\n\nGnosis Chain is committed to making USDC.e (the version that aligns with Circle’s standards) the defacto version of this stablecoin within its ecosystem, by accelerating the transition from USDC and making it the major market within Aave’s GC instance (replacing xDAI). To incentivise this migration and accommodate increased capital inflows, we propose the following adjustments for USDC.e:\n\n- Supply and Borrowing Cap Increase: Enacted via the Risk Steward.\n- Emode Creation: Establish an Emode pairing between USDC.e and sDAI, similar to the existing sDAI/EURe Emode.\n\nThose changes will incentivise looping strategies with USDC.e similar to those with EURe/xDAI.\n\nTo further promote the transition to USDC.e, we propose reducing the LTV factor for USDC. This measure will prevent the initiation of new borrowings using USDC, thus encouraging users to adopt USDC.e.\n\n**sDAI Borrowability**\n\nThis proposal also asks to make sDAI a borrowable asset. There is little justification for depositing xDAI into Aave on Gnosis, as sDAI offers the same risk profile. The optimal configuration, then, would be to phase out xDAI in favour of sDAI (this will be presented in a future proposal). sDAI becoming borrowable ensures a more efficient and market-driven borrowing system on the platform.\n\n## Specification\n\nThe tables below show the current and proposed parameters for each asset. A subsequent AIP will be submitted to implement these changes upon implementing this proposal.\n\n- USDC.e\n\n| Parameters               | Current | Proposed |\n| ------------------------ | ------- | -------- |\n| Isolation Mode           | No      | -        |\n| Borrowable in Isolation  | Yes     | -        |\n| Enable Borrow            | Yes     | -        |\n| Enable Collateral        | Yes     | -        |\n| Loan To Value (LTV)      | 75%     | -        |\n| Liquidation Threshold    | 78%     | -        |\n| Liquidation Bonus        | 5%      | -        |\n| Reserve Factor           | 10%     | -        |\n| Liquidation Protocol Fee | 10%     | -        |\n| Supply Cap               | 10M     | -        |\n| Borrow Cap               | 9M      | -        |\n| Debt Ceiling             | N/A     | -        |\n| Optimal                  | 90%     | -        |\n| Base                     | 0%      | -        |\n| Slope1                   | 9.5%    | -        |\n| Slope2                   | 40%     | -        |\n| Emode                    | No      | Yes      |\n\n- Create sDAI/USDC.e E-mode\n\n| Parameters            | Value | Value  |\n| --------------------- | ----- | ------ |\n| Asset                 | sDAI  | USDC.e |\n| Collateral            | Yes   | No     |\n| Borrowable            | No    | Yes    |\n| Max LTV               | 90%   | -      |\n| Liquidation Threshold | 92%   | -      |\n| Liquidation Bonus     | 4%    | -      |\n\n- USDC\n\n| Parameters     | Current | Proposed |\n| -------------- | ------- | -------- |\n| Supply Cap     | 11m     | 2.5m     |\n| Borrow Cap     | 11m     | 2m       |\n| Reserve Factor | 25%     | 40%      |\n| LTV            | 75%     | 65%      |\n\n- sDAI\n\n| Parameters               | Current | Proposed |\n| ------------------------ | ------- | -------- |\n| Isolation Mode           | No      | -        |\n| Borrowable in Isolation  | No      | -        |\n| Enable Borrow            | No      | -        |\n| Enable Collateral        | Yes     | -        |\n| Loan To Value (LTV)      | 75%     | -        |\n| Liquidation Threshold    | 78%     | -        |\n| Liquidation Bonus        | 5%      | -        |\n| Reserve Factor           | 10%     | -        |\n| Liquidation Protocol Fee | 20%     | -        |\n| Supply Cap               | 48M     | -        |\n| Borrow Cap               | 0       | -        |\n| Debt Ceiling             | N/A     | -        |\n| Optimal                  | 90%     | -        |\n| Base                     | 0%      | -        |\n| Slope1                   | 4%      | -        |\n| Slope2                   | 75%     | -        |\n| Emode                    | No      | Yes      |\n\n## References\n\n- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/1df64075d9de756315cb85fc35b7b9f0d03c83ee/src/20250311_AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance/AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311.sol)\n- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/1df64075d9de756315cb85fc35b7b9f0d03c83ee/src/20250311_AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance/AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x27b21aa2cd21d5e94eb9b9e0232fe875ad45719588ada4b059f67a8834d7408e)\n- [Discussion](https://governance.aave.com/t/arfc-enhancements-in-aave-v3-gnosis-chain-instance/21214)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Enhancements in Aave v3 Gnosis Chain Instance",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-enhancements-in-aave-v3-gnosis-chain-instance/21214",
+    "snapshot": "https://snapshot.box/#/s:aave.eth/proposal/0x27b21aa2cd21d5e94eb9b9e0232fe875ad45719588ada4b059f67a8834d7408e",
+    "originalIpfsHash": "0x842e291fcdf10a54e43af6d356bf4ed54ef5b33c284f2693f201b6c7875e7633"
+  },
+  "proposal": {
+    "id": 285,
+    "votingDuration": 259200,
+    "creationTime": 1743750647,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x842e291fcdf10a54e43af6d356bf4ed54ef5b33c284f2693f201b6c7875e7633",
+    "initialPayloads": [
+      {
+        "id": 50,
+        "chainId": 100,
+        "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 285,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1743757639,
+    "cancellationFee": 50000000000000000
+  }
+}
