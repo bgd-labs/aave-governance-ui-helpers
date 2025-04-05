@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x246E20bF778b3e16cB71eca535f40f8C4E6c4185",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1743860687,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1746884687,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x160A00C878c56d9Cb0739B676D358d33ee5409B8",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 268,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmVBPmoXojKMku4vRYH8ag2Pvg3aRZy77Win9PmTaiF24u",
+    "description": "\n## Simple Summary\n\nProposal to release a total of $21’000 as bounty for four outstanding Aave <> Immunefi valid submissions, together with $2’100 as the fee to the Immunefi platform; amounting to a grand total of $23'100.\n\nThe asset of payment will be GHO.\n\n## Motivation\n\nAfter the previous Request for Bounty Payout on January 2025, there have been only two valid bug submissions on the Aave <> Immunefi program, which should be paid now with the month finished, cleaning up the pipeline.\n\n## Specification\n\nThis proposal will release the following funds to white-hat addresses and the Immunefi platform:\n\n- 20’000 GHO to 0x62566e81CcDFF9407E840d5ec3056e7354D44012\n- 1’000 GHO to 0xF5BED21BD285CBe352737F686766cCC19BeE7acC\n- 2’100 GHO to 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18 (immunefi.eth). This is the fee corresponding to the 10% of the previous bounties.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/201af608e17edc2cffd972ddc27b6dd7246a59ee/src/20250404_AaveV3Ethereum_RequestForBountyPayoutMarch2025/AaveV3Ethereum_RequestForBountyPayoutMarch2025_20250404.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/201af608e17edc2cffd972ddc27b6dd7246a59ee/src/20250404_AaveV3Ethereum_RequestForBountyPayoutMarch2025/AaveV3Ethereum_RequestForBountyPayoutMarch2025_20250404.t.sol)\n- [Snapshot](N/A)\n- [Discussion](https://governance.aave.com/t/bgd-request-for-bounty-payout-march-2025/21656)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Request for Bounty Payout - March 2025",
+    "author": "BGD Labs @bgdlabs",
+    "discussions": "https://governance.aave.com/t/bgd-request-for-bounty-payout-march-2025/21656",
+    "snapshot": "Direct to AIP",
+    "originalIpfsHash": "0x65a2b1557732fc00eeee947ab9bbbe3b3adfa3da7ff0a5e7203cd748c18b7fe6"
+  },
+  "proposal": {
+    "id": 290,
+    "votingDuration": 259200,
+    "creationTime": 1743861767,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x65a2b1557732fc00eeee947ab9bbbe3b3adfa3da7ff0a5e7203cd748c18b7fe6",
+    "initialPayloads": [
+      {
+        "id": 268,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 290,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1743865566,
+    "cancellationFee": 50000000000000000
+  }
+}
