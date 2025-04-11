@@ -1,0 +1,114 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1744361543,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1747385543,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x559A4707dB33B28C2c2e9f83A5f205a164F02191",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 270,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1744361633,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1747385633,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x5F876Db887658c29a9772AFbA54d65B83a9AB079",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 109,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmXUCvDhU8Zri5iv2CF368jksqx2EnSDLstvgUPZgutAbW",
+    "description": "\n## Simple Summary\n\nThis publication presents the April Funding Update, consisting of the following key activities:\n\n- Bridge funds to Ethereum;\n- Fund Sonic incentive campaign;\n- Acquire GHO for Operations; and,\n- Transfer FLUID to Aave Protocol Embassy.\n- Fund to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1)\n- Update stataUSDT GSM Exposure Cap as it has successfully drawn swaps from aggregators\n\n## Motivation\n\nThis publication combines near term operational needs and migrating assets held on Polygon in preparation for funding future incentive campaigns. The below outlines the three objectives of this publication:\n\n- Consolidating funds to Ethereum;\n- Fulfilling near term operation requirements; and,\n\n### Bridge Funds to Ethereum\n\nEach month the DAO’s funds held on Polygon are to be bridged to Ethereum where they will be used to support various incentive and buyback programs. With the pending Umbrella, Horizon and AAVE buybacks to start in the near future, consolidating assets on Ethereum ensures sufficient capital is readily available if required.\n\n### Acquire GHO\n\nIn the near term we expect several initiatives to request funding from the DAO. This proposal when implemented will acquire sufficient GHO to sustain the DAO until the Finance Steward is deployed ensuring the DAO is well capitalised at all times.\n\nExamples of near term expenses include:\n\n- Service Provider renewal;\n- Merit and ALC; and,\n- Incentive campaign(s).\n\n## Specification\n\nThis proposal shall be submitted as several AIPs that align with operational readiness timelines and ease of review given the volume of funds being moved.\n\n### Polygon - Bridge Assets to Ethereum\n\nBridge the following assets to Ethereum.\n\n| Polygon |\n| :-----: |\n| USDC.e  |\n|  USDT   |\n|  WETH   |\n|   DAI   |\n\n### Ethereum - Acquire GHO\n\nSwap to GHO and deposit into Aave v3 Prime instance.\n\n| Ethereum v2 | Amount |\n| :---------: | :----: |\n|    aUSDT    | 2.00M  |\n|    aUSDC    | 2.00M  |\n\nThis GHO will provide sufficient runway to cover the next few months of Merit and Service Provider expenses being paid from Aave v3 Prime instance.\n\n### Ethereum - Aave Protocol Embassy & Sonic Incentives\n\nTransfer FLUID held in the Treasury to Aave Protocol Embassy SAFE on Ethereum:\n\nSAFE: `0xa9e777D56C0Ad861f6a03967E080e767ad8D39b6`\n\nCreate an Allowance to fund Sonic Incentive Campaign, 0.8M aEthUSDC, from Aave v3 Core instance to Merit address:\n\nSAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`\n\n### Fund to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1)\n\nFunding to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1) on mainnet with 50 LINK and 1 native ETH\n\n### Update stataUSDT GSM Exposure Cap\n\nSet the stataUSDT GSM exposure cap to 25M units.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-april-funding-update/21590)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "April Funding update",
+    "author": "TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-april-funding-update/21590",
+    "originalIpfsHash": "0x87a8aaaa34d0fbe1b588b7560fbf28d5bcff95417037e20f3529b79a3ae412ad"
+  },
+  "proposal": {
+    "id": 293,
+    "votingDuration": 259200,
+    "creationTime": 1744361855,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x87a8aaaa34d0fbe1b588b7560fbf28d5bcff95417037e20f3529b79a3ae412ad",
+    "initialPayloads": [
+      {
+        "id": 270,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 109,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 293,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1744362460,
+    "cancellationFee": 50000000000000000
+  }
+}
