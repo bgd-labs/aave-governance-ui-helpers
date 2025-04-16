@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1744833083,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1747857083,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x183F144A87586dfe089D9bae5F24A799fdB7a604",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 273,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmQdxKCw1ncwGCJbF8gTCWuNgNcz32mKu2qWNxDbtdkEmy",
+    "description": "\n## Simple Summary\n\nThis publication presents the Aave Liquidity Committee (ALC) Phase VI Funding request.\n\n## Motivation\n\n### Phase V Update\n\n#### GHO Supply\n\nOver the course of the last quarter, the market dynamics surrounding GHO experienced a notable shift. As yield opportunities in the broader DeFi landscape became less attractive due to declining funding rates, users began redirecting their capital in search of alternative sources of return.\n\nGHO, particularly through its liquidity provision use cases, emerged as a compelling destination. This resurgence in interest was further reinforced by the reactivation and full replenishment of the GSMs, which had previously been nearly emptied. These modules went from holding negligible balances to over $28M in total during the period.\n\n![Screenshot 2025-04-03 at 20.01.51](https://hackmd.io/_uploads/BkpQj8ha1e.png)\n\n### Ethereum\n\n#### DEX Liquidity\n\nOn Ethereum, GHO's peg has been resilient and consistent during Q1 of 2025 and the deeper DEX liquidity has enabled larger swap sizes to be processed with minimal price impact.\n\nWith perp funding rates and broader DeFi liquidity costs trending lower, Liquidity Provider (LPs) deposits across GHO DEX pools experienced significant growth, surpassing $85M.\n\n![Screenshot 2025-04-03 at 19.28.53](https://hackmd.io/_uploads/HJs_7Un6kl.png)\n\nIn addition, USDT volatility helped grow GSM TVL to over $28M, ensuring continuous, on-demand support for GHO's peg.\n\n![Screenshot 2025-04-03 at 19.37.44](https://hackmd.io/_uploads/rJUtSIh6yg.png)\n\n#### Balancer v3\n\nGHO became the centerpiece asset within the new generation of Balancer pools, reflecting its growing systemic importance. On Ethereum, the primary GHO 3pool successfully migrated to the v3 boosted model, is approaching $30M in TVL.\n\nThe new Aave Boosted 3pool has exceeded the previous v2 pool’s performance, whilst also delivering superior capital efficiency and deeper liquidity provisioning. On Arbitrum liquidity was migrated from v2 to v3 liquidity and new v3 pools created on Base.\n\nOn Arbitrum and Base, these pools incorporated the new “surge” pricing mechanism, which dynamically increases swap fees as the pool diverges from the peg. This mechanism adds an additional layer of price defense, reinforcing the GHO's peg on L2s.\n\n![Screenshot 2025-04-03 at 19.43.34](https://hackmd.io/_uploads/HJQywLh6Jl.png)\n\n#### Prime Instance\n\nAnother major milestone during Phase V was the introduction of the GHO and the Gho Mint facilitator on the Prime instance. This new market brought new multifaceted utility to GHO.\n\n- Created a structure in which GHO could be pre-minted and held by the DAO, providing operational flexibility and improving responsiveness to market demand.\n- Enables GHO to earn yield directly through variable-rate borrow mechanisms, enabling more capital-efficient stablecoin management.\n- Unlocked additional yield opportunities for Balancer v3 pools to deposit into, incentivizing further liquidity provisioning.\n\nLastly, the Prime instance permitted a portion of the GHO allowances allocated to service providers and ecosystem initiatives to be deposited into yield-bearing positions, improving overall capital efficiency of the assets held in the DAO's treasury.\n\n![Screenshot 2025-04-03 at 19.46.58](https://hackmd.io/_uploads/S1G3vI261g.png)\n\n#### Fluid and Rings Integration\n\nFluid has been whitelisted to be the home of GHO from the backing of scUSD. It has grown to over 6M without incentive on Fluid directly with a very low acquisition cost due to a deposit campaign featuring Bungee to encourage GHO deposits in Rings.\n\nOver the coming weeks, Rings is expected to onboard Gearbox by Veda. As GHO deposits continue to grow, GHO liquidity is expected to be distributed across Fluid and Gearbox.\n\nReference: https://x.com/Token_Logic/status/1905352281027166589\n\n#### PYUSD/GHO Liquidity\n\n7.5M liquidity was sourced for the PYUSD/GHO Balancer v3 liquidity pool.\n\n#### Resolv Collaboration\n\nOne of the most innovative integrations of the quarter was GHO’s entry into the Resolv ecosystem. In collaboration with Resolv, the ALC deployed a campaign centered on the Curve GHO/USR LP token, and worked with both Pendle and Spectra to create yield markets enabling the ALC to receive a higher ROI on bribe spend, ~x2.2-2.4 multiplier compared to x1.1-1.3 directly on DEXs.\n\nThis was a great success knowing that no other asset of its kind had previously gained such traction in structured yield products. The campaign was enhanced by a one-month point-boost from Resolv, supplemented by strategic incentives from the ALC. The result was unprecedented: the initiative led to the formation of the largest GHO and USR liquidity pools, reaching up to $35 million in TVL.\n\n![Screenshot 2025-04-03 at 19.48.37](https://hackmd.io/_uploads/Sk_zuLhTJg.png)\n\n#### Arbitrum\n\nDespite the broader success seen on Ethereum and Base, GHO’s growth on Arbitrum remains modest. The lack of meaningful traction can be attributed to delays in strategic integrations, most notably the anticipated collaboration with Synthetix, which ultimately opted to shift its primary focus and development efforts to the Base network. As a result, the GHO ecosystem on Arbitrum has yet to reach critical mass, although foundational infrastructure remains in place for future expansion.\n\n#### Base\n\nPhase V also saw the deployment of GHO on Base, a move that has already begun to bear fruit. GHO’s main liquidity pool on Base, the Balancer v3 GHO/USDC pool, has surpassed $13.5 million in TVL within a relatively short period. This rapid growth reflects strong initial interest and suggests high potential for deeper integrations. One such opportunity lies in the upcoming collaboration with Synthetix, which is now in advanced planning stages with Odos soon to integrate the stataToken factory enabling the waBasGHO integration to advance with Synthetixs.\n\n## Phase VI Lookahead\n\n### Ethereum\n\nGHO has already secured a strong presence on Ethereum mainnet, with integrations across a wide range of protocols. It is now actively used within lending protocols such as Gearbox and Fluid, offering users capital-efficient strategies centered on GHO. In the DEX landscape, GHO is supported across Balancer, Curve, Maverick, and Fluid, demonstrating its growing utility and liquidity footprint across various automated market makers.\n\nGHO will remain at the front stage of Ethereum's DeFi, ALC members are actively looking for collaboration with promising projects at early stage to give access to interesting opportunities for GHO holders. The latest best example was the Resolv collaboration. This will continue during Phase VI as well.\n\n#### L2s and Multichain Strategies\n\nA core priority for Phase VI will be the continued development of GHO’s multichain strategy, centered around the use of one facilitator on mainnet, the use of the CCIP bridge, and the implementation of GSMs on destination chains. These Stability Modules will be pre-filled by the mainnet facilitator, enabling native swaps into GHO on arrival chains and eliminating the need for inefficient bridging.\n\nThis architecture significantly enhances capital efficiency by allowing users to mint or swap GHO directly on their preferred chain. It also addresses one of the key friction points observed in Phase V, as bridging has proven to be a major brake on growth. By enabling native, trust-minimized GHO access across chains, the stataGSMs will remove barriers to adoption and improve user experience across ecosystems.\n\nThe modified stataGSM is currently in the last stages of review with @TokenLogic and @AaveLabs.\n\n#### Sonic, Avalanche and Gnosis\n\nThree key chains are being targeted for GHO deployment in the near future: Sonic, Avalanche, and Gnosis. Each of these networks offers a unique opportunity to tailor GHO’s integration to the strengths of the local ecosystem.\n\nOn Sonic with @TokenLogic leading the deployment, the ALC plans to position GHO at the heart of one of the most innovative DeFi environments currently emerging. The goal is to create strong synergies with leading protocols such as Pendle, Rings, Beets, and Silo. Sonic offers a highly composable, fast-moving landscape where GHO can fit perfectly.\n\nOn Avalanche, with @AaveLabs leading the deployment, GHO will benefit from the support of the Avalanche Foundation, which is preparing to launch new incentive programs at the chain level. The ALC is working to ensure that GHO is a key participant in these initiatives. The playbook established with Balancer v3 on Ethereum may be replicated here, with additional attention to exploring synergies with Avalanche’s native stablecoin AUSD. This deployment will be focused on ecosystem-wide coordination.\n\nOn Gnosis, the vision is centered on integrating GHO into the Gnosis Card ecosystem. The objective is to streamline both on- and off-ramping processes. The ALC will work closely with KPK and the Gnosis Foundation to facilitate this integration, creating a seamless user experience for payments, transfers, and financial access via GHO on Gnosis.\n\n### Performance Metrics\n\nThe below details some high-level GHO metrics:\n\n| Description                                |           Ethereum           |           Arbitrum           |          Avalanche           |             Base             |\n| ------------------------------------------ | :--------------------------: | :--------------------------: | :--------------------------: | :--------------------------: |\n| TVL DEX Liquidity Pools                    |             85M              |             10M              |             10M              |             20M              |\n| TVL Utility Liquidity Pools (Excl. stkGHO) |             15M              |              5M              |              5M              |              5M              |\n| DEX Liquidity Composition                  | < 50% GHO (< 33% for 3pools) | < 50% GHO (< 33% for 3pools) | < 50% GHO (< 33% for 3pools) | < 50% GHO (< 33% for 3pools) |\n| Swap Price Impact $5M Swap (GHO to USDC)   |           < 0.10%            |           < 0.25%            |           < 0.25%            |           < 0.25%            |\n| Annualised Peg Volatility                  |           < 5.00%            |           < 5.00%            |           < 5.00%            |           < 5.00%            |\n| Price level for >90% time                  |            $0.995            |            $0.995            |            $0.995            |            $0.995            |\n\nPlease note, each of the above targets has external dependencies beyond the control of the ALC. The above table serves as a North Star for the ALC to strive towards over the next three months. Having measurable targets provides a clear direction and goal to achieve.\n\n## Specification\n\nCreate allowance for the ALC to withdraw 3,500,000 aEthLidoGHO from the Ethereum collector.\nALC Ethereum SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ab657563c4c7dc2e33947cf1f3a49e26828b1135/src/20250410_AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI/AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ab657563c4c7dc2e33947cf1f3a49e26828b1135/src/20250410_AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI/AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x2af009587f8c624f798ec36e20572a69be7fc6321882b1ba19143da29d45f1ac)\n- [Discussion](https://governance.aave.com/t/arfc-aave-liquidity-committee-funding-phase-vi/21682)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Aave Liquidity Committee Funding Phase VI",
+    "author": "TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-aave-liquidity-committee-funding-phase-vi/21682",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x2af009587f8c624f798ec36e20572a69be7fc6321882b1ba19143da29d45f1ac",
+    "originalIpfsHash": "0x22262761d78b56bc43694c7a928aec29b984dd41f4e3ee3ed767e4af4b248e5c"
+  },
+  "proposal": {
+    "id": 296,
+    "votingDuration": 259200,
+    "creationTime": 1744833227,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x22262761d78b56bc43694c7a928aec29b984dd41f4e3ee3ed767e4af4b248e5c",
+    "initialPayloads": [
+      {
+        "id": 273,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 296,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1744837613,
+    "cancellationFee": 50000000000000000
+  }
+}

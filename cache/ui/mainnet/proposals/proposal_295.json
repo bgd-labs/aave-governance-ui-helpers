@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1744827695,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1747851695,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xc855D3935dB5F181EE873d70aD97013C1899Dc4d",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 272,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmWgXwWPnf4aCuGA2S8Kuz3wCUVwTGZqubYQCb1k6aasTb",
+    "description": "\n## Simple Summary\n\nThis AIP seeks governance approval to onboard Ripple’s rlUSD stablecoin to the Core instance of Aave v3 on Ethereum.\n\n## Motivation\n\nrlUSD is Ripple's stablecoin it's onboarding in the Aave ecosystem is a strategic growth opportunity to reach new audiences.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **RLUSD**\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                    ENABLED |\n| Collateral Enabled        |                                       true |\n| Supply Cap (RLUSD)        |                                 50,000,000 |\n| Borrow Cap (RLUSD)        |                                  5,000,000 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                        0 % |\n| LT                        |                                        0 % |\n| Liquidation Bonus         |                                        0 % |\n| Liquidation Protocol Fee  |                                        0 % |\n| Reserve Factor            |                                       10 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                      6.5 % |\n| Variable Slope 2          |                                       50 % |\n| Uoptimal                  |                                       80 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0xf0eaC18E908B34770FDEe46d069c846bDa866759 |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for RLUSD and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0a32d800b0425cdbf163787daf34c4b72fd2e69d/src/20250409_AaveV3Ethereum_AddRlUSDToCoreInstance/AaveV3Ethereum_AddRlUSDToCoreInstance_20250409.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0a32d800b0425cdbf163787daf34c4b72fd2e69d/src/20250409_AaveV3Ethereum_AddRlUSDToCoreInstance/AaveV3Ethereum_AddRlUSDToCoreInstance_20250409.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x539ad30f3d3d531702bb7619fc0a9a44dc2da6a8e022eff7ffdc678032e0a8b9)\n- [Discussion](https://governance.aave.com/t/arfc-add-rlusd-to-core-instance/20214)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Add rlUSD to Core Instance",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/arfc-add-rlusd-to-core-instance/20214",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x539ad30f3d3d531702bb7619fc0a9a44dc2da6a8e022eff7ffdc678032e0a8b9",
+    "originalIpfsHash": "0x7bf5753a0e909b4256fc406e6e6897cafebfcb8e0179e2e9696650ac0c6f7226"
+  },
+  "proposal": {
+    "id": 295,
+    "votingDuration": 259200,
+    "creationTime": 1744827755,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x7bf5753a0e909b4256fc406e6e6897cafebfcb8e0179e2e9696650ac0c6f7226",
+    "initialPayloads": [
+      {
+        "id": 272,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 295,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1744837613,
+    "cancellationFee": 50000000000000000
+  }
+}
