@@ -16254,5 +16254,97 @@
     ],
     "transactionHash": "0xcaabd2e72f087d37e02124d9c65f17c0e8c37a47daf00702c3307632c48e02f3",
     "transactionIndex": 65
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "295",
+      "voter": "0xAFd1e6DFf1960D1cc49BEAb79c32e024DaAD2253",
+      "support": true,
+      "votingPower": "5494237871576849"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x36091ec1554902174bbc101a045cc8736bd34b4e8669f102e658e68a3508316f",
+    "blockNumber": "70443500",
+    "data": "0x000000000000000000000000000000000000000000000000001384faf0a59711",
+    "logIndex": 202,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000127",
+      "0x000000000000000000000000afd1e6dff1960d1cc49beab79c32e024daad2253",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xf84c517144ee9acb647035ea2c8f49b7b7c50a8a1bb842a9e9f7befbf6f15e22",
+    "transactionIndex": 38
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "295",
+      "voter": "0x019Ed608dD806b80193942F2A960e7AC8aBb2EE3",
+      "support": true,
+      "votingPower": "344297700387529110"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0xae030d1b1f89346403fae2b7b4b87bfd0bb763450058a73f198c589f23073dfc",
+    "blockNumber": "70445815",
+    "data": "0x00000000000000000000000000000000000000000000000004c730ef30952196",
+    "logIndex": 91,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000127",
+      "0x000000000000000000000000019ed608dd806b80193942f2a960e7ac8abb2ee3",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xa213fde97a4d4d38b014835745cde46d60791e8b4aad3df70d490ef735279cd8",
+    "transactionIndex": 24
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "296",
+      "voter": "0x019Ed608dD806b80193942F2A960e7AC8aBb2EE3",
+      "support": true,
+      "votingPower": "344297700387529110"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x9f87b1cb83523ba2ee2f7b7278852bba7b839ce842007ed46733d7b272ad029a",
+    "blockNumber": "70445824",
+    "data": "0x00000000000000000000000000000000000000000000000004c730ef30952196",
+    "logIndex": 191,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000128",
+      "0x000000000000000000000000019ed608dd806b80193942f2a960e7ac8abb2ee3",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xa6590ff0c08ac7a8a7d895f3d395cfab97a3300b7d744b3083f1372e9e62ecb8",
+    "transactionIndex": 32
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "295",
+      "voter": "0x2Ca74Af60036F13b50BA7Dce03eBC934CbE54EFB",
+      "support": true,
+      "votingPower": "4457644082686761386"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x4153f6692425f66dbfb2729ba5b62d53bb75d17943cacde473ce1b5d0c546b3b",
+    "blockNumber": "70446401",
+    "data": "0x0000000000000000000000000000000000000000000000003ddcbbacf3aa99aa",
+    "logIndex": 462,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000127",
+      "0x0000000000000000000000002ca74af60036f13b50ba7dce03ebc934cbe54efb",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xfce5206e482ccb4f2a64b9db906ec5a0e55944fa208d17e26058d34ee2f8d8a0",
+    "transactionIndex": 96
   }
 ]
