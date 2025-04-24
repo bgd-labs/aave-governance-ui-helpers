@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1745511455,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1748535455,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xd161bdA38b7499E2D44d9C37675Ff47Bc9A3F256",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 278,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmWyxxLmGnf82LA6BkNRqiJApsek6GXuiQGuQbxbsuVv9r",
+    "description": "\n## Simple Summary\n\nThis publication proposes reducing AAVE emissions to the stkABPT Safety Module category.\n\n## Motivation\n\nDuring 2025, AAVE liquidity is expected to transition away from stkABPT to a more diversified liquidity base.\n\nThe below outlines an overview of what to expect during 2025:\n\n- Reduction stkABPT emissions, eventually to 0;\n- Support AAVE liquidity across several networks;\n- Improved liquidity distribution amongst LPs; and,\n- Introduce Aave DAO liquidity provisions.\n\nThanks to a coordinated effort between Service Providers, AAVE token holders and Aerodrome, there is now AAVE liquidity on the Base network. The liquidity on Aerodrome was key to supporting the onboarding of AAVE to Aave Protocol on Base.\n\nThis publication focuses on implementing the first significant AAVE emission reduction to stkABPT holders.\n\n![Screenshot 2025-04-03 at 21.55.51](https://hackmd.io/_uploads/SJ8k8uhaJg.png)\nSource: https://aave.tokenlogic.xyz/stkbpt\n\n### stkABPT Emissions\n\nThe Aave DAO currently emitting 360 AAVE per day to stkBPT holders. Assuming a spot price of $150/AAVE, this is equivalent to $19.71M a year.\n\nThe yield from holding stkABPT relative to the underlying, 18.21%, compares favorable to holding stkAAVE at 4.72%. Given the slashing risk is 30% for both stkAAVE and stkBPT, the delta of 13.49% represents compensation for the additional Balancer exposure.\n\nThis publication proposes reducing AAVE emissions by one-third, to 240 AAVE/day. The resulting AAVE yield on stkBPT is estimated to reduce by 4.67%, to 11.96% at current rates whilst still comparing favorably to stkAAVE at a time when swap fees and the Lido Index rate is below historical averages.\n\nBased upon the swap size distribution routing through the pool, an overall reduction in TVL would not adversely affect users seeking to acquire AAVE. However, earning near 12% for providing liquidity in the current market is also an attractive investment option for LPs to consider.\n\n## Specification\n\nThis AIP reduces the AAVE emission rate to the following:\n\n| SM Category | Current | Proposed |\n| :---------- | :-----: | :------: |\n| stkABPT     | 360/day | 240/day  |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8ab49d57df2c1d8a49e2da72a59a4921a1203ccc/src/20250423_AaveV3Ethereum_LowerStkABPTEmissions/AaveV3Ethereum_LowerStkABPTEmissions_20250423.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8ab49d57df2c1d8a49e2da72a59a4921a1203ccc/src/20250423_AaveV3Ethereum_LowerStkABPTEmissions/AaveV3Ethereum_LowerStkABPTEmissions_20250423.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x8dbeee9b489266cfefb8cb3c75fb0791d364975eed48cee951ff04fd17ee57c1)\n- [Discussion](https://governance.aave.com/t/arfc-stkabpt-emissions-update/21683)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Lower stkABPT Emissions",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-stkabpt-emissions-update/21683",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x8dbeee9b489266cfefb8cb3c75fb0791d364975eed48cee951ff04fd17ee57c1",
+    "originalIpfsHash": "0x806c9d92b382f5668422f150a8d11c8347d3e0e6419b7e73185784f75d3e7d55"
+  },
+  "proposal": {
+    "id": 298,
+    "votingDuration": 259200,
+    "creationTime": 1745511503,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x806c9d92b382f5668422f150a8d11c8347d3e0e6419b7e73185784f75d3e7d55",
+    "initialPayloads": [
+      {
+        "id": 278,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 298,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1745518120,
+    "cancellationFee": 50000000000000000
+  }
+}

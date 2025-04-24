@@ -41350,5 +41350,51 @@
     ],
     "transactionHash": "0x880a0d21555e21081557afd6dc4d884e43fd6ad3206dc8327c632505c3a740fe",
     "transactionIndex": 21
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "297",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0xd32df20fa05a83069390916edd23f8e46ae215fcc9713fa8bcf4df5b1e09e765"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "blockHash": "0x1e9dd908cb78727ac0dfd4523c29fa5724010461221422bcc1551dda9cc87cdd",
+    "blockNumber": "22339994",
+    "data": "0xd32df20fa05a83069390916edd23f8e46ae215fcc9713fa8bcf4df5b1e09e765",
+    "logIndex": 229,
+    "removed": false,
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x0000000000000000000000000000000000000000000000000000000000000129",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x1c3ad1c8b4e46e1658b6517d2b27a7c643d6548ca5b19233e64b8631654aebce",
+    "transactionIndex": 109
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "298",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0x806c9d92b382f5668422f150a8d11c8347d3e0e6419b7e73185784f75d3e7d55"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "blockHash": "0x1296a4ec5ec534ba5ee5ec4dc9bbfdf16fa317dee1da58d810d713e7ab21da6f",
+    "blockNumber": "22340006",
+    "data": "0x806c9d92b382f5668422f150a8d11c8347d3e0e6419b7e73185784f75d3e7d55",
+    "logIndex": 287,
+    "removed": false,
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x000000000000000000000000000000000000000000000000000000000000012a",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x9888e683241899729fc6fb3446046cbc134bc6b683a9a92e109f520aedd9fde5",
+    "transactionIndex": 153
   }
 ]
