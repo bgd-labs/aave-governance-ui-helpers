@@ -290,6 +290,13 @@ export function getProposalState({ ...data }: BasicProposalWithConfigsData) {
     return CombineProposalState.Canceled;
   } else if (isPayloadsExecuted) {
     return CombineProposalState.Executed;
+  } else if (
+    data.proposalData.state === ProposalState.Executed &&
+    data.proposalData.payloads.some(
+      (payload) => payload?.state === PayloadState.Cancelled,
+    )
+  ) {
+    return CombineProposalState.Succeed;
   } else {
     return CombineProposalState.Expired;
   }
