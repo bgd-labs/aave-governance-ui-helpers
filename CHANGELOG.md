@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.0 (2025-04-29)
+
+
+### Features
+
+* add Celo support ([#87](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/87)) ([eabcd81](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/eabcd81b67f80972d71e0435a773d7469e96204b))
+* add sonic support ([#85](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/85)) ([1df5886](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1df58865d95b8bbfcd9c0476f933ee65d7b1b027))
+* Voting machine address depends on proposal ([#89](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/89)) ([93e2408](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/93e240825048f0fc13f0576527ccaa5720bd6aeb))
+
+
+### Bug Fixes
+
+* add correct proposal threshold ([#91](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/91)) ([fa6de04](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/fa6de04d575df81008f07d4489b0a3e59ab7a615))
+* expired state resolving ([#97](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/97)) ([f1d1304](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f1d130442521c868211580da06165e2e6d3cff15))
+* pass alchemy key ([#94](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/94)) ([6ee5924](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/6ee59241d506c746f9a429446b16e97897273683))
+* update workflow ([#96](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/96)) ([10cdcf7](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/10cdcf76345c21871bec2478d6635e93061e66e1))
+
 ## [3.5.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.5.0...v3.5.1) (2025-03-29)
 
 
