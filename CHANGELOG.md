@@ -1,5 +1,28 @@
 # Changelog
 
+## [3.6.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v3.6.0) (2025-04-29)
+
+
+### Features
+
+* add Celo support ([#87](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/87)) ([eabcd81](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/eabcd81b67f80972d71e0435a773d7469e96204b))
+* add sonic support ([#85](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/85)) ([1df5886](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1df58865d95b8bbfcd9c0476f933ee65d7b1b027))
+* bump version ([#98](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/98)) ([f0b2266](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f0b2266e768bf06cec15c5b274141aca8d31686c))
+* Voting machine address depends on proposal ([#89](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/89)) ([93e2408](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/93e240825048f0fc13f0576527ccaa5720bd6aeb))
+
+
+### Bug Fixes
+
+* add correct proposal threshold ([#91](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/91)) ([fa6de04](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/fa6de04d575df81008f07d4489b0a3e59ab7a615))
+* expired state resolving ([#97](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/97)) ([f1d1304](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f1d130442521c868211580da06165e2e6d3cff15))
+* pass alchemy key ([#94](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/94)) ([6ee5924](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/6ee59241d506c746f9a429446b16e97897273683))
+* update workflow ([#96](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/96)) ([10cdcf7](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/10cdcf76345c21871bec2478d6635e93061e66e1))
+
+
+### Miscellaneous Chores
+
+* release 3.6.0 ([792601d](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/792601d6d3a135f8b5d2c1bfedc1ffea3182e1d9))
+
 ## 3.6.0 (2025-04-29)
 
 
