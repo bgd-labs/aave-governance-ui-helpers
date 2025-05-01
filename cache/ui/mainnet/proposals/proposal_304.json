@@ -1,0 +1,204 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1746109703,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1749133703,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x143ff8BBF2Ea2f91Cd527087E6AF7f0e21627738",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 282,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1746109815,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1749133815,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x2d300D5432eaA0072D9A325d0011721bB7fD8967",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 110,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1746110175,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1749134175,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x860e5dAecE99FA8D1e4980b136C38Ab9aF4cfE2B",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 74,
+      "chainId": 10,
+      "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1746110379,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1749134379,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x5201aBE940D9082A0c73035364CdAc00BCc0d87C",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 86,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1746110485,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1749134485,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xBE5b825a47763e7a11a196cc74045fa965622CF4",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 51,
+      "chainId": 100,
+      "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmQmoD36YhMAfqV4FRb9B68kPQwqZEbcMG1eTfbFy3iAmN",
+    "description": "\n## Simple Summary\n\nThis publication presents the May Funding Update, consisting of the following key activities:\n\n- Bridge funds to Ethereum;\n- Consolidate funds from the Collector;\n- Merit, Ahab allowances\n- Create 6M USD Allowance for AAVE buybacks; and,\n- Acquire 4M GHO for Operations.\n\n## Motivation\n\nThis publication combines near term operational needs and migrating assets held on L2s and side chains in preparation for funding future incentive campaigns.\n\nThe below outlines the objectives of this publication:\n\n- Consolidating funds to Ethereum; and,\n- Support near term operational requirements;\n\n### Bridge Funds to Ethereum\n\nEach month, the DAO will bridge its funds held on sidechains and Layer 2 networks back to Ethereum, where they will be allocated to support ongoing incentive and buyback programs. With the Umbrella upgrade pending, Horizon and AAVE buybacks already underway, consolidating assets on Ethereum ensures that sufficient capital is available and accessible when needed.\n\n### Acquire GHO\n\nIn the short term, we anticipate multiple initiatives will seek funding from the DAO. This proposal, once enacted, will secure a sufficient amount of GHO to support the DAO’s operations. This ensures the DAO remains consistently well-capitalized.\n\nUpcoming anticipated expenses include:\n\n- Renewal of Service Provider agreements;\n- Merit and ALC distributions; and,\n- Incentive campaign(s).\n\n### Acquire ETH\n\nThe Aave DAO continues its treasury rebalancing by converting a portion of its MATIC holdings into ETH. This action builds upon the funding update initiated in April, during which the first batch of Polygon-based assets was bridged back to Ethereum mainnet.\n\nThe ETH acquired through this reallocation will be directed toward the Frontier program, where it will support Ethereum decentralization efforts while simultaneously generating yield for the DAO.\n\n## Specification\n\nThis proposal shall be submitted as several AIPs that align with operational readiness timelines and ease of review given the volume of funds being moved.\n\n### Bridge Assets to Ethereum\n\nBridge the following assets to Ethereum.\n\n|                                       Polygon                                       |                                    Arbitrum                                    |                                          Optimism                                          |\n| :---------------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |\n|   [DAI](https://polygonscan.com/token/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063)   |  [DAI](https://arbiscan.io/token/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1)   |  [DAI](https://optimistic.etherscan.io/token/0xda10009cbd5d07dd0cecc66161fc93d7c9000da1)   |\n|  [USDT](https://polygonscan.com/token/0xc2132d05d31c914a87c6611c10748aeb04b58e8f)   | [USDC.e](https://arbiscan.io/token/0xff970a61a04b1ca14834a43f5de4533ebddb5cc8) |  [USDT](https://optimistic.etherscan.io/token/0x94b008aa00579c1307b0ef2c499ad98a8ce58e58)  |\n| [ USDC.e](https://polygonscan.com/token/0x2791bca1f2de4661ed88a30c99a7a9449aa84174) |                                                                                | [USDC.e](https://optimistic.etherscan.io/token/0x7f5c764cbc14f9669b88837ca1490cca17c31607) |\n|  [WPOL](https://polygonscan.com/token/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270)   |                                                                                |\n|  [WBTC](https://polygonscan.com/token/0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6)   |                                                                                |\n| [MATICX](https://polygonscan.com/token/0xfa68fb4628dff1028cfec22b4162fccd0d45efb6)  |                                                                                |\n|   [ETH](https://polygonscan.com/token/0xe50fa9b3c56ffb159cb0fca61f5c9d750e8128c8)   |\n\n### Transfer Assets\n\nTransfer all AAVE to the Ecosystem Reserve.\n\n### Deposit Assets\n\nDeposit 115 ETH held on the Treasury into the Core instance of Aave.\n\n### Ethereum - Swaps\n\nSwap the following from the Collector as outlined in the table below:\n\n| Ethereum | Amount | Swap |\n| :------: | :----: | :--: |\n|   USDT   | 2.00M  | GHO  |\n|   USDC   | 2.00M  | GHO  |\n|   DAI    |  All   | USDS |\n|   LUSD   |  All   | WETH |\n|   CVX    |  All   | WETH |\n|   FRAX   |  All   | WETH |\n\n### Create Allowances\n\n**Acquire WETH**\n\nCreate a MATIC and stMATIC allowance for the Aave Finance Committee to then swap each asset to ETH and transfer to the Treasury.\n\n- Asset: `MATIC` [0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0](https://etherscan.io/address/0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0)\n- Amount: All Available Balance ~580,156\n- Asset: `stMATIC` [0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599](https://etherscan.io/address/0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599)\n- Amount: All Available Balance ~28,547\n- Spender: AFC [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)\n- Method: `approve()` MATIC and stMATIC on the Aave Collector contract to the AFC safe\n\n**AAVE Buybacks**\n\nCreate a 3M aEthUSDT and 3M aEthUSDC allowance for the Aave Finance Committee to perform 6 weeks of AAVE buybacks.\n\n- Asset: `aEthUSDT` [0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a](https://etherscan.io/address/0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a)\n- Amount: 3M\n- Asset: `aEthUSDC` [0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c](https://etherscan.io/address/0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c)\n- Amount: 3M\n- Spender: AFC [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)\n- Method: `approve()` aEthUSDT and `aEthUSDC on the Aave Collector contract to the AFC safe\n\n**Merit + Ahab Programs**\n\nCreate allowances to the Merit and Ahab, 3M aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core respectively on Ethereum:\n\n- Asset: `aEthLidoGHO` [0x18eFE565A5373f430e2F809b97De30335B3ad96A](https://etherscan.io/address/0x18eFE565A5373f430e2F809b97De30335B3ad96A)\n- Amount: 3M\n- Asset: `aEthWETH` [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8](https://etherscan.io/address/0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8)\n- Amount: 800\n- Spender: Merit [0xdeadD8aB03075b7FBA81864202a2f59EE25B312b](https://app.safe.global/transactions/history?safe=eth:0xdeadD8aB03075b7FBA81864202a2f59EE25B312b)\n- Method: `approve()` aEthLidoGHO and aEthWETH on the Aave Collector contract to the Merit safe\n\n**Gnosis Liquidity Mining Rewards**\n\n- Asset: `aGnoEURe` [0xEdBC7449a9b594CA4E053D9737EC5Dc4CbCcBfb2](https://gnosisscan.io/address/0xedbc7449a9b594ca4e053d9737ec5dc4cbccbfb2)\n- Amount: 25k\n- Spender: Merit [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://app.safe.global/home?safe=gno:0xdef1FA4CEfe67365ba046a7C630D6B885298E210)\n- Method: `approve()` aEthLidoGHO and aEthWETH on the Aave Collector contract to the Merit safe\n\n**Gas Reimbursement**\nTransfer 0.5847 ETH to ACI to reimburse expenses incurred.\n\nThis reimburses associated gas costs linked to AIP submissions and administering various incentive reward programs.\n\nACI Receiving Address: [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://app.safe.global/home?safe=eth:0xdef1FA4CEfe67365ba046a7C630D6B885298E210)\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Ethereum_MayFundingUpdate_20250426.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Polygon_MayFundingUpdate_20250426.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Optimism_MayFundingUpdate_20250426.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Arbitrum_MayFundingUpdate_20250426.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Ethereum_MayFundingUpdate_20250426.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Polygon_MayFundingUpdate_20250426.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Optimism_MayFundingUpdate_20250426.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/3836ce93caef8c43b8d1a9566a67f709a5618ab1/src/20250426_Multi_MayFundingUpdate/AaveV3Arbitrum_MayFundingUpdate_20250426.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-may-2025-funding-update/21906)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "May Funding Update",
+    "author": "TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-may-2025-funding-update/21906",
+    "originalIpfsHash": "0x242880f29623ea7d22bc19aa9f44c640ed02af1204a86ab3d5fb8c803a2a9059"
+  },
+  "proposal": {
+    "id": 304,
+    "votingDuration": 259200,
+    "creationTime": 1746110663,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x242880f29623ea7d22bc19aa9f44c640ed02af1204a86ab3d5fb8c803a2a9059",
+    "initialPayloads": [
+      {
+        "id": 282,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 110,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 74,
+        "chainId": 10,
+        "payloadsController": "0x0E1a3Af1f9cC76A62eD31eDedca291E63632e7c4"
+      },
+      {
+        "id": 86,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      },
+      {
+        "id": 51,
+        "chainId": 100,
+        "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 304,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1746112032,
+    "cancellationFee": 50000000000000000
+  }
+}
