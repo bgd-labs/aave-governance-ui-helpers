@@ -29625,5 +29625,51 @@
     ],
     "transactionHash": "0xbeef5543d5e9a4390711c33876382105e2ba8418d05bca4b81494025fc29085b",
     "transactionIndex": 18
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "304",
+      "voter": "0xB7b4e21774D6F2dC2dAD42347D2148AE24aE59E2",
+      "support": true,
+      "votingPower": "213218432023886689"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x20dfe751624d3bdb0eeb95518288cefc0fa66c7103b02fcab20f6bba4c46d429",
+    "blockNumber": "71080900",
+    "data": "0x00000000000000000000000000000000000000000000000002f58108c4597b61",
+    "logIndex": 729,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000130",
+      "0x000000000000000000000000b7b4e21774d6f2dc2dad42347d2148ae24ae59e2",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x4b3b91f9c28f014bc77915f960c263cb57aa76cbb47d33ff754fa35c4cc6c408",
+    "transactionIndex": 64
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "304",
+      "voter": "0x7eC1f3b0746B009BaC65bfc4C8D47FC474AFF261",
+      "support": true,
+      "votingPower": "310536804949825728"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x0f98a8eb6d9b38d8946ed5a4d882dd95a4991d44ddb746d6cb158c4e226f1b8f",
+    "blockNumber": "71080932",
+    "data": "0x000000000000000000000000000000000000000000000000044f3f942cb818c0",
+    "logIndex": 382,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000130",
+      "0x0000000000000000000000007ec1f3b0746b009bac65bfc4c8d47fc474aff261",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x7d74b595489be6f242a2380f3511223df64d59d660007fc0bf9702baca1e0889",
+    "transactionIndex": 83
   }
 ]
