@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1746527567,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1749551567,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xaffE7Ae0dF52d983A8cD80A118EBBBC278f0B896",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 284,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmPwVZH9e3C8VDii2RiSv1tkmWXLLeKDNSKoA6U9iBfjXU",
+    "description": "\n## Simple Summary\n\nWe propose to onboard USDtb to the v3 Core Instance with borrow enabled, collateral disabled.\n\n## Motivation\n\nUSDtb is a digital dollar, otherwise known as a USD stablecoin. USDtb can be used the same way a holder would use any other dollar, whether to send and receive payments, acquire and trade assets, or to simply hold dollars.\n\nUnlike actual dollars, USDtb is a blockchain-based token, which enables faster and cheaper spending than the traditional fiat banking system. Unlike many digital assets, USDtb is fully backed by institutional-grade tokenized U.S. treasury fund products (alongside a stablecoin reserve designed to facilitate rapid redemptions) to support stability. Initially, USDtb will be backed by BlackRock’s USD Institutional Digital Liquidity Fund Token, BUIDL.\n\nBy onboarding USDtb, deeper borrow liquidity will be generated to allow sUSDe leverage at an attractive borrow rate. We believe this will help revitalise and accelerate growth in sUSDe activity on the Core Instance.\n\nBacked by BUIDL issued by Blackrock, one of the largest asset managers in the world we believe this asset aligns well with Aave’s history of providing liquidity to the highest quality assets in DeFi and should attract significant deposits.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **USDtb**\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                    ENABLED |\n| Collateral Enabled        |                                       true |\n| Supply Cap (USDtb)        |                                 50,000,000 |\n| Borrow Cap (USDtb)        |                                 40,000,000 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                        0 % |\n| LT                        |                                        0 % |\n| Liquidation Bonus         |                                        0 % |\n| Liquidation Protocol Fee  |                                        0 % |\n| Reserve Factor            |                                       10 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                        6 % |\n| Variable Slope 2          |                                       50 % |\n| Uoptimal                  |                                       80 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0x2FA6A78E3d617c1013a22938411602dc9Da98dBa |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for USDtb and the corresponding aToken.\n\n### CAPO feed\n\n| Parameter                      |                                                                                            Value |\n| ------------------------------ | -----------------------------------------------------------------------------------------------: |\n| Contract                       |    [Capped USDtb / USD](https://etherscan.io/address/0x2fa6a78e3d617c1013a22938411602dc9da98dba) |\n| Underlying Oracle              | [Chainlink USDtb / USD](https://etherscan.io/address/0x66704DAD467A7cA508B3be15865D9B9F3E186c90) |\n| OracleLatestAnswer (05 may 25) |                                                                                   USD 0.99983211 |\n| Capped Price                   |                                                                                         USD 1.04 |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4f77f232f2bed02e5c0ed869cec911dbdd76f8be/src/20250430_AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance/AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4f77f232f2bed02e5c0ed869cec911dbdd76f8be/src/20250430_AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance/AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xf7ff963e0572d684bfd0c6d572a070d1b6ea60f4bcebbd6f68fc2af9c1e46659)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-usdtb-to-aave-v3-core-instance/21746)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard USDtb to Aave v3 Core Instance",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-usdtb-to-aave-v3-core-instance/21746",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0xf7ff963e0572d684bfd0c6d572a070d1b6ea60f4bcebbd6f68fc2af9c1e46659",
+    "originalIpfsHash": "0x17c8aab4e08a5f6148b7358a29b01af5404018773bb4715f5440c23ab8a83e7f"
+  },
+  "proposal": {
+    "id": 305,
+    "votingDuration": 259200,
+    "creationTime": 1746527639,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x17c8aab4e08a5f6148b7358a29b01af5404018773bb4715f5440c23ab8a83e7f",
+    "initialPayloads": [
+      {
+        "id": 284,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 305,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1746533612,
+    "cancellationFee": 50000000000000000
+  }
+}
