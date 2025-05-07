@@ -29,7 +29,10 @@ export const formatToProofRLP = (rawData: Hex[]) => {
 // https://eips.ethereum.org/EIPS/eip-4788#block-structure-and-validity
 // https://cantina.xyz/introduction/pectra-competition-resources/eip-7685
 export const prepareBLockRLP = (
-  rawBlock: Block & { parentBeaconBlockRoot: Hex },
+  rawBlock: Block & {
+    parentBeaconBlockRoot: Hex;
+    requestsHash: Hex;
+  },
 ) => {
   const rawData: Hex[] = [
     rawBlock.parentHash,
