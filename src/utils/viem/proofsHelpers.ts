@@ -45,7 +45,7 @@ export const prepareBLockRLP = (
     '0x', //toHex(rawBlock.difficulty),
     toHex(rawBlock.number || 0), // 0 to account for type null
     toHex(rawBlock.gasLimit),
-    toHex(rawBlock.gasUsed),
+    rawBlock.gasUsed === 0n ? '0x' : toHex(rawBlock.gasUsed),
     toHex(rawBlock.timestamp),
     rawBlock.extraData,
     rawBlock.mixHash,
@@ -53,9 +53,9 @@ export const prepareBLockRLP = (
     toHex(rawBlock.baseFeePerGas || 0), // 0 to account for type null
     rawBlock.withdrawalsRoot as Hex,
     // @ts-ignore
-    rawBlock.blobGasUsed === '0x0' ? '0x' : toHex(rawBlock.blobGasUsed),
+    rawBlock.blobGasUsed === 0n ? '0x' : toHex(rawBlock.blobGasUsed),
     // @ts-ignore
-    rawBlock.excessBlobGas === '0x0' ? '0x' : toHex(rawBlock.excessBlobGas),
+    rawBlock.excessBlobGas === 0n ? '0x' : toHex(rawBlock.excessBlobGas),
     rawBlock.parentBeaconBlockRoot,
     rawBlock.requestsHash,
   ];
