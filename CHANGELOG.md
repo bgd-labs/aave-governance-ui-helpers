@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.0...v3.6.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* added requestsHash to rpl block encoding ([#100](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/100)) ([e20b2cb](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/e20b2cb2e8496273203013a53dd6baae58141683))
+
 ## [3.6.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v3.6.0) (2025-04-29)
 
 
