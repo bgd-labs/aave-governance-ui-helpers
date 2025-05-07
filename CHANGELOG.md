@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.1...v3.6.2) (2025-05-07)
+
+
+### Miscellaneous Chores
+
+* release 3.6.2 ([5ea1aaf](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/5ea1aaf63da99e9174e7d90e1f34080eff82c952))
+
 ## [3.6.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.0...v3.6.1) (2025-05-07)
 
 
