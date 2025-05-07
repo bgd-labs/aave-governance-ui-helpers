@@ -12,9 +12,10 @@ export function formatToProofRLP(rawData: string[]): string {
   );
 }
 
-// IMPORTANT valid only for post-Dancun blocks:
+// IMPORTANT valid only for post-Pectra blocks:
 // https://eips.ethereum.org/EIPS/eip-4844#header-extension
 // https://eips.ethereum.org/EIPS/eip-4788#block-structure-and-validity
+// https://cantina.xyz/introduction/pectra-competition-resources/eip-7685
 export function prepareBLockRLP(rawBlock: any) {
   const rawData = [
     rawBlock.parentHash,
@@ -43,6 +44,7 @@ export function prepareBLockRLP(rawBlock: any) {
       ? '0x'
       : BigNumber.from(rawBlock.excessBlobGas).toHexString(),
     rawBlock.parentBeaconBlockRoot,
+    rawBlock.requestsHash,
   ];
   return ethers.utils.RLP.encode(rawData);
 }

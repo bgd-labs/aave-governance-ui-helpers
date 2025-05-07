@@ -24,11 +24,15 @@ export const formatToProofRLP = (rawData: Hex[]) => {
   return toRlp(rawData.map((d: Hex) => fromRlp(d, 'hex')));
 };
 
-// IMPORTANT valid only for post-Dancun blocks:
+// IMPORTANT valid only for post-Pectra blocks:
 // https://eips.ethereum.org/EIPS/eip-4844#header-extension
 // https://eips.ethereum.org/EIPS/eip-4788#block-structure-and-validity
+// https://cantina.xyz/introduction/pectra-competition-resources/eip-7685
 export const prepareBLockRLP = (
-  rawBlock: Block & { parentBeaconBlockRoot: Hex },
+  rawBlock: Block & {
+    parentBeaconBlockRoot: Hex;
+    requestsHash: Hex;
+  },
 ) => {
   const rawData: Hex[] = [
     rawBlock.parentHash,
@@ -53,6 +57,7 @@ export const prepareBLockRLP = (
     // @ts-ignore
     rawBlock.excessBlobGas === '0x0' ? '0x' : toHex(rawBlock.excessBlobGas),
     rawBlock.parentBeaconBlockRoot,
+    rawBlock.requestsHash,
   ];
   return toRlp(rawData);
 };
