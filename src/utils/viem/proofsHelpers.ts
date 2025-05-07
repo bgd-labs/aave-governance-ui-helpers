@@ -53,6 +53,7 @@ export const prepareBLockRLP = (
     // @ts-ignore
     rawBlock.excessBlobGas === '0x0' ? '0x' : toHex(rawBlock.excessBlobGas),
     rawBlock.parentBeaconBlockRoot,
+    rawBlock.requestsHash,
   ];
   return toRlp(rawData);
 };
