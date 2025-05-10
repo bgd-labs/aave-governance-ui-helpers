@@ -33620,5 +33620,97 @@
     "blockHash": "0x8d63f7ae65cd64a8f7c7a3e2066eccdf0cb5e42770037a7bb149cc66daedf095",
     "logIndex": 170,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "305",
+      "voter": "0xA8C434f721dbC2B5e10a6F3514abe5F14682Ed7B",
+      "support": true,
+      "votingPower": "508550365146203898"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x3d957f9962b5eee50aba3c059fceb506c003014ccf9c68e9457b039d230de340",
+    "blockNumber": "71333539",
+    "data": "0x000000000000000000000000000000000000000000000000070ebbdcd8ef46fa",
+    "logIndex": 358,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000131",
+      "0x000000000000000000000000a8c434f721dbc2b5e10a6f3514abe5f14682ed7b",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x200aadfcf97dee87abc2256f582324201767a58c76f45184c78f8be30371987b",
+    "transactionIndex": 80
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "307",
+      "voter": "0xb8Ab9923E40F77e2eB407070A716C393F5aBCC8B",
+      "support": true,
+      "votingPower": "27553781009270449490"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x3e192c2ea6f50cbe0b4595dc90a8dbe8656b38cc4124c6f87deef7a219239017",
+    "blockNumber": "71335045",
+    "data": "0x0000000000000000000000000000000000000000000000017e62b1d77c782552",
+    "logIndex": 354,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000133",
+      "0x000000000000000000000000b8ab9923e40f77e2eb407070a716c393f5abcc8b",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x5884c230afa9ca663ec9b528180f83731c50f1d1bff0b9a97bacba2f7a78a928",
+    "transactionIndex": 53
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "306",
+      "voter": "0xb8Ab9923E40F77e2eB407070A716C393F5aBCC8B",
+      "support": true,
+      "votingPower": "27553781009270449490"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x8981ec3097bb5db54f0e874c8530c334abff3670a877ed0e88caa23ca65f40be",
+    "blockNumber": "71335100",
+    "data": "0x0000000000000000000000000000000000000000000000017e62b1d77c782552",
+    "logIndex": 601,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000132",
+      "0x000000000000000000000000b8ab9923e40f77e2eb407070a716c393f5abcc8b",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xe1aaf76b387e30f3d99433e442df5012c06ed7f3d2a2e964100bbac08ffe70d7",
+    "transactionIndex": 37
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "307",
+      "voter": "0xac0c538864F9551537D14069F44c464adf0bcBFd",
+      "support": true,
+      "votingPower": "1005190788050771525"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x6fad5082d9408f1ee90d9cd6e28aaa4d23efceca2d7f58ae12bdf8b1739c185e",
+    "blockNumber": "71335415",
+    "data": "0x0000000000000000000000000000000000000000000000000df327b22d42de45",
+    "logIndex": 213,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000133",
+      "0x000000000000000000000000ac0c538864f9551537d14069f44c464adf0bcbfd",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x967e887dca34c3236d6717c9691a90f562da4f188ca19ea535063dccc26095e8",
+    "transactionIndex": 36
   }
 ]
