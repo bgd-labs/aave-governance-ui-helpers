@@ -35032,5 +35032,97 @@
     ],
     "transactionHash": "0x6167318b321c83e02368b966d29d0b38ac7118a494a37b5b5d36943d206c33c8",
     "transactionIndex": 41
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "311",
+      "voter": "0x7Af83eA565bAE47B59eCC7a9cE639D7DcF2F14C8",
+      "support": true,
+      "votingPower": "361455967091999"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x624591e15c794e4a62836acaafece11bafd6deb809dabc5193ed1519db70ab11",
+    "blockNumber": "71572160",
+    "data": "0x000000000000000000000000000000000000000000000000000148be06853d1f",
+    "logIndex": 169,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000137",
+      "0x0000000000000000000000007af83ea565bae47b59ecc7a9ce639d7dcf2f14c8",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x911b2e61b5c0790e63183c9f378c867cdcb9807046bf012308344329bcfae09c",
+    "transactionIndex": 37
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "310",
+      "voter": "0x7Af83eA565bAE47B59eCC7a9cE639D7DcF2F14C8",
+      "support": true,
+      "votingPower": "361455967091999"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0xac5430068b414e06e6e9fec8df9e18dff33b2abdcd35bb4bd250fe315db9c8df",
+    "blockNumber": "71572195",
+    "data": "0x000000000000000000000000000000000000000000000000000148be06853d1f",
+    "logIndex": 276,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000136",
+      "0x0000000000000000000000007af83ea565bae47b59ecc7a9ce639d7dcf2f14c8",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xeb1023d4c37c279df16d2f6a30be4e3d8c23cb910f58db67fb3e1bf3f00ce2b0",
+    "transactionIndex": 48
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "311",
+      "voter": "0xf404102baffe2B95Eeb8918c01F3C2d2EC2e9b14",
+      "support": true,
+      "votingPower": "51758317510410295"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x538e46f3d4c04f16d8ee7955d4245614a6e41101abdb6ce3739597160e6fb98c",
+    "blockNumber": "71574715",
+    "data": "0x00000000000000000000000000000000000000000000000000b7e1ea61614037",
+    "logIndex": 229,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000137",
+      "0x000000000000000000000000f404102baffe2b95eeb8918c01f3c2d2ec2e9b14",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x7b520b82fd18d70f24a68e00a0c08b2608dae4a6f9bfde3b6f043a849882efe7",
+    "transactionIndex": 43
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "310",
+      "voter": "0xf404102baffe2B95Eeb8918c01F3C2d2EC2e9b14",
+      "support": true,
+      "votingPower": "51758317510410295"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0xdca0b6324f48eaba800cbd7af91b794fee39a81085d283f376f63087739021c4",
+    "blockNumber": "71574738",
+    "data": "0x00000000000000000000000000000000000000000000000000b7e1ea61614037",
+    "logIndex": 167,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000136",
+      "0x000000000000000000000000f404102baffe2b95eeb8918c01f3c2d2ec2e9b14",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xaa7d65cb2c9d95deb37bbee880a19c91ad549604fe96394e1faf6573ceb82a99",
+    "transactionIndex": 37
   }
 ]
