@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.2...v3.7.0) (2025-05-23)
+
+
+### Features
+
+* add soneium ([#104](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/104)) ([f3f901c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f3f901c8fbf1a997e2c9753209de9f48e25e2aa2))
+
 ## [3.6.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.1...v3.6.2) (2025-05-07)
 
 
