@@ -13,6 +13,7 @@ import {
   GovernanceV3Optimism,
   GovernanceV3Polygon,
   GovernanceV3Scroll,
+  GovernanceV3Soneium,
   GovernanceV3Sonic,
   GovernanceV3ZkSync,
 } from '@bgd-labs/aave-address-book';
@@ -32,6 +33,7 @@ import {
   polygon,
   scroll,
   sepolia,
+  soneium,
   sonic,
   zksync,
 } from 'viem/chains';
@@ -134,6 +136,10 @@ export const payloadsControllerConfig: Record<
       dataHelperContractAddress: GovernanceV3Celo.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3Celo.PAYLOADS_CONTROLLER],
     },
+    [soneium.id]: {
+      dataHelperContractAddress: GovernanceV3Soneium.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Soneium.PAYLOADS_CONTROLLER],
+    },
   },
   // testnets
   sepolia: {
@@ -225,6 +231,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     linea.id,
     sonic.id,
     celo.id,
+    soneium.id,
   ],
   sepolia: [sepolia.id, avalancheFuji.id],
 };
