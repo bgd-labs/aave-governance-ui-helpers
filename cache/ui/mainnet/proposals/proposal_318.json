@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1748437703,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1751461703,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x17ce289A8B29c0db24a024fC9F399026EcA45992",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 294,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qmd2aQ9A8EdYfK59u5Dj9e27g5AFaqj1VxYrJrkYP2U1yB",
+    "description": "\n## Simple Summary\n\nThe proposal aims to onboard Ignition’s FBTC, to the Aave v3 protocol Main Market on Ethereum.\n\n## Motivation\n\nFBTC is a cross-chain BTC protocol that uses the Threshold Signature Scheme network to enable secure, decentralized Bitcoin scalability across multiple blockchains. By leveraging multi-party computation, FBTC strengthens bridge security, safeguarding user assets and ensuring robust cross-chain interoperability. This setup also integrates a cross-chain hub, allowing seamless BTC transfers while reducing issues linked to Bitcoin L2 growth.\n\nThis new asset will broaden opportunities for Bitcoin holders aiming to participate in DeFi on Aave v3. The introduction of FBTC offers users more flexibility in leveraging their Bitcoin, enhancing liquidity and driving increased engagement within the Aave protocol.\n\nWith $480M in total value locked (TVL), FBTC is emerging as a compelling solution in Bitcoin bridging, supported by its upcoming Chainlink Oracle integration to accelerate growth across EVM networks.\n\nAave is positioned to benefit from a material increase in AUM resulting from FBTC deposits. This capital is being sourced by from within the Ignition team’s network. Several sophisticated investors are looking to user Aave at size and some teams have built products specifical for investors in anticipationg of the Aave listing. The Ignition team is expected to provide incentives supporting Aave users directly and also strategy providers built on top of Aave. @TokenLogic has been coordinating with various prospective users to ensure there is adequate demand ahead of the listing.\n\n## Specification\n\n### Listing\n\nThe table below illustrates the configured risk parameters for **FBTC**\n\n| Parameter                 |                                                                                            Value |\n| ------------------------- | -----------------------------------------------------------------------------------------------: |\n| Isolation Mode            |                                                                                            false |\n| Borrowable                |                                                                                          ENABLED |\n| Collateral Enabled        |                                                                                             true |\n| Supply Cap (FBTC)         |                                                                                              200 |\n| Borrow Cap (FBTC)         |                                                                                              100 |\n| Debt Ceiling              |                                                                                            USD 0 |\n| LTV                       |                                                                                             73 % |\n| LT                        |                                                                                             78 % |\n| Liquidation Bonus         |                                                                                            7.5 % |\n| Liquidation Protocol Fee  |                                                                                             10 % |\n| Reserve Factor            |                                                                                             50 % |\n| Base Variable Borrow Rate |                                                                                              0 % |\n| Variable Slope 1          |                                                                                              4 % |\n| Variable Slope 2          |                                                                                            300 % |\n| Uoptimal                  |                                                                                             45 % |\n| Flashloanable             |                                                                                          ENABLED |\n| Siloed Borrowing          |                                                                                         DISABLED |\n| Borrowable in Isolation   |                                                                                         DISABLED |\n| Oracle                    | [Chainlink SVR BTC/USD](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |\n| Oracle latest answer      |                                                                 (2025-05-26) 109172.99000000 USD |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for FBTC and the corresponding aToken.\n\n### Emode\n\nThe following emode will be created:\n\n| Asset             | FBTC  | WBTC |\n| ----------------- | ----- | ---- |\n| Collateral        | Yes   | No   |\n| Borrowable        | No    | Yes  |\n| LTV               | 84%   | -    |\n| LT                | 86%   | -    |\n| Liquidation Bonus | 3.00% | -    |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/767a67b2255ffa6f52b812068d4c4e3a9a4a2a0c/src/20241213_AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum/AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/767a67b2255ffa6f52b812068d4c4e3a9a4a2a0c/src/20241213_AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum/AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x2ca8db490e132cebfec25ddbf460b89abd710456c5177bca784abaae9d6009d9)\n- [Discussion](https://governance.aave.com/t/arfc-add-fbtc-to-aave-v3-main-market-on-ethereum/19937)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Add FBTC to Aave v3 Main Market on Ethereum",
+    "author": "Aave Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-add-fbtc-to-aave-v3-main-market-on-ethereum/19937",
+    "snapshot": "https://snapshot.box/#/s:aave.eth/proposal/0x2ca8db490e132cebfec25ddbf460b89abd710456c5177bca784abaae9d6009d9",
+    "originalIpfsHash": "0xda3df9ee07c5133298cfe63fb0745b5f227ea5a27c009d89242246379c951402"
+  },
+  "proposal": {
+    "id": 318,
+    "votingDuration": 259200,
+    "creationTime": 1748437883,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xda3df9ee07c5133298cfe63fb0745b5f227ea5a27c009d89242246379c951402",
+    "initialPayloads": [
+      {
+        "id": 294,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 318,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1748444835,
+    "cancellationFee": 50000000000000000
+  }
+}
