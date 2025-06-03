@@ -16,6 +16,7 @@ import {
   GovernanceV3Soneium,
   GovernanceV3Sonic,
   GovernanceV3ZkSync,
+  UmbrellaEthereum,
 } from '@bgd-labs/aave-address-book';
 import { Hex } from 'viem';
 import {
@@ -82,7 +83,10 @@ export const payloadsControllerConfig: Record<
   mainnet: {
     [mainnet.id]: {
       dataHelperContractAddress: GovernanceV3Ethereum.PC_DATA_HELPER,
-      contractAddresses: [GovernanceV3Ethereum.PAYLOADS_CONTROLLER],
+      contractAddresses: [
+        GovernanceV3Ethereum.PAYLOADS_CONTROLLER,
+        UmbrellaEthereum.PERMISSIONED_PAYLOADS_CONTROLLER,
+      ],
     },
     [polygon.id]: {
       dataHelperContractAddress: GovernanceV3Polygon.PC_DATA_HELPER,
