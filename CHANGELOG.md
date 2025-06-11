@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.7.0...v3.8.0) (2025-06-11)
+
+
+### Features
+
+* trigger release 3.9.0 ([02e21f2](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/02e21f29f504d64c2e2ab669bbf156a3c3d05ef4))
+
 ## [3.7.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.2...v3.7.0) (2025-05-23)
 
 
