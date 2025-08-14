@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.8.0...v3.8.1) (2025-08-14)
+
+
+### Bug Fixes
+
+* update-cache scripts that had been failing due to unsupported chain id ([#108](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/108)) ([85c5acb](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/85c5acb916324a612150da77fabf03574dce9df4))
+
 ## [3.8.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.7.0...v3.8.0) (2025-06-11)
 
 
