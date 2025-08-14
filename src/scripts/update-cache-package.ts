@@ -237,7 +237,9 @@ async function updateVMEvents(
         abi: IVotingPortal_ABI,
         client: createViemClient({
           chain: ChainList[govCoreChainId as SupportedChainIds] as any,
-          rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
+          rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds, {
+            alchemyKey: process.env.ALCHEMY_API_KEY,
+          }),
         }),
         address: portal,
       });
