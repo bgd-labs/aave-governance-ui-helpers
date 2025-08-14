@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.9.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.8.1...v3.9.0) (2025-08-14)
+
+
+### Features
+
+* pass Alchemy api key and parse cache by batch with size 20 ([#110](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/110)) ([1604251](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1604251a46cf762d194a64cffa08e33fdea73a7f))
+
 ## [3.8.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.8.0...v3.8.1) (2025-08-14)
 
 
