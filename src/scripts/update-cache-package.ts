@@ -1,22 +1,36 @@
-import { IGovernanceCore_ABI } from '@bgd-labs/aave-address-book/abis';
-import { readJSONCache, writeJSONCache } from '@bgd-labs/js-utils';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import { ChainList, getRPCUrl, SupportedChainIds } from '@bgd-labs/rpc-env';
-import { Address, getContract } from 'viem';
-import { getBlockNumber } from 'viem/actions';
+import {
+  IGovernanceCore_ABI,
+  IPayloadsControllerCore_ABI,
+  IVotingPortal_ABI,
+} from '@bgd-labs/aave-address-book/abis';
+import {
+  getBlockAtTimestamp,
+  getContractDeploymentBlock,
+  readJSONCache,
+  writeJSONCache,
+} from '@bgd-labs/js-utils';
+import { ChainList, getRPCUrl, SupportedChainIds } from '@bgd-labs/toolbox';
+import { Address, getContract, Hex } from 'viem';
+import { getBlock, getBlockNumber } from 'viem/actions';
 
-import { PayloadState, ProposalsCache, ProposalState } from '../';
+import {
+  BookKeepingCache,
+  getProposalMetadata,
+  PayloadsCache,
+  PayloadState,
+  ProposalMetadata,
+  ProposalsCache,
+  ProposalState,
+} from '../';
+import { getGovernanceEvents } from '../utils/viem/events/governance';
+import {
+  getPayloadsControllerEvents,
+  isPayloadFinal,
+} from '../utils/viem/events/payloadsController';
+import { getVotingMachineEvents } from '../utils/viem/events/votingMachine';
 import { createViemClient } from './createClient';
 
 require('dotenv').config();
-
-/**
- * @description
- * List of chain ids that are not supported by @bgd-labs/rpc-env
- * Once @bgd-labs/rpc-env is properly updated, of update-cache script is migrated to @bgd/toolbox we are safe to remove this list
- */
-const TEMPORARY_UNSUPPORTED_CHAIN_IDS = [1868];
 
 export const ipfsPrivateGateway: string =
   process.env.IPFS_GATEWAY || 'https://dweb.link/ipfs';
@@ -58,7 +72,7 @@ async function updatePayloadsEvents(
   bookKeepingCache: BookKeepingCache,
 ) {
   const client = createViemClient({
-    chain: ChainList[chainId as SupportedChainIds],
+    chain: ChainList[chainId as SupportedChainIds] as any,
     rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
       alchemyKey: process.env.ALCHEMY_API_KEY,
     }),
@@ -107,55 +121,51 @@ async function updatePayloadsData(
   secondTime?: boolean,
 ) {
   return await Promise.all(
-    Array.from(controllers)
-      .filter(
-        ([, chainId]) => !TEMPORARY_UNSUPPORTED_CHAIN_IDS.includes(chainId),
-      )
-      .map(async ([controller, chainId]) => {
-        const payloadsPath = `${chainId}/payloads`;
-        const payloadsCache =
-          readJSONCache<PayloadsCache>(payloadsPath, controller) || {};
+    Array.from(controllers).map(async ([controller, chainId]) => {
+      const payloadsPath = `${chainId}/payloads`;
+      const payloadsCache =
+        readJSONCache<PayloadsCache>(payloadsPath, controller) || {};
 
-        const client = createViemClient({
-          chain: ChainList[chainId as SupportedChainIds],
-          rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
-            alchemyKey: process.env.ALCHEMY_API_KEY,
-          }),
-        });
-        const contract = getContract({
-          abi: IPayloadsControllerCore_ABI,
-          client,
-          address: controller,
-        });
-        const payloadsCount = await contract.read.getPayloadsCount();
-        const payloadsIds = [...Array(Number(payloadsCount)).keys()];
-        for (let i = 0; i < payloadsIds.length; i++) {
-          if (
-            secondTime
-              ? !payloadsCache[i]
-              : !payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)
-          ) {
-            const payload = await contract.read.getPayloadById([i]);
-            payloadsCache[i] = {
-              ...payload,
-              id: Number(i),
-              chainId,
-              payloadsController: controller,
-            };
-          }
-        }
-        writeJSONCache(payloadsPath, controller, payloadsCache);
-
-        if (secondTime) {
-          await updatePayloadsEvents(
+      const client = createViemClient({
+        chain: ChainList[chainId as SupportedChainIds] as any,
+        rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
+          alchemyKey: process.env.ALCHEMY_API_KEY,
+        }),
+      });
+      const contract = getContract({
+        abi: IPayloadsControllerCore_ABI,
+        client,
+        address: controller,
+      });
+      const payloadsCount = await contract.read.getPayloadsCount();
+      const payloadsIds = [...Array(Number(payloadsCount)).keys()];
+      for (let i = 0; i < payloadsIds.length; i++) {
+        if (
+          secondTime
+            ? !payloadsCache[i]
+            : !payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)
+        ) {
+          const payload = await contract.read.getPayloadById([i]);
+          payloadsCache[i] = {
+            ...payload,
+            id: Number(i),
             chainId,
-            controller,
-            payloadsCache,
-            bookKeepingCache,
-          );
+            payloadsController: controller,
+          };
         }
-        return payloadsCache;
-      }),
+      }
+      writeJSONCache(payloadsPath, controller, payloadsCache);
+
+      if (secondTime) {
+        await updatePayloadsEvents(
+          chainId,
+          controller,
+          payloadsCache,
+          bookKeepingCache,
+        );
+      }
+      return payloadsCache;
+    }),
   );
 }
 
@@ -169,7 +179,7 @@ async function updateGovCoreEvents(
   const eventsPath = `${Number(govCoreChainId)}/events`;
 
   const client = createViemClient({
-    chain: ChainList[govCoreChainId as SupportedChainIds],
+    chain: ChainList[govCoreChainId as SupportedChainIds] as any,
     rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds, {
       alchemyKey: process.env.ALCHEMY_API_KEY,
     }),
@@ -226,7 +236,7 @@ async function updateVMEvents(
       const portalContract = getContract({
         abi: IVotingPortal_ABI,
         client: createViemClient({
-          chain: ChainList[govCoreChainId as SupportedChainIds],
+          chain: ChainList[govCoreChainId as SupportedChainIds] as any,
           rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
         }),
         address: portal,
@@ -243,7 +253,7 @@ async function updateVMEvents(
       const path = `${chainId}/events`;
       const address = machine;
       const client = createViemClient({
-        chain: ChainList[chainId as SupportedChainIds],
+        chain: ChainList[chainId as SupportedChainIds] as any,
         rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
           alchemyKey: process.env.ALCHEMY_API_KEY,
         }),
@@ -304,7 +314,7 @@ export async function updateCache({
     {};
   // initialize contracts
   const govCoreClient = createViemClient({
-    chain: ChainList[govCoreChainId as SupportedChainIds],
+    chain: ChainList[govCoreChainId as SupportedChainIds] as any,
     rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds, {
       alchemyKey: process.env.ALCHEMY_API_KEY,
     }),
