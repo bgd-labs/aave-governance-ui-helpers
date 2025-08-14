@@ -97,6 +97,9 @@ async function getVotingData(initialProposals: InitialProposal[]) {
         ] as any,
         rpcUrl: getRPCUrl(
           appConfig.votingMachineChainIds[0] as SupportedChainIds,
+          {
+            alchemyKey: process.env.ALCHEMY_API_KEY,
+          },
         ),
       }),
     }),
@@ -109,7 +112,9 @@ async function getVotingData(initialProposals: InitialProposal[]) {
         abi: IVotingMachineDataHelper_ABI,
         client: createViemClient({
           chain: ChainList[chainId as SupportedChainIds] as any,
-          rpcUrl: getRPCUrl(chainId as SupportedChainIds),
+          rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
+            alchemyKey: process.env.ALCHEMY_API_KEY,
+          }),
         }),
       });
     });
@@ -449,7 +454,9 @@ async function parseProposalEvents(
             chain: ChainList[
               appConfig.govCoreChainId as SupportedChainIds
             ] as any,
-            rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds),
+            rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds, {
+              alchemyKey: process.env.ALCHEMY_API_KEY,
+            }),
           }),
           {
             blockHash: governanceEvents.find(
@@ -628,7 +635,9 @@ async function parseCache() {
       appConfig.govCoreConfig.dataHelperContractAddress,
     client: createViemClient({
       chain: ChainList[appConfig.govCoreChainId as SupportedChainIds],
-      rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds),
+      rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds, {
+        alchemyKey: process.env.ALCHEMY_API_KEY,
+      }),
     }),
   });
 
@@ -639,7 +648,9 @@ async function parseCache() {
         abi: IVotingPortal_ABI,
         client: createViemClient({
           chain: ChainList[appConfig.govCoreChainId as SupportedChainIds],
-          rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds),
+          rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds, {
+            alchemyKey: process.env.ALCHEMY_API_KEY,
+          }),
         }),
         address: proposal[1].votingPortal,
       });
@@ -679,127 +690,135 @@ async function parseCache() {
     };
   });
 
-  // start parsing
-  await Promise.allSettled(
-    proposalsData.map(async (proposal) => {
-      const proposalIpfsData = ipfsCache[proposal.ipfsHash];
+  // start parsing in batches to reduce peak memory usage
+  const batchSize = 20;
+  for (let i = 0; i < proposalsData.length; i += batchSize) {
+    const batch = proposalsData.slice(i, i + batchSize);
+    await Promise.allSettled(
+      batch.map(async (proposal) => {
+        const proposalIpfsData = ipfsCache[proposal.ipfsHash];
 
-      const path = `${proposal.votingChainId}/events`;
-      const votingMachineAddress = getVotingMachineAddress(
-        proposal.votingChainId,
-        proposal.id,
-      );
-      const votesCache =
-        readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
-          path,
-          votingMachineAddress,
-        ) || [];
+        const path = `${proposal.votingChainId}/events`;
+        const votingMachineAddress = getVotingMachineAddress(
+          proposal.votingChainId,
+          proposal.id,
+        );
+        const votesCache =
+          readJSONCache<Awaited<ReturnType<typeof getVotingMachineEvents>>>(
+            path,
+            votingMachineAddress,
+          ) || [];
 
-      // format VoteEmitted events to UI data format
-      const proposalVoters: VotersData[] = votesCache
-        .filter(
-          (data) =>
-            data.eventName === 'VoteEmitted' &&
-            Number(data.args.proposalId) === proposal.id,
-        )
-        .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
-        .map((event) => ({
-          proposalId: Number(event.args.proposalId),
-          address: (
-            (event.eventName === 'VoteEmitted' && event.args.voter) ||
-            ''
-          ).toString() as Hex,
-          support:
-            (event.eventName === 'VoteEmitted' && event.args.support) || false,
-          votingPower: normalizeBN(
-            (
-              (event.eventName === 'VoteEmitted' && event.args.votingPower) ||
+        // format VoteEmitted events to UI data format
+        const proposalVoters: VotersData[] = votesCache
+          .filter(
+            (data) =>
+              data.eventName === 'VoteEmitted' &&
+              Number(data.args.proposalId) === proposal.id,
+          )
+          .sort((a, b) => Number(b.blockNumber) - Number(a.blockNumber))
+          .map((event) => ({
+            proposalId: Number(event.args.proposalId),
+            address: (
+              (event.eventName === 'VoteEmitted' && event.args.voter) ||
               ''
-            ).toString(),
-            18,
-          ).toNumber(),
-          transactionHash: event.transactionHash,
-          blockNumber: Number(event.blockNumber),
-          chainId: proposal.votingChainId,
-        }));
+            ).toString() as Hex,
+            support:
+              (event.eventName === 'VoteEmitted' && event.args.support) ||
+              false,
+            votingPower: normalizeBN(
+              (
+                (event.eventName === 'VoteEmitted' && event.args.votingPower) ||
+                ''
+              ).toString(),
+              18,
+            ).toNumber(),
+            transactionHash: event.transactionHash,
+            blockNumber: Number(event.blockNumber),
+            chainId: proposal.votingChainId,
+          }));
 
-      // get ens name for voters
-      const proposalVotersWithEnsName = await Promise.all(
-        proposalVoters.map(async (vote) => {
-          try {
-            const name = await getEnsName(
-              createViemClient({
-                chain: ChainList[ChainId.mainnet],
-                rpcUrl: getRPCUrl(ChainId.mainnet),
-              }),
-              {
-                address: vote.address,
-              },
-            );
+        // get ens name for voters
+        const proposalVotersWithEnsName = await Promise.all(
+          proposalVoters.map(async (vote) => {
+            try {
+              const name = await getEnsName(
+                createViemClient({
+                  chain: ChainList[ChainId.mainnet],
+                  rpcUrl: getRPCUrl(ChainId.mainnet, {
+                    alchemyKey: process.env.ALCHEMY_API_KEY,
+                  }),
+                }),
+                {
+                  address: vote.address,
+                },
+              );
 
-            return {
-              ...vote,
-              ensName: name ? name : undefined,
-            };
-          } catch {
-            return {
-              ...vote,
-              ensName: undefined,
-            };
-          }
-        }),
-      );
-
-      // get payloads data for proposal
-      const { proposalPayloadsData } = getProposalPayloads(proposal);
-
-      const dataToWrite = {
-        payloads: proposalPayloadsData,
-        ipfs: proposalIpfsData,
-        proposal: proposal,
-      };
-
-      const proposalCache =
-        readJSONCache<{
-          payloads: Payload[];
-          ipfs: ProposalMetadata;
-          proposal: BasicProposal;
-        }>(`${initDirName}/proposals`, `proposal_${proposal.id}`) || undefined;
-      if (
-        !proposalCache ||
-        !proposalCache?.proposal.isFinished ||
-        Number(proposalCache.proposal.cancellationFee) > 0
-      ) {
-        writeJSONCache(
-          `${initDirName}/proposals`,
-          `proposal_${proposal.id}`,
-          dataToWrite,
+              return {
+                ...vote,
+                ensName: name ? name : undefined,
+              };
+            } catch {
+              return {
+                ...vote,
+                ensName: undefined,
+              };
+            }
+          }),
         );
-        console.log(`Proposal ${proposal.id} data cached.`);
-      }
 
-      const proposalVotersCache =
-        readJSONCache<{
-          votes: VotersData[];
-        }>(`${initDirName}/votes`, `vote_for_proposal_${proposal.id}`) ||
-        undefined;
-      if (
-        !proposalVotersCache ||
-        !isProposalFinal(proposalCache ? proposalCache.proposal.state : 0)
-      ) {
-        writeJSONCache(
-          `${initDirName}/votes`,
-          `vote_for_proposal_${proposal.id}`,
-          {
-            votes: proposalVotersWithEnsName,
-          },
-        );
-        console.log(`Proposal ${proposal.id} voters data cached.`);
-      }
+        // get payloads data for proposal
+        const { proposalPayloadsData } = getProposalPayloads(proposal);
 
-      await parseProposalEvents(proposal, configs, contractsConstants);
-    }),
-  );
+        const dataToWrite = {
+          payloads: proposalPayloadsData,
+          ipfs: proposalIpfsData,
+          proposal: proposal,
+        };
+
+        const proposalCache =
+          readJSONCache<{
+            payloads: Payload[];
+            ipfs: ProposalMetadata;
+            proposal: BasicProposal;
+          }>(`${initDirName}/proposals`, `proposal_${proposal.id}`) ||
+          undefined;
+        if (
+          !proposalCache ||
+          !proposalCache?.proposal.isFinished ||
+          Number(proposalCache.proposal.cancellationFee) > 0
+        ) {
+          writeJSONCache(
+            `${initDirName}/proposals`,
+            `proposal_${proposal.id}`,
+            dataToWrite,
+          );
+          console.log(`Proposal ${proposal.id} data cached.`);
+        }
+
+        const proposalVotersCache =
+          readJSONCache<{
+            votes: VotersData[];
+          }>(`${initDirName}/votes`, `vote_for_proposal_${proposal.id}`) ||
+          undefined;
+        if (
+          !proposalVotersCache ||
+          !isProposalFinal(proposalCache ? proposalCache.proposal.state : 0)
+        ) {
+          writeJSONCache(
+            `${initDirName}/votes`,
+            `vote_for_proposal_${proposal.id}`,
+            {
+              votes: proposalVotersWithEnsName,
+            },
+          );
+          console.log(`Proposal ${proposal.id} voters data cached.`);
+        }
+
+        await parseProposalEvents(proposal, configs, contractsConstants);
+      }),
+    );
+  }
 
   const proposalIds = proposalsData
     .filter((proposal) => proposal.isFinished)
