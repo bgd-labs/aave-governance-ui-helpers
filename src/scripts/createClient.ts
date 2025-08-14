@@ -1,10 +1,10 @@
-import { Chain, createClient, http } from 'viem';
+import { createClient, http } from 'viem';
 
 export const createViemClient = ({
   chain,
   rpcUrl,
 }: {
-  chain: Chain;
+  chain: any;
   rpcUrl?: string;
 }) =>
   createClient({

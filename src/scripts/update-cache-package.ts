@@ -9,9 +9,7 @@ import {
   readJSONCache,
   writeJSONCache,
 } from '@bgd-labs/js-utils';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import { ChainList, getRPCUrl, SupportedChainIds } from '@bgd-labs/rpc-env';
+import { ChainList, getRPCUrl, SupportedChainIds } from '@bgd-labs/toolbox';
 import { Address, getContract, Hex } from 'viem';
 import { getBlock, getBlockNumber } from 'viem/actions';
 
@@ -74,7 +72,7 @@ async function updatePayloadsEvents(
   bookKeepingCache: BookKeepingCache,
 ) {
   const client = createViemClient({
-    chain: ChainList[chainId as SupportedChainIds],
+    chain: ChainList[chainId as SupportedChainIds] as any,
     rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
       alchemyKey: process.env.ALCHEMY_API_KEY,
     }),
@@ -129,7 +127,7 @@ async function updatePayloadsData(
         readJSONCache<PayloadsCache>(payloadsPath, controller) || {};
 
       const client = createViemClient({
-        chain: ChainList[chainId as SupportedChainIds],
+        chain: ChainList[chainId as SupportedChainIds] as any,
         rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
           alchemyKey: process.env.ALCHEMY_API_KEY,
         }),
@@ -181,7 +179,7 @@ async function updateGovCoreEvents(
   const eventsPath = `${Number(govCoreChainId)}/events`;
 
   const client = createViemClient({
-    chain: ChainList[govCoreChainId as SupportedChainIds],
+    chain: ChainList[govCoreChainId as SupportedChainIds] as any,
     rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds, {
       alchemyKey: process.env.ALCHEMY_API_KEY,
     }),
@@ -238,7 +236,7 @@ async function updateVMEvents(
       const portalContract = getContract({
         abi: IVotingPortal_ABI,
         client: createViemClient({
-          chain: ChainList[govCoreChainId as SupportedChainIds],
+          chain: ChainList[govCoreChainId as SupportedChainIds] as any,
           rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds),
         }),
         address: portal,
@@ -255,7 +253,7 @@ async function updateVMEvents(
       const path = `${chainId}/events`;
       const address = machine;
       const client = createViemClient({
-        chain: ChainList[chainId as SupportedChainIds],
+        chain: ChainList[chainId as SupportedChainIds] as any,
         rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
           alchemyKey: process.env.ALCHEMY_API_KEY,
         }),
@@ -316,7 +314,7 @@ export async function updateCache({
     {};
   // initialize contracts
   const govCoreClient = createViemClient({
-    chain: ChainList[govCoreChainId as SupportedChainIds],
+    chain: ChainList[govCoreChainId as SupportedChainIds] as any,
     rpcUrl: getRPCUrl(govCoreChainId as SupportedChainIds, {
       alchemyKey: process.env.ALCHEMY_API_KEY,
     }),

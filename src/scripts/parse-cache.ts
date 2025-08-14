@@ -8,9 +8,7 @@ import {
   ChainList,
   getRPCUrl,
   SupportedChainIds,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-} from '@bgd-labs/rpc-env';
+} from '@bgd-labs/toolbox';
 import { Address, getContract, Hex, zeroAddress, zeroHash } from 'viem';
 import { getBlock, getEnsName } from 'viem/actions';
 
@@ -87,15 +85,16 @@ export function getVotingMachineAddress(
 }
 
 async function getVotingData(initialProposals: InitialProposal[]) {
-  const votingMachineDataHelpers = {
+  const votingMachineDataHelpers: Record<number, any> = {
     [appConfig.votingMachineChainIds[0]]: getContract({
       address:
         appConfig.votingMachineConfig[appConfig.votingMachineChainIds[0]]
           .dataHelperContractAddress,
       abi: IVotingMachineDataHelper_ABI,
       client: createViemClient({
-        chain:
-          ChainList[appConfig.votingMachineChainIds[0] as SupportedChainIds],
+        chain: ChainList[
+          appConfig.votingMachineChainIds[0] as SupportedChainIds
+        ] as any,
         rpcUrl: getRPCUrl(
           appConfig.votingMachineChainIds[0] as SupportedChainIds,
         ),
@@ -109,7 +108,7 @@ async function getVotingData(initialProposals: InitialProposal[]) {
         address: votingMachineConfig.dataHelperContractAddress,
         abi: IVotingMachineDataHelper_ABI,
         client: createViemClient({
-          chain: ChainList[chainId as SupportedChainIds],
+          chain: ChainList[chainId as SupportedChainIds] as any,
           rpcUrl: getRPCUrl(chainId as SupportedChainIds),
         }),
       });
@@ -447,7 +446,9 @@ async function parseProposalEvents(
       const executedTimestamp = (
         await getBlock(
           createViemClient({
-            chain: ChainList[appConfig.govCoreChainId as SupportedChainIds],
+            chain: ChainList[
+              appConfig.govCoreChainId as SupportedChainIds
+            ] as any,
             rpcUrl: getRPCUrl(appConfig.govCoreChainId as SupportedChainIds),
           }),
           {
