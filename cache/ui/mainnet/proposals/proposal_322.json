@@ -1,0 +1,144 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1749155387,
+      "queuedAt": 1749503927,
+      "executedAt": 1749590351,
+      "cancelledAt": 0,
+      "expirationTime": 1752179387,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x40a021449327b5e41Ec55b8B020A8c71Db2b567B",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 297,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1749155746,
+      "queuedAt": 1749505221,
+      "executedAt": 1749591630,
+      "cancelledAt": 0,
+      "expirationTime": 1752179746,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x079B53AfdaD89a294590a459e2b677b21251cEe5",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 113,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1749155476,
+      "queuedAt": 1749505069,
+      "executedAt": 1749627700,
+      "cancelledAt": 0,
+      "expirationTime": 1752179476,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x85981D8f89Ea0E6caB9f14B1285EAE664EBDfA87",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 5,
+      "chainId": 42220,
+      "payloadsController": "0xE48E10834C04E394A04BF22a565D063D40b9FA42"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qmcv22PH1QAUi3miXELFSnKtHns11pwkuTY2HkaUXuJnAz",
+    "description": "\n## Simple Summary\n\nThis proposal aims to optimize parameters of certain assets across networks where it is supported.\n\n## Motivation\n\nThis proposal aims to optimize the Reserver Factor of various stables and also optimize the Optimal Utilization of various assets to better reflect the market mechanisms.\n\nThe key changes include:\n\n- **Adjusting Reserve Factor (RF)** of various stables from 10% to 20%: increasing the RF routes a larger portion of the interest paid by users to Aave DAO’s Treasury. This does not impact users’ health factor directly while providing better cushion for assets at low utilization.\n- **Adjusting Optimal Utilization (Uoptimal)** of various assets to 45%: We recommend to decrease Uoptimal of CRV, BAL and SNX to 45%, to better reflect the borrow and supply dynamism for these assets.\n\n## Specification\n\n| **Market**    | **Asset** | **Current RF** | **Rec. RF** |\n| ------------- | --------- | -------------- | ----------- |\n| Ethereum Core | crvUSD    | 10%            | 20%         |\n| Ethereum Core | RLUSD     | 10%            | 20%         |\n| Ethereum Core | USDtb     | 10%            | 20%         |\n| Celo          | USDT      | 10%            | 20%         |\n\n| Deployment    | Asset | Current UOptimal | Rec. UOptimal | Current Base | Rec. Base | Current Slope 1 | Rec. Slope 1 | Current Slope 2 | Rec. Slope 2 |\n| ------------- | ----- | ---------------- | ------------- | ------------ | --------- | --------------- | ------------ | --------------- | ------------ |\n| Ethereum Core | CRV   | 70%              | 45%           | 3%           | -         | 14%             | 10%          | 300%            | 150%         |\n| Ethereum Core | SNX   | 80%              | 45%           | 3%           | -         | 15%             | -            | 100%            | 150%         |\n| Ethereum Core | BAL   | 80%              | 45%           | 5%           | -         | 22%             | 15%          | 150%            | -            |\n| Ethereum Core | RLUSD | 80%              | -             | 0%           | 4%        | 6.5%            | 2.5%         | 50%             | -            |\n| Polygon       | CRV   | 70%              | 45%           | 3%           | -         | 14%             | 10%          | 300%            | 150%         |\n| Polygon       | BAL   | 80%              | 45%           | 5%           | -         | 22%             | 15%          | 150%            | -            |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/dd08d7de4c2b6b2fe3c81e67e450decd2ee6ea8f/src/20250527_Multi_AssetParametersOptimization/AaveV3Ethereum_AssetParametersOptimization_20250527.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/dd08d7de4c2b6b2fe3c81e67e450decd2ee6ea8f/src/20250527_Multi_AssetParametersOptimization/AaveV3Polygon_AssetParametersOptimization_20250527.sol), [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/dd08d7de4c2b6b2fe3c81e67e450decd2ee6ea8f/src/20250527_Multi_AssetParametersOptimization/AaveV3Celo_AssetParametersOptimization_20250527.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/dd08d7de4c2b6b2fe3c81e67e450decd2ee6ea8f/src/20250527_Multi_AssetParametersOptimization/AaveV3Ethereum_AssetParametersOptimization_20250527.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/dd08d7de4c2b6b2fe3c81e67e450decd2ee6ea8f/src/20250527_Multi_AssetParametersOptimization/AaveV3Polygon_AssetParametersOptimization_20250527.t.sol), [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/dd08d7de4c2b6b2fe3c81e67e450decd2ee6ea8f/src/20250527_Multi_AssetParametersOptimization/AaveV3Celo_AssetParametersOptimization_20250527.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-asset-parameters-optimization/22178)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Asset Parameters Optimization",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-asset-parameters-optimization/22178",
+    "originalIpfsHash": "0xd88fe280b6079d50ab9a283cc4c5ae52c90fdb3d50b8bec4d3cbb65b350d687f"
+  },
+  "proposal": {
+    "id": 322,
+    "votingDuration": 259200,
+    "creationTime": 1749155951,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1749503915,
+    "ipfsHash": "0xd88fe280b6079d50ab9a283cc4c5ae52c90fdb3d50b8bec4d3cbb65b350d687f",
+    "initialPayloads": [
+      {
+        "id": 297,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 113,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 5,
+        "chainId": 42220,
+        "payloadsController": "0xE48E10834C04E394A04BF22a565D063D40b9FA42"
+      }
+    ],
+    "snapshotBlockHash": "0x1681957cf46b5da0bf6fca180d7f5993888b0757dca7c2174cc5535f4bdefbbc",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1749242375,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 322,
+      "forVotes": "458718534543243870173187",
+      "againstVotes": "0",
+      "startTime": 1749243588,
+      "endTime": 1749502788,
+      "votingClosedAndSentBlockNumber": 72569852,
+      "votingClosedAndSentTimestamp": 1749502797,
+      "l1BlockHash": "0x1681957cf46b5da0bf6fca180d7f5993888b0757dca7c2174cc5535f4bdefbbc",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": true,
+      "createdBlock": 72448103,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1755178999,
+    "cancellationFee": 50000000000000000
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1750670675,
+      "queuedAt": 1751018951,
+      "executedAt": 1751105375,
+      "cancelledAt": 0,
+      "expirationTime": 1753694675,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x61D0DCB050507Fe82459f5b114063F4000D98B3E",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 308,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmTzKaJmtS1ABDsjwWMbHCQ9kL3kAupfbobLv7RT9mzev7",
+    "description": "\n## Simple Summary\n\nThis proposal aims to onboard tETH to Aave V3 Prime Instance.\n\n## Motivation\n\nAssets like tETH are designed to unify fragmented interest rate markets and optimize yield generation. Users contribute ETH and receive tETH, redeemable for their initial ETH plus additional yield. This yield comes from a dynamic strategy that balances staking rewards and interest rate arbitrage on lending protocols. For tETH, this ensures baseline yields equivalent to native ETH staking while capturing additional returns from rate inefficiencies. These assets are composable across DeFi, enabling broader usability.\n\nBy onboarding tETH to Aave V3 Prime Instance, we can:\n\n- **Enhance capital efficiency**: Users can borrow against tETH, unlocking liquidity while continuing to earn restaking rewards.\n- **Increase protocol revenue**: More borrowing activity leads to higher interest income for Aave.\n- **Expand Aave’s influence in restaking finance**: Positioning Aave as a central lending hub for LRTs.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **tETH**\n\n| Parameter                 |    Value |\n| ------------------------- | -------: |\n| Isolation Mode            |    false |\n| Borrowable                | DISABLED |\n| Collateral Enabled        |     true |\n| Supply Cap (tETH)         |   20,000 |\n| Borrow Cap (tETH)         |        1 |\n| Debt Ceiling              |    USD 0 |\n| LTV                       |   0.05 % |\n| LT                        |    0.1 % |\n| Liquidation Bonus         |    7.5 % |\n| Liquidation Protocol Fee  |     10 % |\n| Reserve Factor            |     50 % |\n| Base Variable Borrow Rate |      0 % |\n| Variable Slope 1          |     10 % |\n| Variable Slope 2          |    300 % |\n| Uoptimal                  |     45 % |\n| Flashloanable             |  ENABLED |\n| Siloed Borrowing          | DISABLED |\n| Borrowable in Isolation   | DISABLED |\n\n**Pricefeed details**\n\n| Parameter                  |                                                                                             Value |\n| -------------------------- | ------------------------------------------------------------------------------------------------: |\n| Oracle                     | [Capped tETH/wstETH/USD](https://etherscan.io/address/0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A) |\n| Ratio provider             |                   [tETH](https://etherscan.io/address/0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8) |\n| Underlying Oracle          |      [Capped wstETH/USD](https://etherscan.io/address/0xe1D97bF61901B075E9626c8A2340a7De385861Ef) |\n| Oracle Latest Answer       |                                                                    (2025-05-21) USD 3085.41598338 |\n| maxYearlyGrowthRatePercent |                                                                                             4.50% |\n| Snapshot Delay             |                                                                                           14 days |\n\n**tETH/wstETH E-Mode**\n\n| **Parameter**         | **Value** | **Value** |\n| --------------------- | --------- | --------- |\n| Asset                 | tETH      | wstETH    |\n| Collateral            | Yes       | No        |\n| Borrowable            | No        | Yes       |\n| Max LTV               | 92.00%    | -         |\n| Liquidation Threshold | 94.00%    | -         |\n| Liquidation Bonus     | 2.00%     | -         |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tETH and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/25332db83cecc9fa8dae586ea9be87664d0ca93b/src/20250617_AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance/AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/25332db83cecc9fa8dae586ea9be87664d0ca93b/src/20250617_AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance/AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x0cef1b470bf48c23d66386816d6a88d97abefb9364fda4e8e28b6ed2cd169945)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-teth-to-aave-v3-prime-instance/21873)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard tETH to Aave v3 Prime Instance",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-teth-to-aave-v3-prime-instance/21873",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x0cef1b470bf48c23d66386816d6a88d97abefb9364fda4e8e28b6ed2cd169945",
+    "originalIpfsHash": "0x53f0deb5b4edb43d2a297caad540900bc6a359ade80aefe519164a8d83059364"
+  },
+  "proposal": {
+    "id": 329,
+    "votingDuration": 259200,
+    "creationTime": 1750670987,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1751018939,
+    "ipfsHash": "0x53f0deb5b4edb43d2a297caad540900bc6a359ade80aefe519164a8d83059364",
+    "initialPayloads": [
+      {
+        "id": 308,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x9ad1f2735487cd9bb54442c1db48018f04104dc9076333ff8f1b632220c86a2d",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1750757411,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 329,
+      "forVotes": "566261250504979817008698",
+      "againstVotes": "22476953626235834817",
+      "startTime": 1750758609,
+      "endTime": 1751017809,
+      "votingClosedAndSentBlockNumber": 73279896,
+      "votingClosedAndSentTimestamp": 1751017823,
+      "l1BlockHash": "0x9ad1f2735487cd9bb54442c1db48018f04104dc9076333ff8f1b632220c86a2d",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": true,
+      "createdBlock": 73158227,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1755178999,
+    "cancellationFee": 50000000000000000
+  }
+}

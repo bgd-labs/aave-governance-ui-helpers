@@ -3,10 +3,10 @@
     {
       "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 3,
       "createdAt": 1748437703,
-      "queuedAt": 0,
-      "executedAt": 0,
+      "queuedAt": 1748785991,
+      "executedAt": 1748872439,
       "cancelledAt": 0,
       "expirationTime": 1751461703,
       "delay": 86400,
@@ -40,8 +40,8 @@
     "votingDuration": 259200,
     "creationTime": 1748437883,
     "accessLevel": 1,
-    "state": 1,
-    "queuingTime": 0,
+    "state": 4,
+    "queuingTime": 1748785979,
     "ipfsHash": "0xda3df9ee07c5133298cfe63fb0745b5f227ea5a27c009d89242246379c951402",
     "initialPayloads": [
       {
@@ -50,23 +50,23 @@
         "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
       }
     ],
-    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "snapshotBlockHash": "0x027aea30e7398b38ee19fdc211ff84181bd7d62a6d1ef6cc640adba0f1606f73",
     "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
     "canceledAt": 0,
-    "votingActivationTime": 0,
+    "votingActivationTime": 1748524307,
     "votingChainId": 137,
     "votingMachineData": {
       "id": 318,
-      "forVotes": "0",
-      "againstVotes": "0",
-      "startTime": 0,
-      "endTime": 0,
-      "votingClosedAndSentBlockNumber": 0,
-      "votingClosedAndSentTimestamp": 0,
-      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "forVotes": "584843013116932511102436",
+      "againstVotes": "3611473549005256",
+      "startTime": 1748525647,
+      "endTime": 1748784847,
+      "votingClosedAndSentBlockNumber": 72233848,
+      "votingClosedAndSentTimestamp": 1748784857,
+      "l1BlockHash": "0x027aea30e7398b38ee19fdc211ff84181bd7d62a6d1ef6cc640adba0f1606f73",
       "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
-      "sentToGovernance": false,
-      "createdBlock": 0,
+      "sentToGovernance": true,
+      "createdBlock": 72112369,
       "votedInfo": {
         "support": false,
         "votingPower": "0"
@@ -76,10 +76,10 @@
         "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
         "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
       ],
-      "hasRequiredRoots": false
+      "hasRequiredRoots": true
     },
-    "isFinished": false,
-    "lastUpdatedTimestamp": 1748520728,
-    "cancellationFee": 50000000000000000
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1755178999,
+    "cancellationFee": 0
   }
 }

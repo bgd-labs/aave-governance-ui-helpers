@@ -1,0 +1,114 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1753532644,
+      "queuedAt": 1753887594,
+      "executedAt": 1753974023,
+      "cancelledAt": 0,
+      "expirationTime": 1756556644,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xAabf595d5560e58356315f9807FD1D9f7DaE347d",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 90,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1753532781,
+      "queuedAt": 1753887622,
+      "executedAt": 1753975298,
+      "cancelledAt": 0,
+      "expirationTime": 1756556781,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x9Ce6b5B055113AB732B88cE3e4Dce3186951AAeD",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 8,
+      "chainId": 146,
+      "payloadsController": "0x0846C28Dd54DEA4Fd7Fb31bcc5EB81673D68c695"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmTMDN6uZrLbd73QuEmzC3MHUqJKhnBPNHEd5kRdx7BxWc",
+    "description": "\n## Simple Summary\n\nChaos Labs recommends adjusting wS’s IR curve on Aave V3 Sonic and BTC.b’s IR curve on Aave V3 Avalanche to better facilitate leveraged yield and directional trading strategies. This proposal will follow the Direct-to-AIP process.\n\n## Motivation\n\n### wS (Sonic)\n\nTo this point, wS has primarily been used as collateral to borrow USDC.e, and has been borrowed against USDC.e.\n\nHowever, the recent listing of stS alongside the ensuing listing of wOS creates a new use case for wS as a debt asset. Namely, users may wish to borrow wS against such LSTs to enhance their yield.\n\nOne of the most important changes will be adjusting wS’s UOptimal upwards, allowing for a greater proportion of the wS supplied to be borrowed at a cheaper rate. However, this is only feasible if wS’s liquidity is strong enough to support its use as collateral; the primary risk of increasing UOptimal is creating a situation in which utilization reaches 100% during times of stress, coupled with significant wS collateral utilization, during which liquidations would not be able to be processed. wS’s liquidity has remained stable and relatively deep over the past month and a half.\n\nAs a result, in accordance with the underlying asset volatility, we recommend increasing the asset’s UOptimal to 80% from the current 45%. This change alone will open up roughly $30M of wS that can be borrowed before breaching the kink.\n\nAdditionally, we recommend adjusting Slope1 such that it is marginally lower than the stS staking yield to facilitate optimal revenue generation in accordance with prospective use cases.\n\nWith a median stS staking APY over the last 30 days of 4.56%, we thus recommend setting the Slope1 to 4.00%.\n\nTo ensure that there is not significant rate volatility just above UOptimal, we also recommend decreasing Slope2 from 300% to 80%, finding that 80% is still sufficient to encourage users to repay loans/suppliers to deposit when the asset is highly utilized.\n\nFinally, anticipating that these changes will bring significant new borrowing activity, we recommend doubling the supply cap from 50M to 100M.\n\n### BTC.b (Avalanche)\n\nOver the past few months, BTC.b has experienced a notable increase in organic (non-recursive) borrowing demand, primarily driven by WAVAX-collateralized debt positions. This contrasts with earlier periods, where borrowing activity was largely fueled by recursive BTC.b collateral positions, incentivized through external rewards.\n\nTo further stimulate borrowing demand, we recommend implementing similar interest rate curve adjustments to those previously applied to BTC-denominated markets exhibiting strong borrowing activity. Specifically, we propose modifying the default tail asset configuration by increasing the Optimal Utilization Rate from 45% to 80%, reducing Slope1 to 4%, and raising the Reserve Factor to 50%. These changes align with the BTC-denominated strategy outlined in the [referenced ARFC](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-wbtc-reserve-factor-and-uoptimal-increase-10-25-24/19596) and are supported by the observed uptick in demand.\n\n## Specification\n\n### wS (Sonic)\n\n| Parameter | Current | Recommended |\n| --------- | ------- | ----------- |\n| UOptimal  | 45%     | 80%         |\n| Slope1    | 7.00%   | 4.00%       |\n| Slope2    | 300.00% | 80.00%      |\n\n### BTC.b (Avalanche)\n\n| Parameter      | Current | Recommended |\n| -------------- | ------- | ----------- |\n| UOptimal       | 45%     | 80%         |\n| Slope1         | 7.00%   | 4.00%       |\n| Slope2         | 300.00% | 80.00%      |\n| Reserve Factor | 20%     | 50%         |\n\n## References\n\n- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Avalanche_WSAndBTCBInterestRateCurveOptimization_20250722.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Sonic_WSAndBTCBInterestRateCurveOptimization_20250722.sol)\n- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Avalanche_WSAndBTCBInterestRateCurveOptimization_20250722.t.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Sonic_WSAndBTCBInterestRateCurveOptimization_20250722.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-ws-and-btc-b-interest-rate-curve-optimization/21962)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "wS and BTC.b Interest Rate Curve Optimization",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-ws-and-btc-b-interest-rate-curve-optimization/21962",
+    "originalIpfsHash": "0x4a6f5b9db43af90aa99020adf1195e04a8e9a96f171847f85ec7848f1c2c3ac1"
+  },
+  "proposal": {
+    "id": 347,
+    "votingDuration": 259200,
+    "creationTime": 1753532855,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1753887371,
+    "ipfsHash": "0x4a6f5b9db43af90aa99020adf1195e04a8e9a96f171847f85ec7848f1c2c3ac1",
+    "initialPayloads": [
+      {
+        "id": 90,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      },
+      {
+        "id": 8,
+        "chainId": 146,
+        "payloadsController": "0x0846C28Dd54DEA4Fd7Fb31bcc5EB81673D68c695"
+      }
+    ],
+    "snapshotBlockHash": "0x54049b2a251b752b8381fce3f299e2ed8284f832b2378715d94ebc96e74f35e7",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1753619279,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 347,
+      "forVotes": "553214787180589862192026",
+      "againstVotes": "0",
+      "startTime": 1753620407,
+      "endTime": 1753879607,
+      "votingClosedAndSentBlockNumber": 74593996,
+      "votingClosedAndSentTimestamp": 1753879616,
+      "l1BlockHash": "0x54049b2a251b752b8381fce3f299e2ed8284f832b2378715d94ebc96e74f35e7",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": true,
+      "createdBlock": 74473502,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1755178999,
+    "cancellationFee": 50000000000000000
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1754921651,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1757945651,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x6994319Bb5954B643281d42F8487B728CdE38f24",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 327,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmcFbRL2xg8Q6XkbBoCWdU4AcLMsE7d5ZyPfvbWA8EdXvq",
+    "description": "\n### Summary\n\nThis publication proposes onboarding tETH as collateral to the Aave V3 Core Instance.\n\n### Motivation\n\nAfter successfully onboard tETH to the Prime instance this publication proposes enabling tETH collateral holders to borrow stablecoins via v3.2 Liquid eModes. tETH was listed on the Prime instance on the 28th June 2025 and since then has provided over 129M of User deposit, mostly from four unique addresses, and has been a significant wstETH liquidity consumer.\n\nDiscussions with the TreeHouse team indicate there is strong demand for stablecoins. With insufficient stablecoin liquidity on Prime to support growing tETH, this publication proposes onboarding tETH to Core allow users access to stablecoin liquidity.\n\nSubject to Risk Service providers approval, this publication propose enabling tETH users to access stablecoin liquidity on Core instance.\n\n### Specification\n\nThe following outlines the initial tETH onboarding parameters.\n\n**tETH Ethereum Address:** `0xd11c452fc99cf405034ee446803b6f6c1f6d5ed8`\n\n#### General Parameters\n\n| Parameter                          | Value                                      |\n| ---------------------------------- | ------------------------------------------ |\n| Chain (instance)                   | Ethereum (Core)                            |\n| Isolation Mode                     | false                                      |\n| Borrowable                         | DISABLED                                   |\n| Collateral Enabled                 | true                                       |\n| Supply Cap (tETH)                  | 10,000                                     |\n| Borrow Cap (tETH)                  | 0                                          |\n| Debt Ceiling                       | USD 0                                      |\n| LTV                                | 0.05 %                                     |\n| LT                                 | 0.10 %                                     |\n| Liquidation Bonus                  | 7.5 %                                      |\n| Liquidation Protocol Fee           | 10 %                                       |\n| Reserve Factor                     | 15 %                                       |\n| Base Variable Borrow Rate          | 0 %                                        |\n| Variable Slope 1                   | 0 %                                        |\n| Variable Slope 2                   | 0 %                                        |\n| Uoptimal                           | 45 %                                       |\n| Stable Borrowing                   | DISABLED                                   |\n| Stable Slope1                      | 0 %                                        |\n| Stable Slope2                      | 0 %                                        |\n| Base Stable Rate Offset            | 0 %                                        |\n| Stable Rate Excess Offset          | 0 %                                        |\n| Optimal Stable To Total Debt Ratio | 0 %                                        |\n| Flashloanable                      | ENABLED                                    |\n| Siloed Borrowing                   | DISABLED                                   |\n| Borrowable in Isolation            | DISABLED                                   |\n| Oracle                             | 0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A |\n\n#### tETH/stablecoins liquid eMode\n\n| Parameter             | Value      |\n| --------------------- | ---------- |\n| Collateral            | tETH       |\n| Borrowable            | USDT, USDC |\n| Max LTV               | 72.00%     |\n| Liquidation Threshold | 75.00%     |\n| Liquidation Penalty   | 7.50%      |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7a68746f7f5755bffbe21967edf3ed062acf8bbc/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7a68746f7f5755bffbe21967edf3ed062acf8bbc/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594/3)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Add tETH to Core Instance Ethereum",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594/3",
+    "originalIpfsHash": "0xceb7fe655d73f33159c4744ad02b1bba4010a7031f084f18425e893e318b99fa"
+  },
+  "proposal": {
+    "id": 354,
+    "votingDuration": 259200,
+    "creationTime": 1754921747,
+    "accessLevel": 1,
+    "state": 2,
+    "queuingTime": 0,
+    "ipfsHash": "0xceb7fe655d73f33159c4744ad02b1bba4010a7031f084f18425e893e318b99fa",
+    "initialPayloads": [
+      {
+        "id": 327,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x2801d24001968c2c92cbb281c6d3eaf91067466df86d8bfd50331573e3e6dde6",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1755008171,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 354,
+      "forVotes": "595326943748829979169102",
+      "againstVotes": "0",
+      "startTime": 1755009350,
+      "endTime": 1755268550,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x2801d24001968c2c92cbb281c6d3eaf91067466df86d8bfd50331573e3e6dde6",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 75117178,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1755178999,
+    "cancellationFee": 50000000000000000
+  }
+}

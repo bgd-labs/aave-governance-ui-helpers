@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x076d6da60aAAC6c97A8a0fE8057f9564203Ee545",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1750669403,
+      "queuedAt": 1751033555,
+      "executedAt": 1751119979,
+      "cancelledAt": 0,
+      "expirationTime": 1753693403,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x32AE8876FcCe653995388E835e41e5AC9E1ecC70",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 307,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmbD5Q1JELTDbQjf8yDP7YGFFTR4XqGRdrAAoHFgmoFkXd",
+    "description": "\n## Simple Summary\n\nActivates SVR feeds for ETH correlated assets and USDC on Aave V3 Ethereum core.\n\n## Motivation\n\nSVR feeds for ETH correlated assets have been successfully activated on Aave V3 `Prime` instance. This proposal aims to extend the coverage of SVR feeds to include the `Core` instance.\n\n## Specification\n\nAs previous activation proposals, this proposal utilizes the `SVR_STEWARD` to replace the existing Oracle feeds with the SVR equivalent, ensuring strict validation of price similarity.\n\nThe following feeds will be activated:\n\n- [`WETH`](https://etherscan.io/address/0x5424384B256154046E9667dDFaaa5e550145215e)\n- [`weETH`](https://etherscan.io/address/0x87625393534d5C102cADB66D37201dF24cc26d4C)\n- [`osETH`](https://etherscan.io/address/0x2b86D519eF34f8Adfc9349CDeA17c09Aa9dB60E2)\n- [`ETHx`](https://etherscan.io/address/0xd7b163B671f8cE9379DF8Ff7F75fA72Ccec1841c)\n- [`rsETH`](https://etherscan.io/address/0x7292C95A5f6A501a9c4B34f6393e221F2A0139c3)\n- [`wstETH`](https://etherscan.io/address/0xe1D97bF61901B075E9626c8A2340a7De385861Ef)\n- [`rETH`](https://etherscan.io/address/0x6929706c42d637DF5Ebf7F0BcfF2aF47F84Ea69D)\n- [`cbETH`](https://etherscan.io/address/0x889399C34461b25d70d43931e6cE9E40280E617B)\n- [`USDC`](https://etherscan.io/address/0x3f73F03aa83B2A48ed27E964eD0fDb590332095B)\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/50482379de120dc569c34dc5073b46f6e276e5a6/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/50482379de120dc569c34dc5073b46f6e276e5a6/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.t.sol)\n- [Discussion](https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Enable additional SVR oracles",
+    "author": "BGD Labs @bgdlabs",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387",
+    "originalIpfsHash": "0xbf3732c30fd9456b77d74fac07d4fe0ce84374d712e58f5338d16a9f2dea994c"
+  },
+  "proposal": {
+    "id": 330,
+    "votingDuration": 259200,
+    "creationTime": 1750685687,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1751033543,
+    "ipfsHash": "0xbf3732c30fd9456b77d74fac07d4fe0ce84374d712e58f5338d16a9f2dea994c",
+    "initialPayloads": [
+      {
+        "id": 307,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x45131bf1b5cf4ff35443e84fa8edf61cf9648e062d25fc97c4ec86b936a55f53",
+    "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+    "canceledAt": 0,
+    "votingActivationTime": 1750772111,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 330,
+      "forVotes": "567718853398750656636049",
+      "againstVotes": "0",
+      "startTime": 1750773207,
+      "endTime": 1751032407,
+      "votingClosedAndSentBlockNumber": 73286765,
+      "votingClosedAndSentTimestamp": 1751032419,
+      "l1BlockHash": "0x45131bf1b5cf4ff35443e84fa8edf61cf9648e062d25fc97c4ec86b936a55f53",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": true,
+      "createdBlock": 73165092,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1755178999,
+    "cancellationFee": 50000000000000000
+  }
+}

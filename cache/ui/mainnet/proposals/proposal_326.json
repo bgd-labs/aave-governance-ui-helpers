@@ -1,0 +1,205 @@
+{
+  "payloads": [
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1750442171,
+      "queuedAt": 1750795487,
+      "executedAt": 1750881911,
+      "cancelledAt": 0,
+      "expirationTime": 1753466171,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xfC418D8e4d7FEEf9eE156A6b20c459D3A56097CC",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 304,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1750442342,
+      "queuedAt": 1750795886,
+      "executedAt": 1750882292,
+      "cancelledAt": 0,
+      "expirationTime": 1753466342,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x8F0Ab79B3e4977ef932976d677D7d56C6C786a4e",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 91,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1750442439,
+      "queuedAt": 1750795669,
+      "executedAt": 1750882089,
+      "cancelledAt": 0,
+      "expirationTime": 1753466439,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xe5C4A212e9968F77980B7CDA4Bef3e33D4Eba086",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 74,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1750442602,
+      "queuedAt": 1750796465,
+      "executedAt": 1750882876,
+      "cancelledAt": 0,
+      "expirationTime": 1753466602,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xee765B849270EA5dE708Db72b55A9023a00b5bFd",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 82,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1750442607,
+      "queuedAt": 1750796465,
+      "executedAt": 1750885571,
+      "cancelledAt": 0,
+      "expirationTime": 1753466607,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xEd8b9765c22039E43512B8CA6263C90400965f6d",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 83,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmURBaszyPEM3WbafoNFT5xeAdYPqpLztBNZdRW3RtJBVB",
+    "description": "\n# Simple Summary\n\nThis AIP proposes the expansion of GHO, the native asset of the Aave Protocol, to the Avalanche network utilizing the Chainlink Cross-Chain Interoperability Protocol (CCIP).\n\nThe smart contracts have been refined through multiple stages of design, development, testing, and implementation. Likewise, Certora, the DAO service provider, was engaged to conduct code reviews of the implementation.\n\n# Motivation\n\nBuilding on the successful GHO's presence on other networks, it is now time to expand GHO to other networks. The Avalanche ecosystem will bring a new set of opportunities, allowing access to a wide array of integrations with other protocols and tools and ultimately enriching GHO's utility potential.\n\n# Specification\n\nThis AIP includes a series of actions required to launch GHO on Avalanche:\n\n1. Configure new Chainlink CCIP lanes between Avalanche and the chains where GHO is launched with a rate limit of 1.5M GHO capacity and 300 GHO per second rate.\n2. Configure and activate GhoAaveSteward and GhoCcipSteward to control GHO listing and CCIP lane.\n3. List GHO as a borrowable asset on the Aave Pool, with the risk configuration specified in the ARFC. Then, initial liquidity will be provided to the pool as a security measure to mitigate potential vulnerabilities and facilitate a stable launch.\n4. Set ACI multisig ([0xac140648435d03f784879cd789130F22Ef588Fcd](https://avascan.info/blockchain/all/address/0xac140648435d03f784879cd789130F22Ef588Fcd)) as Emission Admin for GHO and aGHO rewards, as specified in the ARFC.\n\nThe table below lists the address of the new **Avalanche** deployments\n\n| Contract         | Address                                                                                                                              |\n| :--------------- | :----------------------------------------------------------------------------------------------------------------------------------- |\n| GhoToken         | [0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73](https://avascan.info/blockchain/all/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73) |\n| GhoTokenPool     | [0xDe6539018B095353A40753Dc54C91C68c9487D4E](https://avascan.info/blockchain/all/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E) |\n| GhoOracle        | [0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12](https://avascan.info/blockchain/all/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12) |\n| GhoAaveSteward   | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://avascan.info/blockchain/all/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |\n| GhoBucketSteward | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://avascan.info/blockchain/all/address/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B) |\n| GhoCcipSteward   | [0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6](https://avascan.info/blockchain/all/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6) |\n\nThe table below illustrates the configured risk parameters for **GHO**\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                    ENABLED |\n| Collateral Enabled        |                                      false |\n| Supply Cap (BLT)          |                                 10,000,000 |\n| Borrow Cap (BLT)          |                                  9,000,000 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                        0 % |\n| LT                        |                                        0 % |\n| Liquidation Bonus         |                                        0 % |\n| Liquidation Protocol Fee  |                                        0 % |\n| Reserve Factor            |                                       10 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                      5.5 % |\n| Variable Slope 2          |                                       50 % |\n| Uoptimal                  |                                       90 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12 |\n\n# References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Ethereum_GHOAvalancheLaunch_20250519.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Arbitrum_GHOAvalancheLaunch_20250519.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Base_GHOAvalancheLaunch_20250519.sol), [AaveV3AvalancheLaunch](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Avalanche_GHOAvalancheLaunch_20250519.sol), [AaveV3AvalancheListing](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Avalanche_GHOAvalancheListing_20250519.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Ethereum_GHOAvalancheLaunch_20250519.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Arbitrum_GHOAvalancheLaunch_20250519.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Base_GHOAvalancheLaunch_20250519.t.sol), [AaveV3AvalancheLaunch](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Avalanche_GHOAvalancheLaunch_20250519.t.sol), [AaveV3AvalancheListing](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3Avalanche_GHOAvalancheListing_20250519.t.sol), [E2EFlow](https://github.com/bgd-labs/aave-proposals-v3/blob/7c57d7f5843f1d07af9f463a4e12768a00c112fa/src/20250519_Multi_GHOAvalancheLaunch/AaveV3E2E_GHOAvalancheLaunch_20250519.t.sol)\n- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719)\n- [Discussion](https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards/19339)\n\n# Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO Avalanche Launch",
+    "author": "Aave Labs",
+    "discussions": "https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards/19339",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719",
+    "originalIpfsHash": "0x5a4f5b10da82c74af4f943b13f296ac2959dfede5eb42d01d23e6fb0e9158ca2"
+  },
+  "proposal": {
+    "id": 326,
+    "votingDuration": 259200,
+    "creationTime": 1750447595,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1750795475,
+    "ipfsHash": "0x5a4f5b10da82c74af4f943b13f296ac2959dfede5eb42d01d23e6fb0e9158ca2",
+    "initialPayloads": [
+      {
+        "id": 304,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 91,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      },
+      {
+        "id": 74,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      },
+      {
+        "id": 82,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      },
+      {
+        "id": 83,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x71de790b1f5982ce333ee2f2fe75ff71f2b30507c8272cc4a3fbfbf2f8d8b6ac",
+    "creator": "0x66a28531E6f390A8CD44aB0C57a0F1aeb7E673FF",
+    "canceledAt": 0,
+    "votingActivationTime": 1750534019,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 326,
+      "forVotes": "576962501789188800427742",
+      "againstVotes": "0",
+      "startTime": 1750535149,
+      "endTime": 1750794349,
+      "votingClosedAndSentBlockNumber": 73175045,
+      "votingClosedAndSentTimestamp": 1750794359,
+      "l1BlockHash": "0x71de790b1f5982ce333ee2f2fe75ff71f2b30507c8272cc4a3fbfbf2f8d8b6ac",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": true,
+      "createdBlock": 73053650,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1755178999,
+    "cancellationFee": 50000000000000000
+  }
+}
