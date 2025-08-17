@@ -50482,5 +50482,97 @@
     "transactionIndex": 20,
     "logIndex": 116,
     "removed": false
+  },
+  {
+    "eventName": "ProposalQueued",
+    "args": {
+      "proposalId": "357",
+      "votesFor": "882164839711871172526439",
+      "votesAgainst": "0"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xe39e7fc9f2013b8ab01110f66610f9fb8675d3126e69b3752f0084afc72be19a",
+      "0x0000000000000000000000000000000000000000000000000000000000000165"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000bace4075004fb23ac1670000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x1878cbc7e76f1469e66f389d03f02442bca8d8b39e780dcadaec6a0b62431f2d",
+    "blockNumber": "23160164",
+    "blockTimestamp": "0x68a1adef",
+    "transactionHash": "0x14276d52d348de4de115b3d0f75e07ad3a042e25a56c6cb25245da661837e4e5",
+    "transactionIndex": 9,
+    "logIndex": 37,
+    "removed": false
+  },
+  {
+    "eventName": "PayloadSent",
+    "args": {
+      "proposalId": "357",
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5",
+      "chainId": "1",
+      "payloadId": 328,
+      "payloadNumberOnProposal": "0",
+      "numberOfPayloadsOnProposal": "2"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x9c687134d572ff69f3e23f40470562650574c5c7cab9f535268763b2d00da65b",
+      "0x0000000000000000000000000000000000000000000000000000000000000165",
+      "0x000000000000000000000000dabad81af85554e9ae636395611c58f7ec1aaec5",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000000014800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002",
+    "blockHash": "0x685c96a2f3ca3562699c98b83c5cfae0a023cb405384552e3161b4e2239103a5",
+    "blockNumber": "23160165",
+    "blockTimestamp": "0x68a1adfb",
+    "transactionHash": "0xb001af8163f8d302a92e49ebc606f0048f97050e0983108901407c08a3b57ee5",
+    "transactionIndex": 14,
+    "logIndex": 139,
+    "removed": false
+  },
+  {
+    "eventName": "PayloadSent",
+    "args": {
+      "proposalId": "357",
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01",
+      "chainId": "8453",
+      "payloadId": 84,
+      "payloadNumberOnProposal": "1",
+      "numberOfPayloadsOnProposal": "2"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x9c687134d572ff69f3e23f40470562650574c5c7cab9f535268763b2d00da65b",
+      "0x0000000000000000000000000000000000000000000000000000000000000165",
+      "0x0000000000000000000000002dc219e716793fb4b21548c0f009ba3af753ab01",
+      "0x0000000000000000000000000000000000000000000000000000000000002105"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000000005400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+    "blockHash": "0x685c96a2f3ca3562699c98b83c5cfae0a023cb405384552e3161b4e2239103a5",
+    "blockNumber": "23160165",
+    "blockTimestamp": "0x68a1adfb",
+    "transactionHash": "0xb001af8163f8d302a92e49ebc606f0048f97050e0983108901407c08a3b57ee5",
+    "transactionIndex": 14,
+    "logIndex": 145,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalExecuted",
+    "args": {
+      "proposalId": "357"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x712ae1383f79ac853f8d882153778e0260ef8f03b504e2866e0593e04d2b291f",
+      "0x0000000000000000000000000000000000000000000000000000000000000165"
+    ],
+    "data": "0x",
+    "blockHash": "0x685c96a2f3ca3562699c98b83c5cfae0a023cb405384552e3161b4e2239103a5",
+    "blockNumber": "23160165",
+    "blockTimestamp": "0x68a1adfb",
+    "transactionHash": "0xb001af8163f8d302a92e49ebc606f0048f97050e0983108901407c08a3b57ee5",
+    "transactionIndex": 14,
+    "logIndex": 146,
+    "removed": false
   }
 ]
