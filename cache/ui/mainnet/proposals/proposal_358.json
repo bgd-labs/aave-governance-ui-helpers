@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x9b47d4Dea2aE9C7e3439C2A7aFCAcda91959cE27",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1755600475,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1758624475,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x37D3c1eddBCaA4b2e74156D2C6aD3224027EE7A4",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 12,
+      "chainId": 59144,
+      "payloadsController": "0x3BcE23a1363728091bc57A58a226CF2940C2e074"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qmdc82fXaUPPZcWYXcUHLyJSubQYBeNPwK5ZzxK1cByQ4Y",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to onboard rsETH to the Aave V3 deployment on the Linea network.\n\nAs the onboarding of rsETH has already been approved and executed on the Ethereum, Arbitrum, and Base Aave V3 instances, this proposal follows the Direct-to-AIP path to extend rsETH support to the Linea instance without repeating the full ARFC process.\n\n## Motivation\n\nrsETH is a liquid staking token issued by Kelp DAO, offering users access to rewards from ETH staking while maintaining liquidity and DeFi composability. Its integrations on Aave across other networks have proven successful in terms of risk profile and utility.\n\nGiven that:\n\n- rsETH has already passed governance and risk assessments for Ethereum, Arbitrum, and Base,\n\n- Linea is a supported Aave V3 deployment with growing activity and integration potential,\n\n- A precedent has been set for using the Direct-to-AIP path when onboarding previously approved assets to new instances,\n\nThis proposal aims to onboard rsETH to Linea V3 under the same configuration parameters used for other L2s, adjusted for market conditions where appropriate.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **wrsETH**\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                   DISABLED |\n| Collateral Enabled        |                                       true |\n| Supply Cap (wrsETH)       |                                        400 |\n| Borrow Cap (wrsETH)       |                                          0 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                       70 % |\n| LT                        |                                       73 % |\n| Liquidation Bonus         |                                       10 % |\n| Liquidation Protocol Fee  |                                       10 % |\n| Reserve Factor            |                                       45 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                       20 % |\n| Variable Slope 2          |                                      300 % |\n| Uoptimal                  |                                       45 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0x444f25c5E73fED92B91F3ECB1bD27003C3CDdeE7 |\n\nOracle and CAPO parameters:\n\n| Parameter                     | Value                                                                                                                |\n| ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |\n| **Oracle**                    | [Capped wrsETH / rsETH(ETH) / USD](https://lineascan.build/address/0x444f25c5E73fED92B91F3ECB1bD27003C3CDdeE7)       |\n| **Ratio Provider**            | [Chainlink wrsETH / rsETH Exchange Rate](https://lineascan.build/address/0xEEDF0B095B5dfe75F3881Cb26c19DA209A27463a) |\n| **Underlying Feed**           | [Chainlink ETH / USD](https://lineascan.build/address/0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA)                    |\n| **Oracle Latest Answer**      | _(Aug-12-2025)_ 4,626.85069182                                                                                       |\n| **Snapshot Ratio**            | 1.03                                                                                                                 |\n| **Snapshot Timestamp**        | March 9, 2025, 17:27:19 UTC                                                                                          |\n| **Max Yearly Ratio Growth %** | 9.83%                                                                                                                |\n\nAdditionally [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://lineascan.build/address/0xdef1FA4CEfe67365ba046a7C630D6B885298E210) has been set as the emission admin for wrsETH and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/b53a5df565ca28c4e3668b569ca07d1f25108088/src/20250811_AaveV3Linea_OnboardRsETHToAaveV3LineaInstance/AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811.sol)\n- Tests: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/b53a5df565ca28c4e3668b569ca07d1f25108088/src/20250811_AaveV3Linea_OnboardRsETHToAaveV3LineaInstance/AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-rseth-to-aave-v3-linea-instance/22172)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard rsETH to Aave V3 Linea Instance",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-onboard-rseth-to-aave-v3-linea-instance/22172",
+    "originalIpfsHash": "0xe2d5e82594c356931465f14b6d7110e1a0b38a0536090f21312b73243139bd49"
+  },
+  "proposal": {
+    "id": 358,
+    "votingDuration": 259200,
+    "creationTime": 1755603779,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xe2d5e82594c356931465f14b6d7110e1a0b38a0536090f21312b73243139bd49",
+    "initialPayloads": [
+      {
+        "id": 12,
+        "chainId": 59144,
+        "payloadsController": "0x3BcE23a1363728091bc57A58a226CF2940C2e074"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 358,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1755605358,
+    "cancellationFee": 50000000000000000
+  }
+}
