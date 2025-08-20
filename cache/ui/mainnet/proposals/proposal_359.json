@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1755703043,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1758727043,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x98E5f4e669AbDC52C632CaB40aa17ce6aA76aC17",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 330,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmUZRZJnGRAZD5CimbD5RH8Wi6fFsU9636vmK4Qfv3CMhq",
+    "description": "\n## Simple Summary\n\nThis AIP proposes the transfer of **895.8057 AAVE** (~$160K) in staking rewards from the Aave Safety Module to **[sablier.eth](https://etherscan.io/address/0x5cE95bff1297dADBDcF9929a10Bd02BDfab0DCC6)**, due to the inability of Sablier’s Legacy v1.1 contract to claim them through standard mechanisms.\n\n## Motivation\n\nSablier Legacy v1.1 is a non-upgradeable smart contract that lacks an ERC-20 recovery or sweeping function. Over time, the contract has accrued staking rewards from participation in the Aave Safety Module. However, due to its immutable design and lack of reward-claiming logic, these tokens are currently inaccessible.\n\nTo prevent permanent loss of funds, this proposal seeks governance approval to manually transfer the AAVE rewards to the Sablier treasury ([sablier.eth](https://etherscan.io/address/0x5cE95bff1297dADBDcF9929a10Bd02BDfab0DCC6)), ensuring recovery of assets legitimately earned.\n\n**Supporting context:**\n\n- The contract is publicly documented in [Sablier’s official documentation](https://docs.sablier.com/guides/legacy/deployments).\n- Source code is verified on [Etherscan](https://etherscan.io/address/0xCD18eAa163733Da39c232722cBC4E8940b1D8888) and open-source on [GitHub](https://github.com/sablier-labs/legacy-contracts/blob/%40sablier/protocol%401.1.0/packages/protocol/contracts/Sablier.sol).\n\n## Specification\n\nThis proposal calls **`claimRewardsOnBehalf()`** on [0xCD18eAa163733Da39c232722cBC4E8940b1D8888](https://etherscan.io/address/0xCD18eAa163733Da39c232722cBC4E8940b1D8888) and then transfer [895805689180182547296](https://etherscan.io/unitconverter?wei=895805689180182547296) wei of AAVE collected to [sablier.eth](https://etherscan.io/address/0x5cE95bff1297dADBDcF9929a10Bd02BDfab0DCC6)\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e81fcc3ab33ca3a64ca7163e16c87f3e30577f4c/src/20250728_AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract/AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract_20250728.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e81fcc3ab33ca3a64ca7163e16c87f3e30577f4c/src/20250728_AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract/AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract_20250728.t.sol)\n  [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xd0d6ae015476ab371ea10e68ce270af05f45ec4ebcb105a8d573f606277956e1)\n- [Discussion](https://governance.aave.com/t/arfc-claiming-aave-rewards-for-the-sablier-legacy-v1-1-contract/21975)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Claiming AAVE Rewards for the Sablier Legacy v1.1 Contract",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-claiming-aave-rewards-for-the-sablier-legacy-v1-1-contract/21975",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0xd0d6ae015476ab371ea10e68ce270af05f45ec4ebcb105a8d573f606277956e1",
+    "originalIpfsHash": "0x5c6bcd27cc94e27f40112647e0fde323c17706ce82746008ceae9d707deb0208"
+  },
+  "proposal": {
+    "id": 359,
+    "votingDuration": 259200,
+    "creationTime": 1755703091,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x5c6bcd27cc94e27f40112647e0fde323c17706ce82746008ceae9d707deb0208",
+    "initialPayloads": [
+      {
+        "id": 330,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 359,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1755713257,
+    "cancellationFee": 50000000000000000
+  }
+}

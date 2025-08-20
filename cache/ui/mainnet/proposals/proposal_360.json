@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1755703145,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1758727145,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x33Af3ea7B0883C688ba3C395251140a12B28b5Bd",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 100,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmSoZJ6zm6UxpYHPXk9WiKRa4uUdUDvHpnFAjKwyPiGEYW",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to onboard tBTC to Aave v3 on Arbitrum following a successful launch on Mainnet\n\n## Motivation\n\ntBTC is Threshold’s decentralized and permissionless bridge to bring BTC to Ethereum, Arbitrum and 6 other chains. Users wishing to utilize their Bitcoin on Ethereum & Arbitrum can use the tBTC decentralized bridge to deposit their Bitcoin into the system and get a minted tBTC token in their EVM wallet.\n\nThreshold Network has brought native minting of tBTC to Arbitrum, is live on GMX and has strong, sticky liquidity to support liquidations.\n\nFollowing its approval on AAVE V3 Ethereum, tBTC’s initial supply cap was reached within 72 hours, prompting an increase to meet the overwhelming demand and now sits at over 1,000 BTC TVL. This rapid adoption underscores the market’s appetite for trust-minimized BTC solutions in DeFi.\n\n### Benefits for Aave\n\n- High User Demand, since its initial deployment on Aave’s Ethereum market, tBTC reached its initial 500 BTC supply cap within the first week. The cap has been increased multiple times, now sitting at 2200 BTC, highlighting strong user interest. Something we hope to replicate on Arbitrum.\n- Easy, direct onboarding of BTC capital via Threshold’s Arbitrum native minting.\n- A range of lending options for those who wish to earn yield on their BTC.\n- Preferable yields on tBTC through active incentive participation, boosting Aave protocol use, fees and TVL.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **tBTC**\n\n| Parameter                 |    Value |\n| ------------------------- | -------: |\n| Isolation Mode            |    false |\n| Borrowable                | DISABLED |\n| Collateral Enabled        |     true |\n| Supply Cap (tBTC)         |       50 |\n| Borrow Cap (tBTC)         |       25 |\n| Debt Ceiling              |    USD 0 |\n| LTV                       |     73 % |\n| LT                        |     78 % |\n| Liquidation Bonus         |    7.5 % |\n| Liquidation Protocol Fee  |     10 % |\n| Reserve Factor            |     20 % |\n| Base Variable Borrow Rate |      0 % |\n| Variable Slope 1          |      4 % |\n| Variable Slope 2          |    300 % |\n| Uoptimal                  |     45 % |\n| Flashloanable             |  ENABLED |\n| Siloed Borrowing          | DISABLED |\n| Borrowable in Isolation   | DISABLED |\n\n### Oracle details\n\n| Parameter | Value |\n| Oracle | [Chainlink BTC/USD](https://arbiscan.io/address/0x6ce185860a4963106506C203335A2910413708e9) |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://arbiscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tBTC and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/25a05d999cde437d62cf2f0c553e9006491c7fd0/src/20250818_AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum/AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250818.sol)\n- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/25a05d999cde437d62cf2f0c553e9006491c7fd0/src/20250818_AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum/AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250818.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xb55325cab6b35918810443de265b8cf2f5908acdde935f3e5b57e6625c4615d5)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-arbitrum/19756)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard tBTC to Aave v3 on Arbitrum",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-arbitrum/19756",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0xb55325cab6b35918810443de265b8cf2f5908acdde935f3e5b57e6625c4615d5",
+    "originalIpfsHash": "0x42534ee01faab1e4b069b31f48ec2ed9822f729d1ec5fe6fe5469f5f2b3cfc9f"
+  },
+  "proposal": {
+    "id": 360,
+    "votingDuration": 259200,
+    "creationTime": 1755703199,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x42534ee01faab1e4b069b31f48ec2ed9822f729d1ec5fe6fe5469f5f2b3cfc9f",
+    "initialPayloads": [
+      {
+        "id": 100,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 360,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1755713257,
+    "cancellationFee": 50000000000000000
+  }
+}
