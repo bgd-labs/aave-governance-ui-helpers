@@ -73037,5 +73037,51 @@
     ],
     "transactionHash": "0x7472451b9fcf626b540236bd7e0c05d065caa518586deeb3884d5dc05625a0e6",
     "transactionIndex": 65
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "358",
+      "voter": "0x4eeef3aF06A3e303DF86D45f9e1Ac61445CA0D0D",
+      "support": true,
+      "votingPower": "105598514526311411793"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0xce89a8725698f6e94a5567c3e0af8f758143d5375031de6bb6ba217fc35867aa",
+    "blockNumber": "75466231",
+    "data": "0x000000000000000000000000000000000000000000000005b979497a0db7f051",
+    "logIndex": 279,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000166",
+      "0x0000000000000000000000004eeef3af06a3e303df86d45f9e1ac61445ca0d0d",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0xb691afbd6907b5c4c28657bec47ec47aed0b3a3b20f3b87f76d46cc2de15f550",
+    "transactionIndex": 51
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "358",
+      "voter": "0xc80a5430D22e8f96B9fBf0d4d0925Bc9E60daa1c",
+      "support": true,
+      "votingPower": "245641924010577338727"
+    },
+    "address": "0x44c8b753229006a8047a05b90379a7e92185e97c",
+    "blockHash": "0x68b70f1e9adfea15b9b257a99e1748f436e0f7dba2dfdedac518f273c7f5de18",
+    "blockNumber": "75466626",
+    "data": "0x00000000000000000000000000000000000000000000000d50f76c6bc1f5a167",
+    "logIndex": 331,
+    "removed": false,
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000166",
+      "0x000000000000000000000000c80a5430d22e8f96b9fbf0d4d0925bc9e60daa1c",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "transactionHash": "0x2365ca955b9543dd706e6590dec5a4614c19b8e1bd6a07d17b971345eeedc136",
+    "transactionIndex": 55
   }
 ]
