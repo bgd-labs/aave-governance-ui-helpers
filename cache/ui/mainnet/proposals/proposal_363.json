@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1756199665,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1759223665,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xfb30cc9E3bd7409d0C3bdfeB23cC71Ad9AAe6fd1",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 85,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmRCKnQHB1wtpFSzwsnYPa9pDZnAWFgpMRDRpwMdvQMGTu",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to onboard tBTC to Aave v3 on Base following a successful launch on Mainnet.\n\n## Motivation\n\ntBTC is Threshold’s decentralized and permissionless bridge to bring BTC to Ethereum, Base and 7 other chains. Users wishing to utilize their Bitcoin on Ethereum & Base can use the tBTC decentralized bridge to deposit their Bitcoin into the system and get a minted tBTC token in their EVM wallet.\n\nThreshold Network has recently brought direct minting of tBTC to Arbitrum and Base. It is live on Aave, Compound, GMX, EigenLayer, Synthetix, Morpho, Symbiotic and has strong, sticky liquidity to support liquidations.\n\nFollowing its approval on AAVE 3 Ethereum, tBTC’s initial supply cap was reached within 72 hours, prompting an increase to meet the overwhelming demand and now sits at over 2,200 BTC TVL. This rapid adoption underscores the market’s appetite for trust-minimized BTC solutions in DeFi.\n\ntBTC on AAVE v3 Arbitrum is just lacking an AIP and has already passed on ARFC and relevant risk analysis.\n\ntBTC on Base has a current supply of 116 BTC worth $12M at current price.\n\n### Benefits for Aave\n\n- High User Demand, since its initial deployment on Aave’s Ethereum market, tBTC reached its initial 500 BTC supply cap within the first week. The cap has been increased multiple times, now sitting at 2200 BTC, highlighting strong user interest. Something we hope to replicate on Base.\n- Easy, direct onboarding of BTC capital via Threshold’s Base direct minting.\n- Further decentralization and trust minimisation in the Aave stack.\n- A range of lending options for those who wish to earn yield on their BTC.\n- Preferable yields on tBTC through active incentive participation, boosting Aave protocol use, fees and TVL.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **tBTC**\n\n| Parameter                 |    Value |\n| ------------------------- | -------: |\n| Isolation Mode            |    false |\n| Borrowable                |  ENABLED |\n| Collateral Enabled        |     true |\n| Supply Cap (tBTC)         |      130 |\n| Borrow Cap (tBTC)         |       13 |\n| Debt Ceiling              |    USD 0 |\n| LTV                       |     73 % |\n| LT                        |     78 % |\n| Liquidation Bonus         |    7.5 % |\n| Liquidation Protocol Fee  |     10 % |\n| Reserve Factor            |     20 % |\n| Base Variable Borrow Rate |      0 % |\n| Variable Slope 1          |      4 % |\n| Variable Slope 2          |     60 % |\n| Uoptimal                  |     45 % |\n| Flashloanable             |  ENABLED |\n| Siloed Borrowing          | DISABLED |\n| Borrowable in Isolation   | DISABLED |\n\n### Oracles details\n\n| Parameter |                                                                                        Value |\n| --------- | -------------------------------------------------------------------------------------------: |\n| Oracle    | [Chainlink BTC/USD](https://basescan.org/address/0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F) |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tBTC and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/465115492c7b29459fea390a965f1ae6b1245bfd/src/20250818_AaveV3Base_OnboardTBTCToAaveV3OnBase/AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818.sol)\n- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/465115492c7b29459fea390a965f1ae6b1245bfd/src/20250818_AaveV3Base_OnboardTBTCToAaveV3OnBase/AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818.t.sol)\n  [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x1c12498028d114d73fd1614a7f5c8ba7e922ff129b5807d35d83f436bf8b4bcd)\n- [Discussion](https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-base/22226)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard tBTC to Aave v3 on Base",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-base/22226",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x1c12498028d114d73fd1614a7f5c8ba7e922ff129b5807d35d83f436bf8b4bcd",
+    "originalIpfsHash": "0x2a7103c2000298745175ca820ca7c0e7b7c162d2ed8df0c1858b924134b78be4"
+  },
+  "proposal": {
+    "id": 363,
+    "votingDuration": 259200,
+    "creationTime": 1756202291,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x2a7103c2000298745175ca820ca7c0e7b7c162d2ed8df0c1858b924134b78be4",
+    "initialPayloads": [
+      {
+        "id": 85,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 363,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1756220772,
+    "cancellationFee": 50000000000000000
+  }
+}
