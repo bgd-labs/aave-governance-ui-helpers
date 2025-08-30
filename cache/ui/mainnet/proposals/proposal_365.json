@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1756494383,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1759518383,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x1bfeE8961311825d962Bbe8D8D76b23F2AA288D7",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 334,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmZs8zm4CyRCrzFMBRd9Ee3MWLMxF3y1rnx3SkmRNemhTW",
+    "description": "\n## Simple Summary\n\nThis AIP proposes to onboard sUSDe November expiry PT tokens on Aave V3 Core Instance.\n\n## Motivation\n\nThe previous sUSDe PT tokens that were onboarded have brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token. We expect at a minimum that deposits will match those in the September expiry PT token, with sidelined demand\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **PT_sUSDe_27NOV2025**\n\n| Parameter                       |      Value |\n| ------------------------------- | ---------: |\n| Isolation Mode                  |      false |\n| Borrowable                      |   DISABLED |\n| Collateral Enabled              |       true |\n| Supply Cap (PT_sUSDe_27NOV2025) | 75,000,000 |\n| Borrow Cap (PT_sUSDe_27NOV2025) |          1 |\n| Debt Ceiling                    |      USD 0 |\n| LTV                             |     0.05 % |\n| LT                              |      0.1 % |\n| Liquidation Bonus               |      7.5 % |\n| Liquidation Protocol Fee        |       10 % |\n| Reserve Factor                  |       45 % |\n| Base Variable Borrow Rate       |        0 % |\n| Variable Slope 1                |       10 % |\n| Variable Slope 2                |      300 % |\n| Uoptimal                        |       45 % |\n| Flashloanable                   |    ENABLED |\n| Siloed Borrowing                |   DISABLED |\n| Borrowable in Isolation         |   DISABLED |\n\n**Pricefeed details**\n\n| Parameter              |                                                                                                                         Value |\n| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------: |\n| Oracle                 | [PT Capped sUSDe USDT/USD linear discount 27NOV2025](https://etherscan.io/address/0x8B8B73598a2c4b1de6d3b075618434CfC4826632) |\n| Underlying Oracle      |                                    [Capped USDT/USD](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |\n| Underlying Oracle      |                                 [Chainlink USDT/USD](https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D) |\n| Oracle Latest Answer   |                                                                                                    (2025-08-25) USD .97795595 |\n| discountRatePerYear    |                                                                                                                         8.52% |\n| maxDiscountRatePerYear |                                                                                                                        27.90% |\n\n**PT-sUSDE Stablecoins E-mode**\n\n| **Asset**         | **PT-sUSDe-27NOV2025** | **PT-sUSDe-25SEP2025** | **sUSDe** | **USDC** | **USDT** | **USDS** | **USDe** | **USDtb** |\n| ----------------- | ---------------------- | ---------------------- | --------- | -------- | -------- | -------- | -------- | --------- |\n| Collateral        | Yes                    | Yes                    | Yes       | No       | No       | No       | No       | No        |\n| Borrowable        | No                     | No                     | No        | Yes      | Yes      | Yes      | Yes      | Yes       |\n| LTV               | 86.1%                  | -                      | -         | -        | -        | -        | -        | -         |\n| LT                | 88.1%                  | -                      | -         | -        | -        | -        | -        | -         |\n| Liquidation Bonus | 5.4%                   | -                      | -         | -        | -        | -        | -        | -         |\n\n**PT-sUSDE USDe E-mode**\n\n| **Asset**         | **PT-sUSDe-27NOV2025** | **PT-sUSDe-25SEP2025** | **USDe** |\n| ----------------- | ---------------------- | ---------------------- | -------- |\n| Collateral        | Yes                    | Yes                    | No       |\n| Borrowable        | No                     | No                     | Yes      |\n| LTV               | 87.8%                  | -                      | -        |\n| LT                | 89.8%                  | -                      | -        |\n| Liquidation Bonus | 3.4%                   | -                      | -        |\n\nThe LTV, LT and LB of the previous emode will be managed by the Edge Risk Oracle.\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDe_27NOV2025 and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5144dec2636a2c17ae57c2db57a164a5b4295f65/src/20250825_AaveV3Ethereum_OnboardSUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance/AaveV3Ethereum_OnboardSUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20250825.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5144dec2636a2c17ae57c2db57a164a5b4295f65/src/20250825_AaveV3Ethereum_OnboardSUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance/AaveV3Ethereum_OnboardSUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20250825.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-susde-november-expiry-pt-tokens-on-aave-v3-core-instance/22894)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard sUSDe November expiry PT tokens on Aave V3 Core Instance",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-onboard-susde-november-expiry-pt-tokens-on-aave-v3-core-instance/22894",
+    "originalIpfsHash": "0xab3ff6fed787c72953538ff886e858da200d500887c9a7868d320a3dc8eba4f1"
+  },
+  "proposal": {
+    "id": 365,
+    "votingDuration": 259200,
+    "creationTime": 1756565279,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xab3ff6fed787c72953538ff886e858da200d500887c9a7868d320a3dc8eba4f1",
+    "initialPayloads": [
+      {
+        "id": 334,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 365,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1756566321,
+    "cancellationFee": 50000000000000000
+  }
+}
