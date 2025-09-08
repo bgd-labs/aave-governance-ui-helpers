@@ -1,0 +1,115 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1757317786,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1760341786,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xB68A43cA14e4Fb495823201004CE631479Dee8e4",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 126,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1757317835,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1760341835,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xB68A43cA14e4Fb495823201004CE631479Dee8e4",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 93,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qmai9Xdaqvv894AyVUiN11QbMhuEQT9Zr2Y9Zim6WPeQEb",
+    "description": "\n## Simple Summary\n\nThis publication proposes including Fluid Protocol on the Aave v3 Flashborrowers whitelist for Polygon and Avalanche.\n\n## Motivation\n\nFluid has been a long-standing partner in the Aave ecosystem, providing valuable infrastructure and user interfaces. After the recent tokenswap proposal, the Fluid and TokenLogic teams have been able to grow GHO to 80M in user deposits. This publication extends the flashloan fee waiver to include recent Fluid deployments on Avalanche and Polygon.\n\n## Specification\n\nWhitelist Fluid Protocol as part of FlashBorrowers of Aave v3 on Polygon & Avalanche liquidity pools.\n\n- Polygon: [0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7](https://polygonscan.com/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7)\n- Avalanche: [0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7](https://snowtrace.io/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7)\n\nThis proposal aims to implement a single AIP, utilizing two similar payloads (one for each network), which will call `addFlashBorrower()` on the `ACL_MANAGER` contract.\n\nThe AIP when implemented grants permission to whitelist any Fluid Protocol contract for all use cases, such as leveraged positions, eMode, debt and collateral swaps, with one exception: no smart-contract that migrates a position outside of the Aave ecosystem is eligible for whitelisting.\n\n## References\n\n- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Avalanche_AddFluidProtocolToFlashBorrowers_20250903.sol)\n- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Avalanche_AddFluidProtocolToFlashBorrowers_20250903.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x5e13f3e63fd9a2d4d00ff9f7915644e48d4b8b35fe03b52a599b4bc1c95914d0)\n- [Discussion](https://governance.aave.com/t/arfc-add-fluid-protocol-to-flashborrowers/23007)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Add Fluid Protocol to flashBorrowers",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-add-fluid-protocol-to-flashborrowers/23007",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x5e13f3e63fd9a2d4d00ff9f7915644e48d4b8b35fe03b52a599b4bc1c95914d0",
+    "originalIpfsHash": "0xb7ce06bba8767b2dc12dde8ad1f6c31d4cb7b24136291548deca84a2228c09d8"
+  },
+  "proposal": {
+    "id": 368,
+    "votingDuration": 259200,
+    "creationTime": 1757317883,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xb7ce06bba8767b2dc12dde8ad1f6c31d4cb7b24136291548deca84a2228c09d8",
+    "initialPayloads": [
+      {
+        "id": 126,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 93,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 368,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1757322415,
+    "cancellationFee": 50000000000000000
+  }
+}
