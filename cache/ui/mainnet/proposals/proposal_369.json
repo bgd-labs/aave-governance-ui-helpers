@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x076d6da60aAAC6c97A8a0fE8057f9564203Ee545",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1756935467,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1759959467,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xfc9116C5Bc78E9f78A7Ce2ecc0D58d1c0Bfb6410",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 336,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmQmWZA9Fu5iD8vBVraCZbR4gEZ9XUw1suDCGcBrV93Eyp",
+    "description": "\n## Simple Summary\n\nThis proposal outlines the migration from the current `CoreGhoDirectMinter` to a new, correctly configured instance.\n\n## Motivation\n\nDuring the Aave V3.4 upgrade, the model of GHO on the v3 Core Ethereum pool was changed, for the DAO to mint GHO to borrow via a Direct Minter facilitator, same as on v3 Prime Ethereum.\n\nHowever, this `CoreGhoDirectMinter` facilitator was configured wrongly ([here](https://github.com/bgd-labs/protocol-v3.4-upgrade/blob/main/src/UpgradePayloadMainnet.sol#L106-L110)) in what regards the ownership of the facilitator’s upgradeability: the ownership of the ProxyAdmin ([`0xf02d4931e0d5c79af9094cd9dff16ea6e3d9acb8`](https://etherscan.io/address/0xf02d4931e0d5c79af9094cd9dff16ea6e3d9acb8)) (proxy admin of the direct minter itself) was assigned to another `ProxyAdmin` contract ([`0xD3cF979e676265e4f6379749DECe4708B9A22476`](https://etherscan.io/address/0xD3cF979e676265e4f6379749DECe4708B9A22476)) controlled by the Governance Executor, instead of assigning it to the `GovernanceV3Ethereum.EXECUTOR_LVL_1` directly.\n\nEven if the ownership/admin-chain of the setup doesn’t create any type of security issue (all contracts are part the DAO or contracts controlled), this setup doesn’t allow for future upgrades of the `CoreGhoDirectMinter`: the `GovernanceV3Ethereum.EXECUTOR_LVL_1` owns the top-level `ProxyAdmin` but cannot use it to command the facilitator’s the `ProxyAdmin` below to perform an upgrade.\n\nThis proposal resolves the issue by migrating the minted GHO and permissions from the old, non-upgradeable facilitator to a new, correctly configured `CoreGhoDirectMinter` instance.\n\nThis operation has no negative effect as the Direct Minter is internal infrastructure of the DAO, with end users not having any contact with it.\n\nAddresses of the old facilitator:\n\n- `UpgradePayloadMainnet` contract (V3.4 upgrade payload for the Ethereum Core instance): [`0xC2584B9cA7759FE1ac48D8aE38aeAFE12dbC9876`](https://etherscan.io/address/0xC2584B9cA7759FE1ac48D8aE38aeAFE12dbC9876)\n- `GhoDirectMinter` implementation: [`0xe4c958de49303c9be571e00582cf9454586de76f`](https://etherscan.io/address/0xe4c958de49303c9be571e00582cf9454586de76f)\n- `GhoDirectMinter` proxy: [`0x593B09afc075B3c326CE2AD7750888645BA8943d`](https://etherscan.io/address/0x593B09afc075B3c326CE2AD7750888645BA8943d)\n- `GhoDirectMinter`’s `ProxyAdmin` contract: [`0xf02d4931e0d5c79af9094cd9dff16ea6e3d9acb8`](https://etherscan.io/address/0xf02d4931e0d5c79af9094cd9dff16ea6e3d9acb8)\n- `MiscEthereum.PROXY_ADMIN` contract (which itself is an owner of the `GhoDirectMinter`’s `ProxyAdmin` contract): [`0xD3cF979e676265e4f6379749DECe4708B9A22476`](https://etherscan.io/address/0xD3cF979e676265e4f6379749DECe4708B9A22476)\n- Owner of the `MiscEthereum.PROXY_ADMIN` contract (`GovernanceV3Ethereum.EXECUTOR_LVL_1`): [`0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A`](https://etherscan.io/address/0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A)\n\n## Specification\n\nThis proposal will execute a payload to perform the following migration steps:\n\n1. Transfer state to new Facilitator\n\n- The bucket capacity and current GHO level of the old facilitator (`0x593B09afc075B3c326CE2AD7750888645BA8943d`) are read.\n- The new facilitator (new `GhoDirectMinter` on `0x5513224daaEABCa31af5280727878d52097afA05`) is added to the `GhoToken` with the same bucket capacity as the previous one.\n- The new facilitator mints and supplies GHO to the Aave Pool, matching the GHO level of the old facilitator.\n\n2. Disable the old Facilitator:\n\n- After the mint and supply on step 1, there is now liquidity available on the pool for the old facilitator to withdraw its GHO from the pool and burn it..\n- The old facilitator is removed from the GhoToken’s list of facilitators.\n\n3. Update permissions:\n\n- The `RISK_ADMIN` role is granted to the new facilitator and revoked from the old one.\n- The `GhoBucketSteward` is updated to control the new facilitator and cease control of the old one.\n\nThis ensures a seamless/exact transition of the facilitator’s role and funds (aGHO) while restoring the DAO’s ability to perform future upgrades.\n\n## References\n\n- Implementation: [`AaveV3Ethereum`](https://github.com/bgd-labs/aave-proposals-v3/blob/3cd5d056c3cb152fa44843a78532023100a6595b/src/20250821_AaveV3Ethereum_GHOFacilitatorReplacement/AaveV3Ethereum_GHOFacilitatorReplacement_20250821.sol)\n- Tests: [`AaveV3Ethereum`](https://github.com/bgd-labs/aave-proposals-v3/blob/3cd5d056c3cb152fa44843a78532023100a6595b/src/20250821_AaveV3Ethereum_GHOFacilitatorReplacement/AaveV3Ethereum_GHOFacilitatorReplacement_20250821.t.sol)\n- Aave V3.4 upgrade payload: [`UpgradePayloadMainnet`](https://github.com/bgd-labs/protocol-v3.4-upgrade/blob/main/src/UpgradePayloadMainnet.sol)\n- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/107)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO Facilitator Replacement",
+    "author": "BGD Labs @bgdlabs",
+    "discussions": "https://governance.aave.com/t/technical-maintenance-proposals/15274/107",
+    "originalIpfsHash": "0x2415ac8bb2cbbe7b2392920e31e897221652da9d68ea3028fca8ef9473098243"
+  },
+  "proposal": {
+    "id": 369,
+    "votingDuration": 259200,
+    "creationTime": 1757485811,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x2415ac8bb2cbbe7b2392920e31e897221652da9d68ea3028fca8ef9473098243",
+    "initialPayloads": [
+      {
+        "id": 336,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 369,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1757495165,
+    "cancellationFee": 50000000000000000
+  }
+}
