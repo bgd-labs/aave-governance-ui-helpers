@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1757702284,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1760726284,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x24A9917056a60E12Cf7FAa824DE059f9a86ffdbF",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 46,
+      "chainId": 534352,
+      "payloadsController": "0x6b6B41c0f8C223715f712BE83ceC3c37bbfDC3fE"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmRi2MRjmvq3eweUipmAaWe3baz19FXqE7uFYDoYncpZDe",
+    "description": "\n## Simple Summary\n\nThis Direct to AIP proposes immediate risk parameter adjustments for all assets on the Aave V3 Scroll instance to mitigate potential risks arising from ongoing governance instability within the Scroll ecosystem. The proposal seeks to increase Reserve Factors (RF) across all assets.\n\n## Motivation\n\nRecent governance developments within the Scroll ecosystem have introduced material uncertainty and potential risks that warrant immediate protocol protection measures. As a responsible risk management action, these adjustments aim to:\n\n- **Reduce Exposure**: Lower caps will limit the protocol’s total exposure to Scroll-based assets\n- **Maintain Protocol Safety**: Conservative parameters ensure protocol resilience during governance instability\n- **Enable Swift Response**: Direct to AIP process allows for rapid implementation of necessary risk controls\n\n## Specification\n\n- **Reserve Factor Updates**: Increase RF for all listed assets to 50%.\n\n| Asset  | Chain  | Current Reserve Factor | Recommended Reserve Factor |\n| ------ | ------ | ---------------------- | -------------------------- |\n| WETH   | Scroll | 15%                    | 50%                        |\n| weETH  | Scroll | 45%                    | 50%                        |\n| wstETH | Scroll | 5%                     | 50%                        |\n| USDC   | Scroll | 10%                    | 50%                        |\n| SCR    | Scroll | 20%                    | 50%                        |\n\nThe other changes mentionned in the original forum post will be handled separately via risk steward.\n\n## References\n\n- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/4bdc4d609596e471926d0582f611fb22582e0b40/src/20250912_AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance/AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance_20250912.sol)\n- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/4bdc4d609596e471926d0582f611fb22582e0b40/src/20250912_AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance/AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance_20250912.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-risk-parameter-adjustments-for-aave-v3-scroll-instance/23113)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Risk Parameter Adjustments for Aave V3 Scroll Instance",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-risk-parameter-adjustments-for-aave-v3-scroll-instance/23113",
+    "originalIpfsHash": "0x320cbae85b0351f558eef82885ea9b8a17b130c55eaad81064657e00ce48d9c5"
+  },
+  "proposal": {
+    "id": 374,
+    "votingDuration": 259200,
+    "creationTime": 1757702339,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x320cbae85b0351f558eef82885ea9b8a17b130c55eaad81064657e00ce48d9c5",
+    "initialPayloads": [
+      {
+        "id": 46,
+        "chainId": 534352,
+        "payloadsController": "0x6b6B41c0f8C223715f712BE83ceC3c37bbfDC3fE"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 374,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1757711116,
+    "cancellationFee": 50000000000000000
+  }
+}

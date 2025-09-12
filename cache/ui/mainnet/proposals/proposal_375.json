@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1757702383,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1760726383,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xe8b8bfCB8377660936C305533a28dB7B341cb53E",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 95,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmNxSxFNi2pPw6Jv8qc4mE5RxVReAR4KRjHU1UtsPS5Ma9",
+    "description": "\n## Simple Summary\n\nThe current ARFC proposes to add EURC on Avalanche V3 Instance. EURC is Circle’s EUR-backed stablecoin, enhancing liquidity and expanding the platform’s appeal to European users.\n\n## Motivation\n\nEURC is a fully backed stablecoin pegged to the Euro, issued by Circle, the same entity behind USDC. It is a reliable and transparent Euro-denominated asset gaining adoption across DeFi protocols.\n\n- **Utility and Role:** EURC facilitates Euro-based transactions in DeFi, allowing for a stable store of value and an efficient medium of exchange within the ecosystem.\n- **Backers:** Circle is a trusted issuer with a track record of regulatory compliance, providing confidence in EURC’s stability.\n- **Performance:** EURC has demonstrated consistent performance and adoption within the broader DeFi space such as Morpho (3M), Alien(4M) and Aerodome (3M).\n- **Euro Liquidity:** EURC will offer Aave users access to Euro-denominated liquidity, appealing to the European market.\n- **Broader User Base:** Listing EURC could attract new users from Europe, diversifying Aave’s stablecoin offerings.\n- **Increased Liquidity:** The addition of EURC can enhance liquidity across Aave’s markets, improving lending, borrowing, and trading experiences.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **EURC**\n\n| Parameter                 |     Value |\n| ------------------------- | --------: |\n| Isolation Mode            |     false |\n| Borrowable                |   ENABLED |\n| Collateral Enabled        |      true |\n| Supply Cap (EURC)         | 3,000,000 |\n| Borrow Cap (EURC)         | 2,800,000 |\n| Debt Ceiling              |     USD 0 |\n| LTV                       |      75 % |\n| LT                        |      78 % |\n| Liquidation Bonus         |       5 % |\n| Liquidation Protocol Fee  |      10 % |\n| Reserve Factor            |      10 % |\n| Base Variable Borrow Rate |       0 % |\n| Variable Slope 1          |       6 % |\n| Variable Slope 2          |      50 % |\n| Uoptimal                  |      90 % |\n| Flashloanable             |   ENABLED |\n| Siloed Borrowing          |  DISABLED |\n| Borrowable in Isolation   |  DISABLED |\n\n### Oracle details\n\n| Parameter |                                                                                         Value |\n| --------- | --------------------------------------------------------------------------------------------: |\n| Oracle    | [Chainlink EURC/USD](https://snowtrace.io/address/0x3368310bC4AeE5D96486A73bae8E6b49FcDE62D3) |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowtrace.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for EURC and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/0879652a8fe718fd47ac3e53287c60aa49a6e2d4/src/20250821_AaveV3Avalanche_AddEURCToAvalancheV3Instance/AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821.sol)\n- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/0879652a8fe718fd47ac3e53287c60aa49a6e2d4/src/20250821_AaveV3Avalanche_AddEURCToAvalancheV3Instance/AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/arfc-add-eurc-to-avalanche-v3-instance/21734)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Add EURC to Avalanche V3 Instance",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-add-eurc-to-avalanche-v3-instance/21734",
+    "originalIpfsHash": "0x092b9dcb1a0b1f557c7bd7139b1ada7ccdce95a545bdb8327e8a3a0d11c75042"
+  },
+  "proposal": {
+    "id": 375,
+    "votingDuration": 259200,
+    "creationTime": 1757702471,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x092b9dcb1a0b1f557c7bd7139b1ada7ccdce95a545bdb8327e8a3a0d11c75042",
+    "initialPayloads": [
+      {
+        "id": 95,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 375,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1757711116,
+    "cancellationFee": 50000000000000000
+  }
+}
