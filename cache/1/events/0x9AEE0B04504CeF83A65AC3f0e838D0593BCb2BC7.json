@@ -51925,5 +51925,97 @@
     "transactionIndex": 125,
     "logIndex": 268,
     "removed": false
+  },
+  {
+    "eventName": "ProposalQueued",
+    "args": {
+      "proposalId": "368",
+      "votesFor": "878976477169520613054757",
+      "votesAgainst": "0"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xe39e7fc9f2013b8ab01110f66610f9fb8675d3126e69b3752f0084afc72be19a",
+      "0x0000000000000000000000000000000000000000000000000000000000000170"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000ba216909c8b653c8d9250000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x3b0095ca88e81e9888ec06fd4f9dd419782e358586ba3da0f71de9b7ff7a851b",
+    "blockNumber": "23345832",
+    "blockTimestamp": "0x68c3dbcf",
+    "transactionHash": "0x217fa6cd037db959bac459783abab7de01dc239e0d98ba1b40e83a49f34772c6",
+    "transactionIndex": 95,
+    "logIndex": 229,
+    "removed": false
+  },
+  {
+    "eventName": "PayloadSent",
+    "args": {
+      "proposalId": "368",
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C",
+      "chainId": "137",
+      "payloadId": 126,
+      "payloadNumberOnProposal": "0",
+      "numberOfPayloadsOnProposal": "2"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x9c687134d572ff69f3e23f40470562650574c5c7cab9f535268763b2d00da65b",
+      "0x0000000000000000000000000000000000000000000000000000000000000170",
+      "0x000000000000000000000000401b5d0294e23637c18fcc38b1bca814cda2637c",
+      "0x0000000000000000000000000000000000000000000000000000000000000089"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000000007e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002",
+    "blockHash": "0x09287184f2d99a2fac78a5985cf8f4c1d7c69c55a8f010e8e61aa0eef62d66d8",
+    "blockNumber": "23345838",
+    "blockTimestamp": "0x68c3dc17",
+    "transactionHash": "0x3a15014f713cb9d6f8f6f2c6cfd982fde1ad1c7e158eb87f920d1cdba04c6cac",
+    "transactionIndex": 17,
+    "logIndex": 126,
+    "removed": false
+  },
+  {
+    "eventName": "PayloadSent",
+    "args": {
+      "proposalId": "368",
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80",
+      "chainId": "43114",
+      "payloadId": 93,
+      "payloadNumberOnProposal": "1",
+      "numberOfPayloadsOnProposal": "2"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x9c687134d572ff69f3e23f40470562650574c5c7cab9f535268763b2d00da65b",
+      "0x0000000000000000000000000000000000000000000000000000000000000170",
+      "0x0000000000000000000000001140cb7cafacc745771c2ea31e7b5c653c5d0b80",
+      "0x000000000000000000000000000000000000000000000000000000000000a86a"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000000005d00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+    "blockHash": "0x09287184f2d99a2fac78a5985cf8f4c1d7c69c55a8f010e8e61aa0eef62d66d8",
+    "blockNumber": "23345838",
+    "blockTimestamp": "0x68c3dc17",
+    "transactionHash": "0x3a15014f713cb9d6f8f6f2c6cfd982fde1ad1c7e158eb87f920d1cdba04c6cac",
+    "transactionIndex": 17,
+    "logIndex": 135,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalExecuted",
+    "args": {
+      "proposalId": "368"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x712ae1383f79ac853f8d882153778e0260ef8f03b504e2866e0593e04d2b291f",
+      "0x0000000000000000000000000000000000000000000000000000000000000170"
+    ],
+    "data": "0x",
+    "blockHash": "0x09287184f2d99a2fac78a5985cf8f4c1d7c69c55a8f010e8e61aa0eef62d66d8",
+    "blockNumber": "23345838",
+    "blockTimestamp": "0x68c3dc17",
+    "transactionHash": "0x3a15014f713cb9d6f8f6f2c6cfd982fde1ad1c7e158eb87f920d1cdba04c6cac",
+    "transactionIndex": 17,
+    "logIndex": 136,
+    "removed": false
   }
 ]
