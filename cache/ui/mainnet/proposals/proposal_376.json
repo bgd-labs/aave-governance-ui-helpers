@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1757760203,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1760784203,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xE1c46CA14cd856D333Bf657e1d3B978E6089F4B6",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 341,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmPaXKALpm5dCPCkHbQAhdPUBP3vgnhdWpncKRMjeYqzRq",
+    "description": "\n## Summary\n\nThis ARFC proposes to increase supply caps on sUSDe November expiry PT tokens on Aave V3 Core Instance in anticipation of the PT rollover in September.\n\n## Motivation\n\nThe previous sUSDe PT tokens that were onboarded have brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token. We expect at a minimum that deposits will match those in the September expiry PT token, with sidelined demand. Current caps will not be able to allow for a full rollover of PT tokens in Aave to later the November expiry. This proposal suggests to raise caps accordingly to allow for a seamless transition for Aave users and mitigate capital flowing to Aave alternatives.\n\n## Specification\n\nPT-sUSDE-27NOV2025: [https://etherscan.io/address/0xe6a934089bbee34f832060ce98848359883749b3](https://etherscan.io/address/0xe6a934089bbee34f832060ce98848359883749b3)\nPT-USDe-27NOV2025\n[https://etherscan.io/address/0x62C6E813b9589C3631Ba0Cdb013acdB8544038B7](https://etherscan.io/address/0x62C6E813b9589C3631Ba0Cdb013acdB8544038B7)\n\n## Risk Parameters\n\nIncrease sUSDe November PT Supply Cap to $1.2b.\n\nIncrease USDe November PT Supply cap to $1b.\n\n## Useful Links\n\n[https://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT](https://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT)\n\n## Disclaimer\n\nACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.\n\n## Copyright\n\nCopyright and related rights waived under [CCO](https://creativecommons.org/publicdomain/zero/1.0/)\n",
+    "title": "Raise sUSDe and USDe November expiry PT tokens caps on Aave V3 Core Instance",
+    "author": "Aave-Chan Initiative",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-raise-susde-and-usde-november-expiry-pt-tokens-caps-on-aave-v3-core-instance/23117",
+    "originalIpfsHash": "0x126974bde627cbc93918a913845077a08ec78ae04bdf49d5da15b41478e157b4"
+  },
+  "proposal": {
+    "id": 376,
+    "votingDuration": 259200,
+    "creationTime": 1757760239,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x126974bde627cbc93918a913845077a08ec78ae04bdf49d5da15b41478e157b4",
+    "initialPayloads": [
+      {
+        "id": 341,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 376,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1757765308,
+    "cancellationFee": 50000000000000000
+  }
+}
