@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.9.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.2...v3.9.1) (2025-09-17)
+
+
+### Features
+
+* add plasma support ([#112](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/112)) ([1ae355e](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1ae355eb3597a9cefc81428f917c62a83deeadab))
+* add soneium ([#104](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/104)) ([f3f901c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/f3f901c8fbf1a997e2c9753209de9f48e25e2aa2))
+* pass Alchemy api key and parse cache by batch with size 20 ([#110](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/110)) ([1604251](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/1604251a46cf762d194a64cffa08e33fdea73a7f))
+* trigger release 3.9.0 ([02e21f2](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/02e21f29f504d64c2e2ab669bbf156a3c3d05ef4))
+
+
+### Bug Fixes
+
+* update-cache scripts that had been failing due to unsupported chain id ([#108](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/108)) ([85c5acb](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/85c5acb916324a612150da77fabf03574dce9df4))
+
+
+### Miscellaneous Chores
+
+* release 3.9.1 ([e5f35ad](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/e5f35ad92f24398433b1325d9963bdd1e1206c82))
+
 ## 3.6.2 (2025-09-17)
 
 
