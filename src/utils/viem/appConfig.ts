@@ -11,6 +11,7 @@ import {
   GovernanceV3Linea,
   GovernanceV3Metis,
   GovernanceV3Optimism,
+  GovernanceV3Plasma,
   GovernanceV3Polygon,
   GovernanceV3Scroll,
   GovernanceV3Soneium,
@@ -31,6 +32,7 @@ import {
   mainnet,
   metis,
   optimism,
+  plasma,
   polygon,
   scroll,
   sepolia,
@@ -41,10 +43,7 @@ import {
 
 export type CoreNetworkName = 'mainnet' | 'sepolia';
 
-type Config = {
-  contractAddress: Hex;
-  dataHelperContractAddress: Hex;
-};
+type Config = { contractAddress: Hex; dataHelperContractAddress: Hex };
 
 export const govCoreConfig: Record<
   CoreNetworkName,
@@ -144,6 +143,10 @@ export const payloadsControllerConfig: Record<
       dataHelperContractAddress: GovernanceV3Soneium.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3Soneium.PAYLOADS_CONTROLLER],
     },
+    [plasma.id]: {
+      dataHelperContractAddress: GovernanceV3Plasma.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Plasma.PAYLOADS_CONTROLLER],
+    },
   },
   // testnets
   sepolia: {
@@ -236,6 +239,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     sonic.id,
     celo.id,
     soneium.id,
+    plasma.id,
   ],
   sepolia: [sepolia.id, avalancheFuji.id],
 };
