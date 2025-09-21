@@ -8,6 +8,7 @@ import {
   GovernanceV3Celo,
   GovernanceV3Ethereum,
   GovernanceV3Gnosis,
+  GovernanceV3Ink,
   GovernanceV3Linea,
   GovernanceV3Metis,
   GovernanceV3Optimism,
@@ -28,6 +29,7 @@ import {
   bsc,
   celo,
   gnosis,
+  ink,
   linea,
   mainnet,
   metis,
@@ -146,6 +148,10 @@ export const payloadsControllerConfig: Record<
     [plasma.id]: {
       dataHelperContractAddress: GovernanceV3Plasma.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3Plasma.PAYLOADS_CONTROLLER],
+    },
+    [ink.id]: {
+      dataHelperContractAddress: GovernanceV3Ink.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Ink.PAYLOADS_CONTROLLER],
     },
   },
   // testnets
