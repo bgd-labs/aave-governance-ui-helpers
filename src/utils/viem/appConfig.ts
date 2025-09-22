@@ -246,6 +246,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     celo.id,
     soneium.id,
     plasma.id,
+    ink.id,
   ],
   sepolia: [sepolia.id, avalancheFuji.id],
 };
