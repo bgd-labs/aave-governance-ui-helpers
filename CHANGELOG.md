@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.9.3](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.9.2...v3.9.3) (2025-09-22)
+
+
+### Bug Fixes
+
+* add chainId to payloads controllers ([#117](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/117)) ([a1d607c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/a1d607c2924dc88bcfa92eab99d078953c7db33b))
+
 ## [3.9.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.9.1...v3.9.2) (2025-09-22)
 
 
