@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.9.2](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.9.1...v3.9.2) (2025-09-22)
+
+
+### Bug Fixes
+
+* add ink support ([#115](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/115)) ([764660f](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/764660f585fc32e2cd974cd5e620ad6a139902fe))
+
 ## [3.9.1](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.6.2...v3.9.1) (2025-09-17)
 
 
