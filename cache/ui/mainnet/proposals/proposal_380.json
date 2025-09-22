@@ -1,0 +1,235 @@
+{
+  "payloads": [
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1758408263,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1761432263,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x85fEce6e257544c74c393AaFFA19ec7e6cd23422",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 344,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1758408523,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1761432523,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xbeA0690aFBC61e11e52E318cdeaE481709a28484",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 103,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1758408659,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1761432659,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x22d5864dAa78AE1678dCba8ce3371AE3A2ABa071",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 86,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1758408864,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1761432864,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xbD2FFb91b76EF80a22c4F1bcE636202881117e14",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 96,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1758408985,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1761432985,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xCf2B3Dd3F0DB3CF55FF90a3D57629456c490Abe6",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 62,
+      "chainId": 100,
+      "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1758409106,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1761433106,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x6374497C7ecB4C0C7bbCe763f0af0a2B9BEA8D01",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 0,
+      "chainId": 57073,
+      "payloadsController": "0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmaywZPoB4K9hJDgPWaBnHhJnPv9j6SpxQUuvzSehgB4g1",
+    "description": "\n# Simple Summary\n\nThis AIP proposes the expansion of GHO, the native asset of the Aave Protocol, to the Ink network utilizing the Chainlink Cross-Chain Interoperability Protocol (CCIP).\n\nThe smart contracts have been refined through multiple stages of design, development, testing, and implementation. Likewise, Certora, the DAO service provider, was engaged to conduct code reviews of the implementation.\n\n# Motivation\n\nBuilding on the successful GHO's presence on other networks, it is now time to expand GHO to other networks. The Ink ecosystem will bring a new set of opportunities, allowing access to a wide array of integrations with other protocols and tools and ultimately enriching GHO's utility potential.\n\n# Specification\n\nThis AIP includes a series of actions required to launch GHO on Ink:\n\n1. Configure new Chainlink CCIP lanes between Ink and the chains where GHO is launched with a rate limit of 1.5M GHO capacity and 300 GHO per second rate.\n2. Configure GhoCcipSteward.\n\nThe table below lists the address of the new **Ink** deployments:\n\n| Contract         | Address                                                                                                                          |\n| :--------------- | :------------------------------------------------------------------------------------------------------------------------------- |\n| GhoToken         | [0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73](https://explorer.inkonchain.com/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73) |\n| GhoTokenPool     | [0xDe6539018B095353A40753Dc54C91C68c9487D4E](https://explorer.inkonchain.com/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E) |\n| GhoOracle        | [0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6](https://explorer.inkonchain.com/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6) |\n| GhoBucketSteward | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://explorer.inkonchain.com/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |\n| GhoCcipSteward   | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://explorer.inkonchain.com/address/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B) |\n\n# References\n\n- Implementation: [EthereumNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/remote-lanes/Ethereum_Ink_AaveV3GHOLane_20250814.sol) [ArbitrumNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/remote-lanes/Arbitrum_Ink_AaveV3GHOLane_20250814.sol) [BaseNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/remote-lanes/Base_Ink_AaveV3GHOLane_20250814.sol) [AvalancheNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/remote-lanes/Avalanche_Ink_AaveV3GHOLane_20250814.sol) [GnosisNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/remote-lanes/Gnosis_Ink_AaveV3GHOLane_20250814.sol) [InkNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/AaveV3Ink_GHOInkLaunch_20250814.sol)\n- Tests: [EthereumNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/tests/remote-lanes/Ethereum_Ink_AaveV3GHOLane_20250814.t.sol) [ArbitrumNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/tests/remote-lanes/Arbitrum_Ink_AaveV3GHOLane_20250814.t.sol) [BaseNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/tests/remote-lanes/Base_Ink_AaveV3GHOLane_20250814.t.sol) [AvalancheNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/tests/remote-lanes/Avalanche_Ink_AaveV3GHOLane_20250814.t.sol) [GnosisNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/tests/remote-lanes/Gnosis_Ink_AaveV3GHOLane_20250814.t.sol) [InkNetwork](https://github.com/bgd-labs/aave-proposals-v3/blob/8be2bd49b23bb047e6591e360eb34f741ae572ae/src/20250814_Multi_GHOInkLaunch/tests/AaveV3Ink_GHOInkLaunch_20250814.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xf066b8a7b1c0f3d4edff72a047809e3e1f57578d2335fd769e23561a25efb795)\n- [Discussion](https://governance.aave.com/t/arfc-launch-gho-on-ink-set-aci-as-emissions-manager-for-rewards/22664)\n\n# Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO Ink Launch",
+    "author": "Aave Labs",
+    "discussions": "https://governance.aave.com/t/arfc-launch-gho-on-ink-set-aci-as-emissions-manager-for-rewards/22664",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0xf066b8a7b1c0f3d4edff72a047809e3e1f57578d2335fd769e23561a25efb795",
+    "originalIpfsHash": "0xbbd9c90024dfd0a867c8847b30ed3089373c8db800ce90b31f4efbeafe3f9502"
+  },
+  "proposal": {
+    "id": 380,
+    "votingDuration": 259200,
+    "creationTime": 1758570995,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xbbd9c90024dfd0a867c8847b30ed3089373c8db800ce90b31f4efbeafe3f9502",
+    "initialPayloads": [
+      {
+        "id": 344,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 103,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      },
+      {
+        "id": 86,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      },
+      {
+        "id": 96,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      },
+      {
+        "id": 62,
+        "chainId": 100,
+        "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+      },
+      {
+        "id": 0,
+        "chainId": 57073,
+        "payloadsController": "0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x66a28531E6f390A8CD44aB0C57a0F1aeb7E673FF",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 380,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1758575116,
+    "cancellationFee": 50000000000000000
+  }
+}
