@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1759452011,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1762476011,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xF8a9d7cAb2Fc2dd4b5039C78C5A1881eF4656077",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 353,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmeWUn75Wxysh8rCpw3Tv7dKah8nPnozaZr9GVC2JDxXAu",
+    "description": "\n## Simple Summary\n\nThis proposal outlines the next incremental reduction in Safety Module emissions.\n\n## Motivation\n\nThe proposed changes aim to improve the capital efficiency of the Aave Safety Module while ensuring a smooth transition away from legacy staking modules. By phasing out stkAAVE and stkABPT through the reduction of slashing to 0%.\n\n## Specification\n\nIf approved and executed, this proposal will implement the following updates:\n\n### 1. Reduce Slashing Risk\n\n| SM Category | Current | Proposed |\n| ----------- | ------- | -------- |\n| **stkAAVE** | 10%     | 0%       |\n| **stkABPT** | 10%     | 0%       |\n\n### 2. Reduce Cooldown Period\n\n| SM Category | Current | Proposed |\n| ----------- | ------- | -------- |\n| **stkAAVE** | 20 days | 7 days   |\n\n### 3. AAVE/wETH Liquidity Funding\n\nCreate allowances to a new **Aave Liquidity SAFE** for the equivalent of **$5M AAVE** and **$5M aEthWETH**, sourced from the Aave Ecosystem Reserve and the Aave Collector on Ethereum.\n\n- **Asset:** AAVE – `0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9`  \n  **Amount:** $5M USD equivalent\n- **Asset:** aEthWETH – `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`  \n  **Amount:** $5M USD equivalent\n- **Spender:** Aave Liquidity SAFE – `0xAAA973Fe8A6202947e21D0a3a43d8E83ABE35C23`\n- **Method:** `approve()` on the Ecosystem Reserve (AAVE) and Collector (aEthWETH) to the Liquidity SAFE\n\nThe Liquidity SAFE signers follow the same configuration as other Asset SAFEs, requiring **3 of 4** approvals.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4f1d475335d65238e32e0571a2f067996f4d6ab0/src/20250918_AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate/AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4f1d475335d65238e32e0571a2f067996f4d6ab0/src/20250918_AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate/AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x6712b1677068d2d316af699757057a0c8c03e0ff0693c12aacc381d294c419a4)\n- [Discussion](https://governance.aave.com/t/arfc-safety-module-umbrella-emission-update/23103/8)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "[ARFC] Safety Module & Umbrella Emission Update",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-safety-module-umbrella-emission-update/23103/8",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x6712b1677068d2d316af699757057a0c8c03e0ff0693c12aacc381d294c419a4",
+    "originalIpfsHash": "0xf03f91e0c1a9cc49a0c832145344699fba074eddee8175f3e70bb2e604f9db2e"
+  },
+  "proposal": {
+    "id": 385,
+    "votingDuration": 259200,
+    "creationTime": 1759452095,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xf03f91e0c1a9cc49a0c832145344699fba074eddee8175f3e70bb2e604f9db2e",
+    "initialPayloads": [
+      {
+        "id": 353,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 385,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1759461316,
+    "cancellationFee": 50000000000000000
+  }
+}

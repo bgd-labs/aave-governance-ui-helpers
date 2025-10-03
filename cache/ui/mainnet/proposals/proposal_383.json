@@ -1,0 +1,145 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1759451555,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1762475555,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xC5c4A55d63959720E0DAFA4c18EC8E57Ba8E83CC",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 351,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1759451631,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1762475631,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xA0280DBB0e471233bcbac86F1DC56612AA794aF9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 129,
+      "chainId": 137,
+      "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+    },
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1759451689,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1762475689,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x10ac4E8Fa8bA71f7dC2176763D0EDe7f640f9652",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 97,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmeQcAPdPguPmvbZfpCTN5zwvXYLCC5bDtvMqbLyr6eWKX",
+    "description": "\n## Simple Summary\n\nThis proposal presents the next round of parameter updates to be implemented as we work towards deprecating v2 instances of Aave Protocol across Polygon, Ethereum and Avalanche.\n\n## Motivation\n\nThis proposal builds on previous efforts that froze both Polygon v2 and Avalanche v2, supporting the deprecation of Aave v2 and ensuring a smooth, controlled, and secure transition to Aave v3.\n\nThe proposed changes are designed to increase borrowing costs through adjustments to the interest rate curve parameters, creating stronger incentives for users to migrate to Aave v3. Where practical, a standardized approach of reducing the Uoptimal parameter has been applied, alongside adjustments to the Base and Slope1 parameters to raise borrow rates. At the same time, the Slope2 parameter has been reduced to avoid excessive borrowing costs at near-full utilization. Overall, these changes raise borrow rates without exposing users to extreme costs.\n\nThe updated Uoptimal parameter now exceeds current reserve utilization levels and is expected to be progressively lowered toward a 25% target.\n\nFor commonly borrowed assets, the Base parameter is increased to 5%, with further increases planned as reserve liquidity decreases. This gradual adjustment ensures a minimum borrow rate is always maintained.\n\nAdditionally, the Reserve Factor is increased to 85%, resulting in lower deposit rates that discourage idle capital remaining in v2.\n\nThese changes represent a coordinated effort among several service providers to align incentives and ensure the long-term health of the Aave ecosystem.\n\n---\n\nAs a follow up to the [previous deprecation proposal](https://vote.onaave.com/proposal/?proposalId=378&ipfsHash=0x81a22e1d8c05b3061c45954cc83c807553fed9fae55cb6e074edf8f8557f5f8b) this proposal includes the following changes:\n\n- In proposal 378, the metadata(symbol & name) was incorrectly configured on the aWBTC implementation due to minor technical differences between the different v2 versions. Therefore, this proposal will update the aWBTC implementation on mainnet `Core`, with a code-wise identical but correctly initialized version.\n- In proposal 378, the clinic steward was configured with estimated budgets based on the existing bad debt following the same practice as on [v3 activation](https://vote.onaave.com/proposal/?proposalId=270&ipfsHash=0x4043001b72316afa6b6728772941bfa08f127b66c1c006316a3f20510b6738ab) - namely taking the current deficit and adding a minor(5%) buffer on top.\n  While on v3 this worked fine, on v2 this estimation fell short. The `ClinicSteward` overestimated debt whenever a position is not clean, meaning when there is residual collateral. On v2 mainnet, this situation is far more common than on v3, which was not considered in the budget planning. Therefore this proposal sets the available budget to 1M$ on `Core` and 2.5k on `AMM`, respectively so the remaining bad debt can be covered. It's important to note that the configured \"budget\" does not directly reflect the amount spent, but is just a safety net on the clinic steward. The overall funds spent will not exceed the total bad debt.\n\n## Specification\n\n### Ethereum v2\n\nRF / Base / Uoptimal\n\n| Asset | RF Current | RF Proposed | Base Current | Base Proposed | Uoptimal Current | Uoptimal Proposed |\n| ----- | ---------- | ----------- | ------------ | ------------- | ---------------- | ----------------- |\n| wETH  | 85.00%     | 85.00%      | 0.00%        | 5.00%         | 80.00%           | 25.00%            |\n| wBTC  | 90.00%     | 90.00%      | 0.00%        | 20.00%        | 65.00%           | 25.00%            |\n| USDC  | 70.00%     | 85.00%      | 0.00%        | 5.00%         | 90.00%           | 60.00%            |\n| USDT  | 70.00%     | 85.00%      | 0.00%        | 5.00%         | 80.00%           | 40.00%            |\n| DAI   | 70.00%     | 85.00%      | 0.00%        | 5.00%         | 80.00%           | 50.00%            |\n\nSlopes\n\n| Asset | Slope1 Current | Slope1 Proposed | Slope2 Current | Slope2 Proposed |\n| ----- | -------------- | --------------- | -------------- | --------------- |\n| wETH  | 3.80%          | 5.00%           | 80.00%         | 40.00%          |\n| wBTC  | 0.00%          | 0.00%           | 300.00%        | 40.00%          |\n| USDC  | 12.50%         | 12.50%          | 60.00%         | 40.00%          |\n| USDT  | 12.50%         | 12.50%          | 60.00%         | 40.00%          |\n| DAI   | 12.50%         | 12.50%          | 60.00%         | 40.00%          |\n\nAdditionally:\n\n- freeze all reserves on Ethereum V2 `Core` via `ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).freezeReserve(asset)`.\n- updates the aWBTC impl on `Core` via `AaveV2Ethereum.POOL_CONFIGURATOR.updateAToken(AaveV2EthereumAssets.WBTC_UNDERLYING, WBTC_IMPL)`.\n- renews the budget for `Core`via `IClinicSteward(AaveV2Ethereum.CLINIC_STEWARD).setAvailableBudget(1_000_000e8)`.\n- renews the budget for `AMM` via `IClinicSteward(AaveV2EthereumAMM.CLINIC_STEWARD).setAvailableBudget(2_500e8)`.\n\n### Polygon v2\n\nRF / Base / Uoptimal\n\n| Asset  | RF Current | RF Proposed | Base Current | Base Proposed | Uoptimal Current | Uoptimal Proposed |\n| ------ | ---------- | ----------- | ------------ | ------------- | ---------------- | ----------------- |\n| wETH   | 99.99%     | 99.99%      | 0.00%        | 5.00%         | 40.00%           | 25.00%            |\n| wBTC   | 99.99%     | 99.99%      | 0.00%        | 20.00%        | 37.00%           | 25.00%            |\n| USDC.e | 99.99%     | 99.99%      | 0.00%        | 5.00%         | 77.00%           | 65.00%            |\n| DAI    | 99.99%     | 99.99%      | 0.00%        | 5.00%         | 71.00%           | 45.00%            |\n| USDT   | 99.99%     | 99.99%      | 0.00%        | 5.00%         | 52.00%           | 35.00%            |\n| POL    | 99.99%     | 99.99%      | 0.00%        | 5.00%         | 48.00%           | 25.00%            |\n\nSlopes\n\n| Asset  | Slope1 Current | Slope1 Proposed | Slope2 Current | Slope2 Proposed |\n| ------ | -------------- | --------------- | -------------- | --------------- |\n| wETH   | 10.00%         | 15.00%          | 134.00%        | 40.00%          |\n| wBTC   | 0.00%          | 0.00%           | 134.00%        | 40.00%          |\n| USDC.e | 15.00%         | 15.00%          | 134.00%        | 40.00%          |\n| DAI    | 15.00%         | 15.00%          | 134.00%        | 40.00%          |\n| USDT   | 15.00%         | 15.00%          | 134.00%        | 40.00%          |\n| POL    | 12.00%         | 15.00%          | 134.00%        | 40.00%          |\n\n### Avalanche v2\n\nRF / Base / Uoptimal\n\n| Asset  | RF Current | RF Proposed | Base Current | Base Proposed | Uoptimal Current | Uoptimal Proposed |\n| ------ | ---------- | ----------- | ------------ | ------------- | ---------------- | ----------------- |\n| wBTC.e | 99.99%     | 99.99%      | 20.00%       | 20.00%        | 45.00%           | 25.00%            |\n| wETH   | 80.00%     | 85.00%      | 0.00%        | 5.00%         | 45.00%           | 25.00%            |\n| USDC.e | 80.00%     | 85.00%      | 0.00%        | 5.00%         | 80.00%           | 25.00%            |\n| AVAX   | 80.00%     | 85.00%      | 0.00%        | 5.00%         | 45.00%           | 25.00%            |\n| USDT.e | 80.00%     | 85.00%      | 0.00%        | 5.00%         | 80.00%           | 45.00%            |\n| DAI    | 80.00%     | 85.00%      | 0.00%        | 5.00%         | 80.00%           | 80.00%            |\n\nSlopes\n\n| Asset  | Slope1 Current | Slope1 Proposed | Slope2 Current | Slope2 Proposed |\n| ------ | -------------- | --------------- | -------------- | --------------- |\n| wBTC.e | 0.00%          | 0.00%           | 300.00%        | 40.00%          |\n| wETH   | 10.00%         | 15.00%          | 300.00%        | 40.00%          |\n| USDC.e | 0.00%          | 0.00%           | 75.00%         | 40.00%          |\n| AVAX   | 5.00%          | 15.00%          | 300.00%        | 40.00%          |\n| USDT.e | 9.00%          | 15.00%          | 75.00%         | 40.00%          |\n| DAI    | 9.00%          | 15.00%          | 75.00%         | 40.00%          |\n\n## References\n\n- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e27116a989d6f696a4d2a307894d8b5387cc74e0/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Ethereum_AaveV2DeprecationUpdate_20250925.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/e27116a989d6f696a4d2a307894d8b5387cc74e0/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Polygon_AaveV2DeprecationUpdate_20250925.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/e27116a989d6f696a4d2a307894d8b5387cc74e0/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Avalanche_AaveV2DeprecationUpdate_20250925.sol)\n- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e27116a989d6f696a4d2a307894d8b5387cc74e0/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Ethereum_AaveV2DeprecationUpdate_20250925.t.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/e27116a989d6f696a4d2a307894d8b5387cc74e0/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Polygon_AaveV2DeprecationUpdate_20250925.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/e27116a989d6f696a4d2a307894d8b5387cc74e0/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Avalanche_AaveV2DeprecationUpdate_20250925.t.sol)\n- [AToken code diff](https://github.com/bgd-labs/aave-proposals-v3/blob/e27116a989d6f696a4d2a307894d8b5387cc74e0/diffs/1_0x9ff58f4ffb29fa2266ab25e75e2a8b3503311656_0xA33eCc2125f6FD0b900945b149176D46f0474Ac4_0x5c7b3F858F8fBb4d1Fc525d51f82Cb5715c68c27.diff)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x0c5427caf17d21b321a3b62362d085e580446b136b0eccf7f4dc377856025486)\n- [Discussion](https://governance.aave.com/t/arfc-aave-v2-deprecation-update/23008/2)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Aave v2 Deprecation - Update",
+    "author": "@TokenLogic & BGD Labs @bgdlabs",
+    "discussions": "https://governance.aave.com/t/arfc-aave-v2-deprecation-update/23008/2",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x0c5427caf17d21b321a3b62362d085e580446b136b0eccf7f4dc377856025486",
+    "originalIpfsHash": "0xeebe6f3200ce589673f94a5c3ae90186c4bc59e7d7f29a81cb6952149760dd7e"
+  },
+  "proposal": {
+    "id": 383,
+    "votingDuration": 259200,
+    "creationTime": 1759451747,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xeebe6f3200ce589673f94a5c3ae90186c4bc59e7d7f29a81cb6952149760dd7e",
+    "initialPayloads": [
+      {
+        "id": 351,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 129,
+        "chainId": 137,
+        "payloadsController": "0x401B5D0294E23637c18fcc38b1Bca814CDa2637C"
+      },
+      {
+        "id": 97,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 137,
+    "votingMachineData": {
+      "id": 383,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0xd755F1CA351E989391a5bacDeC8F780dFD76f5d2",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1759461316,
+    "cancellationFee": 50000000000000000
+  }
+}
