@@ -9,6 +9,7 @@ import {
   GovernanceV3Ethereum,
   GovernanceV3Gnosis,
   GovernanceV3Ink,
+  GovernanceV3InkWhitelabel,
   GovernanceV3Linea,
   GovernanceV3Metis,
   GovernanceV3Optimism,
@@ -151,7 +152,10 @@ export const payloadsControllerConfig: Record<
     },
     [ink.id]: {
       dataHelperContractAddress: GovernanceV3Ink.PC_DATA_HELPER,
-      contractAddresses: [GovernanceV3Ink.PAYLOADS_CONTROLLER],
+      contractAddresses: [
+        GovernanceV3Ink.PAYLOADS_CONTROLLER,
+        GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER,
+      ],
     },
   },
   // testnets
