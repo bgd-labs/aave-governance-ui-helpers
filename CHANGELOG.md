@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.9.3...v3.10.0) (2025-10-09)
+
+
+### Features
+
+* add ink whitelabel address ([#119](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/119)) ([6d2133c](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/6d2133cd83de4fac2a900cb1deaad8f6c451181d))
+
 ## [3.9.3](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.9.2...v3.9.3) (2025-09-22)
 
 
