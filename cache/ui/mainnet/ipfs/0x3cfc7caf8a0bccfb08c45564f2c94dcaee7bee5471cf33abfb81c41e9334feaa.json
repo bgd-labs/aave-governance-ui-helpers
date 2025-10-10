@@ -1,0 +1,8 @@
+{
+  "ipfsHash": "QmSSiULr617vn7bryvN683pF9W9Ro46mrxSxanLtBJrWdw",
+  "description": "\n## Simple Summary\n\nThis AIP proposes to enable pyUSD as collateral on the V3 Core instance.\n\n## Motivation\n\nthis proposal seek to revert recent changes on collateral status of this asset\n\n## Specification\n\nsets TVL of PYUSD on Core to 75% instead of 0%\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_AaveV3Ethereum_AllowPyUSDAsCollateral/AaveV3Ethereum_AllowPyUSDAsCollateral_20251009.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_AaveV3Ethereum_AllowPyUSDAsCollateral/AaveV3Ethereum_AllowPyUSDAsCollateral_20251009.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-enable-pyusd-as-collateral-on-aave-v2-core-instance/23235)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+  "title": "Allow PyUSD as collateral",
+  "author": "Aave-chan Initiative",
+  "discussions": "https://governance.aave.com/t/direct-to-aip-enable-pyusd-as-collateral-on-aave-v2-core-instance/23235",
+  "originalIpfsHash": "0x3cfc7caf8a0bccfb08c45564f2c94dcaee7bee5471cf33abfb81c41e9334feaa"
+}
