@@ -1,0 +1,114 @@
+{
+  "payloads": [
+    {
+      "creator": "0xe3FD707583932a99513a5c65c8463De769f5DAdF",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1760370443,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1763394443,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x92F7aC533aC1A88331EE24b77637788bfa257222",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 362,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0xe3FD707583932a99513a5c65c8463De769f5DAdF",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1760358791,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1763382791,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xe40BfEa9631788b19c38D6A51Ba3AF839d35C3ec",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 14,
+      "chainId": 59144,
+      "payloadsController": "0x3BcE23a1363728091bc57A58a226CF2940C2e074"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmcbBFnbPKWU8J65SYg1fwVCRHtYpf6dRFVidU3roUp2gL",
+    "description": "\n## Simple Summary\n\nThis proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the Aave Ethereum Core and Linea Instance to perform automated slope2 interest rate updates for WETH, USDT, USDC, USDe assets. Under the hood, the AGRS consumes the Risk Oracle infrastructure by Chaos Labs.\n\n## Motivation\n\nThe slope2 risk oracle introduces a dynamic mechanism to address liquidity contraction in high-leverage lending markets. Unlike traditional piecewise-linear rate curves that produce abrupt APR spikes during supply shocks, the oracle stages its response by starting with a low baseline when utilization first crosses the kink, compounding convexly as stress persists, and decaying predictably once conditions normalize.\nThis approach minimizes unnecessary preemptive shocks while providing transparent escalation and robust solvency protection for suppliers, with borrowers facing fair, time-aligned incentives that intensify only during sustained high utilization periods. Detailed methodology can be found [here](https://governance.aave.com/t/chaos-labs-risk-stewards-slope2-parameter-adjustments-for-risk-oracle-deployment/23192#p-59097-motivation-2).\n\nThis new component of AGRS follows the same example of interest rate updates for WETH on v3 Prime Ethereum ([this proposal](https://vote.onaave.com/proposal/?proposalId=200)), in production for some time.\n\n## Specification\n\nThe automated AGRS will use another instance of AGRS (exactly the same codebase as the other model), with the following constraints:\n\n- This instance will only allow changes of one risk parameter: slope 2.\n- Recommendations of the parameter will be submitted to a RiskOracle smart contract, from the Edge off-chain infrastructure.\n- Between the risk oracle smart contract and the AGRS contract, there will be a very thin middleware [AaveStewardRatesInjector](https://github.com/aave-dao/aave-v3-risk-stewards/blob/ecbe493bb2c7799e58c44ebe907382ffd570e54b/src/contracts/AaveStewardInjectorRates.sol), which will have the following logic:\n  - Will take recommendations from the Edge Risk Oracle side and propagate them to the AGRS contract.\n  - Enforce that only the configured asset can be acted upon.\n  - Given the protections (percentage constraints and time delay) on the AGRS side and that it is an assumption that risk recommendation will be timing correct updates on the Edge Risk Oracle, the propagation will be permissionless.\n\n**Automation**. The [AaveStewardRatesInjector](https://github.com/aave-dao/aave-v3-risk-stewards/blob/ecbe493bb2c7799e58c44ebe907382ffd570e54b/src/contracts/AaveStewardInjectorRates.sol) middleware, technically being part of the Aave Robot infrastructure, will run on Chainlink Automation and will be registered using the AaveCLRobotOperator contract with 250 LINK from the Ethereum Collector.\nSince Chainlink Automation is not available on Linea, the automation will be configured using Gelato’s infrastructure over there.\n\n**Roles from the Aave protocol**. The new instance of the RiskSteward will be given the `RiskAdmin` role with the following method: `ACL_MANAGER.addRiskAdmin()`\n\n**Whitelisted assets**. Only the following assets will be whitelisted for the automatic AGRS system, enforced strictly on the AaveStewardRatesInjector contract:\n\n- AaveV3Ethereum: [WETH](https://etherscan.io/address/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2), [USDC](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48), [USDT](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7), [USDe](https://etherscan.io/address/0x4c9EDD5852cd905f086C759E8383e09bff1E68B3)\n- AaveV3Linea: [WETH](https://lineascan.build/address/0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f), [USDC](https://lineascan.build/address/0x176211869cA2b568f2A7D4EE941E073a821EE1ff), [USDT](https://lineascan.build/address/0xA219439258ca9da29E9Cc4cE5596924745e12B93)\n\n**Enforced constraints**. The automated AGRS system will be configured with the following constraints:\n\n| Parameter | Maximum Change (Absolute) | minimumDelay |\n| --------- | ------------------------- | ------------ |\n| Slope2    | 4%                        | 8 Hours      |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol)\n- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/118)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Slope2 Risk Oracle Activation On Core Ethereum, Linea",
+    "author": "BGD Labs (@bgdlabs)",
+    "discussions": "https://governance.aave.com/t/technical-maintenance-proposals/15274/118",
+    "originalIpfsHash": "0xd3bc49794f5a74d990ceeb6d30a88e3df1787ab9b8baf5db5c7b20f75051b515"
+  },
+  "proposal": {
+    "id": 395,
+    "votingDuration": 259200,
+    "creationTime": 1761042695,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xd3bc49794f5a74d990ceeb6d30a88e3df1787ab9b8baf5db5c7b20f75051b515",
+    "initialPayloads": [
+      {
+        "id": 362,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 14,
+        "chainId": 59144,
+        "payloadsController": "0x3BcE23a1363728091bc57A58a226CF2940C2e074"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 395,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1761048604,
+    "cancellationFee": 50000000000000000
+  }
+}
