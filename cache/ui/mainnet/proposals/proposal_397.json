@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1761058055,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1764082055,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x951188578692Fa789F98c0e07374C6598DF4aB57",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 100,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmQSxNymGtY1DB6C3JhxsVXxtS7zCGFaZJk77dBMgsv2UX",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to onboard sUSDe and USDe to the Aave v3 protocol on Avalanche.\n\n## Motivation\n\nThe onboarding of sUSDe and USDe to the Aave Avalanche Instance will provide users with high quality yield bearing stablecoin collateral to help expand stablecoin usage on this instance.\n\nAs the Avalanche instance shows promise and potential for significant growth we believe the time is right for expanding collateral options on this network with a focus on those assets which have proven to be in demand on other Aave instances.\n\nAva Labs has committed 1000 AVAX per week in incentives to bootstrapping usage of these assets on the Avalanche Aave instance.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **USDe** and **sUSDe**\n\n| Parameter                 |       USDe |      sUSDe |\n| ------------------------- | ---------: | ---------: |\n| Isolation Mode            |      false |      false |\n| Borrowable                |    ENABLED |   DISABLED |\n| Collateral Enabled        |       true |       true |\n| Supply Cap                | 50,000,000 | 50,000,000 |\n| Borrow Cap                | 42,500,000 |          1 |\n| Debt Ceiling              |      USD 0 |      USD 0 |\n| LTV                       |       70 % |       70 % |\n| LT                        |       73 % |       73 % |\n| Liquidation Bonus         |      8.5 % |      8.5 % |\n| Liquidation Protocol Fee  |       10 % |       10 % |\n| Reserve Factor            |       25 % |       45 % |\n| Base Variable Borrow Rate |        0 % |        0 % |\n| Variable Slope 1          |      6.5 % |       10 % |\n| Variable Slope 2          |       50 % |      300 % |\n| Uoptimal                  |       80 % |       45 % |\n| Flashloanable             |    ENABLED |    ENABLED |\n| Siloed Borrowing          |   DISABLED |   DISABLED |\n| Borrowable in Isolation   |   DISABLED |   DISABLED |\n\n### Oracle details\n\n|                             |                                                                                       USDe |                                                                                                sUSDe |\n| --------------------------- | -----------------------------------------------------------------------------------------: | ---------------------------------------------------------------------------------------------------: |\n| Oracle                      | [Capped USDT/USD](https://snowtrace.io/address/0x5b7810a910B4a878AaA4800a824E5E5796838009) | [Capped sUSDe / USDe / USD](https://snowtrace.io/address/0x8Fb2db0A3b25db76B9BE2013751F8390ea8E5f0A) |\n| PriceCap                    |                                                                                     1.04e8 |                                                                                                    - |\n| Exchange Rate Feed          |                                                                                          - |             [CL SUSDe/USDe](https://snowtrace.io/address/0xb7441BBD0298aaeF4f2BbD40E8025Cf59cA6E8D5) |\n| Base Feed                   |     [CL USDT/USD](https://snowtrace.io/address/0xEBE676ee90Fe1112671f19b6B7459bC678B67e8a) |           [Capped USDT/USD](https://snowtrace.io/address/0x5b7810a910B4a878AaA4800a824E5E5796838009) |\n| MaxYearlyRatioGrowthPercent |                                                                                          - |                                                                                              15.19 % |\n| MinimumSnapshotDelay        |                                                                                          - |                                                                                              14 days |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowscan.xyz/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for USDe, sUSDe and the corresponding aTokens.\n\n### Emode details\n\n**USDe Stablecoin E-mode Configuration**\n\n| **Parameter**         | **Value** | **Value** | **Value** | **Value** |\n| --------------------- | --------- | --------- | --------- | --------- |\n| Asset                 | USDe      | USDt      | GHO       | USDC      |\n| Collateral            | Yes       | No        | No        | No        |\n| Borrowable            | No        | Yes       | Yes       | Yes       |\n| Max LTV               | 89%       | -         | -         | -         |\n| Liquidation Threshold | 92%       | -         | -         | -         |\n| Liquidation Bonus     | 2%        | -         | -         | -         |\n\n**sUSDe Stablecoin E-mode Configuration**\n\n| **Parameter**         | **Value** | **Value** | **Value** | **Value** | **Value** |\n| --------------------- | --------- | --------- | --------- | --------- | --------- |\n| Asset                 | sUSDe     | USDe      | USDt      | GHO       | USDC      |\n| Collateral            | Yes       | No        | No        | No        | No        |\n| Borrowable            | No        | Yes       | Yes       | Yes       | Yes       |\n| Max LTV               | 89%       | -         | -         | -         | -         |\n| Liquidation Threshold | 91%       | -         | -         | -         | -         |\n| Liquidation Bonus     | 4%        | -         | -         | -         | -         |\n\n## References\n\n- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1cc7166d28d9e444f84a74d53037b6972301ced3/src/20251013_AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013.sol)\n- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1cc7166d28d9e444f84a74d53037b6972301ced3/src/20251013_AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-susde-and-usde-to-aave-v3-avalanche-instance/23081)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard sUSDe and USDe to Aave V3 Avalanche Instance",
+    "author": "Aave-chan Initiative",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-onboard-susde-and-usde-to-aave-v3-avalanche-instance/23081",
+    "originalIpfsHash": "0x1f54d6a74f565aadaa76ec5ca40c839f6fdb17cf48a365c4fade77fc6bd7dc28"
+  },
+  "proposal": {
+    "id": 397,
+    "votingDuration": 259200,
+    "creationTime": 1761058115,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x1f54d6a74f565aadaa76ec5ca40c839f6fdb17cf48a365c4fade77fc6bd7dc28",
+    "initialPayloads": [
+      {
+        "id": 100,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 397,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1761059194,
+    "cancellationFee": 50000000000000000
+  }
+}
