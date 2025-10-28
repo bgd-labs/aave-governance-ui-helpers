@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1761663955,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1764687955,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x166159E6ea11aC9feBBA7e7535acF4452c9741E2",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 65,
+      "chainId": 100,
+      "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmYyXBqtkvPSMzkTgBZuc55WtZKCZ7baH1V5mzrQSafr94",
+    "description": "\n## Simple Summary\n\nThis publication proposes the **deprecation of the legacy USDC market** on the Aave Gnosis Chain deployment.\nThe deprecation will be executed by **freezing the reserve** (preventing new deposits, borrows, or collateral usage) and **immediately increasing the Reserve Factor (RF) to 80%**.\n\nThis aligns with the broader ecosystem effort to establish **USDC.e (Circle-supported)** as the canonical USDC representation on Gnosis Chain, consolidating liquidity and improving capital efficiency across Aave markets.\n\n## Motivation\n\nThe Gnosis Chain ecosystem has grown significantly since the initial deployment of assets on the Aave GC instance. With Circle-supported USDC.e now established as the canonical USDC representation, it is important to accelerate the transition away from legacy USDC to prevent liquidity fragmentation and enhance capital efficiency.\n\nTo promote the migration from USDC to USDC.e and concentrate liquidity in a single canonical market, this proposal introduces a progressive parameter adjustment schedule:\n\n1. **Freeze the market** — Preventing new positions from being created and new deposits.\n2. **Reserve Factor Increase** — USDC’s (old) RF will be increased to 80%, incentivising lenders to migrate to USDC.e.\n\n## Specification\n\nThe following table shows the current parameters and proposed adjustments for USDC (old) in the first AIP (updated upon receiving feedback from both @LlamaRisk and @ChaosLabs):\n\n| Parameter | Current | Proposed |\n| --------- | ------- | -------- |\n| RF        | 40%     | 80%      |\n\n- The **USDC (old)** reserve will be **frozen** — preventing new deposits, borrows, or collateral enablement.\n- The **Reserve Factor** will be immediately increased to **80%**, redirecting most of the yield to the protocol and incentivising migration to **USDC.e**.\n- **Existing positions remain unaffected**, but users are encouraged to unwind and migrate voluntarily to **USDC.e**.\n\n## References\n\n- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/2eebace0ecd8f4851a5d97796aa1dbf3ced8683e/src/20251024_AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance/AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance_20251024.sol)\n- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/2eebace0ecd8f4851a5d97796aa1dbf3ced8683e/src/20251024_AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance/AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance_20251024.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x438b460559aa8c3a039f28212362af9a0e3b94a88e4a2b8230fe2c5e8f4d43da)\n- [Discussion](https://governance.aave.com/t/arfc-usdc-old-deprecation-on-gnosis-chain-instance/23189)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "USDC (old) deprecation on Gnosis Chain Instance",
+    "author": "Aave-chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-usdc-old-deprecation-on-gnosis-chain-instance/23189",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x438b460559aa8c3a039f28212362af9a0e3b94a88e4a2b8230fe2c5e8f4d43da",
+    "originalIpfsHash": "0x9e06dab39bafb030dc63964e505beb4a258ee6f6373ecc43debb7681d7a54697"
+  },
+  "proposal": {
+    "id": 399,
+    "votingDuration": 259200,
+    "creationTime": 1761664019,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x9e06dab39bafb030dc63964e505beb4a258ee6f6373ecc43debb7681d7a54697",
+    "initialPayloads": [
+      {
+        "id": 65,
+        "chainId": 100,
+        "payloadsController": "0x9A1F491B86D09fC1484b5fab10041B189B60756b"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 399,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1761674890,
+    "cancellationFee": 50000000000000000
+  }
+}
