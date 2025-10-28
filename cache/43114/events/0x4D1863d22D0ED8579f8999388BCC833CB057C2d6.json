@@ -26133,5 +26133,97 @@
     "blockHash": "0x14222dece58301aa511e67410446547143d1f47ac4690df98cf4ead1c9511285",
     "logIndex": 79,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "398",
+      "voter": "0x4D4AC65513fEe380c596ac9EdfaC588782831bdf",
+      "support": true,
+      "votingPower": "10515607793132578"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x000000000000000000000000000000000000000000000000000000000000018e",
+      "0x0000000000000000000000004d4ac65513fee380c596ac9edfac588782831bdf",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000000000255be3bb1b6422",
+    "blockNumber": "71013606",
+    "transactionHash": "0xd8af36d1eeab9f055c36723653a2e759d177f2230c9c88a28e0e0492818c5edd",
+    "transactionIndex": 23,
+    "blockHash": "0x6660e53c5346b2b24a00601d309b613bdf552bb3d8540ea3347d4d585c3214b1",
+    "logIndex": 25,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "398",
+      "voter": "0xa417100dDCD35787E6C0598e63db45EF5ECCA567",
+      "support": true,
+      "votingPower": "216525402470086907"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x000000000000000000000000000000000000000000000000000000000000018e",
+      "0x000000000000000000000000a417100ddcd35787e6c0598e63db45ef5ecca567",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000030140b4d313f8fb",
+    "blockNumber": "71013750",
+    "transactionHash": "0x21da148ca6acdc15aad674cfb79347727e8a448ef96022a09936cbeb7bea5f17",
+    "transactionIndex": 3,
+    "blockHash": "0xf928b8e6066d2b7e3ea8e796898e9470426751d525e7d8f98e3a15659e3dddb9",
+    "logIndex": 24,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "398",
+      "voter": "0xE7C35A25C99987fCB12618c325eAf0Db65D87829",
+      "support": true,
+      "votingPower": "70000000000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x000000000000000000000000000000000000000000000000000000000000018e",
+      "0x000000000000000000000000e7c35a25c99987fcb12618c325eaf0db65d87829",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000000000f8b0a10e470000",
+    "blockNumber": "71015843",
+    "transactionHash": "0xdd1f99878024411ff2c8208c2ea93ec002c00aa736a1fc877eb7c83124c645aa",
+    "transactionIndex": 24,
+    "blockHash": "0x943dbd8150d0e367bab80f8f611120fe40765e4cf3a37f3971b46c9935f58ba1",
+    "logIndex": 94,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "398",
+      "voter": "0xDcB8E5AA4CC53960BDf462Ad62C85414b3DcCe6A",
+      "support": true,
+      "votingPower": "65005611425983738"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x000000000000000000000000000000000000000000000000000000000000018e",
+      "0x000000000000000000000000dcb8e5aa4cc53960bdf462ad62c85414b3dcce6a",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000000000e6f2425973ecfa",
+    "blockNumber": "71015871",
+    "transactionHash": "0x239ca68e214e3db23c50d4d3a41aaa7f68204a10d8fc89ec7dac2b35d512a093",
+    "transactionIndex": 1,
+    "blockHash": "0xfbb8cc2f42a722837f1f263b68c899f30114c87d9351360abc9736803e9593ab",
+    "logIndex": 5,
+    "removed": false
   }
 ]
