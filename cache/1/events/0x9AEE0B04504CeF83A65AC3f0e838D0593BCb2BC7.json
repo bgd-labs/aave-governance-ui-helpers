@@ -55965,5 +55965,51 @@
     "transactionIndex": 170,
     "logIndex": 203,
     "removed": false
+  },
+  {
+    "eventName": "VotingActivated",
+    "args": {
+      "proposalId": "399",
+      "snapshotBlockHash": "0x7f52070450995d15ace762bcf547935e2b7bdc77d16a979e6275c73611532b21",
+      "votingDuration": 259200
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x45f1db29750f423920a6edede3a80ea19ceb9de3eabc072078eb539ca348dca0",
+      "0x000000000000000000000000000000000000000000000000000000000000018f",
+      "0x7f52070450995d15ace762bcf547935e2b7bdc77d16a979e6275c73611532b21"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000003f480",
+    "blockHash": "0x7b29a75220286f1f6f39ee8334018aea97ca29e94575be4281f48c6ba4315261",
+    "blockNumber": "23683838",
+    "blockTimestamp": "0x69022dab",
+    "transactionHash": "0x2a0dab6f04d0a2be7987945f39186f18572c0cb7628acd294f0f6ce430a4ee60",
+    "transactionIndex": 18,
+    "logIndex": 67,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "400",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0x0a4a9e52e40bc22374361dee7b26ae2e5c33cf2abfe97492f80460146a74c1f8"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x0000000000000000000000000000000000000000000000000000000000000190",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0a4a9e52e40bc22374361dee7b26ae2e5c33cf2abfe97492f80460146a74c1f8",
+    "blockHash": "0x6c03ee7eea8ea875e91512490d10bfb7daaf483fb955549ce6c217721e4cf060",
+    "blockNumber": "23684022",
+    "blockTimestamp": "0x6902364b",
+    "transactionHash": "0xf901bb63161d81ecf9ad72f077b5b0f565178aa640e2800fd33f0c15d03c1936",
+    "transactionIndex": 207,
+    "logIndex": 504,
+    "removed": false
   }
 ]
