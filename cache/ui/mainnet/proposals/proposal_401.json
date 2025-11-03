@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1762173443,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1765197443,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x9bbd6164843AA0BB49954f32ccaE176ddd37b637",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 364,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qma3a536eW31HJwYSvxottJVRtLNiHc2ugaE3SPxNMgzzN",
+    "description": "\n## Simple Summary\n\nThis AIP proposes a comprehensive reset of all active Aave service provider compensation streams to better align contributors with the success of the Aave ecosystem ahead of the Aave V4 launch.\n\nThe proposal maintains the same total annual compensation levels for each provider while introducing a one-year vesting component tied to clear key performance indicators (KPIs).\n\n## Motivation\n\nAs stated in the [_State of the Union_](https://governance.aave.com/t/aave-dao-s-state-of-the-union-by-aci/23124) post, Aave DAO should seek to ensure that the service providers who contributed significantly to Aave’s success are directly aligned with the protocol’s growth and long-term sustainability.\n\nThe goal of this reform is to reset and unify the compensation framework for all key service providers, ensuring alignment with Aave V4 delivery milestones and improving transparency around deliverables.\n\nKey motivations:\n\n1. **Alignment with AAVE performance** – linking compensation to measurable outcomes.\n2. **Preparation for V4** – establishing a synchronized, goal-driven working structure across contributors.\n3. **Simplicity and fairness** – resetting all streams equally for a one-year term.\n4. **Long-term alignment** – variable revenue sharing proposed in the State of the Union will be postponed to V4 rollout and finalized thereafter.\n\nNote: While aligned and considered a key service provider of the Aave DAO, BGD Labs has preferred to opted out of the compensation reform and crafted its own proposals. The ACI respects their decision and will support their standalone proposal.\n\n## Specification\n\nThe following structure will apply to all primary Aave service providers:\n\n| Provider   | Annual Stream (Reset)   | Immediate Grant       |\n| ---------- | ----------------------- | --------------------- |\n| ACI        | Same as previous stream | $250K AAVE (30d TWAP) |\n| TokenLogic | 2.5M GHO                | $250K AAVE (30d TWAP) |\n| LlamaRisk  | Same as previous stream | $250K AAVE (30d TWAP) |\n| Chaos Labs | Same as previous stream | $250K AAVE (30d TWAP) |\n\nFor service providers allowed to have concurrent streams (Chaos Labs & TokenLogic), the oldest stream will not be reset.\n\nThe TWAP price used for AAVE is 263.15$\n\nThe vesting mentioned in the original discussion will be handled separately by the AFC\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/36eb591612d740537c314c0e0ffe86ab55ceda1d/src/20251021_AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment/AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/36eb591612d740537c314c0e0ffe86ab55ceda1d/src/20251021_AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment/AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xdf44cfaac72f0413d639d017c299a6491ba74a55fffcfdf74debfba51932891b)\n- [Discussion](https://governance.aave.com/t/arfc-service-provider-compensation-reform-for-v4-alignment/23246)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Service Provider Compensation Reform for V4 Alignment",
+    "author": "Aave-chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-service-provider-compensation-reform-for-v4-alignment/23246",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0xdf44cfaac72f0413d639d017c299a6491ba74a55fffcfdf74debfba51932891b",
+    "originalIpfsHash": "0xadec1fb6812a8f5502d9011ecc87c484444ff615cdf00f38bc0f1cca036ab93b"
+  },
+  "proposal": {
+    "id": 401,
+    "votingDuration": 259200,
+    "creationTime": 1762173995,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xadec1fb6812a8f5502d9011ecc87c484444ff615cdf00f38bc0f1cca036ab93b",
+    "initialPayloads": [
+      {
+        "id": 364,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 401,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1762182382,
+    "cancellationFee": 50000000000000000
+  }
+}
