@@ -42851,5 +42851,97 @@
     "blockHash": "0x0c302019e8ce73f051f35ceac53c232a9d9552e196703dac8355e9e0bd381ce0",
     "logIndex": 1,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "404",
+      "voter": "0xcF3C2ad2ae63A1c2E9723481aBAf4544D9D6fC32",
+      "support": true,
+      "votingPower": "129346090803987094"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000194",
+      "0x000000000000000000000000cf3c2ad2ae63a1c2e9723481abaf4544d9d6fc32",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000000001cb879593750296",
+    "blockNumber": "71620244",
+    "transactionHash": "0x6dd3b66defd41922a7d42849ef678cfe1eed7ae2ded3064db7292b21bdd315f9",
+    "transactionIndex": 1,
+    "blockHash": "0x6a94d0bf0b588f50b5827755b60f574fc4ef35f1cc9807e7a85d83c7c8bd2c6f",
+    "logIndex": 0,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "404",
+      "voter": "0xF41C7a208156B46C89e028412Dca41d1F05feDE8",
+      "support": true,
+      "votingPower": "111181082300616675"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000194",
+      "0x000000000000000000000000f41c7a208156b46c89e028412dca41d1f05fede8",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000018afe9af4458fe3",
+    "blockNumber": "71620639",
+    "transactionHash": "0x632d4dccd89bc0270dabee25d89a0253af5e5926ede716f11edee912bde7a383",
+    "transactionIndex": 5,
+    "blockHash": "0x341dea7c1ad318c5fc2fbc8899579531fd9c5e83c57a92b01291da8795c4ee4b",
+    "logIndex": 8,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "405",
+      "voter": "0xeD62616a7c1DD354801f4E72389299a81493e004",
+      "support": true,
+      "votingPower": "750493999240721626106"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000195",
+      "0x000000000000000000000000ed62616a7c1dd354801f4e72389299a81493e004",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000028af324c05957e73fa",
+    "blockNumber": "71621178",
+    "transactionHash": "0xc79e531bbd03009a840e39cc02acdda06d7ede12029b8d05fdc51a779d3f57ed",
+    "transactionIndex": 35,
+    "blockHash": "0xbfe8061e858112093947474444dc9c3cb1b116f2c4f0945200a9ddf8856df0c2",
+    "logIndex": 72,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "405",
+      "voter": "0x7c4b8BfBf1a92D745593a75d0b8Cf6D324d48101",
+      "support": true,
+      "votingPower": "106054407501864569"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x0000000000000000000000000000000000000000000000000000000000000195",
+      "0x0000000000000000000000007c4b8bfbf1a92d745593a75d0b8cf6d324d48101",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000000000178c7ebf6035e79",
+    "blockNumber": "71621267",
+    "transactionHash": "0x8cc0dddc873ea0859619d529a186a3889afeea3cc393396f838fe5134959e337",
+    "transactionIndex": 2,
+    "blockHash": "0x59f7081d350ff6db319c001a202d7a4815abf59014591ea61b7ff2e8e1b12b55",
+    "logIndex": 1,
+    "removed": false
   }
 ]
