@@ -3413,5 +3413,14 @@
     "discussions": "https://governance.aave.com/t/arfc-deprecation-of-low-demand-volatile-assets-on-aave-v3-instances/23261",
     "snapshot": "Direct-to-AIP",
     "originalIpfsHash": "0x4cc9da7ec6a32cbd5571aedb4212b5d34af8888d2bfca14145362439a0b553cc"
+  },
+  "0x5be17287148bec343b39d20f7ab0b8cf25ed1cd33a05b1545b4a963333c32c13": {
+    "ipfsHash": "QmUXKCNQNUhvGpQcLX5UYEHnd4ctMyWU9upVrkwECg5WSe",
+    "description": "\n## Simple Summary\n\nFreeze wstETH on Plasma instance\n\n## Motivation\n\nLast week, Lido [announced](https://blog.lido.fi/announcing-partnership-with-chainlink-on-adopting-ccip-as-official-cross-chain-infrastructure-for-wsteth/) that Chainlink's CCIP will be the official cross-chain infrastructure for wstETH. While the wstETH representation on Plasma was already deployed through CCIP, it was unfortunately not set up in a fully future-proof manner.\n\nTogether with Chainlink, they have decided to redeploy the token contract to ensure the deployment is in line with the new cross-chain strategy. They ask us to deprecate the asset.\n\nRight now, there is about 0.044 wstETH on Aave Plasma instance / 0.12 wstETH on Plasma.\n\n## Specification\n\nIf passed, this AIP will freeze wstETH reserve on Plasma, preventing new deposits, borrows, or collateral enablement.\n\n### Copyright\n\nCopyright and related rights waived under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)\n\n## References\n\n- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/e0adf2f170cf1e7a896529ef75e9c138c785ef20/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.sol)\n- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/e0adf2f170cf1e7a896529ef75e9c138c785ef20/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.t.sol)\n- [Discussion](https://governance.aave.com/t/direct-to-aip-freeze-wsteth-on-plasma/23400)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Freeze wstETH Plasma",
+    "author": "Lido (implemented by ACI via Skyward)",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-freeze-wsteth-on-plasma/23400",
+    "snapshot": "Direct to AIP",
+    "originalIpfsHash": "0x5be17287148bec343b39d20f7ab0b8cf25ed1cd33a05b1545b4a963333c32c13"
   }
 }
