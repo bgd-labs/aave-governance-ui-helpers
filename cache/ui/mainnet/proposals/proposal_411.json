@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1763469239,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1766493239,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xDf574339455d0eA4a3EfD3e1D7913F369d0CDDae",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 371,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmUDnpLSvCeWYY2mmYvjZWbjwCBwhCQXumasTyFYnbYCV2",
+    "description": "\n## Simple Summary\n\nThis AIP proposes to onboard USDe and sUSDe February expiry PT tokens on Aave V3 Core Instance.\n\nThis proposal is Direct to AIP.\n\n## Motivation\n\nThe previous USDe and sUSDe PT tokens that were onboarded have brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token. We expect at a minimum that deposits will match those in the current expiry PT token, with potentially some sidelined demand.\n\n## Specification\n\nPT-sUSDE-5FEB2026: https://etherscan.io/address/0xe8483517077afa11a9b07f849cee2552f040d7b2\n\nPT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bbd17d34350\n\n| **Parameter**            | **Value**                         | **Value**                           |\n| ------------------------ | --------------------------------- | ----------------------------------- |\n| Asset                    | PT-USDe-5FEB2026                  | PT-sUSDe-5FEB2026                   |\n| Isolation Mode           | No                                | No                                  |\n| Borrowable               | No                                | No                                  |\n| Collateral Enabled       | Yes                               | Yes                                 |\n| Supply Cap               | 30,000,000                        | 30,000,000                          |\n| Borrow Cap               | -                                 | -                                   |\n| Debt Ceiling             | -                                 | -                                   |\n| LTV                      | 0.05%                             | 0.05%                               |\n| LT                       | 0.1%                              | 0.1%                                |\n| Liquidation Penalty      | 7.50%                             | 7.50%                               |\n| Liquidation Protocol Fee | 10.00%                            | 10.00%                              |\n| E-Mode Category          | PT-USDe Stablecoins, PT-USDe USDe | PT-sUSDe Stablecoins, PT-sUSDe USDe |\n\n### PT-USDe-5FEB2026\n\n**Initial E-mode Risk Oracle**\n\n| **Parameter** | **Value**   | **Value** |\n| ------------- | ----------- | --------- |\n| E-Mode        | Stablecoins | USDe      |\n| LTV           | 88.5%       | 89.3%     |\n| LT            | 90.5%       | 91.3%     |\n| LB            | 4.1%        | 3.1%      |\n\n**Linear Discount Rate Oracle**\n\n| **Parameter**          | **Value** |\n| ---------------------- | --------- |\n| discountRatePerYear    | 5.5266%   |\n| maxDiscountRatePerYear | 27.1629%  |\n\n**PT-USDe Stablecoins E-mode**\n\n| **Asset**         | **PT-USDe-5FEB2026**   | **PT-USDe-27NOV2026**  | **USDC** | **USDT** | **USDe** | **USDtb** |\n| ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- | --------- |\n| Collateral        | Yes                    | Yes                    | No       | No       | No       | No        |\n| Borrowable        | No                     | No                     | Yes      | Yes      | Yes      | Yes       |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |\n\n**PT-USDe USDe E-mode**\n\n| **Asset**         | **PT-USDe-5FEB2026**   | **PT-USDe-27NOV2026**  | **USDe** |\n| ----------------- | ---------------------- | ---------------------- | -------- |\n| Collateral        | Yes                    | Yes                    | No       |\n| Borrowable        | No                     | No                     | Yes      |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n\n### PT-sUSDe-5FEB2026\n\n**Initial E-mode Risk Oracle**\n\n| **Parameter** | **Value**   | **Value** |\n| ------------- | ----------- | --------- |\n| E-Mode        | Stablecoins | USDe      |\n| LTV           | 87.6%       | 88.5%     |\n| LT            | 89.6%       | 90.5%     |\n| LB            | 5.1%        | 4.1%      |\n\n**Linear Discount Rate Oracle**\n\n| **Parameter**                 | **Value** |\n| ----------------------------- | --------- |\n| discountRatePerYear (Initial) | 6.1953%   |\n| maxDiscountRatePerYear        | 27.1629%  |\n\n**PT-sUSDe Stablecoins E-mode**\n\n| **Asset**         | **PT-sUSDe-5FEB2026**  | **PT-sUSDe-27NOV2026** | **USDC** | **USDT** | **USDe** | **USDtb** |\n| ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- | --------- |\n| Collateral        | Yes                    | Yes                    | No       | No       | No       | No        |\n| Borrowable        | No                     | No                     | Yes      | Yes      | Yes      | Yes       |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |\n\n**PT-sUSDe USDe E-mode**\n\n| **Asset**         | **PT-sUSDe-5FEB2026**  | **PT-sUSDe-27NOV2026** | **USDe** |\n| ----------------- | ---------------------- | ---------------------- | -------- |\n| Collateral        | Yes                    | Yes                    | No       |\n| Borrowable        | No                     | No                     | Yes      |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDe_5FEB_2026 , PT_USDe_5FEB_2026 and their corresponding aTokens.\n\n## Capo adapters\n\n| Parameter              |                                                                                                                PT USDe FEB 5 |\n| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------: |\n| Oracle                 | [PT Capped USDe USDT/USD linear discount 05FEB2026](https://etherscan.io/address/0xc35d319fa5fec2bbe0eb4d0a826465b60f821f81) |\n| USDT/USD Oracle        |                                                                [Capped USDT/USD](0x260326c220E469358846b187eE53328303Efe19C) |\n| Oracle Latest Answer   |                                                                                                  (2025-11-17) USD 0.98716883 |\n|  discountRatePerYear   |                                                                                                                      5.5266% |\n| maxDiscountRatePerYear |                                                                                                                     27.1629% |\n\n| Parameter                     |                                                                                                                PT sUSDe FEB 5 |\n| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------: |\n| Oracle                        | [PT Capped sUSDe USDT/USD linear discount 05FEB2026](https://etherscan.io/address/0x4e89f87f24c13819bbddb56f99b38746c91677d8) |\n| USDT/USD Oracle               |                                                                 [Capped USDT/USD](0x260326c220E469358846b187eE53328303Efe19C) |\n| Oracle Last Answer            |                                                                                                                USD 0.98571889 |\n| discountRatePerYear (Initial) |                                                                                                                       6.1953% |\n| maxDiscountRatePerYear        |                                                                                                                      27.1629% |\n\n### Useful Links\n\nhttps://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e902b482034644417255678316ef8311f04ad6aa/src/20251111_AaveV3Ethereum_EthenaPTFEBListing/AaveV3Ethereum_EthenaPTFEBListing_20251111.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e902b482034644417255678316ef8311f04ad6aa/src/20251111_AaveV3Ethereum_EthenaPTFEBListing/AaveV3Ethereum_EthenaPTFEBListing_20251111.t.sol)\n- [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-february-expiry-pt-tokens-on-aave-v3-core-instance/23358)\n\n## Disclaimer\n\nACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Ethena PT FEB Listing",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-february-expiry-pt-tokens-on-aave-v3-core-instance/23358",
+    "originalIpfsHash": "0x576439144ff437d31f373ac81d37f1864ad309c2c6c9508d72642e24e8c54bbd"
+  },
+  "proposal": {
+    "id": 411,
+    "votingDuration": 259200,
+    "creationTime": 1763469287,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x576439144ff437d31f373ac81d37f1864ad309c2c6c9508d72642e24e8c54bbd",
+    "initialPayloads": [
+      {
+        "id": 371,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 411,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1763478391,
+    "cancellationFee": 50000000000000000
+  }
+}
