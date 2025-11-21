@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1763724333,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1766748333,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x20f2b49C3d0022BE1e19EC3430d2146A0009B1DF",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 101,
+      "chainId": 43114,
+      "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmbCZXighJZFBZyhGhL5Jcw969VzVCqA3fXgGa4piq8RMb",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to onboard rsETH to the Aave V3 deployment on the Avalanche network.\n\nAs the onboarding of rsETH has already been approved and executed on the Ethereum, Arbitrum, and Base Aave V3 instances, this proposal follows the Direct-to-AIP path to extend rsETH support to the Avalanche instance without repeating the full ARFC process.\n\n## Motivation\n\nrsETH is a liquid staking token issued by Kelp DAO, offering users access to rewards from ETH staking while maintaining liquidity and DeFi composability. Its integrations on Aave across other networks have proven successful in terms of risk profile and utility.\n\nGiven that rsETH has already passed governance and risk assessments for Ethereum, Arbitrum, Linea, and Base this proposal aims to onboard rsETH to Avalanche V3 under the same configuration parameters used for other L2s, adjusted for market conditions where appropriate.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **wrsETH**\n\n| Parameter                 |    Value |\n| ------------------------- | -------: |\n| Isolation Mode            |    false |\n| Borrowable                | DISABLED |\n| Collateral Enabled        |     true |\n| Supply Cap (wrsETH)       |    5,000 |\n| Borrow Cap (wrsETH)       |        1 |\n| Debt Ceiling              |    USD 0 |\n| LTV                       |   0.05 % |\n| LT                        |    0.1 % |\n| Liquidation Bonus         |      7 % |\n| Liquidation Protocol Fee  |     10 % |\n| Reserve Factor            |     45 % |\n| Base Variable Borrow Rate |      0 % |\n| Variable Slope 1          |     10 % |\n| Variable Slope 2          |    300 % |\n| Uoptimal                  |     45 % |\n| Flashloanable             |  ENABLED |\n| Siloed Borrowing          | DISABLED |\n| Borrowable in Isolation   | DISABLED |\n\n### Oracle\n\n| Parameter              |                                                                                                Value |\n| ---------------------- | ---------------------------------------------------------------------------------------------------: |\n| Oracle address         | [Capped wrsETH / ETH / USD](https://snowscan.xyz/address/0xe5af98d1c62c7d9c1378af187eefb0bee112ff64) |\n| Ratio provider         |  [WRSETH-ETH Exchange Rate](https://snowscan.xyz/address/0xFA38289Fe9f043aD8CCD8e81b28C1D02666D51b6) |\n| Underlying             |                 [ETH / USD](https://snowscan.xyz/address/0x976B3D034E162d8bD72D6b9C989d545b839003b0) |\n| Max Yearly Growth      |                                                                                                9.83% |\n| Minimum Snapshot delay |                                                                                              14 days |\n| last answer            |                                                                       (2025-11-17) USD 3231.04489472 |\n\n### E-mode\n\n#### wrsETH/WETH E-Mode\n\n| **Parameter**         | **wrsETH** | **WETH** |\n| --------------------- | ---------- | -------- |\n| Collateral            | Yes        | No       |\n| Borrowable            | No         | Yes      |\n| Max LTV               | 93%        | -        |\n| Liquidation Threshold | 95%        | -        |\n| Liquidation Bonus     | 1.0%       | -        |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowscan.xyz/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for wrsETH and the corresponding aToken.\n\n## References\n\n- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/502ab2e2881bd9530694e8ecdd861a205da7fef1/src/20251117_AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance_20251117.sol)\n- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/502ab2e2881bd9530694e8ecdd861a205da7fef1/src/20251117_AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance_20251117.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-rseth-to-aave-v3-avalanche-instance/23313)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Onboard rsETH to Aave V3 Avalanche Instance",
+    "author": "Aave-chan Initiative",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-onboard-rseth-to-aave-v3-avalanche-instance/23313",
+    "originalIpfsHash": "0xbf156d74503ef58e0625124f71e4e5584b30e823996b82e60724656e35be9902"
+  },
+  "proposal": {
+    "id": 414,
+    "votingDuration": 259200,
+    "creationTime": 1763724431,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xbf156d74503ef58e0625124f71e4e5584b30e823996b82e60724656e35be9902",
+    "initialPayloads": [
+      {
+        "id": 101,
+        "chainId": 43114,
+        "payloadsController": "0x1140CB7CAfAcC745771C2Ea31e7B5C653c5d0B80"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 414,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1763726983,
+    "cancellationFee": 50000000000000000
+  }
+}
