@@ -1,0 +1,115 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1764123143,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1767147143,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x9ED5BfdBA709318a1d7AAf6644D20Fa4497Dc14f",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 374,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1764123220,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1767147220,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xAf246E4A133E95Fcf8F8BEF5a4509D4221a2bFaE",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 16,
+      "chainId": 59144,
+      "payloadsController": "0x3BcE23a1363728091bc57A58a226CF2940C2e074"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmTJq8H7TvCtWgUHzSPWqFpaR9Yn9EQR1HZZAnTEwXwkGM",
+    "description": "\n## Simple Summary\n\nThis publication proposes onboarding MetaMask's mUSD stablecoin to the Core instance of Aave v3 on Ethereum and Linea.\n\n## Motivation\n\nMetaMask USD (mUSD) is a dollar-denominated stablecoin natively integrated into MetaMask. mUSD is issued by Bridge, a Stripe company, and stablecoin issuance and orchestration platform. On-chain MetaMask USD is powered by M0, a decentralized stablecoin infrastructure and liquidity platform. mUSD will be deeply integrated into MetaMask’s wallet, offering users a seamless, dollar-denominated stablecoin experience for holding, spending, and transacting in web3.\n\n### Key properties\n\n- Wallet-native: deeply integrated across MetaMask UX and supported dapps.\n- Multi-chain at launch: Ethereum Mainnet and Linea and will play a foundational role in the growing Linea DeFi ecosystem and network expansion.\n- Interoperable: designed for cross-chain liquidity via the M0 network.\n- Transparency-first: reserve management by Bridge with real-time reporting.\n  mUSD is fully backed 1:1 by high-quality, liquid dollar-equivalent assets. Bridge provides real-time transparency reporting, with independent attestations to follow. The launch aligns with new U.S. regulatory clarity under the GENIUS Act.\n\n### Payments & MetaMask Card\n\nmUSD supports on-ramps, swaps, bridging, and will soon be spendable via the MetaMask Card at millions of Mastercard merchants.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **mUSD** on Ethereum.\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                    ENABLED |\n| Collateral Enabled        |                                      false |\n| Supply Cap (mUSD)         |                                 10,000,000 |\n| Borrow Cap (mUSD)         |                                  8,000,000 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                        0 % |\n| LT                        |                                        0 % |\n| Liquidation Bonus         |                                        0 % |\n| Liquidation Protocol Fee  |                                        0 % |\n| Reserve Factor            |                                       20 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                      6.5 % |\n| Variable Slope 2          |                                       60 % |\n| Uoptimal                  |                                       80 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0xf22de319901C3b9BAEc7Fa14FdF013Ede40E7312 |\n\n### Oracle\n\n| Parameter      |                                                                                         Value |\n| -------------- | --------------------------------------------------------------------------------------------: |\n| Oracle address | [Capped mUSD / USD ](https://etherscan.io/address/0xf22de319901C3b9BAEc7Fa14FdF013Ede40E7312) |\n| Underlying     |         [mUSD / USD](https://etherscan.io/address/0xc90E3460424fb8ea79775089E9053113FEE34Ed0) |\n| last answer    |                                                                   (2025-11-24) USD 0.99995036 |\n\nThe table below illustrates the configured risk parameters for **mUSD** on Linea.\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                    ENABLED |\n| Collateral Enabled        |                                      false |\n| Supply Cap (mUSD)         |                                 70,000,000 |\n| Borrow Cap (mUSD)         |                                 60,000,000 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                        0 % |\n| LT                        |                                        0 % |\n| Liquidation Bonus         |                                        0 % |\n| Liquidation Protocol Fee  |                                        0 % |\n| Reserve Factor            |                                       20 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                      6.5 % |\n| Variable Slope 2          |                                       60 % |\n| Uoptimal                  |                                       80 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0xB8454f3b48395103F23c88B699d4F6A81fD1DCff |\n\n### Oracle\n\n| Parameter      |                                                                                            Value |\n| -------------- | -----------------------------------------------------------------------------------------------: |\n| Oracle address | [Capped mUSD / USD ](https://lineascan.build/address/0xB8454f3b48395103F23c88B699d4F6A81fD1DCff) |\n| Underlying     |         [mUSD / USD](https://lineascan.build/address/0xc834a55fb78dEa866E9cd86047Df0F584B9da339) |\n| last answer    |                                                                      (2025-11-24) USD 0.99974795 |\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Linea_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Linea_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x9abb72d91df849e8723ed6e8f20151310f42861a2c0d420f300324d855d787d9)\n- [Discussion](https://governance.aave.com/t/arfc-add-metamask-usd-musd-to-aave-v3-core-instance-on-ethereum-and-linea/23097)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Add MetaMask USD (mUSD) to Aave V3 Ethereum/Linea",
+    "author": "TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-add-metamask-usd-musd-to-aave-v3-core-instance-on-ethereum-and-linea/23097",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x9abb72d91df849e8723ed6e8f20151310f42861a2c0d420f300324d855d787d9",
+    "originalIpfsHash": "0x49d30d20a4b529c3f9ff5834349e650169854b910c40b2070a929fa04d2b6dd6"
+  },
+  "proposal": {
+    "id": 415,
+    "votingDuration": 259200,
+    "creationTime": 1764123311,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x49d30d20a4b529c3f9ff5834349e650169854b910c40b2070a929fa04d2b6dd6",
+    "initialPayloads": [
+      {
+        "id": 374,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 16,
+        "chainId": 59144,
+        "payloadsController": "0x3BcE23a1363728091bc57A58a226CF2940C2e074"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 415,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1764127653,
+    "cancellationFee": 50000000000000000
+  }
+}
