@@ -58030,5 +58030,97 @@
     "transactionIndex": 78,
     "logIndex": 165,
     "removed": false
+  },
+  {
+    "eventName": "ProposalQueued",
+    "args": {
+      "proposalId": "415",
+      "votesFor": "574075323931123441072714",
+      "votesAgainst": "1049076251616657"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xe39e7fc9f2013b8ab01110f66610f9fb8675d3126e69b3752f0084afc72be19a",
+      "0x000000000000000000000000000000000000000000000000000000000000019f"
+    ],
+    "data": "0x000000000000000000000000000000000000000000007990af87fdef2d71fa4a0000000000000000000000000000000000000000000000000003ba211951e591",
+    "blockHash": "0x0fedad35946ec66dcdf9d140d6a7e9ace3bdb8ada256d43352c8ace728e217a3",
+    "blockNumber": "23908534",
+    "blockTimestamp": "0x692bad8f",
+    "transactionHash": "0x803b5c8a31c6bf65f27376768cb9ead43748edca27993a8e6de5bf072a1ab0c3",
+    "transactionIndex": 56,
+    "logIndex": 306,
+    "removed": false
+  },
+  {
+    "eventName": "PayloadSent",
+    "args": {
+      "proposalId": "415",
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5",
+      "chainId": "1",
+      "payloadId": 374,
+      "payloadNumberOnProposal": "0",
+      "numberOfPayloadsOnProposal": "2"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x9c687134d572ff69f3e23f40470562650574c5c7cab9f535268763b2d00da65b",
+      "0x000000000000000000000000000000000000000000000000000000000000019f",
+      "0x000000000000000000000000dabad81af85554e9ae636395611c58f7ec1aaec5",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000000017600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002",
+    "blockHash": "0x782027824109ec4881b24128bbdfa03a7f457e3e3a2bd54f1173bb67e88cc2c7",
+    "blockNumber": "23908535",
+    "blockTimestamp": "0x692bad9b",
+    "transactionHash": "0x8c59654bca880d9eaf04d2c8747046a99ea4581ba9ecbf46e04094bb19b0f5ae",
+    "transactionIndex": 18,
+    "logIndex": 46,
+    "removed": false
+  },
+  {
+    "eventName": "PayloadSent",
+    "args": {
+      "proposalId": "415",
+      "payloadsController": "0x3BcE23a1363728091bc57A58a226CF2940C2e074",
+      "chainId": "59144",
+      "payloadId": 16,
+      "payloadNumberOnProposal": "1",
+      "numberOfPayloadsOnProposal": "2"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x9c687134d572ff69f3e23f40470562650574c5c7cab9f535268763b2d00da65b",
+      "0x000000000000000000000000000000000000000000000000000000000000019f",
+      "0x0000000000000000000000003bce23a1363728091bc57a58a226cf2940c2e074",
+      "0x000000000000000000000000000000000000000000000000000000000000e708"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002",
+    "blockHash": "0x782027824109ec4881b24128bbdfa03a7f457e3e3a2bd54f1173bb67e88cc2c7",
+    "blockNumber": "23908535",
+    "blockTimestamp": "0x692bad9b",
+    "transactionHash": "0x8c59654bca880d9eaf04d2c8747046a99ea4581ba9ecbf46e04094bb19b0f5ae",
+    "transactionIndex": 18,
+    "logIndex": 51,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalExecuted",
+    "args": {
+      "proposalId": "415"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x712ae1383f79ac853f8d882153778e0260ef8f03b504e2866e0593e04d2b291f",
+      "0x000000000000000000000000000000000000000000000000000000000000019f"
+    ],
+    "data": "0x",
+    "blockHash": "0x782027824109ec4881b24128bbdfa03a7f457e3e3a2bd54f1173bb67e88cc2c7",
+    "blockNumber": "23908535",
+    "blockTimestamp": "0x692bad9b",
+    "transactionHash": "0x8c59654bca880d9eaf04d2c8747046a99ea4581ba9ecbf46e04094bb19b0f5ae",
+    "transactionIndex": 18,
+    "logIndex": 52,
+    "removed": false
   }
 ]
