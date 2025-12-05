@@ -1,0 +1,77 @@
+{
+  "payloads": [
+    {
+      "creator": "0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1764904703,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1767928703,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x7E386B4a4Fb8695D88bB49bEeed45ECd08C20f88",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 377,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": null,
+  "proposal": {
+    "id": 418,
+    "votingDuration": 259200,
+    "creationTime": 1764904787,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x9a5336582f4cc10f29128ba051dc4e3e5ff9a0d83229c7589fded56ec1488529",
+    "initialPayloads": [
+      {
+        "id": 377,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 418,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1764905480,
+    "cancellationFee": 50000000000000000
+  }
+}
