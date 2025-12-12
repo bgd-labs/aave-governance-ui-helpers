@@ -40,6 +40,16 @@ async function updateIpfsCache(proposalsCache: ProposalsCache) {
     readJSONCache('web3', 'ipfs') || {};
   for (const key of Object.keys(proposalsCache)) {
     const id = Number(key);
+    if (id === 420) {
+      const metadata = await getProposalMetadata({
+        hash: "0xf7f1081ce650af5f68e57d058f61290764c4093f309902dea0791609717df59a",
+        gateway: ipfsPrivateGateway,
+      });
+      if (metadata) {
+        ipfsCache[proposalsCache[id].ipfsHash] = metadata;
+      }
+      continue;
+    }
     if (!ipfsCache[proposalsCache[id].ipfsHash]) {
       try {
         const metadata = await getProposalMetadata({
@@ -90,17 +100,17 @@ async function updatePayloadsEvents(
   const lastSeenBlock = bookKeepingCache[payloadsPath]
     ? BigInt(bookKeepingCache[payloadsPath])
     : (
-        await getBlockAtTimestamp({
-          client: client,
-          timestamp: BigInt(
-            payloadsCache[0]?.createdAt ||
-              currentBlockOnPayloadsControllerChain.timestamp,
-          ),
-          fromBlock: BigInt(0),
-          toBlock: currentBlockOnPayloadsControllerChain.number,
-          maxDelta: BigInt(60 * 60), // 1h
-        })
-      ).number;
+      await getBlockAtTimestamp({
+        client: client,
+        timestamp: BigInt(
+          payloadsCache[0]?.createdAt ||
+          currentBlockOnPayloadsControllerChain.timestamp,
+        ),
+        fromBlock: BigInt(0),
+        toBlock: currentBlockOnPayloadsControllerChain.number,
+        maxDelta: BigInt(60 * 60), // 1h
+      })
+    ).number;
 
   const logs = await getPayloadsControllerEvents(
     controller,
@@ -200,14 +210,14 @@ async function updateGovCoreEvents(
   const lastSeenBlock = bookKeepingCache[bookKeepingCacheId]
     ? BigInt(bookKeepingCache[bookKeepingCacheId])
     : (
-        await getBlockAtTimestamp({
-          client: client,
-          timestamp: BigInt(proposalsCache[0].creationTime),
-          fromBlock: BigInt(0),
-          toBlock: currentBlockOnGovernanceChain,
-          maxDelta: BigInt(60 * 60 * 24),
-        })
-      ).number;
+      await getBlockAtTimestamp({
+        client: client,
+        timestamp: BigInt(proposalsCache[0].creationTime),
+        fromBlock: BigInt(0),
+        toBlock: currentBlockOnGovernanceChain,
+        maxDelta: BigInt(60 * 60 * 24),
+      })
+    ).number;
 
   const logs = await getGovernanceEvents(
     contract.address,
@@ -269,12 +279,12 @@ async function updateVMEvents(
       const lastSeenBlock = bookKeepingCache[path]
         ? BigInt(bookKeepingCache[path])
         : await getContractDeploymentBlock({
-            client: client,
-            contractAddress: address,
-            fromBlock: BigInt(0),
-            toBlock: currentBlockOnVotingMachineChain,
-            maxDelta: BigInt(10000),
-          });
+          client: client,
+          contractAddress: address,
+          fromBlock: BigInt(0),
+          toBlock: currentBlockOnVotingMachineChain,
+          maxDelta: BigInt(10000),
+        });
       const logs = await getVotingMachineEvents(
         address,
         client,
@@ -370,7 +380,7 @@ export async function updateCache({
                 payloadS[payload.payloadId] &&
                 payloadS[payload.payloadId].id === payload.payloadId &&
                 payloadS[payload.payloadId].payloadsController ===
-                  payload.payloadsController &&
+                payload.payloadsController &&
                 payloadS[payload.payloadId].chainId === Number(payload.chain),
             );
           if (cachedPayloadsData) {
