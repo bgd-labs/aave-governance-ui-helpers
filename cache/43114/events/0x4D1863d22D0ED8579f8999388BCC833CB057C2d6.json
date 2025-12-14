@@ -71175,5 +71175,97 @@
     "blockHash": "0xdb503ab73dedfea74533e72714a47df29ae4a61704e51608b9f27a702da05463",
     "logIndex": 6,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "420",
+      "voter": "0x48e55f2bf1be8b1C7a67Cb2137D7C3Fb8f676430",
+      "support": true,
+      "votingPower": "1344816724840000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001a4",
+      "0x00000000000000000000000048e55f2bf1be8b1c7a67cb2137d7c3fb8f676430",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000048e714c618fc701000",
+    "blockNumber": "73714612",
+    "transactionHash": "0xc4b31eb43edbe967171db704577bb34e2bae80b9d92c11b05a66b43a19f31c45",
+    "transactionIndex": 41,
+    "blockHash": "0xe3a6a943f04be059c83b927c02e770d14f48fa7d811314766bb10bfa146adc77",
+    "logIndex": 25,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "420",
+      "voter": "0x4CA6B5aD4489d95adCD7032Ec57CA3C103FB7f10",
+      "support": true,
+      "votingPower": "109679205690044637"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001a4",
+      "0x0000000000000000000000004ca6b5ad4489d95adcd7032ec57ca3c103fb7f10",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000000000185a8a80e66f0dd",
+    "blockNumber": "73717177",
+    "transactionHash": "0x4ce96584b96c00fff8f970aeb6b44232e1708f5272ded397e74084dbc4c46adb",
+    "transactionIndex": 0,
+    "blockHash": "0x94b612c47f235a55a68758c95f44a844e6979ba2b6073f841d50c0a5565ef9d9",
+    "logIndex": 0,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "420",
+      "voter": "0x3E51A14e55f55E6dbDAFe8C1EddE9cf3Bb020586",
+      "support": true,
+      "votingPower": "126989166806213573"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001a4",
+      "0x0000000000000000000000003e51a14e55f55e6dbdafe8c1edde9cf3bb020586",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000000001c327f971cea3c5",
+    "blockNumber": "73717407",
+    "transactionHash": "0x774c8466dbf4c0401cec434b5cb7208dd0a6cbcbbf3ac516fe9e62de6ce667c2",
+    "transactionIndex": 0,
+    "blockHash": "0x60f8c353c623a7213e32d420e87d21f372d7e8a44b718d0d7255a07a2d72a36a",
+    "logIndex": 0,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "420",
+      "voter": "0x10C4EaedEE32D5b51bc166a4792c789781E66069",
+      "support": true,
+      "votingPower": "110952836063708917"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001a4",
+      "0x00000000000000000000000010c4eaedee32d5b51bc166a4792c789781e66069",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000018a2f043c6646f5",
+    "blockNumber": "73717918",
+    "transactionHash": "0x1a7d05894b6fcd0a5cebd989e3a5821e09f0c193a41effddf8557cb13c6f086d",
+    "transactionIndex": 1,
+    "blockHash": "0x934c5f575475423170fd4d3da2ecfd0bee4b23d0b57373f5c105de9850c481ca",
+    "logIndex": 1,
+    "removed": false
   }
 ]
