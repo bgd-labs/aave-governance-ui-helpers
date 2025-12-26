@@ -78951,5 +78951,97 @@
     "blockHash": "0xca33c487a6488e04217ae3fea38fec3030fd18a624554d50db1eea0051aa13a8",
     "logIndex": 3,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "426",
+      "voter": "0x475E41b482aFC82BAE8025D09d128F30B680E10c",
+      "support": true,
+      "votingPower": "1117388606490505"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001aa",
+      "0x000000000000000000000000475e41b482afc82bae8025d09d128f30b680e10c",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000000000003f8424ef74789",
+    "blockNumber": "74459114",
+    "transactionHash": "0x05bc4ab7c5fb04e6aa9c96d9c9576cad2a237ea4dda4ba758802360cee0bf448",
+    "transactionIndex": 41,
+    "blockHash": "0x037320d4c6838c4a015e77b2188345dfc3cf9a62a96a5595f917bca21ad95fef",
+    "logIndex": 54,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "425",
+      "voter": "0x475E41b482aFC82BAE8025D09d128F30B680E10c",
+      "support": false,
+      "votingPower": "1117388606490505"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001a9",
+      "0x000000000000000000000000475e41b482afc82bae8025d09d128f30b680e10c",
+      "0x0000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000000000003f8424ef74789",
+    "blockNumber": "74459472",
+    "transactionHash": "0x8ab28a5185513bbd4168ab1f11c90881a3b3e07af31a80dd5d8bb3006d213c68",
+    "transactionIndex": 18,
+    "blockHash": "0xf6051100d727c1907c9bc95bc32b9bd337a36e2d934d7c08e8c5f9a97dbacc79",
+    "logIndex": 24,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "426",
+      "voter": "0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0",
+      "support": true,
+      "votingPower": "20114382355830095917979"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001aa",
+      "0x0000000000000000000000003ddc7d25c7a1dc381443e491bbf1caa8928a05b0",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000004426721560ff5b2b39b",
+    "blockNumber": "74463615",
+    "transactionHash": "0x382c1e9d262194ecf8aac0427480d7ceae45e6ccef416bb83273a9db3222fc6a",
+    "transactionIndex": 26,
+    "blockHash": "0xa8584e9cb2bac79f10d1f1ddd0fd6dab7dc554eb9b57d4edcd3d2b17046f988f",
+    "logIndex": 50,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "425",
+      "voter": "0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0",
+      "support": true,
+      "votingPower": "20114382355830095917979"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001a9",
+      "0x0000000000000000000000003ddc7d25c7a1dc381443e491bbf1caa8928a05b0",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000004426721560ff5b2b39b",
+    "blockNumber": "74463617",
+    "transactionHash": "0x4d0d3e5d3164ccf83e29f4d7103f02b0e42d2bca5b76b8169a48bcaa398d5699",
+    "transactionIndex": 21,
+    "blockHash": "0xccb52b8f2bbdb1630ed7b8516e8ce5da56913c48455ea7ebf1823ebff94db850",
+    "logIndex": 64,
+    "removed": false
   }
 ]
