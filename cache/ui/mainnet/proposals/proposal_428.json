@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1767196802,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1770220802,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x416Acb65Ba1C93A3D4c451efC913178Ce24da4Fe",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 13,
+      "chainId": 9745,
+      "payloadsController": "0xe76EB348E65eF163d85ce282125FF5a7F5712A1d"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmW2ic7batdtCU7sFd2dcLchfaRtFuHu1Q5gJxfGmUjju2",
+    "description": "\n## Simple Summary\n\nThis AIP proposes to onboard USDe and sUSDe April expiry PT tokens on Aave V3 Plasma Instance.\n\n## Motivation\n\nThe previous USDe and sUSDe PT tokens that were onboarded have brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token. We expect at a minimum that deposits will match those in the current expiry PT token, with potentially some sidelined demand.\n\n### Asset State\n\n#### Asset Growth\n\nEthena’s USDe supply has recently seen a consolidation. The total supply of USDe is now at 6.561 billion. A significant portion of this is staked as sUSDe, with the total supply of the yield-bearing sUSDe reaching over 3.55 billion, reflecting a staking ratio of approximately 54.25%.\n\n#### Underlying Stability\n\nThe market price of USDe remains pegged to $1.00, with no significant deviations from the peg since the 10/10 market crash. From a protocol health perspective, Ethena maintains a solvency ratio of 101.64% and is supported by a Reserve Fund capitalized at over $62.07 million. The historical price chart shows the peg’s stability.\n\n![Underlying Stability](https://europe1.discourse-cdn.com/flex013/uploads/aave/original/2X/a/ab378b3eba7bbbd912e85e70e0d21bdf24b886bf.png)\n_Source: LlamaRisk, December 12, 2025_\n\n## Useful Links\n\nhttps://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT\n\n## Specification\n\nPT-sUSDE-9APR2026: https://plasmascan.to/address/0xab509448ad489e2e1341e25cc500f2596464cc82\n\nPT-USDe-9APR2026: https://plasmascan.to/address/\n\n### Migration of Existing PTs\n\nTo support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2026 assets maturing in mid-January to PT-sUSDe-9APR2026 and PT-USDe-9APR2026, we recommend including PT-USDe-15JAN2026 and PT-sUSDe-15JAN2026 in the newly created respective E-Modes.\n\n### PT-USDe-9APR2026\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                   DISABLED |\n| Collateral Enabled        |                                       true |\n| Supply Cap                |                                 40,000,000 |\n| Borrow Cap                |                                          1 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                     0.05 % |\n| LT                        |                                      0.1 % |\n| Liquidation Bonus         |                                      7.5 % |\n| Liquidation Protocol Fee  |                                       10 % |\n| Reserve Factor            |                                       45 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                       10 % |\n| Variable Slope 2          |                                      300 % |\n| Uoptimal                  |                                       45 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0x37f3a8b02BAbe4dd71acb5f214F22C09AFf607f3 |\n| E-Mode Category           |          PT-USDe Stablecoins, PT-USDe USDe |\n\n**Initial E-mode Risk Oracle**\n\n| **Parameter** | **Value**   | **Value** |\n| ------------- | ----------- | --------- |\n| E-Mode        | Stablecoins | USDe      |\n| LTV           | 86.4%       | 87.2%     |\n| LT            | 88.4%       | 89.2%     |\n| LB            | 4.7%        | 3.7%      |\n\n**Oracle details**\nLinear discount oracle\n\n| **Parameter**          | **Value**                                                                                                                |\n| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |\n| Oracle                 | [PT Capped USDe USDT/USD linear discount](https://plasmascan.to/address/0x37f3a8b02BAbe4dd71acb5f214F22C09AFf607f3#code) |\n| USDT/USD Oracle        | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3#readContract)                 |\n| discountRatePerYear    | 4.701%                                                                                                                   |\n| maxDiscountRatePerYear | 27.276%                                                                                                                  |\n| Last Answer (Dec 31th) | 98620390 ($0.98620390)                                                                                                   |\n\n**PT-USDe Stablecoins E-mode**\n\n| **Asset**         | **PT-USDe-9APR2026**   | **PT-USDe-15JAN2026**  | **USDe**               | **USDT0** |\n| ----------------- | ---------------------- | ---------------------- | ---------------------- | --------- |\n| Collateral        | Yes                    | Yes                    | Yes                    | No        |\n| Borrowable        | No                     | No                     | Yes                    | Yes       |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -         |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -         |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -         |\n\n**PT-USDe USDe E-mode**\n\n| **Asset**         | **PT-USDe-9APR2026**   | **PT-USDe-15JAN2026**  | **USDe**               |\n| ----------------- | ---------------------- | ---------------------- | ---------------------- |\n| Collateral        | Yes                    | Yes                    | Yes                    |\n| Borrowable        | No                     | No                     | Yes                    |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle |\n\n### PT-sUSDe-9APR2026\n\n| Parameter                 |                                      Value |\n| ------------------------- | -----------------------------------------: |\n| Isolation Mode            |                                      false |\n| Borrowable                |                                   DISABLED |\n| Collateral Enabled        |                                       true |\n| Supply Cap                |                                100,000,000 |\n| Borrow Cap                |                                          1 |\n| Debt Ceiling              |                                      USD 0 |\n| LTV                       |                                     0.05 % |\n| LT                        |                                      0.1 % |\n| Liquidation Bonus         |                                      7.5 % |\n| Liquidation Protocol Fee  |                                       10 % |\n| Reserve Factor            |                                       45 % |\n| Base Variable Borrow Rate |                                        0 % |\n| Variable Slope 1          |                                       10 % |\n| Variable Slope 2          |                                      300 % |\n| Uoptimal                  |                                       45 % |\n| Flashloanable             |                                    ENABLED |\n| Siloed Borrowing          |                                   DISABLED |\n| Borrowable in Isolation   |                                   DISABLED |\n| Oracle                    | 0x13f2EA8dfa948c5247826283079615Ee4d0A1AA5 |\n| E-Mode Category           |        PT-sUSDe Stablecoins, PT-sUSDe USDe |\n\n**Initial E-mode Risk Oracle**\n\n| **Parameter** | **Value**   | **Value** |\n| ------------- | ----------- | --------- |\n| E-Mode        | Stablecoins | USDe      |\n| LTV           | 85.5%       | 87.2%     |\n| LT            | 87.5%       | 89.2%     |\n| LB            | 5.7%        | 3.7%      |\n\n**Oracle details**\nLinear discount oracle\n\n| **Parameter**                 | **Value**                                                                                                                         |\n| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |\n| Oracle                        | [PT Capped sUSDe USDT/USD linear discount](https://plasmascan.to/address/0x13f2EA8dfa948c5247826283079615Ee4d0A1AA5#readContract) |\n| USDT/USD Oracle               | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3#readContract)                          |\n| discountRatePerYear (Initial) | 5.596%                                                                                                                            |\n| maxDiscountRatePerYear        | 27.276%                                                                                                                           |\n| Last Answer (Dec 31th)        | 98379258 ($0.98379258)                                                                                                            |\n\n**PT-sUSDe Stablecoins E-mode**\n\n| **Asset**         | **PT-sUSDe-9APR2026**  | **PT-sUSDe-15JAN2026** | **sUSDe**              | **USDT0** | **USDe** |\n| ----------------- | ---------------------- | ---------------------- | ---------------------- | --------- | -------- |\n| Collateral        | Yes                    | Yes                    | Yes                    | No        | No       |\n| Borrowable        | No                     | No                     | No                     | Yes       | Yes      |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -         | -        |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -         | -        |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -         | -        |\n\n**PT-sUSDe USDe E-mode**\n\n| **Asset**         | **PT-sUSDe-9APR2026**  | **PT-sUSDe-15JAN2026** | **sUSDe**              | **USDe** |\n| ----------------- | ---------------------- | ---------------------- | ---------------------- | -------- |\n| Collateral        | Yes                    | Yes                    | Yes                    | No       |\n| Borrowable        | No                     | No                     | No                     | Yes      |\n| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for both asset listed\n\n### Disclaimer\n\nACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.\n\n## References\n\n- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/f3649c0066c4a7eda7084d4841e8a95185017bf4/src/20251217_AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance/AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217.sol)\n- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/f3649c0066c4a7eda7084d4841e8a95185017bf4/src/20251217_AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance/AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-april-expiry-pt-tokens-on-aave-v3-plasma-instance/23515)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Listing of PT Ethena April Maturity on Plasma Instance",
+    "author": "ACI",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-april-expiry-pt-tokens-on-aave-v3-plasma-instance/23515",
+    "originalIpfsHash": "0x724572648ae49a362eaec129e0d0662c38986a3b32606201c582d6c37f4f0031"
+  },
+  "proposal": {
+    "id": 428,
+    "votingDuration": 259200,
+    "creationTime": 1767352547,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x724572648ae49a362eaec129e0d0662c38986a3b32606201c582d6c37f4f0031",
+    "initialPayloads": [
+      {
+        "id": 13,
+        "chainId": 9745,
+        "payloadsController": "0xe76EB348E65eF163d85ce282125FF5a7F5712A1d"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 428,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1767355809,
+    "cancellationFee": 50000000000000000
+  }
+}
