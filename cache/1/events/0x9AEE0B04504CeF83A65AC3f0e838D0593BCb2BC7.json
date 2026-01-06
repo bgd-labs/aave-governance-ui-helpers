@@ -59665,5 +59665,29 @@
     "transactionIndex": 120,
     "logIndex": 548,
     "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "430",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0x85b3f3aadd693ccc0035a629d3988d5e883f811a64057d421787ca32ea65df6f"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x00000000000000000000000000000000000000000000000000000000000001ae",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x85b3f3aadd693ccc0035a629d3988d5e883f811a64057d421787ca32ea65df6f",
+    "blockHash": "0x790464b3559430406f04a025c6ee12fcee8fdcee49cb012bb7b120becaad4072",
+    "blockNumber": "24175707",
+    "blockTimestamp": "0x695d035f",
+    "transactionHash": "0x8a0eacb7ba98d08b68432544f9cdc0748613365b30514300e0c701f4c0c3a4af",
+    "transactionIndex": 220,
+    "logIndex": 1814,
+    "removed": false
   }
 ]

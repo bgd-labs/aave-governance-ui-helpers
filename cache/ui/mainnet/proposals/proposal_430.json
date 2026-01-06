@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1767699707,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1770723707,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xA0A636EAd5c1E28B9ceb88976792908B6e4f917B",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 391,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmXLa5oeDWMSVcVBfdjCRLY7ByubxE3TtSxbqaE7GsmpVU",
+    "description": "\n## Simple Summary\n\nProposing the latest renewal of the Orbit program for recognized delegates, compensating them with GHO, associated with their future governance activity during Q1 and Q2 2026( From 2026-01-01 new date when [[ARFC] Orbit Program Renewal - Q3 and Q4 2025](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289) ends, until 2026-06-30).\n\nThe reason as mentioned previously is because extending period coverage will bring more reliance and predictability for delegates platform.\n\n## Motivation\n\nOrbit recognizes the added value of the Delegates in the decentralization & diversity of the Aave DAO.\n\nThis compensation allows them to focus on Aave and keep their contribution efforts to our governance.\n\nThe ACI proposes the extension of Orbit for a both Q1 and Q2 2026, from 2026-01-01 to 2026-06-30, as mentioned previously on [[ARFC] Orbit Program Renewal - Q3 and Q4 2025](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289).\n\nAs a reminder from previous Orbit rounds, a new cutoff had been set, starting at [AIP 224](https://vote.onaave.com/proposal/?proposalId=224&ipfsHash=0xa4da1c686491e35541aa7e2659d55d0b93e395a89d1b268981aec3b8b2227bc1), to apply again previous rules of a minimum of 20k voting power and 85% vote ratio on all Snapshots and AIP to be considered eligible to Orbit.\n\nAs a reminder again, for transparency purposes, Orbit period coverage will be 2 times per year (Q1 and Q2 together, and Q3 and Q4 together), with the aim of reducing governance bloat.\n\n### Additional Compensation\n\n@EzR3al has been actively moderating Discourse and contributing to several DAO-oriented initiatives, including implementing forum add-ons and, most recently, the vote-tracking widget. These contributions have added tangible value to the ecosystem.\n\nCreating an ad hoc service provider stream would be disproportionate, but we do want to recognize and reward specific community members who consistently contribute for the benefit of the Aave ecosystem.\n\nWe would like to submit for governance approval a 100% increase in @EzR3al’s Orbit compensation to reflect the additional involvement and work delivered.\n\n## Specification\n\n- **Period Coverage:** Q1 and Q2 2026 from 2026-01-01 to 2026-06-30\n- **Eligible Platforms:**\n  - EzR3al: [0x8659d0bb123da6d16d9394c7838ba286c2207d0e](https://etherscan.io/address/0x8659d0bb123da6d16d9394c7838ba286c2207d0e)\n  - StableLab: [0xecc2a9240268bc7a26386ecb49e1befca2706ac9](https://etherscan.io/address/0xecc2a9240268bc7a26386ecb49e1befca2706ac9)\n  - IgnasDefi: [0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0](https://etherscan.io/address/0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0)\n  - Areta:[0x8b37a5Af68D315cf5A64097D96621F64b5502a22](https://etherscan.io/address/0x8b37a5Af68D315cf5A64097D96621F64b5502a22)\n- **Budget:** 150,000 GHO (aEthLidoGHO)\n- **Relevant Links:**\n  - [ACI’s Orbit tracker](https://dapps.aavechan.com/orbit-tracker)\n\n**Additional considerations:**\n\nAs a reminder, Service Providers will not be considered eligible to Orbit Program.\n\nFunds are distributed based on 180 days, as seen on budget and as specified on motivation section.\n\n## Disclosure\n\nThe ACI is independent and has not received any form of compensation from related parties for the drafting of this proposal.\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/4cb55e7ca7a76535190d1a936f8fc7f2abf55577/src/20251231_AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026/AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/4cb55e7ca7a76535190d1a936f8fc7f2abf55577/src/20251231_AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026/AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231.t.sol)\n- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xdd35aa587c490548ce8ebc6293231718e68d53ded7704f576fd07bcaabe722a8)\n- [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal-q1-and-q2-2026/23695)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Orbit Program Renewal - Q1 and Q2 2026",
+    "author": "Aave-chan Initiative",
+    "discussions": "https://governance.aave.com/t/arfc-orbit-program-renewal-q1-and-q2-2026/23695",
+    "snapshot": "https://snapshot.org/#/s:aavedao.eth/proposal/0xdd35aa587c490548ce8ebc6293231718e68d53ded7704f576fd07bcaabe722a8",
+    "originalIpfsHash": "0x85b3f3aadd693ccc0035a629d3988d5e883f811a64057d421787ca32ea65df6f"
+  },
+  "proposal": {
+    "id": 430,
+    "votingDuration": 259200,
+    "creationTime": 1767703391,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x85b3f3aadd693ccc0035a629d3988d5e883f811a64057d421787ca32ea65df6f",
+    "initialPayloads": [
+      {
+        "id": 391,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 430,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1767712015,
+    "cancellationFee": 50000000000000000
+  }
+}
