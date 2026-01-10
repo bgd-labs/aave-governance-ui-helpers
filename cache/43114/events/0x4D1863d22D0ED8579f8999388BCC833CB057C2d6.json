@@ -84134,5 +84134,50 @@
     "blockHash": "0xeae5a90e9f975e2997e98ce9969fbee760dc062c34cdc6ce680c1dbb490c789e",
     "logIndex": 45,
     "removed": false
+  },
+  {
+    "eventName": "ProposalVoteConfigurationBridged",
+    "args": {
+      "proposalId": "432",
+      "blockHash": "0x63758e8f19344e46e188f0977dcb31dc33743b62b9982afa6d2b5663bf693a85",
+      "voteCreated": false,
+      "votingDuration": 259200
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0xb97f85602e54244368524a04b5db9a67dbbbfa909eace9334c79b7c0c1d255e5",
+      "0x00000000000000000000000000000000000000000000000000000000000001b0",
+      "0x63758e8f19344e46e188f0977dcb31dc33743b62b9982afa6d2b5663bf693a85",
+      "0x0000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000003f480",
+    "blockNumber": "75436270",
+    "transactionHash": "0xcf2cb158b9ba39b548353fb8e0d74737b5e02ae8bd519bfcd8d770497cff8834",
+    "transactionIndex": 12,
+    "blockHash": "0x8b6bd906d2394eff6899c3df7d253d451e4bb3ab50aa7f33117eeafdb66b286a",
+    "logIndex": 39,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalVoteStarted",
+    "args": {
+      "proposalId": "432",
+      "l1BlockHash": "0x63758e8f19344e46e188f0977dcb31dc33743b62b9982afa6d2b5663bf693a85",
+      "startTime": "1768032350",
+      "endTime": "1768291550"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x4a35ebd1b3d3106a86d022fa35dfeaefd17695e3c7cd99d39841db619106ade2",
+      "0x00000000000000000000000000000000000000000000000000000000000001b0",
+      "0x63758e8f19344e46e188f0977dcb31dc33743b62b9982afa6d2b5663bf693a85"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000006962085e000000000000000000000000000000000000000000000000000000006965fcde",
+    "blockNumber": "75436314",
+    "transactionHash": "0xab7ababf32adb7ee9a17c17ec10350605b0f5aa1caeb4304c912a32bd5fe7d56",
+    "transactionIndex": 9,
+    "blockHash": "0xb30d0c1dab2583159b5f6dc6a7f136f6b157072e7659b8b03fa6dceeb156cc1d",
+    "logIndex": 15,
+    "removed": false
   }
 ]
