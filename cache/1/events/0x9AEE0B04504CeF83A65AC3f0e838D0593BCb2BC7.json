@@ -61276,5 +61276,51 @@
     "transactionIndex": 406,
     "logIndex": 1374,
     "removed": false
+  },
+  {
+    "eventName": "VotingActivated",
+    "args": {
+      "proposalId": "437",
+      "snapshotBlockHash": "0x1bcd752f15cae8bccc2d7c55c707b6c1c54cd10140768b7774757e8af7e6436c",
+      "votingDuration": 259200
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x45f1db29750f423920a6edede3a80ea19ceb9de3eabc072078eb539ca348dca0",
+      "0x00000000000000000000000000000000000000000000000000000000000001b5",
+      "0x1bcd752f15cae8bccc2d7c55c707b6c1c54cd10140768b7774757e8af7e6436c"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000003f480",
+    "blockHash": "0x2678626af0cf9443d466c97baefb2a0d1a1b72b49e87294da1b34420196bcfa4",
+    "blockNumber": "24283502",
+    "blockTimestamp": "0x6970d63f",
+    "transactionHash": "0x1582c56dcc75424ce88a9a654c7fba3946d0cc6e47eba397c0e5906a4d77e802",
+    "transactionIndex": 71,
+    "logIndex": 462,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "438",
+      "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+      "accessLevel": 1,
+      "ipfsHash": "0xee8234ef03e0fecc033a0eb8322ac88347aa49ccf5f0a73a4f642057fc0e4572"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x00000000000000000000000000000000000000000000000000000000000001b6",
+      "0x000000000000000000000000f71fc92e2949ccf6a5fd369a0b402ba80bc61e02",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0xee8234ef03e0fecc033a0eb8322ac88347aa49ccf5f0a73a4f642057fc0e4572",
+    "blockHash": "0xa723a9e333ef66fbb77dccbb4ea9e3b0d748fb6bace5b36f7b1cbec0bfba3ffb",
+    "blockNumber": "24283541",
+    "blockTimestamp": "0x6970d813",
+    "transactionHash": "0xf7b18456d6d0d3186fb7ed2e4f8636129c36e834a7247e2403f01d5578bddb01",
+    "transactionIndex": 174,
+    "logIndex": 445,
+    "removed": false
   }
 ]

@@ -14834,19 +14834,19 @@
         "payloadId": 15
       }
     ],
-    "isFinished": false
+    "isFinished": true
   },
   "437": {
-    "state": 1,
+    "state": 2,
     "accessLevel": 1,
     "creationTime": 1768916111,
-    "votingDuration": 0,
-    "votingActivationTime": 0,
+    "votingDuration": 259200,
+    "votingActivationTime": 1769002559,
     "queuingTime": 0,
     "cancelTimestamp": 0,
     "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
     "votingPortal": "0x9Ded9406f088C10621BE628EEFf40c1DF396c172",
-    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "snapshotBlockHash": "0x1bcd752f15cae8bccc2d7c55c707b6c1c54cd10140768b7774757e8af7e6436c",
     "ipfsHash": "0x40b5da4af3c5e5d8048049bcb42d242a6dc5a6c89db2e351c4aa92108b753fe1",
     "forVotes": "0",
     "againstVotes": "0",
@@ -14857,6 +14857,31 @@
         "accessLevel": 1,
         "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01",
         "payloadId": 95
+      }
+    ],
+    "isFinished": false
+  },
+  "438": {
+    "state": 1,
+    "accessLevel": 1,
+    "creationTime": 1769003027,
+    "votingDuration": 0,
+    "votingActivationTime": 0,
+    "queuingTime": 0,
+    "cancelTimestamp": 0,
+    "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+    "votingPortal": "0x9Ded9406f088C10621BE628EEFf40c1DF396c172",
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "ipfsHash": "0xee8234ef03e0fecc033a0eb8322ac88347aa49ccf5f0a73a4f642057fc0e4572",
+    "forVotes": "0",
+    "againstVotes": "0",
+    "cancellationFee": "50000000000000000",
+    "payloads": [
+      {
+        "chain": "1",
+        "accessLevel": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5",
+        "payloadId": 395
       }
     ],
     "isFinished": false
