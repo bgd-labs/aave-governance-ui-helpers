@@ -90020,5 +90020,51 @@
     "blockHash": "0xaab6a364599501a40eb6b12e5f14cc1d8ddc6e87b62796bfca6559f34fbecec5",
     "logIndex": 4,
     "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "438",
+      "voter": "0x8659D0BB123Da6D16D9394C7838BA286c2207d0E",
+      "support": true,
+      "votingPower": "161213248358300000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001b6",
+      "0x0000000000000000000000008659d0bb123da6d16d9394c7838ba286c2207d0e",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000022236340a57a21591800",
+    "blockNumber": "76326686",
+    "transactionHash": "0xf91093632ba572e41db0fedb8954fff063d22b96a1ae3d54d6594bf1426c2ac5",
+    "transactionIndex": 8,
+    "blockHash": "0x432ab264226bbf11b4c5494664255f19d91382767cbb7fdecc02209bd29ab751",
+    "logIndex": 7,
+    "removed": false
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "437",
+      "voter": "0xEA0C12Fd29c3fe5B1ecC82a42702196bd0De6B5A",
+      "support": true,
+      "votingPower": "333000000000000000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001b5",
+      "0x000000000000000000000000ea0c12fd29c3fe5b1ecc82a42702196bd0de6b5a",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000004683f7570a6296200000",
+    "blockNumber": "76329138",
+    "transactionHash": "0x70cd2301ce56a9ad95ba54f204d5217db0c4906e09104c1220b7d08dabb3ba8e",
+    "transactionIndex": 1,
+    "blockHash": "0x5129b6af1b7b6d7f98049e6d73ecd2cc3fc89a89db18f4f7a69e4bf354390695",
+    "logIndex": 22,
+    "removed": false
   }
 ]
