@@ -3647,5 +3647,14 @@
     "author": "BGD Labs @bgdlabs",
     "discussions": "https://governance.aave.com/t/technical-maintenance-proposals/15274/124",
     "originalIpfsHash": "0xee8234ef03e0fecc033a0eb8322ac88347aa49ccf5f0a73a4f642057fc0e4572"
+  },
+  "0xfe12fbb0cc5b9383d0d788c9079494c1ec8d2525e05f3ff3451ea008838668b1": {
+    "ipfsHash": "QmfST44VL47z4QFPTtTJJajwcXEWFuV4aF98jzzEVHbFd2",
+    "description": "\n## Simple Summary\n\nTop-up the AAVE allowance for the Safety Module **stkAAVE** to extend rewards distribution by **90 days** while keeping the current emission rate unchanged.\n\n## Motivation\n\nThe current stkAAVE allowance from the Ecosystem Reserve is approaching depletion. This proposal renews the allowance to ensure uninterrupted reward distribution for stakers.\n\n**Note:** **stkAAVE is not being phased out**; it will be **repurposed** into a **no-risk staking (dividend yield) contract**.\n\n## Specification\n\n- **Target module:** Safety Module stake token **stkAAVE** (`AaveSafetyModule.STK_AAVE`).\n- **Emission rate:** Unchanged; the payload reads the current `emissionPerSecond` on-chain.\n- **Allowance adjustment (funding):** Reset and set the AAVE allowance from the **Ecosystem Reserve** to cover **remaining allowance** + **90 days** of future emissions:\n  - `allowance = currentAllowance + (emissionPerSecond * 90 days)`\n- **No other changes:** This payload does **not** modify stkAAVE emission rates, cooldown parameters, slashing parameters, or any other Safety Module settings.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/70387ba097a5472490c6d0848cbed263fa6b9d5f/src/20260121_AaveV3Ethereum_ExtendStkAAVEEmissions/AaveV3Ethereum_ExtendStkAAVEEmissions_20260121.sol)\n- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/70387ba097a5472490c6d0848cbed263fa6b9d5f/src/20260121_AaveV3Ethereum_ExtendStkAAVEEmissions/AaveV3Ethereum_ExtendStkAAVEEmissions_20260121.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d)\n- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/49)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Extend stkAAVE Emissions",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/49",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d",
+    "originalIpfsHash": "0xfe12fbb0cc5b9383d0d788c9079494c1ec8d2525e05f3ff3451ea008838668b1"
   }
 }
