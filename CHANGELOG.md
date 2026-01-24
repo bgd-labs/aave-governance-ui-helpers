@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.11.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v3.11.0) (2026-01-24)
+
+
+### Features
+
+* update dependencies and add support for mantle chain ([#122](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/122)) ([a1fa1e2](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/a1fa1e273b9fda84d7e2ff2ccaa299744163192a))
+
+
+### Miscellaneous Chores
+
+* release 3.11.0 ([2942c28](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/2942c28ef6547c44bf91391db37d946d6ba60de7))
+
 ## 1.0.0 (2026-01-24)
 
 
