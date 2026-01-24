@@ -10,6 +10,7 @@ import {
   gnosis,
   goerli,
   mainnet,
+  mantle,
   metis,
   optimism,
   optimismGoerli,
@@ -50,6 +51,8 @@ const getAverageBlockTime = (chainId: number) => {
       return 4;
     case gnosis.id:
       return 5;
+    case mantle.id:
+      return 2;
     default:
       return 13;
   }

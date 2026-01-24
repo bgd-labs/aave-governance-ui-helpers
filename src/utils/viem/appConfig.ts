@@ -11,6 +11,7 @@ import {
   GovernanceV3Ink,
   GovernanceV3InkWhitelabel,
   GovernanceV3Linea,
+  GovernanceV3Mantle,
   GovernanceV3Metis,
   GovernanceV3Optimism,
   GovernanceV3Plasma,
@@ -33,6 +34,7 @@ import {
   ink,
   linea,
   mainnet,
+  mantle,
   metis,
   optimism,
   plasma,
@@ -133,6 +135,10 @@ export const payloadsControllerConfig: Record<
     [linea.id]: {
       dataHelperContractAddress: GovernanceV3Linea.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3Linea.PAYLOADS_CONTROLLER],
+    },
+    [mantle.id]: {
+      dataHelperContractAddress: GovernanceV3Mantle.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3Mantle.PAYLOADS_CONTROLLER],
     },
     [sonic.id]: {
       dataHelperContractAddress: GovernanceV3Sonic.PC_DATA_HELPER,
@@ -246,6 +252,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     scroll.id,
     zksync.id,
     linea.id,
+    mantle.id,
     sonic.id,
     celo.id,
     soneium.id,
