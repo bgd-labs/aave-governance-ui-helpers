@@ -94080,5 +94080,53 @@
     "logIndex": 73,
     "removed": false,
     "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "439",
+      "voter": "0x3E32d77fD660A58aE97EE627b2cAA3c00946c4D0",
+      "support": true,
+      "votingPower": "2952566210730000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001b7",
+      "0x0000000000000000000000003e32d77fd660a58ae97ee627b2caa3c00946c4d0",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000000a00f165d4aeeca2400",
+    "blockNumber": "76646477",
+    "transactionHash": "0x46e050113e3019af4b50d82700b25322546e93c9f9cf14bc6e2b0d694b62e6e3",
+    "transactionIndex": 11,
+    "blockHash": "0xc78a9c53338090afe81b5513ab763551e00f2ceec85c929ce51470239f6b4cf7",
+    "logIndex": 28,
+    "removed": false,
+    "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "440",
+      "voter": "0x3E32d77fD660A58aE97EE627b2cAA3c00946c4D0",
+      "support": true,
+      "votingPower": "2952566210730000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001b8",
+      "0x0000000000000000000000003e32d77fd660a58ae97ee627b2caa3c00946c4d0",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000000a00f165d4aeeca2400",
+    "blockNumber": "76646493",
+    "transactionHash": "0x748a57c93a22dbb032b8555eed9ad63c6854abc5ba3e2e3c500756dbc9c7c41b",
+    "transactionIndex": 8,
+    "blockHash": "0x2a99e9f3c1ca0290a10be5c873b002e851666a9d7de423003e7eda3032aff0db",
+    "logIndex": 26,
+    "removed": false,
+    "blockTimestamp": null
   }
 ]
