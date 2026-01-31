@@ -61928,5 +61928,53 @@
     "transactionIndex": 60,
     "logIndex": 216,
     "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "442",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0xd996400425ba4dd6835d8abf7ee8db7519c9a21d40295cd9912035de2000178c"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x00000000000000000000000000000000000000000000000000000000000001ba",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0xd996400425ba4dd6835d8abf7ee8db7519c9a21d40295cd9912035de2000178c",
+    "blockHash": "0x948e79b31ae051050b43e1d91f00c05a65661538d861a78a4c546173ae22bba2",
+    "blockNumber": "24355067",
+    "blockTimestamp": "1769865035",
+    "transactionHash": "0x5433d1b6a3b6c163ae5a52c85b1d0640ab978a6ced3bd7c4141a8a0dd725b7c6",
+    "transactionIndex": 325,
+    "logIndex": 1253,
+    "removed": false
+  },
+  {
+    "eventName": "ProposalCreated",
+    "args": {
+      "proposalId": "443",
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "accessLevel": 1,
+      "ipfsHash": "0x5fd9bc11bc15c390ad9873ef69dcdd4e329fb1f77b9b08db8464230f15a73aa8"
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0xcc914becfa276bbc067049bf8db2d34ebbdc1bafa851e4d4936aaed376c08dbe",
+      "0x00000000000000000000000000000000000000000000000000000000000001bb",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x5fd9bc11bc15c390ad9873ef69dcdd4e329fb1f77b9b08db8464230f15a73aa8",
+    "blockHash": "0x6e7b4b388d1e02c7792cafc640999d3d75cc9df0b66300c3bbbbe262e6edbea4",
+    "blockNumber": "24355086",
+    "blockTimestamp": "1769865263",
+    "transactionHash": "0x5205321a96ad81029456ceb5c891c7efca2d5a5dc28b4da3afd1bf03f7dfe71c",
+    "transactionIndex": 285,
+    "logIndex": 581,
+    "removed": false
   }
 ]
