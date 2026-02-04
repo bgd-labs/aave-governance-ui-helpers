@@ -12,6 +12,7 @@ import {
   GovernanceV3InkWhitelabel,
   GovernanceV3Linea,
   GovernanceV3Mantle,
+  GovernanceV3MegaEth,
   GovernanceV3Metis,
   GovernanceV3Optimism,
   GovernanceV3Plasma,
@@ -35,6 +36,7 @@ import {
   linea,
   mainnet,
   mantle,
+  megaeth,
   metis,
   optimism,
   plasma,
@@ -163,6 +165,10 @@ export const payloadsControllerConfig: Record<
         GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER,
       ],
     },
+    [megaeth.id]: {
+      dataHelperContractAddress: GovernanceV3MegaEth.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3MegaEth.PAYLOADS_CONTROLLER],
+    },
   },
   // testnets
   sepolia: {
@@ -253,6 +259,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     zksync.id,
     linea.id,
     mantle.id,
+    megaeth.id,
     sonic.id,
     celo.id,
     soneium.id,
