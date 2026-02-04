@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.12.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.11.0...v3.12.0) (2026-02-04)
+
+
+### Features
+
+* add megaeth support ([#125](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/125)) ([93a5600](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/93a5600dac78bf0c8c1a39767964bf4c6e1d0898))
+
 ## [3.11.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v1.0.0...v3.11.0) (2026-01-24)
 
 
