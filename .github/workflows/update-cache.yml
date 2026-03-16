@@ -41,6 +41,7 @@ jobs:
           RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
           RPC_ZKEVM: ${{ secrets.RPC_ZKEVM }}
           RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
+          RPC_XLAYER: ${{ secrets.RPC_XLAYER }}
           IPFS_GATEWAY: ${{ secrets.IPFS_GATEWAY }}
 
       - name: Parse cache to separate files
@@ -56,6 +57,7 @@ jobs:
           RPC_ARBITRUM: ${{ secrets.RPC_ARBITRUM }}
           RPC_ZKEVM: ${{ secrets.RPC_ZKEVM }}
           RPC_ZKSYNC: ${{ secrets.RPC_ZKSYNC }}
+          RPC_XLAYER: ${{ secrets.RPC_XLAYER }}
           IPFS_GATEWAY: ${{ secrets.IPFS_GATEWAY }}
 
       - name: Check code diff and push
