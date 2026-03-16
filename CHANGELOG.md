@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.15.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.14.0...v3.15.0) (2026-03-16)
+
+
+### Features
+
+* resolve dependency issue ([ebeb38f](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/ebeb38fbea76d3a334806ea80d543c3ca36a70cf))
+
 ## [3.14.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.13.0...v3.14.0) (2026-03-16)
 
 
