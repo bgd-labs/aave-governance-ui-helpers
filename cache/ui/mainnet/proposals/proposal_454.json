@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1772554343,
+      "queuedAt": 1772901347,
+      "executedAt": 1772987771,
+      "cancelledAt": 0,
+      "expirationTime": 1775578343,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xb942e9DE879117a05d4d531940217b1A97a5BF93",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 410,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmVRuDLwJUYcLw41SQyg4QPsfDnndrDE51Ure6Tw2qaQD5",
+    "description": "\n## Simple Summary\n\nCancel ACI’s GHO stream (ID 100070) on the Aave Collector and transfer 120 days worth of stream to `treasury.aci.eth`. The remaining balance returns to the Collector.\n\nACI is departing the Aave DAO. The full context is in our [departure post](https://governance.aave.com/t/aci-is-leaving-aave/24205).\n\n## Motivation\n\nACI is leaving the Aave DAO. We’re not disappearing overnight. The plan is a four-month wind-down: continue governance activity, implement outstanding commitments, document every system, transfer every tool, and give successor service providers enough context to pick up where we left off.\n\nACI’s service contract and stream 100070 both run through November 8, 2026. We’re accelerating the exit to 120 days. This proposal requests only what covers that period, not the full remaining stream. The rest goes back to the DAO treasury. The question is whether we can count on the stream staying active while we do the work.\n\nThe AWW Temp Check demonstrated that a single entity holds enough voting power to pass its own budget proposals over community opposition. That same voting power could cancel any active stream at any time. We don’t consider the current governance process decentralized enough to guarantee that existing commitments will be honored.\n\nConverting the stream to a lump sum is the only way to ensure ACI can deliver a seamless transition without depending on a process where the outcome is controlled by one party.\n\n## Specification\n\n**Contract**: Aave V3 Ethereum Collector (`0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c`)\n\n**Stream ID**: 100070\n\n**Token**: aEthLidoGHO (`0x18eFE565A5373f430e2f809b97De30335B3ad96A`)\n\n**Recipient**: `treasury.aci.eth` (`0x55Ac902cb75cC15288D473ed8E3E185a75b3f330`)\n\n**Payload actions:**\n\n1. Withdraw accrued unclaimed balance from stream 100070 to `treasury.aci.eth`\n2. Cancel stream 100070 (unstreamed portion returns to Collector)\n3. Transfer 120 days worth of stream from Collector to `treasury.aci.eth`\n\nThe exact amounts will be calculated at payload creation time based on the stream state at that block.\n\n## If this proposal fails\n\nIf the DAO rejects this AIP, we’ll treat it as a signal that the protocol doesn’t intend to honor its commitments to ACI. In that case we’ll cease all activity immediately, cut our own stream and consider our obligations terminated.\n\nThat’s not the outcome we want. We’re professionals. We want a graceful wind-down that benefits Aave users and leaves every system we built in good hands. This AIP makes it possible.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/bc13493c62b18d7dbc89c85045d5dcb9f9bd7139/src/20260302_AaveV3Ethereum_ACIIsLeavingAave/AaveV3Ethereum_ACIIsLeavingAave_20260302.sol)\n- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/bc13493c62b18d7dbc89c85045d5dcb9f9bd7139/src/20260302_AaveV3Ethereum_ACIIsLeavingAave/AaveV3Ethereum_ACIIsLeavingAave_20260302.t.sol)\n- [Discussion](https://governance.aave.com/t/direct-to-aip-aci-stream-settlement/24206)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "ACI Is Leaving Aave",
+    "author": "Aavechan Initiative @aci",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-aci-stream-settlement/24206",
+    "originalIpfsHash": "0x695a1cc44834be06934559d8d0d79c35eabf87ea5749f4f7910195dc81ed9e40"
+  },
+  "proposal": {
+    "id": 454,
+    "votingDuration": 259200,
+    "creationTime": 1772554391,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1772901335,
+    "ipfsHash": "0x695a1cc44834be06934559d8d0d79c35eabf87ea5749f4f7910195dc81ed9e40",
+    "initialPayloads": [
+      {
+        "id": 410,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0xf8aca62dad2a60f7dfafd3d34520d0112fa74cdcec9741c0cd47bb29d577bede",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1772640815,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 454,
+      "forVotes": "373110814719628085841632",
+      "againstVotes": "1018080340682801",
+      "startTime": 1772641857,
+      "endTime": 1772901057,
+      "votingClosedAndSentBlockNumber": 79806105,
+      "votingClosedAndSentTimestamp": 1772901067,
+      "l1BlockHash": "0xf8aca62dad2a60f7dfafd3d34520d0112fa74cdcec9741c0cd47bb29d577bede",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": true,
+      "createdBlock": 79553925,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1773663703,
+    "cancellationFee": 50000000000000000
+  }
+}

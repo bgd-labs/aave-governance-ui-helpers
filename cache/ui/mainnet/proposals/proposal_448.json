@@ -1,0 +1,114 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1770822815,
+      "queuedAt": 1771257359,
+      "executedAt": 1771343783,
+      "cancelledAt": 0,
+      "expirationTime": 1773846815,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x12Ce6F6c44bfD860ccc143aDA41ccB9d68A973ED",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 403,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1770827501,
+      "queuedAt": 1771257541,
+      "executedAt": 1771343949,
+      "cancelledAt": 0,
+      "expirationTime": 1773851501,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x4d4f6dAAddc5a98c5cb3ffd732c035d389741eaB",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 98,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmSUDXxdjxoYSyYQnCwxmFjL5eeVVfuZMNUfALqNAaPzBB",
+    "description": "\n## Simple Summary\n\nThis Direct to AIP proposal plans to update SyrupUSDC config and add a 10% Liquidation Protocol Fee on Aave V3 Base Instance.\n\n## Motivation\n\nAIP was executed through [AIP Onboard SyrupUSDC on Base](https://vote.onaave.com/proposal/?proposalId=437&ipfsHash=0x40b5da4af3c5e5d8048049bcb42d242a6dc5a6c89db2e351c4aa92108b753fe1).\n\nNevertheless, by mistake the Liquidation Protocol Fee was set up to 0, despite being mentioned to be 10% by risk Services Providers and the proposal itself on Forum [[Direct to AIP] Onboard syrupUSDC to Aave V3 Base Instance](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdc-to-aave-v3-base-instance/23234).\n\nThis Direct to AIP will update the Liquidation Protocol fee from 0 to 10%.\n\n## Specification\n\nUpdate the Liquidation Protocol Fee from 0% to 10% for SyrupUSDC on Aave V3 Base Instance.\n\nWe will also batch with this AIP a correction of last PT srUSDe e-mode labels.\n\n## Useful Links\n\n[**[Direct to AIP] Onboard syrupUSDC to Aave V3 Base Instance**](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdc-to-aave-v3-base-instance/23234)\n\n[AIP Onboard SyrupUSDC on Base](https://vote.onaave.com/proposal/?proposalId=437&ipfsHash=0x40b5da4af3c5e5d8048049bcb42d242a6dc5a6c89db2e351c4aa92108b753fe1).\n\n## Disclaimer\n\nACI is not directly affiliated with Maple and did not receive compensation for the creation of this proposal.\n\n## References\n\n- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/875ea01528229ec732c0f97d7b7644529d35d1d0/src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol)\n- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/875ea01528229ec732c0f97d7b7644529d35d1d0/src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23963)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Update syrupUSDC liquidation protocol fee",
+    "author": "Aavechan Initiative @aci",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23963",
+    "originalIpfsHash": "0x3d5eedc48f92c9cf506a621cf50a3cfb2b7f6273fd5f19ed71b415f98a3b58b2"
+  },
+  "proposal": {
+    "id": 448,
+    "votingDuration": 259200,
+    "creationTime": 1770910355,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1771257347,
+    "ipfsHash": "0x3d5eedc48f92c9cf506a621cf50a3cfb2b7f6273fd5f19ed71b415f98a3b58b2",
+    "initialPayloads": [
+      {
+        "id": 403,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 98,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      }
+    ],
+    "snapshotBlockHash": "0x3e2d52a8299ebbffe8cfd3de009c66a0b424d02fb102d6e0254082b65e7fb839",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1770996803,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 448,
+      "forVotes": "599350968200362988242088",
+      "againstVotes": "0",
+      "startTime": 1770997965,
+      "endTime": 1771257165,
+      "votingClosedAndSentBlockNumber": 78226307,
+      "votingClosedAndSentTimestamp": 1771257175,
+      "l1BlockHash": "0x3e2d52a8299ebbffe8cfd3de009c66a0b424d02fb102d6e0254082b65e7fb839",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": true,
+      "createdBlock": 77981010,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1773663703,
+    "cancellationFee": 50000000000000000
+  }
+}

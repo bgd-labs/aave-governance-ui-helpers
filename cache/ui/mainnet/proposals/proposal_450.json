@@ -1,0 +1,85 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1771618247,
+      "queuedAt": 1772113559,
+      "executedAt": 1772199995,
+      "cancelledAt": 0,
+      "expirationTime": 1774642247,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x6F7e0d419E7695Dd6507Be9f58f52abf63485705",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 405,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmT3mTtwrVGLTnUnqosSE3QWPM8BnbFjEJwcYrkrAWnN38",
+    "description": "\n## Simple Summary\n\nThis proposal creates an allowance of 1.5M aEthLidoGHO from the Aave Collector to the Aave Liquidity Committee (ALC) to support the launch of GHO on Mantle.\n\n## Motivation\n\nAs part of the [ARFC to deploy Aave V3 on Mantle](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15), GHO liquidity needs to be seeded on Mantle. The Aave Liquidity Committee (ALC) will manage the bridging and liquidity provisioning of GHO on Mantle using the approved aEthLidoGHO allowance from the Aave Collector.\n\n## Specification\n\nApprove the Aave Liquidity Committee (ALC) [`0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`](https://etherscan.io/address/0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b) to spend 1,500,000 aEthLidoGHO [`0x18eFE565A5373f430e2F809b97De30335B3ad96A`](https://etherscan.io/address/0x18eFE565A5373f430e2F809b97De30335B3ad96A) from the Aave Collector on the Ethereum Lido instance.\n\n## References\n\n- Implementation: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/acd0ebe60e61db3a3bf4a9b9b833415ec1c6b706/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.sol)\n- Tests: [AaveV3EthereumLido](https://github.com/aave-dao/aave-proposals-v3/blob/acd0ebe60e61db3a3bf4a9b9b833415ec1c6b706/src/20260216_AaveV3EthereumLido_CreateAllowanceGHOMantle/AaveV3EthereumLido_CreateAllowanceGHOMantle_20260216.t.sol)\n- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119)\n- [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Create Allowance GHO Mantle",
+    "author": "@TokenLogic",
+    "discussions": "https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542#p-51955-budget-15",
+    "snapshot": "https://snapshot.box/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119",
+    "originalIpfsHash": "0x45f732e300bc75c5d41062e3454a06e2ad45306520685e4c3d5b4cfdfc99a3a7"
+  },
+  "proposal": {
+    "id": 450,
+    "votingDuration": 259200,
+    "creationTime": 1771766939,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1772113547,
+    "ipfsHash": "0x45f732e300bc75c5d41062e3454a06e2ad45306520685e4c3d5b4cfdfc99a3a7",
+    "initialPayloads": [
+      {
+        "id": 405,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x6a8207c6db44a0802dc487360fab96b145caa4090ef1b53fcf9549eaa3bc3f05",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1771853363,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 450,
+      "forVotes": "903261141433692475962102",
+      "againstVotes": "205907404140000000000",
+      "startTime": 1771854284,
+      "endTime": 1772113484,
+      "votingClosedAndSentBlockNumber": 79048832,
+      "votingClosedAndSentTimestamp": 1772113491,
+      "l1BlockHash": "0x6a8207c6db44a0802dc487360fab96b145caa4090ef1b53fcf9549eaa3bc3f05",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": true,
+      "createdBlock": 78797910,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1773663703,
+    "cancellationFee": 50000000000000000
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1771603156,
+      "queuedAt": 1772135186,
+      "executedAt": 1772539628,
+      "cancelledAt": 0,
+      "expirationTime": 1774627156,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x44ed28fF572264bDd23dB841A72Ce49a8Bc927D3",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 47,
+      "chainId": 1088,
+      "payloadsController": "0x2233F8A66A728FBa6E1dC95570B25360D07D5524"
+    },
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1771582099,
+      "queuedAt": 1772136027,
+      "executedAt": 1772223834,
+      "cancelledAt": 0,
+      "expirationTime": 1774606099,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x85C84A88B18d469C98d6d86E371a2589Ee8bD6E9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 36,
+      "chainId": 324,
+      "payloadsController": "0x2E79349c3F5e4751E87b966812C9E65E805996F1"
+    },
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 3,
+      "createdAt": 1771602561,
+      "queuedAt": 1772135083,
+      "executedAt": 1772221509,
+      "cancelledAt": 0,
+      "expirationTime": 1774626561,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xAe779D9e1d67E4ef1793fAac2Dd03aA9D6CCB9e8",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 5,
+      "chainId": 1868,
+      "payloadsController": "0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmRPvX9yavaJN3aBhvL8eMSof2TEcpnvL5dPSd1kexZ9rX",
+    "description": "\n## Simple Summary\n\nThe proposal plans to provide and execute a multichain strategy for Aave V3 that will freeze the following networks, as a start:\n\n1. zkSync\n2. Metis\n3. Soneium\n\nThis proposal sets to reduce operational overhead and governance burden by addressing instances that are clearly non viable today.\n\n## Motivation\n\nAave V3 maintains multiple live deployments across different networks, each of which introduces:\n\n- Ongoing operational and monitoring requirements\n- Governance overhead for parameter updates and asset maintenance\n- Risk surface area, even when usage is minimal\n\nOver time, it has become clear that a small subset of instances contributes very little **user activity, TVL, and revenue**, while still requiring a non-trivial amount of attention from service providers and governance participants.\n\nThe zkSync, Metis, and Soneium deployments fall firmly into this category. These instances exhibit:\n\n- Low and persistent usage\n- No signs of organic growth\n- No credible short-term path to becoming meaningful contributors to the Aave ecosystem\n\nContinuing to operate these markets in their current state provides little upside while consuming attention better spent elsewhere.\n\n### **Policy for Future Aave V3 Deployments**\n\nWe would like to highlight the significant value an Aave deployment provides to a new chain. As the largest DeFi protocol, the value and stimulating effect on the onchain ecosystem that a properly planned Aave deployment can bring is significant.\n\nThe work involved in a deployment and the substantial ongoing effort from service providers and governance participants has at times been under appreciated, yet in light of the above revenue numbers we must bring this back into focus. The upfront and recurring costs mean the DAO must prioritize deployments that generate sufficient revenue to justify the time and risk involved.\n\nWe therefore propose that for any new Aave deployment the chain on which we are deploying guarantees a revenue floor of $2m per annum for all new deployments.\n\n### Conclusion\n\nWe believe that the above remediation measures will help to focus the DAO on high revenue opportunities, ensure Aave shares in upside from successful instance deployments, reduce the number of low value deployments going forward, ensure that Aave is fairly compensated for the value it brings to our partners, and reduce risk and operational overhead by offboarding poor performing instances.\n\n## Specification\n\nThis AIP will freeze the following assets:\n\n| **Instances** | **Asset** |\n| ------------- | --------- |\n| Metis         | m.USDC    |\n| Metis         | m.USDT    |\n| Metis         | m.DAI     |\n| Metis         | Metis     |\n| Metis         | WETH      |\n| Soneium       | USDC.e    |\n| Soneium       | ETH       |\n| Soneium       | USDT      |\n| zkSync        | wstETH    |\n| zkSync        | wETH      |\n| zkSync        | ZK        |\n| zkSync        | USDC      |\n| zkSync        | weETH     |\n| zkSync        | USDT      |\n| zkSync        | sUSDe     |\n| zkSync        | wrsETH    |\n\n## Disclaimer\n\nDue to explorer issues, the zkSync payload cannot currently be verified on-chain. However, its bytecode and address legitimacy can be confirmed using the deployment script.\n\n## References\n\n- Implementation: [AaveV3Metis](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3Metis_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol), [AaveV3ZkSync](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/zksync/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol), [AaveV3Soneium](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3Soneium_FocussingTheAaveV3MultichainStrategyPhase1_20260209.sol)\n- Tests: [AaveV3Metis](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3Metis_FocussingTheAaveV3MultichainStrategyPhase1_20260209.t.sol), [AaveV3ZkSync](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/zksync/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3ZkSync_FocussingTheAaveV3MultichainStrategyPhase1_20260209.t.sol), [AaveV3Soneium](https://github.com/aave-dao/aave-proposals-v3/blob/4a5130dfdfdfbea21cb3b5107aaeacba5f6f50b5/src/20260209_Multi_FocussingTheAaveV3MultichainStrategyPhase1/AaveV3Soneium_FocussingTheAaveV3MultichainStrategyPhase1_20260209.t.sol)\n- [Snapshot](https://snapshot.org/#/aavedao.eth/proposal/0x62340121a7428f902f3232030350eb2d2bb753dc10ab0657a16ffd4d85cb530b)\n- [Discussion](https://governance.aave.com/t/arfc-focussing-the-aave-v3-multichain-strategy-phase-1/23954)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Focussing the Aave V3 Multichain Strategy - Phase 1",
+    "author": "Aavechan Initiative @aci",
+    "discussions": "https://governance.aave.com/t/arfc-focussing-the-aave-v3-multichain-strategy-phase-1/23954",
+    "snapshot": "https://snapshot.org/#/aavedao.eth/proposal/0x62340121a7428f902f3232030350eb2d2bb753dc10ab0657a16ffd4d85cb530b",
+    "originalIpfsHash": "0x2d69ae54501fa8220cbf922731c65b48dc17f5f80e78ffd1e69003d5aed43aa8"
+  },
+  "proposal": {
+    "id": 451,
+    "votingDuration": 259200,
+    "creationTime": 1771789055,
+    "accessLevel": 1,
+    "state": 4,
+    "queuingTime": 1772135003,
+    "ipfsHash": "0x2d69ae54501fa8220cbf922731c65b48dc17f5f80e78ffd1e69003d5aed43aa8",
+    "initialPayloads": [
+      {
+        "id": 47,
+        "chainId": 1088,
+        "payloadsController": "0x2233F8A66A728FBa6E1dC95570B25360D07D5524"
+      },
+      {
+        "id": 36,
+        "chainId": 324,
+        "payloadsController": "0x2E79349c3F5e4751E87b966812C9E65E805996F1"
+      },
+      {
+        "id": 5,
+        "chainId": 1868,
+        "payloadsController": "0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf"
+      }
+    ],
+    "snapshotBlockHash": "0xb5d59430a22b7a9b16c3b762dc50911a6ccc1e61ee48d5e82af27e9b5eec4411",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 1771875491,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 451,
+      "forVotes": "903681948083169494799828",
+      "againstVotes": "0",
+      "startTime": 1771875742,
+      "endTime": 1772134942,
+      "votingClosedAndSentBlockNumber": 79069628,
+      "votingClosedAndSentTimestamp": 1772134953,
+      "l1BlockHash": "0xb5d59430a22b7a9b16c3b762dc50911a6ccc1e61ee48d5e82af27e9b5eec4411",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": true,
+      "createdBlock": 78818839,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": true
+    },
+    "isFinished": true,
+    "lastUpdatedTimestamp": 1773663703,
+    "cancellationFee": 50000000000000000
+  }
+}
