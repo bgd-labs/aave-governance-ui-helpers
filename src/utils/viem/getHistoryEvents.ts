@@ -1,11 +1,9 @@
-import {
-  IGovernanceCore_ABI,
-  IPayloadsControllerCore_ABI,
-  IVotingMachineWithProofs_ABI,
-} from '@bgd-labs/aave-address-book/abis';
+import { IVotingMachineWithProofs_ABI } from '@aave-dao/aave-address-book/abis';
 import { zeroAddress, zeroHash } from 'viem';
 import { getContractEvents } from 'viem/actions';
 
+import { IGovernanceCore_ABI } from '../../abis/IGovernanceCore';
+import { IPayloadsControllerCore_ABI } from '../../abis/IPayloadsControllerCore';
 import { blockLimit, getEventsBySteps } from '../generic';
 import { InitEvent, InitEventWithChainId } from './types';
 

@@ -1,7 +1,7 @@
 import {
   IVotingMachineDataHelper_ABI,
   IVotingPortal_ABI,
-} from '@bgd-labs/aave-address-book/abis';
+} from '@aave-dao/aave-address-book/abis';
 import { readJSONCache, writeJSONCache } from '@bgd-labs/js-utils';
 import {
   ChainId,

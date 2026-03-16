@@ -18,6 +18,7 @@ import {
   polygon,
   polygonMumbai,
   sepolia,
+  xLayer,
 } from 'viem/chains';
 
 const getAverageBlockTime = (chainId: number) => {
@@ -56,6 +57,8 @@ const getAverageBlockTime = (chainId: number) => {
       return 2;
     case megaeth.id:
       return 2;
+    case xLayer.id:
+      return 3;
     default:
       return 13;
   }

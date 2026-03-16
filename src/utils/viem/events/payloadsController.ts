@@ -1,7 +1,7 @@
-import { IPayloadsControllerCore_ABI } from '@bgd-labs/aave-address-book/abis';
 import { strategicGetLogs } from '@bgd-labs/js-utils';
 import { Address, Client, getAbiItem } from 'viem';
 
+import { IPayloadsControllerCore_ABI } from '../../../abis/IPayloadsControllerCore';
 import { PayloadState } from '../../generic';
 
 export const HUMAN_READABLE_PAYLOAD_STATE = {

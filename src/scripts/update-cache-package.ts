@@ -1,8 +1,4 @@
-import {
-  IGovernanceCore_ABI,
-  IPayloadsControllerCore_ABI,
-  IVotingPortal_ABI,
-} from '@bgd-labs/aave-address-book/abis';
+import { IVotingPortal_ABI } from '@aave-dao/aave-address-book/abis';
 import {
   getBlockAtTimestamp,
   getContractDeploymentBlock,
@@ -22,6 +18,8 @@ import {
   ProposalsCache,
   ProposalState,
 } from '../';
+import { IGovernanceCore_ABI } from '../abis/IGovernanceCore';
+import { IPayloadsControllerCore_ABI } from '../abis/IPayloadsControllerCore';
 import { getGovernanceEvents } from '../utils/viem/events/governance';
 import {
   getPayloadsControllerEvents,
