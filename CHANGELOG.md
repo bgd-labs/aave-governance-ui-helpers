@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.14.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.13.0...v3.14.0) (2026-03-16)
+
+
+### Features
+
+* migrate to aave-dao, add xlayer support ([#129](https://github.com/bgd-labs/aave-governance-ui-helpers/issues/129)) ([12c8706](https://github.com/bgd-labs/aave-governance-ui-helpers/commit/12c87063509b0e26e9ac70cc4c69e52b90455025))
+
 ## [3.13.0](https://github.com/bgd-labs/aave-governance-ui-helpers/compare/v3.12.0...v3.13.0) (2026-03-16)
 
 
