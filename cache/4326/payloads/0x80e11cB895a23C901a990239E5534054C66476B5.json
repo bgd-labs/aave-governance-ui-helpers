@@ -1,0 +1,27 @@
+{
+  "0": {
+    "creator": "0x956DE559DFc27678FD69d4f49f485196b50BDD0F",
+    "maximumAccessLevelRequired": 1,
+    "state": 3,
+    "createdAt": 1770215231,
+    "queuedAt": 1770573554,
+    "executedAt": 1770659967,
+    "cancelledAt": 0,
+    "expirationTime": 1773239231,
+    "delay": 86400,
+    "gracePeriod": 604800,
+    "actions": [
+      {
+        "target": "0x3a0A755D940283cD96D69F88645BeaA2bAfBC0bb",
+        "withDelegateCall": true,
+        "accessLevel": 1,
+        "value": "0",
+        "signature": "execute()",
+        "callData": "0x"
+      }
+    ],
+    "id": 0,
+    "chainId": 4326,
+    "payloadsController": "0x80e11cB895a23C901a990239E5534054C66476B5"
+  }
+}

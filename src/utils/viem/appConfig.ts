@@ -20,9 +20,10 @@ import {
   GovernanceV3Scroll,
   GovernanceV3Soneium,
   GovernanceV3Sonic,
+  GovernanceV3XLayer,
   GovernanceV3ZkSync,
   UmbrellaEthereum,
-} from '@bgd-labs/aave-address-book';
+} from '@aave-dao/aave-address-book';
 import { Hex } from 'viem';
 import {
   arbitrum,
@@ -45,6 +46,7 @@ import {
   sepolia,
   soneium,
   sonic,
+  xLayer,
   zksync,
 } from 'viem/chains';
 
@@ -169,6 +171,10 @@ export const payloadsControllerConfig: Record<
       dataHelperContractAddress: GovernanceV3MegaEth.PC_DATA_HELPER,
       contractAddresses: [GovernanceV3MegaEth.PAYLOADS_CONTROLLER],
     },
+    [xLayer.id]: {
+      dataHelperContractAddress: GovernanceV3XLayer.PC_DATA_HELPER,
+      contractAddresses: [GovernanceV3XLayer.PAYLOADS_CONTROLLER],
+    },
   },
   // testnets
   sepolia: {
@@ -265,6 +271,7 @@ export const payloadsControllerChainIds: Record<CoreNetworkName, number[]> = {
     soneium.id,
     plasma.id,
     ink.id,
+    xLayer.id,
   ],
   sepolia: [sepolia.id, avalancheFuji.id],
 };

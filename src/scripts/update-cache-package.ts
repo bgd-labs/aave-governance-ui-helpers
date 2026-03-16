@@ -1,8 +1,4 @@
-import {
-  IGovernanceCore_ABI,
-  IPayloadsControllerCore_ABI,
-  IVotingPortal_ABI,
-} from '@bgd-labs/aave-address-book/abis';
+import { IVotingPortal_ABI } from '@aave-dao/aave-address-book/abis';
 import {
   getBlockAtTimestamp,
   getContractDeploymentBlock,
@@ -22,6 +18,8 @@ import {
   ProposalsCache,
   ProposalState,
 } from '../';
+import { IGovernanceCore_ABI } from '../abis/IGovernanceCore';
+import { IPayloadsControllerCore_ABI } from '../abis/IPayloadsControllerCore';
 import { getGovernanceEvents } from '../utils/viem/events/governance';
 import {
   getPayloadsControllerEvents,
@@ -126,42 +124,49 @@ async function updatePayloadsData(
       const payloadsCache =
         readJSONCache<PayloadsCache>(payloadsPath, controller) || {};
 
-      const client = createViemClient({
-        chain: ChainList[chainId as SupportedChainIds] as any,
-        rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
-          alchemyKey: process.env.ALCHEMY_API_KEY,
-        }),
-      });
-      const contract = getContract({
-        abi: IPayloadsControllerCore_ABI,
-        client,
-        address: controller,
-      });
-      const payloadsCount = await contract.read.getPayloadsCount();
-      const payloadsIds = [...Array(Number(payloadsCount)).keys()];
-      for (let i = 0; i < payloadsIds.length; i++) {
-        if (
-          secondTime
-            ? !payloadsCache[i]
-            : !payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)
-        ) {
-          const payload = await contract.read.getPayloadById([i]);
-          payloadsCache[i] = {
-            ...payload,
-            id: Number(i),
-            chainId,
-            payloadsController: controller,
-          };
+      try {
+        const client = createViemClient({
+          chain: ChainList[chainId as SupportedChainIds] as any,
+          rpcUrl: getRPCUrl(chainId as SupportedChainIds, {
+            alchemyKey: process.env.ALCHEMY_API_KEY,
+          }),
+        });
+        const contract = getContract({
+          abi: IPayloadsControllerCore_ABI,
+          client,
+          address: controller,
+        });
+        const payloadsCount = await contract.read.getPayloadsCount();
+        const payloadsIds = [...Array(Number(payloadsCount)).keys()];
+        for (let i = 0; i < payloadsIds.length; i++) {
+          if (
+            secondTime
+              ? !payloadsCache[i]
+              : !payloadsCache[i] || !isPayloadFinal(payloadsCache[i].state)
+          ) {
+            const payload = await contract.read.getPayloadById([i]);
+            payloadsCache[i] = {
+              ...payload,
+              id: Number(i),
+              chainId,
+              payloadsController: controller,
+            };
+          }
         }
-      }
-      writeJSONCache(payloadsPath, controller, payloadsCache);
+        writeJSONCache(payloadsPath, controller, payloadsCache);
 
-      if (secondTime) {
-        await updatePayloadsEvents(
-          chainId,
-          controller,
-          payloadsCache,
-          bookKeepingCache,
+        if (secondTime) {
+          await updatePayloadsEvents(
+            chainId,
+            controller,
+            payloadsCache,
+            bookKeepingCache,
+          );
+        }
+      } catch (e) {
+        console.error(
+          `Failed to update payloads for chainId ${chainId}, controller ${controller}:`,
+          e,
         );
       }
       return payloadsCache;

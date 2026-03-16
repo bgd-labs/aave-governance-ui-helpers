@@ -1,8 +1,4 @@
 import {
-  IGovernanceCore_ABI,
-  IPayloadsControllerCore_ABI,
-} from '@bgd-labs/aave-address-book/abis';
-import {
   AbiStateMutability,
   Address,
   Client,
@@ -10,6 +6,8 @@ import {
   Hex,
 } from 'viem';
 
+import { IGovernanceCore_ABI } from '../../abis/IGovernanceCore';
+import { IPayloadsControllerCore_ABI } from '../../abis/IPayloadsControllerCore';
 import {
   CombineProposalState,
   HistoryItemType,

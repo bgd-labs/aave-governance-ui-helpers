@@ -36,7 +36,7 @@ This repository saves and updates the cache for Aave governance, also includes h
 ```typescript
     import { baseSlots, AssetsBalanceSlots, Asset, getVotingProofs } from '@bgd-labs/aave-governance-ui-helpers';
     import { getVotingProofs as eGetVotingProofs } from '@bgd-labs/aave-governance-ui-helpers/dist/ether-v5';
-    import { AaveV3Ethereum, AaveSafetyModule, GovernanceV3Ethereum } from '@bgd-labs/aave-address-book';
+    import { AaveV3Ethereum, AaveSafetyModule, GovernanceV3Ethereum } from '@aave-dao/aave-address-book';
 
     const assets = {
         aaveAddress: AaveV3Ethereum.ASSETS.AAVE.UNDERLYING,
