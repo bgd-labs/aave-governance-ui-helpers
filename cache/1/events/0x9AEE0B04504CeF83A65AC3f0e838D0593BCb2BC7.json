@@ -64268,5 +64268,49 @@
     ],
     "transactionHash": "0x8f53fd1790a98a4a8c3ad3f674fa9fec7fe75860efb0577333afca0f8544b1c0",
     "transactionIndex": 179
+  },
+  {
+    "eventName": "VotingActivated",
+    "args": {
+      "proposalId": "457",
+      "snapshotBlockHash": "0xe733b83fd2dff45ebb1fa58de7fbc91a2474c118983ede9c9c3944386bb188af",
+      "votingDuration": 259200
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x45f1db29750f423920a6edede3a80ea19ceb9de3eabc072078eb539ca348dca0",
+      "0x00000000000000000000000000000000000000000000000000000000000001c9",
+      "0xe733b83fd2dff45ebb1fa58de7fbc91a2474c118983ede9c9c3944386bb188af"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000003f480",
+    "blockHash": "0x3e01bfca3269a0bd0455ad008a66f808d212f650c4b101fd07ab53111c5322f6",
+    "blockNumber": "24676206",
+    "blockTimestamp": "1773738299",
+    "transactionHash": "0x7846e7193746ce68affaa7ed9e5d752833cb6267a017eb07c1b9952f937af4cf",
+    "transactionIndex": 157,
+    "logIndex": 652,
+    "removed": false
+  },
+  {
+    "eventName": "VotingActivated",
+    "args": {
+      "proposalId": "458",
+      "snapshotBlockHash": "0x5728ba079554cef850df142d5de0c756a03f3ebe91fe44dd71ed7d997539d47b",
+      "votingDuration": 259200
+    },
+    "address": "0x9aee0b04504cef83a65ac3f0e838d0593bcb2bc7",
+    "topics": [
+      "0x45f1db29750f423920a6edede3a80ea19ceb9de3eabc072078eb539ca348dca0",
+      "0x00000000000000000000000000000000000000000000000000000000000001ca",
+      "0x5728ba079554cef850df142d5de0c756a03f3ebe91fe44dd71ed7d997539d47b"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000000000000003f480",
+    "blockHash": "0xa7d547bcf9d2346e1bf2cedb666779b3370a2f482353611f96f3835be59b836e",
+    "blockNumber": "24676241",
+    "blockTimestamp": "1773738719",
+    "transactionHash": "0x00771c682a05aff586b09321153a4ea2e7964977c25806c75ec4c1217fab9846",
+    "transactionIndex": 155,
+    "logIndex": 378,
+    "removed": false
   }
 ]
