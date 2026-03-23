@@ -1,0 +1,145 @@
+{
+  "payloads": [
+    {
+      "creator": "0x076d6da60aAAC6c97A8a0fE8057f9564203Ee545",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1774251791,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1777275791,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x4CD5a066d8932e47604A52bD5D2821bAB1dc3EB6",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 419,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x076d6da60aAAC6c97A8a0fE8057f9564203Ee545",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1774255802,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1777279802,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xfd3a8b0A0a6B1dB39e4F63C98C1d6C97Bb2D2599",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 115,
+      "chainId": 42161,
+      "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+    },
+    {
+      "creator": "0x076d6da60aAAC6c97A8a0fE8057f9564203Ee545",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1774252201,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1777276201,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x43Ead112F72D8d7f7301707A0d5a5e681E19a75f",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 102,
+      "chainId": 8453,
+      "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmedGuouWyuRGZnRHATj5PdmvpQEEcNzagLm9eSoL7K1ZR",
+    "description": "\n## Simple Summary\n\nEnable SVR price feeds on Base and Arbitrum.\n\n## Motivation\n\nAfter a successful implementation of SVR on Ethereum, we aim to expand its coverage to Base and Arbitrum networks.\n\n## Specification\n\n- **Ethereum**: Removes the SVR steward's `AssetListingAdmin` role from both `AaveV3 Ethereum Core` and `AaveV3 Ethereum Lido` pools, as the steward has already completed its work on mainnet and no longer needs elevated permissions.\n\n- **Arbitrum**: Grants the SVR Oracle Steward ([`0x94E54D858e9293964b4ACd6f8938c831827a31F4`](https://arbiscan.io/address/0x94E54D858e9293964b4ACd6f8938c831827a31F4)) the `AssetListingAdmin` role and enables SVR oracles for the following 17 assets:\n  DAI, LINK, USDC, WBTC, WETH, USDT, AAVE, wstETH, rETH, LUSD, USDCn, FRAX, ARB, weETH, ezETH, rsETH, tBTC.\n\n- **Base**: Grants the SVR Oracle Steward ([`0x4B09DAEAe857b93c9103392028294F0602C5fD5b`](https://basescan.org/address/0x4B09DAEAe857b93c9103392028294F0602C5fD5b)) the `AssetListingAdmin` role and enables SVR oracles for the following 14 assets:\n  WETH, cbETH, USDbC, wstETH, USDC, weETH, cbBTC, ezETH, wrsETH, LBTC, EURC, AAVE, tBTC, syrupUSDC.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/81df9d426c69c674f2db28b64ed12e003811b057/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Ethereum_EnableSVROnBaseAndArbitrum_20260224.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/81df9d426c69c674f2db28b64ed12e003811b057/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/81df9d426c69c674f2db28b64ed12e003811b057/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Base_EnableSVROnBaseAndArbitrum_20260224.sol)\n- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/81df9d426c69c674f2db28b64ed12e003811b057/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Ethereum_EnableSVROnBaseAndArbitrum_20260224.t.sol), [AaveV3Arbitrum](https://github.com/aave-dao/aave-proposals-v3/blob/81df9d426c69c674f2db28b64ed12e003811b057/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Arbitrum_EnableSVROnBaseAndArbitrum_20260224.t.sol), [AaveV3Base](https://github.com/aave-dao/aave-proposals-v3/blob/81df9d426c69c674f2db28b64ed12e003811b057/src/20260224_Multi_EnableSVROnBaseAndArbitrum/AaveV3Base_EnableSVROnBaseAndArbitrum_20260224.t.sol)\n- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xc230fa0a74af2a064ca8c908d0edd61a23ad99dba6c73ec06dbd819fe766269a)\n- [Discussion](https://governance.aave.com/t/arfc-aave-chainlink-svr-multi-network-expansion-base-arbitrum/24241)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Enable SVR on Base and Arbitrum",
+    "author": "BGD Labs @bgdlabs",
+    "discussions": "https://governance.aave.com/t/arfc-aave-chainlink-svr-multi-network-expansion-base-arbitrum/24241",
+    "snapshot": "https://snapshot.org/#/s:aavedao.eth/proposal/0xc230fa0a74af2a064ca8c908d0edd61a23ad99dba6c73ec06dbd819fe766269a",
+    "originalIpfsHash": "0xf1fd379d3fbcc5854c8981f4029968ee35b9eb6e891c3bdd741badd489ca3a68"
+  },
+  "proposal": {
+    "id": 461,
+    "votingDuration": 259200,
+    "creationTime": 1774276055,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xf1fd379d3fbcc5854c8981f4029968ee35b9eb6e891c3bdd741badd489ca3a68",
+    "initialPayloads": [
+      {
+        "id": 419,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 115,
+        "chainId": 42161,
+        "payloadsController": "0x89644CA1bB8064760312AE4F03ea41b05dA3637C"
+      },
+      {
+        "id": 102,
+        "chainId": 8453,
+        "payloadsController": "0x2DC219E716793fb4b21548C0f009Ba3Af753ab01"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0xf71fc92e2949ccF6A5Fd369a0b402ba80Bc61E02",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 461,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1774279526,
+    "cancellationFee": 50000000000000000
+  }
+}
