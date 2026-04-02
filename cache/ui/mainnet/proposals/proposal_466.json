@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1774948331,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1777972331,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xeE1E71E981f160524aA136a06Fbf2893435E010B",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 422,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmWd9kQyHGbxFZ6TsZMsshiFxX3DpwimMamubGtUCJqW44",
+    "description": "\n## Simple Summary\n\nThis proposal seeks to onboard Strata srUSDe June PT tokens to the Aave V3 Core Instance.\n\n## Motivation\n\nGiven both the popularity of PT token collateral on Aave and the adoption of the srUSDe PT token by LPs on Pendle and successful onboarding of past srUSDe PT tokens, we believe that Aave users would welcome a renewal since new maturity is deployed.\n\n## Specification\n\nThe table below illustrates the configured risk parameters for **PT_srUSDe_25JUN2026**\n\n| Parameter                        |      Value |\n| -------------------------------- | ---------: |\n| Isolation Mode                   |      false |\n| Borrowable                       |   DISABLED |\n| Collateral Enabled               |      false |\n| Supply Cap (PT_srUSDe_25JUN2026) | 30,000,000 |\n| Borrow Cap (PT_srUSDe_25JUN2026) |          1 |\n| Debt Ceiling                     |      USD 0 |\n| LTV                              |        0 % |\n| LT                               |        0 % |\n| Liquidation Bonus                |        0 % |\n| Liquidation Protocol Fee         |       10 % |\n| Reserve Factor                   |       45 % |\n| Base Variable Borrow Rate        |        0 % |\n| Variable Slope 1                 |       10 % |\n| Variable Slope 2                 |      300 % |\n| Uoptimal                         |       45 % |\n| Flashloanable                    |    ENABLED |\n| Siloed Borrowing                 |   DISABLED |\n| Borrowable in Isolation          |   DISABLED |\n\n### Price Feed\n\nFor pricing PT-srUSDe-25JUN2026 on Aave, the [dynamic linear discount rate oracle](https://governance.aave.com/t/arfc-onboard-pendle-pt-tokens-to-aave-v3-core-instance/20541/5) developed by BGD Labs is recommended, consistent with the approach used for the April maturity.\n\nThe oracle prices the PT as a zero-coupon bond against the capped USDT/USD Chainlink feed, applying a linear discount that decays to par at maturity.\n\n#### Linear Discount Rate Oracle\n\n| **Parameter**              | **Value**                                                                                                                                    |\n| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |\n| Oracle                     | [PT Capped srUSDe USDT/USD linear discount 25JUN2026 ](https://etherscan.io/address/0x9f336eb940730596548c342a8bf1fc530b10cc96#readContract) |\n| initialDiscountRatePerYear | 4.6061%                                                                                                                                      |\n| maxDiscountRatePerYear     | 16.6634%                                                                                                                                     |\n| Last answer (March 28th)   | 98814596 ($0.98814596)                                                                                                                       |\n| Capped USDT/USD            | [Capped USDT/USD](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C#readContract)                                      |\n\n### PT-srUSDe Stablecoins E-mode\n\n| **Asset**         | **PT-srUSDe-25JUN2026** | **PT-srUSDe-2APR2026** | **sUSDe**              | **USDT** | **USDe** | **USDC** |\n| ----------------- | ----------------------- | ---------------------- | ---------------------- | -------- | -------- | -------- |\n| Collateral        | Yes                     | Yes                    | Yes                    | No       | No       | No       |\n| Borrowable        | No                      | No                     | No                     | Yes      | Yes      | Yes      |\n| LTV               | Subject to Risk Oracle  | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |\n| LT                | Subject to Risk Oracle  | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |\n| Liquidation Bonus | Subject to Risk Oracle  | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |\n\n### PT-srUSDe USDe E-mode\n\n| **Asset**         | **PT-srUSDe-25JUN2026** | **PT-srUSDe-2APR2026** | **sUSDe**              | **USDe** |\n| ----------------- | ----------------------- | ---------------------- | ---------------------- | -------- |\n| Collateral        | Yes                     | Yes                    | Yes                    | No       |\n| Borrowable        | No                      | No                     | No                     | Yes      |\n| LTV               | Subject to Risk Oracle  | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| LT                | Subject to Risk Oracle  | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n| Liquidation Bonus | Subject to Risk Oracle  | Subject to Risk Oracle | Subject to Risk Oracle | -        |\n\n### E-mode setups\n\n| **Parameter** | **Value**   | **Value** |\n| ------------- | ----------- | --------- |\n| E-Mode        | Stablecoins | USDe      |\n| LTV           | 90%         | 91.2%     |\n| LT            | 92%         | 93.2%     |\n| LB            | 4.3%        | 3.3%      |\n\nAdditionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_srUSDe_25JUN2026 and the corresponding aToken.\n\nThe Strata team initially sent the wrong seed PT (previous maturity) for this listing before sending the correct one. So, we will return their tokens in this AIP.\nTransfer: [https://etherscan.io/tx/0x801968fb542daa6bc095d26ae507966f4f66148d9181097bdc4eb2f84728f4b2](https://etherscan.io/tx/0x801968fb542daa6bc095d26ae507966f4f66148d9181097bdc4eb2f84728f4b2)\nSo, the addendum to the AIP will be a transfer back to [0x981EfbD4d3932FA750f0191F00535D7Cb586A558](https://etherscan.io/address/0x981efbd4d3932fa750f0191f00535d7cb586a558) of the 100 PT-srUSDe-2APR2026 they transferred inadvertently to the Aave governance L1 executor smart contract.\n\n### Useful Links\n\nhttps://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT\n\n### Disclaimer\n\nACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.\n\n## References\n\n- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/be83455908c3833b50286c3025ab3ae44b0423bf/src/20260324_AaveV3Ethereum_ListingPTSrUsde25JUN2026/AaveV3Ethereum_ListingPTSrUsde25JUN2026_20260324.sol)\n- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/be83455908c3833b50286c3025ab3ae44b0423bf/src/20260324_AaveV3Ethereum_ListingPTSrUsde25JUN2026/AaveV3Ethereum_ListingPTSrUsde25JUN2026_20260324.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-strata-srusde-june-expiry-pt-tokens-to-v3-core-instance/24313)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Listing PT Strata 25JUN2026",
+    "author": "Aave Chan Initiative @aci",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-onboard-strata-srusde-june-expiry-pt-tokens-to-v3-core-instance/24313",
+    "originalIpfsHash": "0x7b179fadb321542f8bde096eed9fafe9667d924e141f8d705a242e94658a1475"
+  },
+  "proposal": {
+    "id": 466,
+    "votingDuration": 259200,
+    "creationTime": 1775116331,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x7b179fadb321542f8bde096eed9fafe9667d924e141f8d705a242e94658a1475",
+    "initialPayloads": [
+      {
+        "id": 422,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 466,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1775121913,
+    "cancellationFee": 50000000000000000
+  }
+}
