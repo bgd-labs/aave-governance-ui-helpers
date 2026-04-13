@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0x0315d353045f8FBCDd8CAcEbA40b019d094B670E",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1776074816,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1779098816,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xD233c9a667dd8535C51f174F9535553A4db72e97",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 51,
+      "chainId": 534352,
+      "payloadsController": "0x6b6B41c0f8C223715f712BE83ceC3c37bbfDC3fE"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmPhXF8Zj8nuJ9DLhB3WBTnDpN3GpTEFErgRBS6QbHdKBh",
+    "description": "\n## Simple Summary\n\nFollowing the Risk Stewards cap reduction executed on April 10, 2026, this proposal completes the deprecation of Aave V3 on Scroll by freezing all assets and increasing the reserve factor on select assets.\n\n## Motivation\n\nAs part of the ongoing assessment of Aave deployments across different chains, the Aave V3 Scroll instance has been identified for offboarding. This action freezes all reserves to prevent new supply and borrow positions, while increasing reserve factors to incentivize existing users to repay their positions and withdraw their funds.\n\n## Specification\n\nThe proposal executes the following changes on the Aave V3 Scroll instance:\n\n**Freeze all reserves:**\n\n| Asset  | isFrozen (before) | isFrozen (after) |\n| ------ | ----------------- | ---------------- |\n| WETH   | false             | true             |\n| USDC   | false             | true             |\n| wstETH | false             | true             |\n| weETH  | false             | true             |\n| SCR    | false             | true             |\n\n**Increase reserve factor to 85% (except WETH which remains at 50%):**\n\n| Asset  | Reserve Factor (before) | Reserve Factor (after) |\n| ------ | ----------------------- | ---------------------- |\n| USDC   | 50%                     | 85%                    |\n| wstETH | 50%                     | 85%                    |\n| weETH  | 50%                     | 85%                    |\n| SCR    | 50%                     | 85%                    |\n| WETH   | 50%                     | 50% (unchanged)        |\n\n## References\n\n- Implementation: [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/94d54123c14c41761e556e0106201f85a446b232/src/20260411_AaveV3Scroll_DeprecateAaveV3Scroll/AaveV3Scroll_DeprecateAaveV3Scroll_20260411.sol)\n- Tests: [AaveV3Scroll](https://github.com/aave-dao/aave-proposals-v3/blob/94d54123c14c41761e556e0106201f85a446b232/src/20260411_AaveV3Scroll_DeprecateAaveV3Scroll/AaveV3Scroll_DeprecateAaveV3Scroll_20260411.t.sol)\n- Snapshot: Direct-To-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-aave-v3-scroll-instance-deprecation/24432)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "Deprecate Aave V3 Scroll Instance",
+    "author": "Aave Labs",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-aave-v3-scroll-instance-deprecation/24432",
+    "originalIpfsHash": "0x1434716f99a33c43c3531821ef6e648e144768a1ae0c133fbcbe954e7934f614"
+  },
+  "proposal": {
+    "id": 470,
+    "votingDuration": 259200,
+    "creationTime": 1776087983,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0x1434716f99a33c43c3531821ef6e648e144768a1ae0c133fbcbe954e7934f614",
+    "initialPayloads": [
+      {
+        "id": 51,
+        "chainId": 534352,
+        "payloadsController": "0x6b6B41c0f8C223715f712BE83ceC3c37bbfDC3fE"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x66a28531E6f390A8CD44aB0C57a0F1aeb7E673FF",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 470,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1776094411,
+    "cancellationFee": 50000000000000000
+  }
+}
