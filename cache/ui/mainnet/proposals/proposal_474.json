@@ -1,0 +1,84 @@
+{
+  "payloads": [
+    {
+      "creator": "0xf74aAd1263E555713a77dAdD4e9688135455599d",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1776354515,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1779378515,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x9c66833Dd17Fbd99413839C041F265D01AC6EA36",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 23,
+      "chainId": 9745,
+      "payloadsController": "0xe76EB348E65eF163d85ce282125FF5a7F5712A1d"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "QmeQ8MVoFkSDa4fiNi7CigtKyc7sYYD6HjeNv1ArzGVHai",
+    "description": "\n## Simple Summary\n\nChaos Labs proposed the following change to be implemented through AIP:\n\n- Include GHO within the PT asset E-modes on the Plasma Instance\n\nThe supply cap increases included in this proposal (PT-sUSDe-18JUN2026 on Plasma, PT-srUSDe-25JUN2026 on Ethereum Core, wrsETH and FBTC on Mantle) will be executed via Risk Stewards and are not part of this AIP.\n\n## Specification\n\nFollowing the listing of the assets, we recommend the addition of GHO as a borrowable asset in the PT-sUSDe-18JUN2026/Stablecoins E-mode and in the PT-USDe-18JUN2026/Stablecoins E-mode.\n\n**PT-sUSDe-18JUN2026/Stablecoins E-mode**\n\n| **Asset**         | GHO |\n| ----------------- | --- |\n| Collateral        | No  |\n| Borrowable        | Yes |\n| LTV               | -   |\n| LT                | -   |\n| Liquidation Bonus | -   |\n\n**PT-USDe-18JUN2026/Stablecoins E-mode**\n\n| **Asset**         | GHO |\n| ----------------- | --- |\n| Collateral        | No  |\n| Borrowable        | Yes |\n| LTV               | -   |\n| LT                | -   |\n| Liquidation Bonus | -   |\n\n## Disclosure\n\nChaos Labs has not been compensated by any third party for publishing this recommendation.\n\n## References\n\n- Implementation: [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/b71ecc8dadda5ad22b3edcd2b9ee3b45a0788d5f/src/20260410_Multi_ChangeOfSupplyCapsAndEModeAdjustments/AaveV3Plasma_ChangeOfSupplyCapsAndEModeAdjustments_20260410.sol)\n- Tests: [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/b71ecc8dadda5ad22b3edcd2b9ee3b45a0788d5f/src/20260410_Multi_ChangeOfSupplyCapsAndEModeAdjustments/AaveV3Plasma_ChangeOfSupplyCapsAndEModeAdjustments_20260410.t.sol)\n- Snapshot: Direct-to-AIP\n- [Discussion](https://governance.aave.com/t/direct-to-aip-change-of-supply-caps-and-adjustment-of-e-mode-assets-on-aave-v3-07-04-26/24396)\n\n## Copyright\n\nCopyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).\n",
+    "title": "GHO Inclusion into E-Modes on Aave V3 Plasma",
+    "author": "Chaos Labs (implemented by Aavechan Initiative @aci via Skyward)",
+    "discussions": "https://governance.aave.com/t/direct-to-aip-change-of-supply-caps-and-adjustment-of-e-mode-assets-on-aave-v3-07-04-26/24396",
+    "originalIpfsHash": "0xee9efdbd8b477dade0fc71f4285558f64628c0f38943c2dfd21462a59e37f993"
+  },
+  "proposal": {
+    "id": 474,
+    "votingDuration": 259200,
+    "creationTime": 1776463019,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xee9efdbd8b477dade0fc71f4285558f64628c0f38943c2dfd21462a59e37f993",
+    "initialPayloads": [
+      {
+        "id": 23,
+        "chainId": 9745,
+        "payloadsController": "0xe76EB348E65eF163d85ce282125FF5a7F5712A1d"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 474,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1776472583,
+    "cancellationFee": 50000000000000000
+  }
+}
