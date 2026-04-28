@@ -132072,5 +132072,53 @@
     "logIndex": 36,
     "removed": false,
     "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "475",
+      "voter": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "support": true,
+      "votingPower": "158435505884475153200053"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001db",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000218cce54f6a4cc9033b5",
+    "blockNumber": "84085851",
+    "transactionHash": "0x683595895ebdda19fed4062e40d0153f901a9c75e5e8c78377e26f43083827a5",
+    "transactionIndex": 5,
+    "blockHash": "0x21ff41a019e92b42fd7f218f4252809f8b9c37cdd2be24dc0f04a040c7a46ddb",
+    "logIndex": 9,
+    "removed": false,
+    "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "476",
+      "voter": "0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922",
+      "support": true,
+      "votingPower": "158404684133535153200053"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001dc",
+      "0x00000000000000000000000057ab7ee15ce5ecacb1ab84ee42d5a9d0d8112922",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000218b22981b76e64d1bb5",
+    "blockNumber": "84085866",
+    "transactionHash": "0xb1844906514d47e93536ccc83705b923ac5614db915a846cfcae82de05a008eb",
+    "transactionIndex": 9,
+    "blockHash": "0xa36117ed207f44d3fda83434b50a7e42bb2a53f15f8b230ba388e58a3350ea72",
+    "logIndex": 21,
+    "removed": false,
+    "blockTimestamp": null
   }
 ]
