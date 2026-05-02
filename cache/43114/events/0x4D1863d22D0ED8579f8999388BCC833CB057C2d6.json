@@ -132545,5 +132545,53 @@
     "logIndex": 13,
     "removed": false,
     "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "478",
+      "voter": "0x2cc1ADE245020FC5AAE66Ad443e1F66e01c54Df1",
+      "support": true,
+      "votingPower": "72212196127950000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001de",
+      "0x0000000000000000000000002cc1ade245020fc5aae66ad443e1f66e01c54df1",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000f4aa188f5c212168c00",
+    "blockNumber": "84443546",
+    "transactionHash": "0xa1a9de6c761f0180a6644fff848eed524dfc949f98e30cbd496892993aa23b9b",
+    "transactionIndex": 14,
+    "blockHash": "0x686a01f0cb022545dd4a2e7eccef1163578d12eeabc72101465281325ba3da4a",
+    "logIndex": 37,
+    "removed": false,
+    "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "478",
+      "voter": "0x057928bc52bD08e4D7cE24bF47E01cE99E074048",
+      "support": true,
+      "votingPower": "1044028720000000000"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001de",
+      "0x000000000000000000000000057928bc52bd08e4d7ce24bf47e01ce99e074048",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x0000000000000000000000000000000000000000000000000e7d2296dee7e000",
+    "blockNumber": "84443749",
+    "transactionHash": "0xe0a01b8d249c6d172b255dc93a02c5e5f136355312c771f21f0f662be2886d06",
+    "transactionIndex": 17,
+    "blockHash": "0xabc85c4e6a8d5d03c8ef477a3e37e1f5f3d034e8cba2829f8097010d739edc60",
+    "logIndex": 16,
+    "removed": false,
+    "blockTimestamp": null
   }
 ]
