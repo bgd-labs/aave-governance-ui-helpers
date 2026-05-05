@@ -3,9 +3,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641491,
-      "queuedAt": 0,
+      "queuedAt": 1778004023,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665491,
@@ -28,9 +28,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641503,
-      "queuedAt": 0,
+      "queuedAt": 1778004023,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665503,
@@ -53,9 +53,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641613,
-      "queuedAt": 0,
+      "queuedAt": 1778004716,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665613,
@@ -78,9 +78,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641615,
-      "queuedAt": 0,
+      "queuedAt": 1778004716,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665615,
@@ -103,9 +103,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641617,
-      "queuedAt": 0,
+      "queuedAt": 1778004716,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665617,
@@ -128,9 +128,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641619,
-      "queuedAt": 0,
+      "queuedAt": 1778004716,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665619,
@@ -153,9 +153,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641621,
-      "queuedAt": 0,
+      "queuedAt": 1778004716,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665621,
@@ -178,9 +178,9 @@
     {
       "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
       "maximumAccessLevelRequired": 1,
-      "state": 1,
+      "state": 2,
       "createdAt": 1777641623,
-      "queuedAt": 0,
+      "queuedAt": 1778004716,
       "executedAt": 0,
       "cancelledAt": 0,
       "expirationTime": 1780665623,
@@ -214,8 +214,8 @@
     "votingDuration": 259200,
     "creationTime": 1777657883,
     "accessLevel": 1,
-    "state": 2,
-    "queuingTime": 0,
+    "state": 4,
+    "queuingTime": 1778003951,
     "ipfsHash": "0x73d6b6ffb8c006af7464dc28e66df897bea1b011662efaa209c7503736612881",
     "initialPayloads": [
       {
@@ -266,15 +266,15 @@
     "votingChainId": 43114,
     "votingMachineData": {
       "id": 478,
-      "forVotes": "345700861782163774206626",
+      "forVotes": "370711052980904045006899",
       "againstVotes": "218475134097771",
       "startTime": 1777744588,
       "endTime": 1778003788,
-      "votingClosedAndSentBlockNumber": 0,
-      "votingClosedAndSentTimestamp": 0,
+      "votingClosedAndSentBlockNumber": 84676931,
+      "votingClosedAndSentTimestamp": 1778003800,
       "l1BlockHash": "0xc5df0261a39d8f668cd29925db545ce90ff8fb4159d69050649379964c69a71c",
       "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
-      "sentToGovernance": false,
+      "sentToGovernance": true,
       "createdBlock": 84439345,
       "votedInfo": {
         "support": false,
@@ -288,7 +288,7 @@
       "hasRequiredRoots": true
     },
     "isFinished": false,
-    "lastUpdatedTimestamp": 1777995574,
+    "lastUpdatedTimestamp": 1778006122,
     "cancellationFee": 50000000000000000
   }
 }
