@@ -134649,5 +134649,53 @@
     "logIndex": 0,
     "removed": false,
     "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "480",
+      "voter": "0xF41C7a208156B46C89e028412Dca41d1F05feDE8",
+      "support": true,
+      "votingPower": "111181082300616675"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001e0",
+      "0x000000000000000000000000f41c7a208156b46c89e028412dca41d1f05fede8",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x000000000000000000000000000000000000000000000000018afe9af4458fe3",
+    "blockNumber": "84809625",
+    "transactionHash": "0xde81c2caa12ca5243697dcd21ef70a5dd838f0501a931a7771a391d2ce46706a",
+    "transactionIndex": 1,
+    "blockHash": "0xddd938ac5149a3b2171aecb56cf1e8fe606a1a3f142831ad06366dcc3f3201f3",
+    "logIndex": 0,
+    "removed": false,
+    "blockTimestamp": null
+  },
+  {
+    "eventName": "VoteEmitted",
+    "args": {
+      "proposalId": "480",
+      "voter": "0xcF3C2ad2ae63A1c2E9723481aBAf4544D9D6fC32",
+      "support": true,
+      "votingPower": "129346090803987094"
+    },
+    "address": "0x4d1863d22d0ed8579f8999388bcc833cb057c2d6",
+    "topics": [
+      "0x0c611e7b6ae0de26f4772260e1bbdb5f58cbb7c275fe2de14671968d29add8d6",
+      "0x00000000000000000000000000000000000000000000000000000000000001e0",
+      "0x000000000000000000000000cf3c2ad2ae63a1c2e9723481abaf4544d9d6fc32",
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ],
+    "data": "0x00000000000000000000000000000000000000000000000001cb879593750296",
+    "blockNumber": "84810893",
+    "transactionHash": "0xf34bab06a7e11a5a7676500aaa93d3fa97080b0f52e2023e2014fed7452aceb2",
+    "transactionIndex": 2,
+    "blockHash": "0xd6b2aa4be936ba3ff64cefa915d0a6f401c883fdd85eee47bcd677b69853e325",
+    "logIndex": 3,
+    "removed": false,
+    "blockTimestamp": null
   }
 ]
