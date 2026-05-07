@@ -1,0 +1,114 @@
+{
+  "payloads": [
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1778174039,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1781198039,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0xDaF2A2a63DA5dd1e0dcafA4f43398b41f81AE941",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 434,
+      "chainId": 1,
+      "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+    },
+    {
+      "creator": "0x26D595DdDbAd81Bf976eF6f24686a12A800b141F",
+      "maximumAccessLevelRequired": 1,
+      "state": 1,
+      "createdAt": 1778174154,
+      "queuedAt": 0,
+      "executedAt": 0,
+      "cancelledAt": 0,
+      "expirationTime": 1781198154,
+      "delay": 86400,
+      "gracePeriod": 604800,
+      "actions": [
+        {
+          "target": "0x76EF87d9C9804E9f5eC8fb24f1F1CB6aB7dD4Da9",
+          "withDelegateCall": true,
+          "accessLevel": 1,
+          "value": "0",
+          "signature": "execute()",
+          "callData": "0x"
+        }
+      ],
+      "id": 25,
+      "chainId": 9745,
+      "payloadsController": "0xe76EB348E65eF163d85ce282125FF5a7F5712A1d"
+    }
+  ],
+  "ipfs": {
+    "ipfsHash": "Qmd7xPaTRJf7thoLHqbD5Hg5xLNk12sfFiSWTFrqFZYwkA",
+    "description": "\n## Summary\n\nThis proposal submits a follow-up payload to complete the AgentHub offboarding actions associated with AIP-479.\n\nThe payload removes the remaining Agent permissions on Ethereum mainnet and removes the corresponding AgentHub permissions on Plasma. No new permissions are granted and no market configuration is changed.\n\n## Motivation\n\nAIP-479 was intended to continue the Chaos offboarding process by canceling the relevant AgentHub automation and removing the permissions held by the related Agents.\n\nAfter AIP-479 was prepared, emergency actions canceled the relevant Robots on Ethereum mainnet before the payload executed. Those actions changed the live contract state but did not remove the associated Agent permissions.\n\nBecause the Robots were already canceled, the pending AIP-479 payload may fail before completing the remaining permission cleanup. The DAO still needs the Ethereum Agent permissions removed to reach the intended offboarding state.\n\nThis proposal resolves that execution mismatch with a subsequent payload scoped to the remaining cleanup.\n\nIt also completes the corresponding Plasma Agent permission removal. Plasma was originally expected to remain active longer, but both LlamaRisk and Plasma have indicated support for removing these permissions early.\n\nThis AIP does not introduce a new automation scope, parameter authority, or discretionary role. It completes the offboarding state intended by AIP-479 under current live state.\n\n## Specification\n\nThis proposal executes a follow-up payload to complete the AgentHub offboarding actions intended by AIP-479.\n\nThe payload will:\n\n- On Ethereum mainnet, remove the remaining Agent permissions that were not removed after the related Robots were canceled through emergency action & cancel stream `100073` (if not already canceled before execution of this payload).\n- On Plasma, remove the Agent permissions.\n\n## References\n\n- Original AIP: [Orderly Transition and Offboarding Plan for Chaos Labs](https://app.aave.com/governance/v3/proposal/?proposalId=479)\n- Implementation: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Ethereum_ChaosAgentHubOffboarding_20260505.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Plasma_ChaosAgentHubOffboarding_20260505.sol)\n- Tests: [AaveV3Ethereum](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Ethereum_ChaosAgentHubOffboarding_20260505.t.sol), [AaveV3Plasma](https://github.com/aave-dao/aave-proposals-v3/blob/848c60d3a204b6b1ee46e97866058db3892ab79f/src/20260505_Multi_ChaosAgentHubOffboarding/AaveV3Plasma_ChaosAgentHubOffboarding_20260505.t.sol)\n\n## Copyright\n\nCopyright and related rights waived via CC0.\n",
+    "title": "Complete Offboarding Plan for Chaos Labs",
+    "author": "Aave Labs",
+    "discussions": "https://governance.aave.com/t/orderly-transition-and-offboarding-plan-for-chaos-labs/24399",
+    "originalIpfsHash": "0xdb9ebeac9b9f3da123536227af6e3fb227da0e4c16e4adc2a8dba66d0f5ef777"
+  },
+  "proposal": {
+    "id": 481,
+    "votingDuration": 259200,
+    "creationTime": 1778175971,
+    "accessLevel": 1,
+    "state": 1,
+    "queuingTime": 0,
+    "ipfsHash": "0xdb9ebeac9b9f3da123536227af6e3fb227da0e4c16e4adc2a8dba66d0f5ef777",
+    "initialPayloads": [
+      {
+        "id": 434,
+        "chainId": 1,
+        "payloadsController": "0xdAbad81aF85554E9ae636395611C58F7eC1aAEc5"
+      },
+      {
+        "id": 25,
+        "chainId": 9745,
+        "payloadsController": "0xe76EB348E65eF163d85ce282125FF5a7F5712A1d"
+      }
+    ],
+    "snapshotBlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "creator": "0x66a28531E6f390A8CD44aB0C57a0F1aeb7E673FF",
+    "canceledAt": 0,
+    "votingActivationTime": 0,
+    "votingChainId": 43114,
+    "votingMachineData": {
+      "id": 481,
+      "forVotes": "0",
+      "againstVotes": "0",
+      "startTime": 0,
+      "endTime": 0,
+      "votingClosedAndSentBlockNumber": 0,
+      "votingClosedAndSentTimestamp": 0,
+      "l1BlockHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "strategy": "0x6771B74568181f6042C9e5CFF98f62e7Ce40482e",
+      "sentToGovernance": false,
+      "createdBlock": 0,
+      "votedInfo": {
+        "support": false,
+        "votingPower": "0"
+      },
+      "votingAssets": [
+        "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+        "0x4da27a545c0c5B758a6BA100e3a049001de870f5",
+        "0xA700b4eB416Be35b2911fd5Dee80678ff64fF6C9"
+      ],
+      "hasRequiredRoots": false
+    },
+    "isFinished": false,
+    "lastUpdatedTimestamp": 1778179130,
+    "cancellationFee": 50000000000000000
+  }
+}
